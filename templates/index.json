@@ -15,11 +15,41 @@
       "type": "template-client",
       "settings": {
       }
+    },
+    "selection": {
+      "type": "template-selection",
+      "settings": {
+      }
+    },
+    "arrivals": {
+      "type": "template-arrivals",
+      "settings": {
+      }
+    },
+    "blog": {
+      "type": "template-blog",
+      "settings": {
+      }
+    },
+    "newsletter": {
+      "type": "template-newsletter",
+      "settings": {
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+      }
     }
   },
   "order": [
     "home",
     "categories",
-    "client"
+    "client",
+    "selection",
+    "arrivals",
+    "blog",
+    "newsletter",
+    "footer"
   ]
 }

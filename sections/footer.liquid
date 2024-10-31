@@ -1,0 +1,46 @@
+{% style %}
+  .footer-logo {
+    text-align: justify;
+    font-size: clamp(5.5vw, 10.5vw, 15.5vw);
+    font-weight: 500;
+  }
+
+  .footer-logo:after {
+    content: "{{ shop.name }}";
+    display: inline-block;
+    width: 100%;
+  }
+{% endstyle %}
+
+<div class="footer h-auto pt-32 w-full">
+  <div class="container gap-[20px] md:gap-0 flex flex-col items-center justify-around mx-auto">
+    <div class="w-[90%] md:w-[97%] mx-auto flex justify-between items-start flex-col md:flex-row">
+      <nav class="flex w-full mx-auto gap-4 flex-col md:flex-row justify-between items-start [&>div>h1]:mb-4 flex-wrap">
+        {% for link in linklists['footer'].links %}
+          {% if link.links != blank %}
+            <div class="mb-8 md:mb-0 [&>ul>a]:block [&>ul>a]:text-[#4B5563] [&>ul>a]:my-2">
+              <h1 class="font-[500] uppercase text-[#111827]">{{ link.title }}</h1>
+              <ul>
+                {% for sublink in link.links %}
+                  <a href="{{ sublink.url }}" class="hover:underline">
+                    <li>{{ sublink.title }}</li>
+                  </a>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% comment %} Language {% endcomment %}
+        <div class="mb-8 md:mb-0 [&>ul>li]:text-[#4B5563] [&>ul>li]:my-2">
+          <h1 class="font-[500] uppercase text-[#111827]">Language/Currency</h1>
+          <ul>
+              <li class="">{{ shop.locale }} / {{ shop.currency }}</li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-logo flex justify-center items-center gap-2 truncate my-8 calvino"></div>
+  </div>
+</div>

@@ -61,8 +61,7 @@
   }
 {% endschema %}
 
-<script>
-  
+<script>  
   const swiperContainer = document.querySelector('swiper-container');
   const wrapper = document.createElement('div');
   wrapper.className = 'swiper-container-wrapper';
@@ -79,22 +78,11 @@
   
   .navigation-buttons {
     position: absolute;
-    bottom: -25px;
+    bottom: -30px;
     right: 0;
     display: flex;
     gap: 20px;
     z-index: 10;
-  }
-  
-  .nav-button {
-    background-color: transparent;
-    border: 1px solid #9CA3AF;
-    border-radius: 50%;
-    padding: 15px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .nav-button.disabled {
@@ -102,10 +90,6 @@
     cursor: not-allowed;
   }
   
-  .nav-button svg {
-    width: 20px;
-    height: 20px;
-  }
   `;
   document.head.appendChild(style);
   

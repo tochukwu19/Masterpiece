@@ -1,0 +1,48 @@
+{% style %}
+  .subcollection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 20px;
+    position: relative;
+    width: 100%;
+
+
+    .subcollection-image {
+      width: inherit;
+      height: inherit;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .subcollection:hover .subcollection-image {
+      transform: scale(1.1);
+    }
+  }
+{% endstyle %}
+
+<div>
+  <div class="subcollection">
+    {% assign subcollection = collection %}
+    {% assign subcollection_image = subcollection.image | default: subcollection.featured_image %}
+    {% assign subcollection_image = subcollection_image | img_url: 'master' %}
+    <div class="subcollection relative">
+      <a href="{{ subcollection.url }}" class="absolute overflow-hidden w-full h-[90vh] cursor-pointer relative">
+        <div class="subcollection-image" style="background-image: url({{ subcollection_image }})"></div>
+      </a>
+
+      <div class="w-fit text-white text-base text-center mx-auto mt-4 cursor-pointer absolute bottom-[30px]">
+          <h3 class="uppercase text-sm">Discover our selection</h3>
+
+          <a href="{{ subcollection.url }}" class="subcollection-title">
+            <h2 class="font-[600] text-2xl calvino text-white my-2">{{ subcollection.title }}</h2>
+          </a>
+
+          <button class="bg-[#fff] hover:bg-gray-200 cursor-pointer text-[#000] py-2 px-4">Shop now</button>
+        </div>
+    </div>
+  </div>
+</div>

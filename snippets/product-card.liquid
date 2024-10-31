@@ -1,0 +1,101 @@
+{% style %}
+  .product-card {
+
+    .card {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      transition: all ease-in-out 0.5s;
+    }
+
+    .card-container {
+      overflow: hidden;
+
+      @media only screen and (max-width: 500px) {
+        height: 200px;
+      }
+    }
+
+    .card-container:hover .card {
+      transform: scale(1.1);
+    }
+
+    .overlay {
+      opacity: 0;
+      transition: all ease-in-out 0.5s;
+      z-index: -1;
+    }
+
+    .card-container:hover .overlay {
+      opacity: 1;
+      z-index: 1;
+    }
+  }
+{% endstyle %}
+
+
+<div class="product-card">
+  {% assign price = product.selected_or_first_available_variant.price %}
+  {% assign compare_at_price = product.selected_or_first_available_variant.compare_at_price %}
+  {% assign discount_percentage = compare_at_price
+ | minus: price
+ | times: 100.0
+ | divided_by: compare_at_price
+  %}
+
+  <form
+    action="{{ routes.cart_url }}"
+    method="post"
+    class="relative">
+    <div>
+      <div class="card-container relative h-[300px] w-auto">
+        <div class="card-img-overlap relative">
+          <div class="card absolute h-[300px] w-auto" style="background-image: url('{{ product | img_url: 'large' }}')"></div>
+          <h3 class="font-[500] absolute left-5 text-white text-[12px] top-[20px]">NEW IN</h3>
+        </div>
+      </div>
+      <div class="text-center mt-4 flex justify-between items-center">
+        <div class="flex flex-col">
+          <a href="{{ product.url }}" class="text-left text-base font-[500] hover:text-[#777]">
+            {{ product.title }}
+          </a>
+          <div class="w-fit flex flex-col md:flex-row justify-center items-left md:gap-4 text-[#6B7280] uppercase">
+            {% if product.compare_at_price != blank %}
+              <p class="text-[#777] line-through">{{ product.compare_at_price | money_with_currency }}</p>
+            {% endif %}
+
+            <p class="">{{ product.selected_or_first_available_variant.price | money_with_currency }}</p>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          data-id="{{ product.variants.first.id }}"
+          class="add_to_cart cursor-pointer inline-block text-white p-2">{% render "icon-plus" %}</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll('.add_to_cart').forEach(item => {
+      item.addEventListener('click', event => {
+      const id = item.getAttribute('data-id');
+          fetch(`/cart/add.js?id=${id}&quantity=1`, {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json'
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log(data);
+              window.location.href = '/cart';
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+          });
+      });
+  });
+</script>

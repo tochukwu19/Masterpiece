@@ -1,0 +1,27 @@
+<style></style>
+
+<div class="w-[95%] mx-auto mb-8 !mt-32">
+  <div class="featured-collection grid gap-8 grid-cols-2 mb-8">
+    {%- assign collection_2 = collections['weekly-picks'] -%}
+    {%- assign collection_1 = collections['summer-collection'] -%}
+
+    {% if collection_1 != blank %}
+      {% render "collection"
+        , collection: collection_1 %}
+    {% endif %}
+
+    {% if collection_2 != blank %}
+      {% render "collection"
+        , collection: collection_2 %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Material Template",
+    "settings": [
+
+    ]
+  }
+{% endschema %}
