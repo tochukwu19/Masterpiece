@@ -7,13 +7,20 @@
     <meta name="description" content="{{ page_description | escape }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    {{ content_for_header }}
+  {{ content_for_header }}
     <!-- Header hook for plugins -->
     {{ 'application.css' | asset_url | stylesheet_tag }}
     {{ 'application.js' | asset_url | script_tag }}
+    {{ 'main.css' | asset_url | stylesheet_tag }}
+
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body>
-    <main role="main" class="bg-gray-700">
+    <p class="announcement text-white bg-[#000] py-2 text-center">Korem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum</p>
+
+    {% section 'navbar' %}
+
+    <main role="main">
       {{ content_for_layout }}
     </main>
   </body>

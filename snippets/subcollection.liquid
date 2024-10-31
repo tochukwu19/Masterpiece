@@ -1,0 +1,53 @@
+{% style %}
+  .subcollection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 20px;
+    position: relative;
+    width: 100%;
+
+
+    .subcollection-image {
+      width: inherit;
+      height: inherit;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .subcollection:hover .subcollection-image {
+      transform: scale(1.1);
+    }
+  }
+{% endstyle %}
+
+<div>
+  <div class="subcollection">
+    {% assign subcollection = collection %}
+    {% assign subcollection_image = subcollection.image | default: subcollection.featured_image %}
+    {% assign subcollection_image = subcollection_image | img_url: 'master' %}
+    <div class="subcollection">
+      <a href="{{ subcollection.url }}" class="overflow-hidden w-full h-[400px] cursor-pointer relative">
+        <div class="subcollection-image" style="background-image: url({{ subcollection_image }})"></div>
+        <a href="{{ subcollection.url }}" class="subcollection-title w-fit text-left mt-4 cursor-pointer absolute bottom-[10px] left-[10px]">
+            {% assign title_parts = subcollection.title | split: ' ' %}
+            <h2 class="uppercase font-[600] text-xl calvino text-white">
+              {% for word in title_parts %}
+                {% if word == 'Our' %}
+                  <span class="text-sm italic">{{ word }}</span><br/>
+                {% comment %} {% elsif word == 'jewelries' %}
+                  <span class="text-yellow-200">{{ word }}</span> {% endcomment %}
+                {% else %}
+                  {{ word }}
+                {% endif %}
+                {% unless forloop.last %} {% endunless %}
+              {% endfor %}
+            </h2>
+        </a>
+      </a>
+    </div>
+  </div>
+</div>

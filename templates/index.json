@@ -1,0 +1,25 @@
+
+{
+  "sections": {
+    "home": {
+      "type": "template-hero",
+      "settings": {
+      }
+    },
+    "categories": {
+      "type": "template-categories",
+      "settings": {
+      }
+    },
+    "client": {
+      "type": "template-client",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "home",
+    "categories",
+    "client"
+  ]
+}

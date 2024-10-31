@@ -1,0 +1,189 @@
+{% assign main_menu_linklist = linklists[section.settings.menu].links %}
+
+{% style %}
+
+{% endstyle %}
+
+<div class="relative bg-white" x-data="{ mobileMenuOpen: false}" 
+{% comment %} x-cloak {% endcomment %}
+>
+    <div class="header mx-auto px-4 sm:px-6">
+        <div class="flex justify-between items-center py-4 md:justify-between md:space-x-10">
+            <!-- STORE NAME / STORE LOGO -->
+            <div class="flex flex-row gap-8 items-center">
+                <!-- NAVIGATION MENU -->
+                <nav x-data="{ open: false }" class="hidden lg:flex space-x-10">
+
+                    {% for link in main_menu_linklist %}
+                        {% if link.title != "Search" %}
+                            <div class="relative">
+                                <a
+                                href='{{ link.url }}'
+                                    class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">{{
+                                    link.title}}</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </nav>
+            </div>
+
+            <a href="{{ routes.root_url }}" class="flex items-center logo">
+                <h1 class="logo font-[600] text-[24px] text-black uppercase">{{ shop.name }}</h1>
+            </a>
+
+
+            <div class="hidden md:flex items-center justify-end space-x-5">
+                <div class="hidden md:flex items-center justify-start gap-2">
+                    <a
+                    href='#'
+                        class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">Search</a>
+                </div>
+                
+                {% if customer %}
+
+                    <a href="{{ routes.account_url }}" class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">
+                        Account
+                    </a>
+
+                    {% else %}
+                    <a href="{{ routes.account_login_url }}" class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">
+                        Account
+                    </a>
+                {% endif %}
+
+                <a href="/pages/wishlist" class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">
+                    Wishlist
+                </a>
+
+                <a href="{{ routes.cart_url }}" class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">
+                    Cart
+                </a>
+
+                <hr class="h-[15px] w-[1px] bg-[#9CA3AF] rounded-[4px]"/>
+
+                <a href="/" class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">
+                    English($)
+                </a>
+            </div>
+
+            <div class="-mr-2 -my-2 ml-3 md:hidden flex gap-2 items-center">
+                {% if customer %}
+
+                    <a href="{{ routes.account_url }}" class="text-gray-500 hover:text-gray-900">
+                        {% render "user" %}
+                    </a>
+
+                    {% else %}
+                    <a href="{{ routes.account_login_url }}" class="text-gray-500 hover:text-gray-900">
+                        {% render "user" %}
+                    </a>
+                {% endif %}
+
+                <a href="/pages/wishlist" class="text-gray-500 hover:text-gray-900">
+                    {% render "icon-heart" %}
+                </a>
+
+                <a href="{{ routes.cart_url }}" class="text-gray-500 hover:text-gray-900">
+                    {% render "cart" %}
+                </a>
+
+                <button x-on:click=" mobileMenuOpen = true" type="button"
+                    class="hamburger text-black p-2 inline-flex items-center justify-center focus:outline-none">
+                    {% render "hamburger" %}
+                </button>
+            </div>
+        </div>
+
+        <div x-cloak x-show="mobileMenuOpen" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
+            <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
+                <div class="p-5 divide-y-2 divide-gray-50">
+
+                    <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
+                    <div class="flex items-center justify-between pb-3">
+                        <div>
+                            <h1 class="logo text-lg text-gray-500 capitalize">{{ section.settings.menu_title }}</h1>
+                        </div>
+                        <div class="-mr-2">
+                            <button x-on:click=" mobileMenuOpen = false " type="button"
+                                class="bg-white rounded-md p-2 text-gray-500">
+                                {% render "icon-close" %}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden flex items-center justify-between w-full gap-2">
+                        <input
+                            class="search-input-mobile w-[90%] h-10 pr-3 text-base placeholder-gray-500 focus:outline-none"
+                            type="text" placeholder="Search" 
+                        />
+                        <div class="search-btn-mobile text-gray-500 cursor-pointer">{% render "icon-search" %}</div>
+                    </div>
+
+                    <!-- NAVIGATION LINKS FOR MOBILE MENU -->
+                    <div class="pt-3">
+                        <nav class="grid gap-y-7">
+
+                            {% for link in main_menu_linklist %}
+
+                            {% assign link_handle = link.handle | replace: '-', '_' %}
+
+                            {% if link.links != blank %}
+
+                            <div x-data="{ {{ link_handle }}: false}" class="relative mb-8">
+                                <button x-on:click="{{ link_handle }} = !{{ link_handle }}" type="button"
+                                    class="text-base text-gray-500 hover:text-gray-900 flex items-center justify-between w-full">
+                                    <div>{{ link.title }}</div>
+                                    
+                                </button>
+
+                                <div x-show="{{ link_handle }}" class="grid gap-y-7 py-3 mb-4">
+                                    {% for sublink in link.links %}
+
+                                    <a href="{{ sublink.url }}"
+                                        class="-m-3 p-3 mt-2 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                                        <span class="ml-3 text-base font-medium text-gray-500">{{ sublink.title}}</span>
+                                    </a>
+
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </nav>
+
+                        {% else %}
+
+                            {% if link.title != "Search" %}
+                                <div class="relative">
+                                    <a
+                                    href='{{ link.url }}'
+                                        class="text-base  {% if link.active == true %} text-black {% endif %} text-[#777]">{{
+                                        link.title}}</a>
+                                </div>
+                            {% endif %}
+
+                        {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% schema %}
+{
+"name": "Header",
+"settings": [
+        {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Menu links",
+            "default": "main-menu"
+        }
+    ]
+}
+{% endschema %}

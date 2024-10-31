@@ -1,0 +1,188 @@
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+<style></style>
+
+<div class="w-[95%] mx-auto mb-8 !mt-32">
+  <div class="w-full my-4 flex flex-col justify-start">
+    <p class="w-[90%] md:w-[20%] uppercase font-[500]">
+        SIGNATURE STYLES
+    </p>
+    <h2 class="w-[90%] calvino font-[500] text-[50px] md:text-[100px]">
+        Our Categories
+    </h2>
+  </div>
+
+  <div class="featured-collection mb-8">
+    <swiper-container class="mySwiper" init="false">
+      {% if section.settings.collections != blank %}
+        {% for collection in section.settings.collections limit: section.settings.number_of_slides %}
+          {% if collection.title != "Home page" %}
+            <swiper-slide>
+              {% render "subcollection"
+                , collection: collection %}
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+
+      {% else %}
+
+        {% for collection in collections limit: section.settings.number_of_slides %}
+          {% if collection.title != "Home page" %}
+            <swiper-slide>
+              {% render "subcollection"
+                , collection: collection %}
+            </swiper-slide>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </swiper-container>
+    <div class="navigation-buttons"></div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Material Template",
+    "settings": [{
+        "type": "collection_list",
+        "id": "collections",
+        "label": "Collections",
+        "info": "Select the collections you want to display on this section."
+      }, {
+        "type": "range",
+        "id": "number_of_slides",
+        "label": "Number of slides",
+        "default": 6,
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    ]
+  }
+{% endschema %}
+
+<script>
+  
+  const swiperContainer = document.querySelector('swiper-container');
+  const wrapper = document.createElement('div');
+  wrapper.className = 'swiper-container-wrapper';
+  swiperContainer.parentNode.insertBefore(wrapper, swiperContainer);
+  wrapper.appendChild(swiperContainer);
+  
+  // Add styles and create navigation
+  const style = document.createElement('style');
+  style.textContent = `
+  .swiper-container-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .navigation-buttons {
+    position: absolute;
+    bottom: -25px;
+    right: 0;
+    display: flex;
+    gap: 20px;
+    z-index: 10;
+  }
+  
+  .nav-button {
+    background-color: transparent;
+    border: 1px solid #9CA3AF;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav-button.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  
+  .nav-button svg {
+    width: 20px;
+    height: 20px;
+  }
+  `;
+  document.head.appendChild(style);
+  
+  // Create navigation container and buttons
+  const navigationContainer = document.createElement('div');
+  navigationContainer.className = 'navigation-buttons';
+  
+  const prevButton = document.createElement('button');
+  prevButton.className = 'nav-button prev';
+  prevButton.innerHTML = `
+  <svg class="custom-arrow" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.46957 6.53033C0.176677 6.23744 0.176677 5.76256 0.46957 5.46967L5.24254 0.696699C5.53543 0.403806 6.01031 0.403806 6.3032 0.696699C6.59609 0.989593 6.59609 1.46447 6.3032 1.75736L2.06056 6L6.3032 10.2426C6.59609 10.5355 6.59609 11.0104 6.3032 11.3033C6.01031 11.5962 5.53543 11.5962 5.24254 11.3033L0.46957 6.53033ZM1 6.75H0.9999V5.25H1V6.75Z" fill="#9CA3AF"/>
+    </svg>
+  `;
+  
+  const nextButton = document.createElement('button');
+  nextButton.className = 'nav-button next';
+  nextButton.innerHTML = `
+  <svg class="custom-arrow" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.53043 6.53033C6.82332 6.23744 6.82332 5.76256 6.53043 5.46967L1.75746 0.696699C1.46457 0.403806 0.989692 0.403806 0.696799 0.696699C0.403906 0.989593 0.403906 1.46447 0.696799 1.75736L4.93944 6L0.696799 10.2426C0.403906 10.5355 0.403906 11.0104 0.696799 11.3033C0.989692 11.5962 1.46457 11.5962 1.75746 11.3033L6.53043 6.53033ZM6 6.75H6.0001V5.25H6V6.75Z" fill="#9CA3AF"/>
+    </svg>
+  `;
+  
+  navigationContainer.appendChild(prevButton);
+  navigationContainer.appendChild(nextButton);
+  wrapper.appendChild(navigationContainer);
+  
+  // Initialize Swiper
+  const params = {
+  breakpoints: {
+    640: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+  }
+  };
+  
+  Object.assign(swiperContainer, params);
+  swiperContainer.initialize();
+  
+  // Add click handlers for navigation
+  prevButton.addEventListener('click', () => {
+  swiperContainer.swiper.slidePrev();
+  updateButtonStates();
+  });
+  
+  nextButton.addEventListener('click', () => {
+  swiperContainer.swiper.slideNext();
+  updateButtonStates();
+  });
+  
+  // Function to update button states
+  function updateButtonStates() {
+  if (swiperContainer.swiper.isBeginning) {
+    prevButton.classList.add('disabled');
+  } else {
+    prevButton.classList.remove('disabled');
+  }
+  
+  if (swiperContainer.swiper.isEnd) {
+    nextButton.classList.add('disabled');
+  } else {
+    nextButton.classList.remove('disabled');
+  }
+  }
+  
+  // Listen for swiper events to update button states
+  swiperContainer.addEventListener('slidechange', updateButtonStates);
+  
+  // Initial button state
+  updateButtonStates();
+</script>

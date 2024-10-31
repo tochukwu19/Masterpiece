@@ -1,0 +1,14 @@
+@import url('https://fonts.cdnfonts.com/css/calvino-grande-trial');
+@import url('https://fonts.cdnfonts.com/css/general-sans');
+
+
+*,
+body {
+    font-family: 'General Sans', sans-serif;
+}
+
+.logo,
+.calvino {
+    font-family: 'Calvino Grande Trial', sans-serif;
+}
+

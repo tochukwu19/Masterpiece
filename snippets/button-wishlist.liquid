@@ -1,0 +1,30 @@
+{%- if product.handle != blank -%}
+  <button
+    type="button"
+    aria-label="Add to wishlist"
+    button-wishlist
+    data-product-handle="{{ product.handle }}"
+    class="flex items-center justify-center gap-2 w-full px-6 py-4 text-gray-900 bg-white hover:text-white hover:bg-gray-900 border border-solid border-gray-900 rounded-sm my-2">
+    <style scoped>
+      .text {
+        transition: all 0.3s ease;
+      }
+
+      .text-alt {
+        display: none;
+      }
+
+      .active .text {
+        display: none;
+      }
+      .active .text-alt {
+        display: block;
+      }
+    </style>
+    <div class="heart">
+      {% render "icon-heart" %}
+    </div>
+    <p class="text">Save selection</p>
+    <p class="text-alt">Unsave selection</p>
+  </button>
+{%- endif -%}
