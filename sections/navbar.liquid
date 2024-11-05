@@ -5,12 +5,12 @@
 {% endstyle %}
 
 <div class="relative bg-white" x-data="{ mobileMenuOpen: false}" 
-{% comment %} x-cloak {% endcomment %}
+x-cloak
 >
     <div class="header mx-auto px-4 sm:px-6">
         <div class="flex justify-between items-center py-4 md:justify-between md:space-x-10">
             <!-- STORE NAME / STORE LOGO -->
-            <div class="flex flex-row gap-8 items-center">
+            <div class="flex-row gap-8 items-center hidden lg:flex">
                 <!-- NAVIGATION MENU -->
                 <nav x-data="{ open: false }" class="hidden lg:flex space-x-10">
 

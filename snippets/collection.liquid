@@ -30,7 +30,7 @@
     {% assign subcollection_image = subcollection.image | default: subcollection.featured_image %}
     {% assign subcollection_image = subcollection_image | img_url: 'master' %}
     <div class="subcollection relative">
-      <a href="{{ subcollection.url }}" class="absolute overflow-hidden w-full h-[90vh] cursor-pointer relative">
+      <a href="{{ subcollection.url }}" class="absolute overflow-hidden w-full h-[400px] md:h-[90vh] cursor-pointer relative">
         <div class="subcollection-image" style="background-image: url({{ subcollection_image }})"></div>
       </a>
 
