@@ -1,0 +1,32 @@
+<style></style>
+
+<div class="w-[95%] mx-auto mb-8">
+  <div class="w-[80%] md:w-1/2 mx-auto text-center my-16 flex flex-col justify-start">
+    <h2 class="calvino font-[400] italic text-base md:text-lg mb-4">
+      Our<br/>
+      <span class="font-[600] not-italic text-2xl md:text-4xl calvino">Collections</span>
+    </h2>
+
+    <p class="text-sm md:text-base">
+      What better way to add character to a silhouette than with beautiful fancy earrings? While hoops earrings are in fashion, Les Néréides also offers delicate sleeper earrings with floral motifs, elegant dangling earrings to wear in the evening or at the office, and even the famous clip-on earrings, the grail for all those who don't have pierced ears... To dress up your lobes with audacity, discover the selection of original earrings and ear jewellery from Les Néréides.</p>
+  </div>
+
+  <div>
+
+    {% paginate collections by 3 %}
+
+      <div class="collections my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 [&>div>div]:mb-0  [&>div>div>div]:mb-0">
+        {% for collection in collections %}
+          {% render "subcollection"
+            , collection: collection %}
+        {% else %}
+          <p>No collections found.</p>
+        {% endfor %}
+      </div>
+
+      {% render 'pagination'
+        , paginate: paginate %}
+    {% endpaginate %}
+  </div>
+
+</div>
