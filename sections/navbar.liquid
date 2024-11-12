@@ -24,6 +24,10 @@ x-cloak
                             </div>
                         {% endif %}
                     {% endfor %}
+
+                    <div class="relative">
+                        <a href='#' class="sr-only">Dummy</a>
+                    </div>
                 </nav>
             </div>
 
@@ -35,7 +39,7 @@ x-cloak
             <div class="hidden md:flex items-center justify-end space-x-5">
                 <div class="hidden md:flex items-center justify-start gap-2">
                     <a
-                    href='#'
+                    href="{{ routes.search_url }}"
                         class="text-base font-[500] {% if link.active == true %} text-[#CB8161] {% endif %} text-black">Search</a>
                 </div>
                 

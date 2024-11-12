@@ -43,6 +43,8 @@
  | times: 100.0
  | divided_by: compare_at_price
   %}
+  {% assign variant_age_days = 'now' | date: '%s' | minus: product.selected_or_first_available_variant.created_at | divided_by: 86400 %}
+
 
   <form
     action="{{ routes.cart_url }}"
@@ -52,7 +54,10 @@
       <div class="card-container relative h-[300px] w-auto">
         <div class="card-img-overlap relative">
           <div class="card absolute h-[300px] w-auto" style="background-image: url('{{ product | img_url: 'large' }}')"></div>
-          <h3 class="font-[500] absolute left-5 text-white text-[12px] top-[20px]">NEW IN</h3>
+
+          {% if variant_age_days < 30 %}
+            <h3 class="font-[500] absolute left-5 text-white text-[12px] top-[20px]">NEW IN</h3>
+          {% endif %}
         </div>
       </div>
       <div class="text-center mt-4 flex justify-between items-center">
