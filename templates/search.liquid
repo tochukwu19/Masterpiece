@@ -1,23 +1,21 @@
-<div class="w-full mx-auto mt-16 h-auto" x-data="{showFilters: false}">
+<div class="w-full mx-auto mt-16 h-auto" x-data="{showFilters: true}">
   <!-- Combined search and filter form -->
-  <form 
-    action="/search" 
-    method="get" 
-    class="" 
+  <form
+    action="/search"
+    method="get"
+    class=""
     role="search"
     x-data="{ 
       showFilter: []
-    }"
-  >
+    }">
     <!-- Search input section -->
     <div class="w-1/2 mx-auto flex items-center text-lg">
-      <input 
-        type="search" 
-        name="q" 
-        placeholder="Search" 
+      <input
+        type="search"
+        name="q"
+        placeholder="Search"
         class="w-full calvino pb-4 text-center outline-none placeholder:calvino placeholder:text-[#6B7280] border-b border-solid border-[#6B7280]"
-        value="{{ search.terms | escape }}"
-      >
+        value="{{ search.terms | escape }}">
       <button type="submit" class="pb-4">{% render 'icon-search' %}</button>
     </div>
 
@@ -30,43 +28,48 @@
           {% render "icon-down" %}
         </div>
       </div>
-
-      <!-- Sorting dropdown -->
-      <div class="flex md:items-center gap-4 flex-col md:flex-row items-start">
-        <p class="font-bold text-[15px] md:text-[16px]">Sort By</p>
-        <div class="relative w-[150px] mb-[10px] md:mb-0 flex gap-2 justify-start items-center">
-          <select 
-            name="sort_by" 
-            id="sort-by" 
-            class="w-full appearance-none absolute font-bold text-[#4B5563] outline-none"
-            @change="$el.form.submit()"
-          >
-            {% assign sort_by = search.sort_by | default: search.default_sort_by %}
-            {% for option in search.sort_options %}
-              {% if option.name != "Featured" %}
-                <option 
-                  value="{{ option.value }}"
-                  {% if option.value == sort_by %}selected="selected"{% endif %}
-                >
-                  {{ option.name }}
-                </option>
-              {% endif %}
-            {% endfor %}
-          </select>
-          <div class="absolute right-[5px]">
-            {% render "icon-down" %}
-          </div>
-        </div>
-      </div>
     </div>
 
     {% if search.performed %}
       <!-- Filters section -->
-      <div 
-        class="w-[90%] md:w-[30%]"
+      <div
+        class="w-[90%] md:w-[30%] h-[100vh] bg-white fixed top-0 right-0 z-[4] transition ease-in-out duration-300 translate-x-full py-4"
         x-cloak
-        x-show="showFilters"
-      >
+        :class="{ '!translate-x-0': showFilters }">
+
+        <div class="px-4 mb-8 flex items-center justify-between pb-4 border-b border-solid border-[#E5E7EB]">
+          <h2 class="calvino">Filters</h2>
+          <p class="calvino">Close</p>
+        </div>
+
+        <!-- Sorting dropdown -->
+        <div class="flex flex-col px-4 mb-4">
+          <p class="font-[500] text-sm text-[#4B5563] mb-4">Sort by</p>
+
+          <div class="flex flex-wrap gap-4">
+            {% assign sort_by = search.sort_by | default: search.default_sort_by %}
+            {% for option in search.sort_options %}
+              {% if option.name != "Featured" %}
+                <label class="flex flex-wrap items-center gap-2 cursor-pointer group">
+                  <div class="relative top-[3px]">
+                    <input
+                      type="radio"
+                      name="sort_by"
+                      value="{{ option.value }}"
+                      {% if option.value == sort_by %}
+                      checked{% endif %}
+                      class="appearance-none w-4 h-4 rounded-full border-2 border-gray-300 cursor-pointer checked:border-[#343330] checked:border-[5px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                      @change="$el.form.submit()">
+                  </div>
+                  <span class="text-sm text-[#6B7280] transition-colors duration-200 group-hover:text-[#343330] {% if option.value == sort_by %}!text-black{% endif %}">
+                    {{ option.name }}
+                  </span>
+                </label>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
         {%- for filter in search.filters -%}
           <div class="filter-section flex flex-col mb-4">
             <div class="filter-summary cursor-pointer" @click="showFilter.includes({{ forloop.index }}) ? showFilter = showFilter.filter(opt => opt !== {{ forloop.index }}) : showFilter.push({{ forloop.index }})">
@@ -78,7 +81,10 @@
               </div>
             </div>
 
-            <div class="filter-details mt-2" x-cloak x-show="showFilter.includes({{ forloop.index }})">
+            <div
+              class="filter-details mt-2"
+              x-cloak
+              x-show="showFilter.includes({{ forloop.index }})">
               <div class="flex justify-between items-center mb-4">
                 {%- if filter.active_values.size > 0 -%}
                   <p>
@@ -97,10 +103,12 @@
                           value="{{ filter.true_value.value }}"
                           id="Filter-{{ filter.param_name }}"
                           class="mr-2"
-                          {% if filter.true_value.active -%}checked{%- endif %}
-                          {% if filter.true_value.count == 0 and filter.true_value.active == false -%}disabled{%- endif %}>
-                          <span class='checkmark'></span>
-                          {{ filter.true_value.label }}      
+                          {% if filter.true_value.active -%}
+                          checked{%- endif %}
+                          {% if filter.true_value.count == 0 and filter.true_value.active == false -%}
+                          disabled{%- endif %}>
+                        <span class='checkmark'></span>
+                        {{ filter.true_value.label }}
                       </label>
                     </li>
                     <li>
@@ -111,10 +119,12 @@
                           value="{{ filter.false_value.value }}"
                           id="Filter-{{ filter.param_name }}"
                           class="mr-2"
-                          {% if filter.false_value.active -%}checked{%- endif %}
-                          {% if filter.false_value.count == 0 and filter.false_value.active == false -%}disabled{%- endif %}>
-                          <span class='checkmark'></span>
-                          {{ filter.false_value.label }}</label>
+                          {% if filter.false_value.active -%}
+                          checked{%- endif %}
+                          {% if filter.false_value.count == 0 and filter.false_value.active == false -%}
+                          disabled{%- endif %}>
+                        <span class='checkmark'></span>
+                        {{ filter.false_value.label }}</label>
                     </li>
                   </ul>
                 {%- when 'list' -%}
@@ -128,9 +138,11 @@
                             value="{{ filter_value.value }}"
                             id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
                             class="mr-2"
-                            {% if filter_value.active -%}checked{%- endif %}
-                            {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}>
-                            <span class='checkmark'></span>
+                            {% if filter_value.active -%}
+                            checked{%- endif %}
+                            {% if filter_value.count == 0 and filter_value.active == false -%}
+                            disabled{%- endif %}>
+                          <span class='checkmark'></span>
                           <span class="flex items-center mr-2">
                             {{ filter_value.label }}
                           </span>
@@ -220,7 +232,8 @@
       <!-- Search results -->
       <div class="w-[96%] mx-auto my-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {% for item in search.results %}
-          {% render "search-result", item: item %}
+          {% render "search-result"
+            , item: item %}
         {% else %}
           <div class="mx-auto w-fit my-8 h-[300px] flex items-center justify-center">
             <p>No results</p>
