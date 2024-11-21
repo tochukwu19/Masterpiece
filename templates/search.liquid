@@ -1,4 +1,4 @@
-<div class="w-full mx-auto mt-16 h-auto" x-data="{showFilters: true}">
+<div class="w-full mx-auto mt-16 h-auto" x-data="{showFilters: false}">
   <!-- Combined search and filter form -->
   <form
     action="/search"
@@ -20,31 +20,35 @@
     </div>
 
     <!-- Controls section -->
-    <div class="!mb-8 !mt-8 py-4 border-y border-solid border-[#D1D5DB] flex justify-between items-center">
-      <!-- Filter button -->
-      <div class="relative h-[25px] w-[120px] md:w-[150px] flex justify-start items-center cursor-pointer" @click="showFilters = !showFilters">
-        <button type="button" class="font-bold absolute">Show Filters</button>
-        <div class="absolute right-[5px]" :class="{ 'rotate-90': showFilters }">
-          {% render "icon-down" %}
+
+    {% if search.performed %}
+      <div class="w-[95%] mx-auto !my-8 py-4 text-[#000] flex justify-between items-center">
+        <!-- Filter button -->
+        <div class="relative h-[25px] w-[120px] md:w-[150px] flex justify-start items-center cursor-pointer gap-2" @click="showFilters = !showFilters">
+          <div class="text-[#343330]">
+            {% render "icon-filter" %}
+          </div>
+          <button type="button" class="font-[500]">Filters & sort</button>
         </div>
       </div>
-    </div>
+    {% endif %}
+
 
     {% if search.performed %}
       <!-- Filters section -->
       <div
-        class="w-[90%] md:w-[30%] h-[100vh] bg-white fixed top-0 right-0 z-[4] transition ease-in-out duration-300 translate-x-full py-4"
+        class="w-[90%] md:w-[30%] h-[100vh] bg-white fixed top-0 right-0 z-[4] transition ease-in-out duration-300 translate-x-full py-4 [&>div]:px-4"
         x-cloak
         :class="{ '!translate-x-0': showFilters }">
 
-        <div class="px-4 mb-8 flex items-center justify-between pb-4 border-b border-solid border-[#E5E7EB]">
+        <div class="mb-8 flex items-center justify-between pb-4 border-b border-solid border-[#E5E7EB]">
           <h2 class="calvino">Filters</h2>
-          <p class="calvino">Close</p>
+          <p class="calvino cursor-pointer" @click="showFilters = !showFilters">Close</p>
         </div>
 
         <!-- Sorting dropdown -->
-        <div class="flex flex-col px-4 mb-4">
-          <p class="font-[500] text-sm text-[#4B5563] mb-4">Sort by</p>
+        <div class="flex flex-col mb-4 border-b border-gray-200 pb-4">
+          <p class="font-[500] text-base text-[#4B5563] mb-4">Sort by</p>
 
           <div class="flex flex-wrap gap-4">
             {% assign sort_by = search.sort_by | default: search.default_sort_by %}
@@ -71,120 +75,131 @@
         </div>
 
         {%- for filter in search.filters -%}
-          <div class="filter-section flex flex-col mb-4">
-            <div class="filter-summary cursor-pointer" @click="showFilter.includes({{ forloop.index }}) ? showFilter = showFilter.filter(opt => opt !== {{ forloop.index }}) : showFilter.push({{ forloop.index }})">
-              <div class="flex items-center justify-between w-full">
-                <span class="font-bold">{{ filter.label }}</span>
-                <div>
-                  {% render "icon-down" %}
-                </div>
+          <div class="filter-section border-b border-gray-200 pb-4 mb-4 last:border-none">
+            <div 
+              class="filter-summary flex items-center justify-between cursor-pointer group" 
+              @click="showFilter.includes({{ forloop.index }}) ? showFilter = showFilter.filter(opt => opt !== {{ forloop.index }}) : showFilter.push({{ forloop.index }})">
+              <h3 class="font-[500] text-base text-[#4B5563] group-hover:text-gray-600 transition-colors">
+                {{ filter.label }}
+              </h3>
+              <div class="transform transition-transform h-4 w-4" :class="{ 'rotate-180': showFilter.includes({{ forloop.index }}) }">
+                {% render "icon-plus-new" %}
               </div>
             </div>
-
+        
             <div
-              class="filter-details mt-2"
               x-cloak
-              x-show="showFilter.includes({{ forloop.index }})">
-              <div class="flex justify-between items-center mb-4">
-                {%- if filter.active_values.size > 0 -%}
-                  <p>
-                    <a href="{{ filter.url_to_remove }}" class="underline hover:text-[#777]">Reset</a>
-                  </p>
-                {%- endif -%}
-              </div>
+              x-show="showFilter.includes({{ forloop.index }})"
+              class="filter-details mt-3 space-y-3">
+              {% comment %} {%- if filter.active_values.size > 0 -%}
+                <div class="flex justify-end mb-2">
+                  <a href="{{ filter.url_to_remove }}" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+                    Clear Filters
+                  </a>
+                </div>
+              {%- endif -%} {% endcomment %}
+        
               {%- case filter.type -%}
                 {%- when 'boolean' -%}
-                  <ul class="space-y-2">
-                    <li>
-                      <label for="Filter-{{ filter.param_name }}-{{ filter.true_value.value }}" class="check-container flex items-center">
+                  <div class="space-y-2">
+                    {%- for boolean_option in [filter.true_value, filter.false_value] -%}
+                      <label class="custom-checkbox relative inline-flex items-center group cursor-pointer">
                         <input
                           type="checkbox"
                           name="{{ filter.param_name }}"
-                          value="{{ filter.true_value.value }}"
-                          id="Filter-{{ filter.param_name }}"
-                          class="mr-2"
-                          {% if filter.true_value.active -%}
-                          checked{%- endif %}
-                          {% if filter.true_value.count == 0 and filter.true_value.active == false -%}
-                          disabled{%- endif %}>
-                        <span class='checkmark'></span>
-                        {{ filter.true_value.label }}
+                          value="{{ boolean_option.value }}"
+                          class="hidden peer"
+                          {% if boolean_option.active -%}checked{%- endif %}
+                          {% if boolean_option.count == 0 and boolean_option.active == false -%}disabled{%- endif %}>
+                        <span class="custom-checkbox-visual w-5 h-5 border border-gray-300 rounded mr-2 
+                          peer-checked:bg-indigo-600 peer-checked:border-indigo-600 
+                          group-hover:border-indigo-500 
+                          transition-all duration-200 
+                          flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white opacity-0 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-width="3" d="M5 13l4 4L19 7"/>
+                          </svg>
+                        </span>
+                        <span class="text-gray-700 group-hover:text-gray-900 transition-colors">
+                          {{ boolean_option.label }}
+                        </span>
                       </label>
-                    </li>
-                    <li>
-                      <label for="Filter-{{ filter.param_name }}-{{ filter.false_value.value }}" class="check-container flex items-center">
+                    {%- endfor -%}
+                  </div>
+        
+                {%- when 'list' -%}
+                  <div class="flex flex-wrap items-center gap-2">
+                    {%- for filter_value in filter.values -%}
+                      <label class="custom-checkbox relative inline-flex items-center group cursor-pointer">
                         <input
                           type="checkbox"
-                          name="{{ filter.param_name }}"
-                          value="{{ filter.false_value.value }}"
-                          id="Filter-{{ filter.param_name }}"
-                          class="mr-2"
-                          {% if filter.false_value.active -%}
-                          checked{%- endif %}
-                          {% if filter.false_value.count == 0 and filter.false_value.active == false -%}
-                          disabled{%- endif %}>
-                        <span class='checkmark'></span>
-                        {{ filter.false_value.label }}</label>
-                    </li>
-                  </ul>
-                {%- when 'list' -%}
-                  <ul class="space-y-2">
-                    {%- for filter_value in filter.values -%}
-                      <li>
-                        <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}" class="check-container flex items-center">
-                          <input
-                            type="checkbox"
-                            name="{{ filter_value.param_name }}"
-                            value="{{ filter_value.value }}"
-                            id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
-                            class="mr-2"
-                            {% if filter_value.active -%}
-                            checked{%- endif %}
-                            {% if filter_value.count == 0 and filter_value.active == false -%}
-                            disabled{%- endif %}>
-                          <span class='checkmark'></span>
-                          <span class="flex items-center mr-2">
-                            {{ filter_value.label }}
-                          </span>
-                        </label>
-                      </li>
+                          name="{{ filter_value.param_name }}"
+                          value="{{ filter_value.value }}"
+                          class="hidden peer"
+                          {% if filter_value.active -%}checked{%- endif %}
+                          {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}>
+                        <span class="custom-checkbox-visual w-5 h-5 border border-gray-300 rounded mr-2 
+                          peer-checked:bg-black peer-checked:border-black
+                          group-hover:border-gray-400 
+                          transition-all duration-200 
+                          flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white opacity-0 peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-width="3" d="M5 13l4 4L19 7"/>
+                          </svg>
+                        </span>
+                        <span class="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
+                          {{ filter_value.label }}
+                        </span>
+                      </label>
                     {%- endfor -%}
-                  </ul>
+                  </div>
+        
                 {%- when 'price_range' -%}
-                  <div class="filter-group-display__price-range space-y-4">
-                    <div class="filter-group-display__price-range-from flex items-center">
-                      <span class="mr-2">{{ cart.currency.symbol }}</span>
-
+                  <div class="grid grid-cols-2 gap-4 [&>div]:flex [&>div]:flex-col">
+                    <div class="relative">
+                      <label for="Filter-{{ filter.min_value.param_name }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        From
+                      </label>
+                      <div class="absolute inset-y-0 left-0 pl-3 mt-[21px] flex items-center pointer-events-none text-gray-500">
+                        {{ cart.currency.symbol }}
+                      </div>
                       <input
                         name="{{ filter.min_value.param_name }}"
                         id="Filter-{{ filter.min_value.param_name }}"
-                        class="border p-2 rounded-md w-full [&::-webkit-inner-spin-button]:appearance-none outline-none"
-                        {% if filter.min_value.value -%}
-                        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-                        {%- endif %}
                         type="number"
                         placeholder="0"
                         min="0"
-                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
-
-                      <label for="Filter-{{ filter.min_value.param_name }}" class="ml-2">From</label>
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        class="appearance-none block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                        focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-500 
+                        [&::-webkit-outer-spin-button]:appearance-none 
+                        [&::-webkit-inner-spin-button]:appearance-none"
+                        {% if filter.min_value.value -%}
+                        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                        {%- endif %}>
                     </div>
-                    <div class="filter-group-display__price-range-to flex items-center">
-                      <span class="mr-2">{{ cart.currency.symbol }}</span>
-
+        
+                    <div class="relative">
+                      <label for="Filter-{{ filter.max_value.param_name }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        To
+                      </label>
+                      <div class="absolute inset-y-0 left-0 pl-3 mt-[21px] flex items-center pointer-events-none text-gray-500">
+                        {{ cart.currency.symbol }}
+                      </div>
                       <input
                         name="{{ filter.max_value.param_name }}"
                         id="Filter-{{ filter.max_value.param_name }}"
-                        class="border p-2 rounded-md w-full [&::-webkit-inner-spin-button]:appearance-none outline-none"
-                        {% if filter.max_value.value -%}
-                        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
-                        {%- endif %}
                         type="number"
                         placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
                         min="0"
-                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
-
-                      <label for="Filter-{{ filter.max_value.param_name }}" class="ml-2">To</label>
+                        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        class="appearance-none block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                        focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-500 
+                        [&::-webkit-outer-spin-button]:appearance-none 
+                        [&::-webkit-inner-spin-button]:appearance-none"
+                        {% if filter.max_value.value -%}
+                        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                        {%- endif %}>
                     </div>
                   </div>
               {%- endcase -%}
@@ -193,14 +208,14 @@
         {%- endfor -%}
 
         <!-- Apply Filters Button -->
-        <button type="submit" class="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800">
+        <button type="submit" class="w-[90%] block mt-4 text-sm mx-auto bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800">
           Apply Filters
         </button>
 
         <!-- Active filters section -->
-        <div class="mt-4">
+        <div class="mt-4 w-[90%] mx-auto !px-0">
           <p>
-            <a href="{{ search.url }}?sort_by={{ search.sort_by }}" class="hover:text-[#777] underline">Clear all</a>
+            <a href="{{ search.url }}?sort_by={{ search.sort_by }}" class="text-sm hover:text-[#777] underline">Clear all</a>
           </p>
 
           {%- for filter in search.filters -%}
@@ -229,17 +244,23 @@
         </div>
       </div>
 
-      <!-- Search results -->
-      <div class="w-[96%] mx-auto my-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {% for item in search.results %}
-          {% render "search-result"
-            , item: item %}
-        {% else %}
-          <div class="mx-auto w-fit my-8 h-[300px] flex items-center justify-center">
-            <p>No results</p>
+        {% paginate search.results by 6 %}
+          <!-- Existing search results grid -->
+          <div class="w-[96%] mx-auto my-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {% for item in search.results %}
+              {% render "search-result", item: item %}
+            {% else %}
+              <div class="mx-auto w-fit my-8 h-[300px] flex items-center justify-center">
+                <p>No results</p>
+              </div>
+            {% endfor %}
           </div>
-        {% endfor %}
-      </div>
-    {% endif %}
+        
+          <!-- Pagination links -->
+          {% render 'pagination'
+          , paginate: paginate %}
+        {% endpaginate %}
+
+      {% endif %}
   </form>
 </div>

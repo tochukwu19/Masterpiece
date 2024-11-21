@@ -12,3 +12,6 @@ body {
     font-family: 'Calvino Grande Trial', sans-serif;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
