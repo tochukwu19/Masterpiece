@@ -1,0 +1,60 @@
+<div class="w-full mx-auto mt-16 h-auto" x-data="{showFilters: false}">
+  <!-- Combined search and filter form -->
+  <form
+    action="/search"
+    method="get"
+    class=""
+    role="search"
+    x-data="{ 
+      showFilter: []
+    }">
+    <!-- Search input section -->
+    <div class="w-1/2 mx-auto flex items-center text-lg">
+      <input
+        type="search"
+        name="q"
+        placeholder="Search"
+        class="w-full calvino pb-4 text-center outline-none placeholder:calvino placeholder:text-[#6B7280] border-b border-solid border-[#6B7280]"
+        value="{{ search.terms | escape }}">
+      <button type="submit" class="pb-4">{% render 'icon-search' %}</button>
+    </div>
+
+    <!-- Controls section -->
+
+    {% if search.performed %}
+      <div class="w-[95%] mx-auto !my-8 py-4 text-[#000] flex justify-between items-center">
+        <!-- Filter button -->
+        <div class="relative h-[25px] w-[120px] md:w-[150px] flex justify-start items-center cursor-pointer gap-2" @click="showFilters = !showFilters">
+          <div class="text-[#343330]">
+            {% render "icon-filter" %}
+          </div>
+          <button type="button" class="font-[500]">Filters & sort</button>
+        </div>
+      </div>
+    {% endif %}
+
+
+    {% if search.performed %}
+      <!-- Filters section -->
+      {% render 'filter', collection: search %}
+
+        {% paginate search.results by 6 %}
+          <!-- Existing search results grid -->
+          <div class="w-[96%] mx-auto my-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {% for item in search.results %}
+              {% render "search-result", item: item %}
+            {% else %}
+              <div class="mx-auto w-fit my-8 h-[300px] flex items-center justify-center">
+                <p>No results</p>
+              </div>
+            {% endfor %}
+          </div>
+        
+          <!-- Pagination links -->
+          {% render 'pagination'
+          , paginate: paginate %}
+        {% endpaginate %}
+
+      {% endif %}
+  </form>
+</div>
