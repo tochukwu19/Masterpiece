@@ -1,0 +1,609 @@
+<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+{% assign selected_variant = product.selected_or_first_available_variant %}
+
+<style>
+  .product-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+  }
+
+  .colors {
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 10px;
+
+    li {
+      height: 50px;
+    }
+  }
+
+  .section-title {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .section-title.active div {
+    transform: rotate(180deg);
+  }
+
+  .section-title.active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .section-title:not(.active)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .details-content,
+  .advice-content,
+  .warranty-content {
+    font-size: 14px;
+    line-height: 1.5;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    margin-bottom: 20px;
+    padding-top: 10px;
+  }
+
+  .scroll::-webkit-scrollbar {
+    width: 0.2em;
+    border-radius: 10px;
+  }
+
+  .scroll::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: #000;
+  }
+</style>
+
+<div class="mb-8">
+  <div class="product w-full">
+
+    <div class="product--information w-full">
+      {% form 'product'
+        , product
+        , id: 'product-form'
+        , novalidate: 'novalidate' %}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ selected_variant.id }}">
+
+        <div class="mx-auto flex flex-col md:flex-row justify-start gap-16 items-start">
+          <div class="w-full mb-8 block md:hidden">
+            <div class="mb-8 swiper block md:hidden">
+              <div class="swiper-wrapper">
+                {% for media in product.media %}
+                  <div class="swiper-slide">
+                    <div class="product-image w-full h-[300px]" style="background-image: url({{ media | img_url: "master"}})"></div>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <div class="hidden w-full absolute top-[50px] bottom-0 flex items-center">
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full md:w-[50%]">
+            <div class="hidden md:block h-[90vh] overflow-x-hidden overflow-y-scroll scroll">
+              {% for media in product.media %}
+                <div class="product-image w-full h-full mb-10 md:mb-0" style="background-image: url({{ media | img_url: "master"}})"></div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="w-full md:w-[40%] mb-8">
+            <h2 class="text-[18px] font-[500] uppercase">{{ product.title }}</h2>
+
+            <h2 class="text-base font-[500] text-[#6B7280] my-2 uppercase">{{ product.price | money_with_currency }}</h2>
+
+            <p class="text-sm font-[500] text-[#6B7280] mb-4">{{ product.description | strip_html }}</p>
+
+            <div class="my-3">
+              {% unless product.has_only_default_variant %}
+                <variant-selector data-url="{{ product.url}}" data-section="{{ section.id }}">
+                  {% for option in product.options_with_values %}
+                    <label class="text-sm font-[500] uppercase block mt-4" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+
+                    {% if option.name != "Color" %}
+                      <div class="my-4 relative">
+                        <div
+                          class="custom-select flex justify-between items-center w-full pr-3 font-bold outline-none appearance-none cursor-pointer noselect"
+                          role="button"
+                          id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                          data-option-name="{{ option.name | escape }}">
+                          <div class="selected-option text-sm font-[500] text-[#6B7280]" data-selected="{{ option.selected_value }}">
+                            {{ option.selected_value }}
+                          </div>
+                          <div class="dropdown-arrow !text-[#6B7280]">
+                            {% render "icon-down" %}
+                          </div>
+                        </div>
+                        <ul class="custom-options hidden w-full bg-white mt-1 z-10">
+                          {% for value in option.values %}
+                            <li
+                              class="option-item py-2 text-sm text-[#6B7280] hover:text-black cursor-pointer"
+                              data-value="{{ value | escape }}"
+                              {% if option.selected_value == value %}
+                              data-selected="true"
+                              {% endif %}>
+                              {{ value }}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+
+                    {% else %}
+                      <div class="my-4 relative">
+                        <div
+                          class="custom-select2 flex justify-between items-center w-full pr-3 font-bold outline-none appearance-none cursor-pointer noselect"
+                          role="button"
+                          id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                          data-option-name="{{ option.name | escape }}">
+                          <div class="selected-option flex flex-row justify-center items-center gap-2 hidden" data-selected="{{ option.selected_value }}">
+                            <div class="h-[25px] w-[25px]" style="background-color: {{ option.selected_value }};"></div>
+                          </div>
+                        </div>
+                        <ul class="flex items-center gap-2 w-full bg-white mt-1 z-10">
+                          {% for value in option.values %}
+                            <li
+                              class="flex items-center justify-center option-item h-[50px] w-[50px] rounded-full cursor-pointer border-2 p-1 border-solid {% if option.selected_value == value %}border-gray-900{% else %}border-gray-300{% endif %}"
+                              data-value="{{ value | escape }}"
+                              {% if option.selected_value == value %}
+                              data-selected="true"
+                              {% endif %}>
+                              <span class="h-[40px] w-[40px] rounded-full block" style="background-color: {{ value }};"></span>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+
+                    <script type="application/json">
+                      {{ product.variants | json }}
+                    </script>
+                  {% endfor %}
+                </variant-selector>
+              {% endunless %}
+            </div>
+
+            <div class="mt-3 mb-6 flex items-center gap-2">
+              <div class="quantity-selector w-[150px] flex items-center gap-2 border border-solid border-black px-6 py-4">
+                <button type="button" class="quantity-button decrease">
+                  {% render "icon-minus" %}
+                </button>
+                <input
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  class="quantity-input text-center text-base outline-none w-[50px] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                <button type="button" class="quantity-button increase">
+                  {% render "icon-plus" %}
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                name="add"
+                class="flex items-center justify-center gap-2 w-full px-6 py-4 bg-black text-white hover:bg-gray-700 hover:text-white rounded-sm my-2 uppercase"
+                {% if selected_variant.available == false %}
+                disabled
+                {% endif %}>
+                {% if selected_variant.available == false %}
+                  Sold out
+                {% else %}
+                  Add to cart
+                {% endif %}
+              </button>
+            </div>
+
+            <div class="details-sectiont">
+              <div class="section-title flex justify-between items-center noselect">
+                <h2 class="text-sm font-[500] uppercase">{{ section.settings.details_title }}</h2>
+                <div>
+                  {% render "icon-down" %}
+                </div>
+              </div>
+              <div class="details-content">
+                {{ section.settings.details_content }}
+              </div>
+            </div>
+
+            <div class="advice-section">
+              <div class="section-title flex justify-between items-center noselect">
+                <h2 class="text-sm font-[500] uppercase">{{ section.settings.advice_title }}</h2>
+                <div>
+                  {% render "icon-down" %}
+                </div>
+              </div>
+              <div class="advice-content">
+                {{ section.settings.advice_content }}
+              </div>
+            </div>
+
+            <div class="warranty-section">
+              <div class="section-title flex justify-between items-center noselect">
+                <h2 class="text-sm font-[500] uppercase">{{ section.settings.warranty_title }}</h2>
+                <div>
+                  {% render "icon-down" %}
+                </div>
+              </div>
+              <div class="warranty-content">
+                {{ section.settings.warranty_content }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% comment %} Dropdown snippet {% endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var sectionTitles = document.querySelectorAll('.section-title');
+  
+  sectionTitles.forEach(function(title) {
+    title.addEventListener('click', function() {
+      this.classList.toggle('active');
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Product Page Details",
+    "settings": [
+      {
+        "type": "text",
+        "id": "details_title",
+        "label": "Details Section Title",
+        "default": "Details"
+      },
+      {
+        "type": "richtext",
+        "id": "details_content",
+        "label": "Details Section Content",
+        "default": "<p>Provide detailed information about the product here.</p>"
+      },
+      {
+        "type": "text",
+        "id": "advice_title",
+        "label": "Advice & Care Section Title",
+        "default": "Advice & Care"
+      },
+      {
+        "type": "richtext",
+        "id": "advice_content",
+        "label": "Advice & Care Section Content",
+        "default": "<p>Provide advice and care instructions for the product here.</p>"
+      }, {
+        "type": "text",
+        "id": "warranty_title",
+        "label": "Warranty Section Title",
+        "default": "Warranty"
+      }, {
+        "type": "richtext",
+        "id": "warranty_content",
+        "label": "Warranty Section Content",
+        "default": "<p>Provide warranty information for the product here.</p>"
+      }
+    ]
+  }
+{% endschema %}
+
+<script>
+  // Swiper code init
+  const swiper = new Swiper('.swiper', {
+      direction: 'horizontal',
+      slidesPerView: "auto",
+      spaceBetween: 30,
+    
+      pagination: {
+          el: '.swiper-pagination'
+      },
+    
+      navigation: {
+          prevEl: '.swiper-button-prev',
+          nextEl: '.swiper-button-next'
+      }
+  })
+    
+  // Zoom effect
+  document.querySelectorAll('.image-zoom').forEach(item => {
+      document.querySelectorAll('.image-details').forEach(itemDetail => {
+          new Drift(item, {
+              paneContainer: itemDetail,
+              inlinePane: false,
+          });
+      });
+  });
+</script>
+
+{% comment %} Variant selector script {% endcomment %}
+<script>
+   class VariantSelector extends HTMLElement {
+  constructor() {
+    super();
+    this.addEventListener("change", this.onVariantChange.bind(this));
+  }
+  
+  connectedCallback() {
+    document.querySelectorAll('.custom-select .custom-select2 .option-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        this.onVariantChange();
+      });
+    });
+  }
+  
+  onVariantChange() {
+    this.getSelectedOptions();
+    this.getSelectedVariant();
+  
+    if (this.currentVariant) {
+      this.updateURL();
+      this.updateFormID();
+      this.updatePrice();
+    } else {
+      console.warn('No matching variant found.');
+    }
+  }
+  
+  getSelectedOptions() {
+    this.options = Array.from(this.querySelectorAll('.selected-option'), (select) => select.getAttribute('data-selected'));
+    console.log('Selected options:', this.options);
+  }
+  
+  getVariantJSON() {
+    if (!this.variantData) {
+      const jsonData = this.querySelector('[type="application/json"]').textContent;
+      try {
+        this.variantData = JSON.parse(jsonData);
+      } catch (error) {
+        console.error('Failed to parse variant JSON:', error);
+        return [];
+      }
+    }
+    return this.variantData;
+  }
+  
+  getSelectedVariant() {
+    const variantData = this.getVariantJSON();
+    this.currentVariant = variantData.find(variant => {
+      return variant.options.every((option, index) => option === this.options[index]);
+    });
+  
+    console.log('Current variant:', this.currentVariant);
+  }
+  
+  updateURL() {
+    if (!this.currentVariant) return;
+    const url = new URL(window.location);
+    url.searchParams.set('variant', this.currentVariant.id);
+    window.history.replaceState({}, '', url.toString());
+  }
+  
+  updateFormID() {
+    const formInput = document.querySelector("#product-form input[name='id']");
+    if (formInput) {
+      formInput.value = this.currentVariant.id;
+    }
+  }
+  
+  updatePrice() {
+    fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+      .then(response => response.text())
+      .then(responseText => {
+        const html = new DOMParser().parseFromString(responseText, 'text/html');
+        const newPrice = html.getElementById(`price-${this.dataset.section}`);
+        const oldPrice = document.getElementById(`price-${this.dataset.section}`);
+        if (oldPrice && newPrice) {
+          oldPrice.innerHTML = newPrice.innerHTML;
+        }
+      })
+      .catch(error => console.error('Failed to update price:', error));
+  }
+  }
+  
+  customElements.define("variant-selector", VariantSelector);
+</script>
+
+{% comment %} Quantity selector {% endcomment %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const quantityInput = document.querySelector('.quantity-input');
+      const decreaseButton = document.querySelector('.quantity-button.decrease');
+      const increaseButton = document.querySelector('.quantity-button.increase');
+      const priceDisplay = document.getElementById('price-display');
+      const variantPrice = {{ selected_variant.price }};
+  
+      function updatePrice() {
+        const quantity = parseInt(quantityInput.value);
+        const totalPrice = (quantity * variantPrice / 100).toFixed(2);
+        priceDisplay.textContent = '$' + totalPrice;
+      }
+  
+      decreaseButton.addEventListener('click', function() {
+        if (quantityInput.value > 1) {
+          quantityInput.value = parseInt(quantityInput.value) - 1;
+          updatePrice();
+        }
+      });
+  
+      increaseButton.addEventListener('click', function() {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+        updatePrice();
+      });
+  
+      quantityInput.addEventListener('change', updatePrice);
+  
+      // Initial price update
+      updatePrice();
+      });
+</script>
+
+
+{% comment %} Custom select script {% endcomment %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.custom-select').forEach(function(select) {
+    const selectedOption = select.querySelector('.selected-option');
+    const optionsList = select.nextElementSibling;
+    const optionItems = optionsList.querySelectorAll('.option-item');
+    const form = document.getElementById('product-form');
+  
+    select.addEventListener('click', function() {
+      optionsList.classList.toggle('hidden');
+    });
+  
+    optionItems.forEach(function(option) {
+      option.addEventListener('click', function() {
+  
+        const color = document.createElement('div');
+        
+        selectedOption.textContent = option.textContent;
+        color.classList.add('h-[25px]', 'w-[25px]');
+        color.style.backgroundColor = option.getAttribute('data-value');
+  
+        console.log(select.getAttribute('data-option-name'))
+  
+        if(select.getAttribute('data-option-name') === 'Color'){
+          selectedOption.appendChild(color);
+        }
+  
+        selectedOption.setAttribute('data-selected', option.getAttribute('data-value'));
+  
+        // Close the dropdown
+        optionsList.classList.add('hidden');
+  
+        // Update the hidden select input value
+        const hiddenInput = document.createElement('input');
+  
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = `options[${select.getAttribute('data-option-name')}]`;
+        hiddenInput.value = option.getAttribute('data-value');
+  
+        // Remove any existing hidden input for the same option
+        const existingInput = select.parentNode.querySelector(`input[name="options[${select.getAttribute('data-option-name')}]"]`);
+        if (existingInput) {
+          existingInput.remove();
+        }
+  
+        select.parentNode.appendChild(hiddenInput);
+  
+        // Trigger the variant change
+        const variantSelector = document.querySelector('variant-selector');
+        if (variantSelector) {
+          variantSelector.onVariantChange();
+        }
+      });
+    });
+  
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+      if (!select.contains(e.target) && !optionsList.contains(e.target)) {
+        optionsList.classList.add('hidden');
+      }
+    });
+  });
+  });
+</script>
+
+{% comment %} Custom select script for color input {% endcomment %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.custom-select2').forEach(function(select) {
+      const selectedOption = select.querySelector('.selected-option');
+      const optionsList = select.nextElementSibling;
+      const optionItems = optionsList.querySelectorAll('.option-item');
+      const form = document.getElementById('product-form');
+    
+    
+      optionItems.forEach(function(option) {
+        option.addEventListener('click', function() {
+  
+        // Remove border from all options first
+        optionItems.forEach(function(item) {
+            item.classList.remove("border-gray-900");
+        });
+  
+        // Add border to the clicked option
+        option.classList.add("border-gray-900");    
+          const color = document.createElement('div');
+          
+        //   selectedOption.textContent = option.textContent;
+          color.classList.add('h-[25px]', 'w-[25px]');
+          color.style.backgroundColor = option.getAttribute('data-value');
+        
+          if(select.getAttribute('data-option-name') === 'Color'){
+            selectedOption.appendChild(color);
+          }
+    
+          selectedOption.setAttribute('data-selected', option.getAttribute('data-value'));
+    
+          // Update the hidden select input value
+          const hiddenInput = document.createElement('input');
+    
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = `options[${select.getAttribute('data-option-name')}]`;
+          hiddenInput.value = option.getAttribute('data-value');
+    
+          // Remove any existing hidden input for the same option
+          const existingInput = select.parentNode.querySelector(`input[name="options[${select.getAttribute('data-option-name')}]"]`);
+          if (existingInput) {
+            existingInput.remove();
+          }
+    
+          select.parentNode.appendChild(hiddenInput);
+    
+          // Trigger the variant change
+          const variantSelector = document.querySelector('variant-selector');
+          if (variantSelector) {
+            variantSelector.onVariantChange();
+          }
+        });
+      });
+    });
+    });
+</script>
