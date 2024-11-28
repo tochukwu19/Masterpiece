@@ -1,5 +1,16 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+<!-- Start of Judge.me code -->
+            <div style='clear:both'></div>
+            <div
+              id='judgeme_product_reviews'
+              class='jdgm-widget jdgm-review-widget'
+              data-product-title='{{ product.title | escape }}'
+              data-id='{{ product.id }}'
+              data-auto-install='false'>{{ product.metafields.judgeme.widget }}</div>
+            <!-- End of Judge.me code -->
+            
 <img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
 {% for image in product.images %}
   <a href="{{ image.src | img_url: 'large' }}">
