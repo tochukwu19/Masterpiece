@@ -10,6 +10,8 @@
               data-id='{{ product.id }}'
               data-auto-install='false'>{{ product.metafields.judgeme.widget }}</div>
             <!-- End of Judge.me code -->
+
+            <!-- Start of Judge.me code --><div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}' data-auto-install='false'>{{ product.metafields.judgeme.badge }}</div><!-- End of Judge.me code -->
             
 <img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
 {% for image in product.images %}
