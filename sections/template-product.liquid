@@ -128,6 +128,13 @@
 
             <h2 class="text-base font-[500] text-[#6B7280] my-2 uppercase">{{ product.price | money_with_currency }}</h2>
 
+            <!-- Start of Judge.me code --> 
+              <div class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}'> 
+                {{ product.metafields.judgeme.badge }} 
+              </div> 
+            <!-- End of Judge.me code -->
+
+
             <p class="text-sm font-[500] text-[#6B7280] mb-4">{{ product.description | strip_html }}</p>
 
             <div class="my-3">
