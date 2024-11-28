@@ -20,22 +20,22 @@
         "warranty_content": "<p>Provide warranty information for the product here.</p>"
       }
     },
-    "1732783199de5fd10f": {
+    "173278323708251537": {
       "type": "apps",
       "blocks": {
-        "judge_me_reviews_preview_badge_LLNWPU": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "judge_me_reviews_review_widget_ECbtyz": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },
       "block_order": [
-        "judge_me_reviews_preview_badge_LLNWPU"
+        "judge_me_reviews_review_widget_ECbtyz"
       ],
       "settings": {}
     }
   },
   "order": [
     "product",
-    "1732783199de5fd10f"
+    "173278323708251537"
   ]
 }
