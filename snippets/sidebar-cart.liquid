@@ -1,0 +1,74 @@
+<div x-data="{ open: false }" x-on:added-to-cart.window="open = true; $nextTick(() => $store.cart.fetchCartData())">
+  <div
+    x-show="open"
+    x-cloak
+    x-on:click.outside="open = false"
+    class="fixed top-0 right-0 h-[100vh] w-[500px] bg-white z-50 p-6 flex flex-col justify-between">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="calvino">Your Cart (<span x-text="$store.cart.itemCount" class="text-base"></span>)</h2>
+      <p x-on:click="open = false" class="calvino cursor-pointer text-gray-500 hover:text-gray-700">
+        Close
+      </p>
+    </div>
+
+    <div class="h-[70vh] overflow-x-hidden overflow-y-scroll scroll">
+      <template x-for="item in $store.cart.items" :key="item.key">
+        <div class="flex items-start justify-between gap-4 mb-4 pr-4 pb-4 border-b border-[#E5E7EB] border-solid">
+          <div class="flex gap-4 items-center">
+            <img
+              :src="item.image"
+              :alt="item.title"
+              class="w-20 h-20 object-cover">
+
+            <div>
+              <h3 class="font-[500]" x-text="item.title"></h3>
+              <p class="text-gray-500 text-sm" x-text="item.variant_title"></p>
+              <p class="font-[500] text-sm text-[#6B7280]" x-text="item.formatted_price"></p>
+
+              <div class="flex items-center mt-2">
+                <button x-on:click="$store.cart.updateQuantity(item.key, item.quantity - 1)" class="[&>svg]:w-[0.8rem] [&>svg]:h-[0.8rem]">
+                  {% render "icon-minus" %}
+                </button>
+
+                <input
+                  type="number"
+                  :value="item.quantity"
+                  min="1"
+                  x-on:change="$store.cart.updateQuantity(item.key, $event.target.value)"
+                  class="w-12 text-sm text-center outline-none py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+
+                <button x-on:click="$store.cart.updateQuantity(item.key, item.quantity + 1)" class="[&>svg]:w-[0.8rem] [&>svg]:h-[0.8rem]">
+                  {% render "icon-plus" %}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button x-on:click="$store.cart.remove(item.key)" class="text-gray-500 hover:text-gray-700">
+            {% render 'icon-delete' %}
+          </button>
+        </div>
+      </template>
+    </div>
+
+    <form
+      action="/cart"
+      method="post"
+      novalidate>
+
+      <div class="flex justify-between items-center [&>p]:font-[500] [&>p]:text-sm mb-4">
+        <p>TOTAL</p>
+        <p x-text="$store.cart.totalPrice"></p>
+      </div>
+
+      <div class="w-full flex gap-6 justify-between items-center mt-4 [&>a]:text-sm [&>a]:text-center">
+        <a href="{{ routes.cart_url }}" class="w-full mx-auto block bg-[#000] hover:bg-gray-900 cursor-pointer text-white py-2 px-4">VIEW CART</a>
+
+        <button
+          class="w-full mx-auto block bg-white border border-solid border-[#000] text-[#000] cursor-pointer py-1.5 text-sm px-3"
+          type="submit"
+          name="checkout">CHECKOUT</button>
+      </div>
+    </form>
+  </div>
+</div>

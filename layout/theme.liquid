@@ -16,10 +16,10 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
-      html{
+      html {
         scroll-behavior: smooth;
       }
-      
+
       [x-cloak] {
         display: none !important;
       }
@@ -30,8 +30,87 @@
 
     {% section 'navbar' %}
 
+    {% render 'sidebar-cart' %}
+
     <main role="main">
       {{ content_for_layout }}
     </main>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+          Alpine.store('cart', {
+            items: [],
+            itemCount: 0,
+            totalPrice: 0,
+            
+            fetchCartData() {
+              fetch('/cart.js')
+                .then(response => response.json())
+                .then(cart => {
+                  this.items = cart.items.map(item => {
+      
+                    const formatted_price = new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: 'USD' // add store currency
+                    }).format(item.original_line_price / 100);
+      
+                    return({
+                    ...item,
+                    formatted_price: formatted_price
+                  })}); 
+      
+                  this.itemCount = cart.item_count;
+      
+                  const formatted_total_price = new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: 'USD' 
+                    }).format(cart.total_price / 100);
+      
+                  this.totalPrice = formatted_total_price;
+                })
+                .catch(error => console.error('Error fetching cart data:', error));
+            },
+      
+            remove(line) {
+              fetch('/cart/change.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ id: line, quantity: 0 }),
+                })
+                  .then(() => this.fetchCartData())
+                  .catch(error => console.error('Error removing item:', error));
+              },
+      
+              updateQuantity(key, quantity) {
+                // Ensure quantity is at least 1
+                quantity = Math.max(1, Number(quantity));
+                
+                fetch('/cart/update.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                  },
+                  body: JSON.stringify({
+                    updates: {
+                      [key]: quantity
+                    }
+                  })
+                })
+                .then(response => response.json())
+                .then(cart => {
+                  // Refresh cart data
+                  this.fetchCartData();
+                })
+                .catch(error => {
+                  console.error('Error updating cart:', error);
+                });
+              }
+            });
+          });
+    </script>
+
   </body>
 </html>
