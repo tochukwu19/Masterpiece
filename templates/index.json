@@ -35,11 +35,6 @@
       "type": "template-newsletter",
       "settings": {
       }
-    },
-    "footer": {
-      "type": "footer",
-      "settings": {
-      }
     }
   },
   "order": [
@@ -49,7 +44,6 @@
     "selection",
     "arrivals",
     "blog",
-    "newsletter",
-    "footer"
+    "newsletter"
   ]
 }
