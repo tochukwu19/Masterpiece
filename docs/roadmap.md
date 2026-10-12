@@ -28,9 +28,15 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [ ] Drawer primitive with focus trap: moved to Phase 2 with its first consumer
 
 ## Phase 2 — Header, footer, cart
-- [ ] `header-group.json`: announcement bar (blocks), header (logo, main menu with dropdowns and mega menu, mobile drawer, `<shopify-account>`, predictive search, localization, cart count)
-- [ ] `footer-group.json`: footer (menu, text, newsletter, social blocks), localization, payment icons, wordmark, Follow on Shop
-- [ ] Cart drawer + `main-cart` (discounts, selling plans, unit price, notes, taxes note, accelerated checkout, empty state)
+- [x] Drawer primitive on native `<dialog>` (focus trap, Escape, focus return, inert background); left, right and top variants
+- [x] `header-group.json`: announcement bar (blocks, prev/next, no autoplay) + header (center/left logo, dropdown or mega menu, mobile drawer with nested accordions, search modal with predictive search, compact localization, `<shopify-account>`, cart count, sticky on scroll up)
+- [x] `footer-group.json`: footer (menu, text, email signup, social and app blocks), localization, Follow on Shop, payment icons, policies, fitted wordmark
+- [x] Cart drawer + `main-cart` + `cart.json`: line and order discounts, selling plans, unit price, properties, notes, tax/duties note, dynamic checkout buttons, empty state; Section Rendering updates of drawer, page and count in one request; no-JS fallback
+- [x] Social icons generated from Simple Icons (CC0)
+- [x] Legacy navbar, footer, sidebar cart, `templates/cart.liquid` and their icons removed
+- [x] Kit: header, drawers and footer specimens
+- [ ] 👤 Dev store connection (CLI signed in with an account that can't access `vermeil-6sitmu3d`)
+- [ ] Store pass: menus with 3 levels, Markets with 2+ countries and languages, cart with discount + selling plan + unit price, Follow on Shop, editor live preview of every setting
 
 ## Phase 3 — Product
 - [ ] `main-product` with blocks; gallery with rich media (image, video, external video, 3D), variant images, sticky info column
@@ -46,7 +52,7 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 
 ## Phase 5 — Content and accounts
 - [ ] `main-blog`, `main-article` (comments + pagination + messages), `main-page`, contact form, 404, password, gift card
-- [ ] Customer templates: login, register, account, order, addresses (CRUD with country/province), activate, reset
+- [ ] ~~Customer templates~~ Not required: legacy customer accounts are deprecated and the legacy `customers/*` templates are no longer a Theme Store requirement (changelog, July 2026). Delete them, rely on new customer accounts + `<shopify-account>`
 
 ## Phase 6 — Hardening
 - [ ] Lighthouse ≥ 60 perf / ≥ 90 a11y on home, product and collection (mobile + desktop)

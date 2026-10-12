@@ -1,0 +1,88 @@
+<dialog
+  id="CartDrawer"
+  class="drawer cart-drawer color-{{ section.settings.color_scheme.id }}"
+  aria-labelledby="CartDrawer-Title"
+  x-data="drawer"
+  x-on:drawer-open.window="toggle($event.detail)"
+  x-on:click.self="close()"
+>
+  <div class="drawer__inner" data-cart-section="cart-drawer" x-data="cart">
+    <div class="drawer__header">
+      <p class="drawer__title h4" id="CartDrawer-Title">
+        {{- 'cart.title' | t -}}
+        {%- if cart.item_count > 0 %} <span class="cart-drawer__count">({{ cart.item_count }})</span>{% endif -%}
+      </p>
+      <button type="button" class="drawer__close" x-on:click="close()">{{ 'general.close' | t }}</button>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__body" x-bind:aria-busy="loading">
+        <form action="{{ routes.cart_url }}" method="post" id="CartForm-drawer" novalidate>
+          {%- render 'cart-items', context: 'drawer' -%}
+        </form>
+      </div>
+      <div class="drawer__footer">
+        {%- render 'cart-summary', context: 'drawer', form_id: 'CartForm-drawer' -%}
+        <a href="{{ routes.cart_url }}" class="button button--tertiary cart-drawer__view">{{ 'cart.view_cart' | t }}</a>
+      </div>
+    {%- else -%}
+      <div class="drawer__body cart-drawer__empty">
+        <p class="h3">{{ 'cart.empty.title' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'cart.empty.continue' | t }}</a>
+        {%- if shop.customer_accounts_enabled and customer == null -%}
+          <p class="text-small text-muted">
+            {{ 'cart.empty.login_html' | t: link: routes.account_login_url }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <p class="visually-hidden" role="status" id="CartStatus"></p>
+  </div>
+</dialog>
+
+{% stylesheet %}
+  .cart-drawer__count {
+    font-family: var(--font-body-family);
+    font-size: 0.6em;
+    vertical-align: middle;
+    color: var(--color-fg-muted);
+  }
+
+  .cart-drawer .drawer__body[aria-busy='true'] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .cart-drawer__view {
+    display: flex;
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .cart-drawer__empty {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .cart-drawer__empty a:not(.button) {
+    color: inherit;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.cart_drawer.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}

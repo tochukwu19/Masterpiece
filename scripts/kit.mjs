@@ -79,6 +79,8 @@ const componentCss = ['snippets', 'sections', 'blocks']
 
 const iconSource = read('snippets/icon.liquid');
 const icons = [...iconSource.matchAll(/when '([^']+)' -%}\s*([\s\S]*?)\s*{%-/g)].map(([, name, svg]) => ({ name, svg }));
+const socialSource = read('snippets/icon-social.liquid');
+const socialIcons = [...socialSource.matchAll(/when '([^']+)' -%}\s*([\s\S]*?)\s*{%-/g)].map(([, name, svg]) => ({ name, svg }));
 const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons.find((i) => i.name === name)?.svg ?? ''}</svg>`;
 
 const luminance = (hex) => {
@@ -132,7 +134,24 @@ const nav = [
   ['cards', 'Cards'],
   ['heading', 'Section heading'],
   ['pagination', 'Pagination'],
+  ['header', 'Header'],
+  ['drawers', 'Drawers'],
+  ['footer', 'Footer'],
 ];
+
+const cartItem = (title, options, price, compare, shade) => `
+<li class="cart-item">
+  <span class="cart-item__media media" style="--ratio: 4 / 5;">${placeholder(shade)}</span>
+  <div class="cart-item__details">
+    <a href="#" class="cart-item__title">${title}</a>
+    <dl class="cart-item__options text-small text-muted">${options.map(([k, v]) => `<div><dt>${k}:</dt> <dd>${v}</dd></div>`).join('')}</dl>
+    <div class="cart-item__price price"><span class="price__regular">${price}</span>${compare ? `<s class="price__compare">${compare}</s>` : ''}</div>
+    <div class="cart-item__actions">
+      <div class="quantity"><button type="button" class="quantity__button">${icon('minus')}<span class="visually-hidden">Decrease</span></button><input class="quantity__input" type="number" value="1" aria-label="Quantity"><button type="button" class="quantity__button">${icon('plus')}<span class="visually-hidden">Increase</span></button></div>
+      <a href="#" class="icon-button cart-item__remove">${icon('trash')}<span class="visually-hidden">Remove</span></a>
+    </div>
+  </div>
+</li>`;
 
 const html = `<!doctype html>
 <html lang="en">
@@ -173,6 +192,10 @@ ${componentCss}
 .ds-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: 1rem; }
 .ds-icon { display: grid; justify-items: center; gap: 0.75rem; padding: 1.25rem 0.5rem; border: 1px solid var(--color-border); font-size: 0.75rem; }
 .ds-icon .icon { --icon-size: 1.5rem; }
+.ds-preview { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; }
+.ds-preview .drawer { position: relative; inset: auto; display: block; width: 100%; max-width: 30rem; height: 40rem; margin: 0; border: 1px solid var(--color-border); animation: none; }
+.ds-frame { border: 1px solid var(--color-border); }
+.ds-social { display: flex; gap: 0.5rem; }
 .ds-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--grid-gap); }
 </style>
 </head>
@@ -315,7 +338,72 @@ ${section('pagination', 'Pagination', 'scheme-1', `<nav class="pagination" aria-
   <li><a class="pagination__item" href="#">9</a></li>
   <li><a class="pagination__item" href="#">${icon('chevron-right')}<span class="visually-hidden">Next page</span></a></li>
 </ul></nav>`)}
+
+${section('header', 'Header', 'scheme-1', `<div class="ds-frame">
+  <div class="announcement-bar color-scheme-3"><div class="announcement-bar__inner page-width"><button type="button" class="icon-button announcement-bar__control">${icon('chevron-left')}<span class="visually-hidden">Previous</span></button><div class="announcement-bar__slides"><p class="announcement-bar__message">Complimentary engraving on every ring</p></div><button type="button" class="icon-button announcement-bar__control">${icon('chevron-right')}<span class="visually-hidden">Next</span></button></div></div>
+  <header class="header header--separator color-scheme-1"><div class="header__inner page-width">
+    <div class="header__start">
+      <button type="button" class="icon-button header__mobile-only">${icon('menu')}<span class="visually-hidden">Menu</span></button>
+      <button type="button" class="icon-button header__mobile-only">${icon('search')}<span class="visually-hidden">Search</span></button>
+      <nav class="header__nav"><ul class="header__menu list-unstyled"><li class="header__menu-item"><a class="header__menu-link" href="#" aria-current="page">New in</a></li><li class="header__menu-item"><button class="header__menu-link" type="button">Rings${icon('chevron-down')}</button></li><li class="header__menu-item"><button class="header__menu-link" type="button">Earrings${icon('chevron-down')}</button></li><li class="header__menu-item"><a class="header__menu-link" href="#">Journal</a></li></ul></nav>
+    </div>
+    <div class="header__logo"><a href="#" class="header__logo-link"><span class="header__wordmark">${themeName}</span></a></div>
+    <div class="header__end">
+      <button type="button" class="icon-button header__desktop-only">${icon('search')}<span class="visually-hidden">Search</span></button>
+      <span class="header__account-icon">${icon('account')}<span class="visually-hidden">Account</span></span>
+      <a href="#" class="icon-button header__cart">${icon('bag')}<span class="header__cart-count"><span class="cart-count">2</span></span><span class="visually-hidden">Cart, 2 items</span></a>
+    </div>
+  </div></header>
+</div>`)}
+
+${section('drawers', 'Drawers', 'scheme-2', `<div class="ds-preview">
+  <div class="drawer cart-drawer color-scheme-1"><div class="drawer__inner">
+    <div class="drawer__header"><p class="drawer__title h4">Your cart <span class="cart-drawer__count">(2)</span></p><button type="button" class="drawer__close">Close</button></div>
+    <div class="drawer__body"><ul class="cart-items list-unstyled">
+      ${cartItem('Aurelia solitaire ring', [['Metal', '18k yellow gold'], ['Size', '6']], '$1,280.00', '', 10)}
+      ${cartItem('Marguerite pearl drop earrings', [['Metal', 'Vermeil']], '$340.00', '$420.00', 16)}
+    </ul></div>
+    <div class="drawer__footer"><div class="cart-summary">
+      <div class="cart-summary__total"><span class="h5">Estimated total</span><span class="cart-summary__amount">$1,620.00 USD</span></div>
+      <p class="cart-summary__taxes text-small text-muted">Taxes included. Discounts and shipping calculated at checkout.</p>
+      <button type="button" class="button button--full">Check out</button>
+    </div><a href="#" class="button button--tertiary cart-drawer__view">View cart</a></div>
+  </div></div>
+  <div class="drawer drawer--left menu-drawer color-scheme-1"><div class="drawer__inner">
+    <div class="drawer__header"><p class="drawer__title h4">Menu</p><button type="button" class="drawer__close">Close</button></div>
+    <nav class="drawer__body"><ul class="menu-drawer__list list-unstyled">
+      <li><a href="#" class="menu-drawer__link" aria-current="page">New in</a></li>
+      <li><details class="disclosure menu-drawer__details" open><summary class="menu-drawer__link">Rings${icon('chevron-down')}</summary><ul class="menu-drawer__sublist list-unstyled"><li><a href="#" class="menu-drawer__sublink">Solitaires</a></li><li><a href="#" class="menu-drawer__sublink">Bands</a></li><li><a href="#" class="menu-drawer__sublink">Stacking</a></li></ul></details></li>
+      <li><details class="disclosure menu-drawer__details"><summary class="menu-drawer__link">Earrings${icon('chevron-down')}</summary></details></li>
+      <li><a href="#" class="menu-drawer__link">Journal</a></li>
+    </ul></nav>
+    <div class="drawer__footer menu-drawer__footer">
+      <div class="field"><label class="field__label" for="ds-country">Country/region</label><select id="ds-country" class="select"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option></select></div>
+      <ul class="social-icons list-unstyled">${socialIcons.slice(0, 4).map(({ name, svg }) => `<li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true">${svg}</svg><span class="visually-hidden">${name}</span></a></li>`).join('')}</ul>
+    </div>
+  </div></div>
+</div>`)}
+
+${section('footer', 'Footer', 'scheme-1', `<div class="footer"><div class="footer__blocks">
+    <div class="footer__block"><h2 class="footer__heading h6">Shop</h2><ul class="footer__menu list-unstyled"><li><a href="#" class="footer__link">Rings</a></li><li><a href="#" class="footer__link">Earrings</a></li><li><a href="#" class="footer__link">Necklaces</a></li></ul></div>
+    <div class="footer__block"><h2 class="footer__heading h6">Care</h2><ul class="footer__menu list-unstyled"><li><a href="#" class="footer__link">Shipping</a></li><li><a href="#" class="footer__link">Returns</a></li><li><a href="#" class="footer__link">Ring sizing</a></li></ul></div>
+    <div class="footer__block footer__block--newsletter"><h2 class="footer__heading h6">Subscribe to our emails</h2><div class="rte text-muted"><p>Be the first to know about new collections.</p></div><div class="field" style="margin-top: 1rem"><label class="visually-hidden" for="ds-footer-email">Email</label><div class="field__inline"><input id="ds-footer-email" class="input input--underline" placeholder="Email address"><button type="button" class="icon-button field__inline-button">${icon('arrow-right')}<span class="visually-hidden">Subscribe</span></button></div></div></div>
+  </div>
+  <div class="footer__bottom">
+    <div class="footer__meta"><ul class="social-icons list-unstyled">${socialIcons.map(({ name, svg }) => `<li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true">${svg}</svg><span class="visually-hidden">${name}</span></a></li>`).join('')}</ul></div>
+    <div class="footer__legal text-small text-muted"><p>&copy; 2026, ${themeName}</p><ul class="footer__policies list-unstyled"><li><a href="#" class="footer__link">Privacy policy</a></li><li><a href="#" class="footer__link">Terms of service</a></li></ul></div>
+  </div>
+  <div class="footer__wordmark" aria-hidden="true"><span class="footer__wordmark-text" data-fit>${themeName}</span></div>
+</div>`)}
 </main>
+<script>
+  const fit = () => document.querySelectorAll('[data-fit]').forEach((text) => {
+    text.style.fontSize = '100px';
+    text.style.fontSize = Math.floor((text.parentElement.clientWidth / text.getBoundingClientRect().width) * 10000) / 100 + 'px';
+  });
+  document.fonts.ready.then(fit);
+  addEventListener('resize', fit);
+</script>
 </body>
 </html>
 `;

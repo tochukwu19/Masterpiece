@@ -1,0 +1,48 @@
+{% doc %}
+  Email signup form (customer form) with underline input, success and error states.
+
+  @param {string} id - Unique form ID
+  @param {string} [tags] - Customer tags. Defaults to newsletter
+  @example
+  {% render 'newsletter-form', id: 'FooterNewsletter' %}
+{% enddoc %}
+
+{%- form 'customer', id: id, class: 'newsletter-form' -%}
+  <input type="hidden" name="contact[tags]" value="{{ tags | default: 'newsletter' }}">
+  {%- if form.posted_successfully? -%}
+    <p class="form-message" role="status">
+      {%- render 'icon', name: 'check' -%}
+      {{ 'newsletter.success' | t }}
+    </p>
+  {%- else -%}
+    <div class="field">
+      <label class="visually-hidden" for="{{ id }}-email">{{ 'newsletter.label' | t }}</label>
+      <div class="field__inline">
+        <input
+          id="{{ id }}-email"
+          class="input input--underline"
+          type="email"
+          name="contact[email]"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          placeholder="{{ 'newsletter.placeholder' | t }}"
+          required
+          {% if form.errors %}
+            aria-invalid="true" aria-describedby="{{ id }}-error"
+          {% endif %}
+        >
+        <button type="submit" class="icon-button field__inline-button">
+          {%- render 'icon', name: 'arrow-right' -%}
+          <span class="visually-hidden">{{ 'newsletter.button_label' | t }}</span>
+        </button>
+      </div>
+      {%- if form.errors -%}
+        <p class="form-message form-message--error" id="{{ id }}-error">
+          {%- render 'icon', name: 'error' -%}
+          {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+        </p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endform -%}

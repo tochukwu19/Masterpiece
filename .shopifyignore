@@ -4,3 +4,5 @@ package-lock.json
 docs/
 *.md
 .theme-check.yml
+shopify.theme.toml
+scripts/

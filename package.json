@@ -5,15 +5,16 @@
   "description": "Vermeil \u2014 Shopify Online Store 2.0 theme for jewelry and fine accessories",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "shopify theme dev",
+    "dev": "shopify theme dev -e development",
     "check": "shopify theme check --fail-level error",
     "check:all": "shopify theme check --fail-level warning",
-    "vendor": "cp node_modules/alpinejs/dist/cdn.min.js assets/alpine.min.js",
+    "vendor": "cp node_modules/alpinejs/dist/cdn.min.js assets/alpine.min.js && node scripts/social-icons.mjs",
     "kit": "node scripts/kit.mjs"
   },
   "devDependencies": {
     "@shopify/cli": "4.9.3",
-    "alpinejs": "3.17.4"
+    "alpinejs": "3.17.4",
+    "simple-icons": "16.35.0"
   },
   "engines": {
     "node": ">=20"

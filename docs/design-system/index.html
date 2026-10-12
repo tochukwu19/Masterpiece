@@ -289,6 +289,776 @@
     text-align: right;
   }
 
+.cart-items {
+    display: grid;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cart-item:first-child {
+    padding-top: 0;
+  }
+
+  @media (min-width: 750px) {
+    .cart-items--page .cart-item {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+  }
+
+  .cart-item__details {
+    display: grid;
+    gap: 0.375rem;
+    align-content: start;
+  }
+
+  .cart-item__title {
+    font-weight: var(--font-body-weight-medium);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .cart-item__title:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .cart-item__options {
+    display: grid;
+    gap: 0.125rem;
+    margin: 0;
+  }
+
+  .cart-item__options div {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .cart-item__options dd {
+    margin: 0;
+  }
+
+  .cart-item__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .cart-item__actions .quantity {
+    min-height: 2.75rem;
+  }
+
+  .cart-item__remove {
+    color: var(--color-fg-muted);
+  }
+
+  .cart-item__remove:hover {
+    color: var(--color-fg);
+  }
+
+.cart-summary {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .cart-summary__note-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 2.75rem;
+    font-weight: var(--font-body-weight-medium);
+  }
+
+  .cart-summary__note .field {
+    margin-top: 0.5rem;
+  }
+
+  .cart-summary__note .textarea {
+    min-height: 5.5rem;
+  }
+
+  .cart-summary__discounts {
+    display: grid;
+    gap: 0.25rem;
+    font-size: calc(0.875rem * var(--font-body-scale));
+  }
+
+  .cart-summary__discounts li,
+  .cart-summary__total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cart-summary__amount {
+    font-size: calc(1.125rem * var(--font-body-scale));
+    font-weight: var(--font-body-weight-medium);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cart-summary__taxes a {
+    color: inherit;
+  }
+
+.localization__form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .localization--compact .localization__form {
+    gap: 0.5rem;
+  }
+
+  .localization--compact .select {
+    max-width: 14rem;
+    text-overflow: ellipsis;
+  }
+
+.search-form__field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--color-border-input);
+  }
+
+  .search-form__field:focus-within {
+    border-bottom-color: var(--color-fg);
+  }
+
+  .search-form__icon {
+    --icon-size: 1.375rem;
+    color: var(--color-fg-muted);
+  }
+
+  .search-form__input {
+    flex: 1;
+    min-width: 0;
+    min-height: 3.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: var(--font-heading-family);
+    font-size: calc(clamp(1.375rem, 1.1rem + 1.2vw, 2rem) * var(--font-heading-scale));
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .search-form__input:focus-visible {
+    outline: none;
+  }
+
+  .search-form__input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-form__input::placeholder {
+    color: var(--color-fg-muted);
+    opacity: 1;
+  }
+
+  .search-form__results:not(:empty) {
+    margin-top: 2rem;
+  }
+
+  .search-form__results[aria-busy='true'] {
+    opacity: 0.6;
+  }
+
+.social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-inline: -0.75rem;
+  }
+
+  .social-icons__link {
+    color: inherit;
+  }
+
+  .social-icons__link .icon {
+    --icon-size: 1.125rem;
+  }
+
+  .social-icons__link:hover {
+    color: var(--color-accent);
+  }
+
+.announcement-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+  }
+
+  .announcement-bar__slides {
+    flex: 1;
+    text-align: center;
+  }
+
+  .announcement-bar__message {
+    padding-block: 0.5rem;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+    letter-spacing: 0.04em;
+  }
+
+  .announcement-bar__link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .announcement-bar__control {
+    min-height: 2.5rem;
+  }
+
+  .announcement-bar__control .icon {
+    --icon-size: 1rem;
+  }
+
+.cart-drawer__count {
+    font-family: var(--font-body-family);
+    font-size: 0.6em;
+    vertical-align: middle;
+    color: var(--color-fg-muted);
+  }
+
+  .cart-drawer .drawer__body[aria-busy='true'] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .cart-drawer__view {
+    display: flex;
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .cart-drawer__empty {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .cart-drawer__empty a:not(.button) {
+    color: inherit;
+  }
+
+.footer__blocks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 2.5rem 2rem;
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  @media (min-width: 990px) {
+    .footer__block--newsletter {
+      grid-column: span 2;
+      max-width: 28rem;
+    }
+  }
+
+  .footer__heading {
+    margin-bottom: 1rem;
+  }
+
+  .footer__block .rte + .newsletter-form {
+    margin-top: 1rem;
+  }
+
+  .footer__menu {
+    display: grid;
+    gap: 0.125rem;
+  }
+
+  .footer__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+  }
+
+  .footer__link:hover,
+  .footer__link[aria-current='page'] {
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .footer__bottom {
+    display: grid;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 990px) {
+    .footer__bottom {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+
+    .footer__legal {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+
+  .footer__payment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer__payment-icon {
+    width: 2.375rem;
+    height: 1.5rem;
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+  }
+
+  .footer__legal a {
+    color: inherit;
+  }
+
+  .footer__policies {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.25rem;
+  }
+
+  .footer__policies .footer__link {
+    min-height: 1.5rem;
+  }
+
+  .footer__wordmark {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    overflow: hidden;
+    line-height: 0.85;
+    white-space: nowrap;
+  }
+
+  .footer__wordmark-text {
+    display: inline-block;
+    font-family: var(--font-heading-family);
+    font-weight: var(--font-heading-weight);
+    font-size: 12vw;
+    letter-spacing: -0.02em;
+  }
+
+.section-header {
+    position: relative;
+    z-index: 30;
+  }
+
+  .section-header:has(.header[data-sticky]) {
+    position: sticky;
+    top: 0;
+    transition: transform var(--duration) var(--ease-out);
+  }
+
+  .section-header:has(.header[data-hidden]) {
+    transform: translateY(-100%);
+  }
+
+  .header {
+    position: relative;
+    border-bottom: 1px solid transparent;
+  }
+
+  .header--separator {
+    border-bottom-color: var(--color-border);
+  }
+
+  .header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    min-height: 4rem;
+  }
+
+  .header__start,
+  .header__end {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .header__start {
+    margin-left: -0.75rem;
+  }
+
+  .header__end {
+    justify-content: flex-end;
+    gap: 0.25rem;
+    margin-right: -0.75rem;
+  }
+
+  .header__logo {
+    margin: 0;
+    font-size: inherit;
+    line-height: 1;
+  }
+
+  .header__logo-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .header__logo-image img {
+    width: var(--logo-width);
+    max-width: 40vw;
+    height: auto;
+  }
+
+  .header__wordmark {
+    font-family: var(--font-heading-family);
+    font-weight: var(--font-heading-weight);
+    font-size: calc(clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem) * var(--font-heading-scale));
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .header__nav,
+  .header__desktop-only {
+    display: none;
+  }
+
+  .header__menu {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+  }
+
+  .header__menu-item {
+    position: relative;
+  }
+
+  .header__menu-item--mega {
+    position: static;
+  }
+
+  .header__menu-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-weight: var(--font-body-weight-medium);
+    text-decoration: none;
+  }
+
+  .header__menu-link .icon {
+    --icon-size: 1rem;
+    transition: transform var(--duration-fast) ease;
+  }
+
+  .header__menu-link[aria-expanded='true'] .icon {
+    transform: rotate(180deg);
+  }
+
+  .header__menu-link:hover,
+  .header__menu-link[aria-current='page'],
+  .header__menu-link[data-active] {
+    color: var(--color-accent);
+  }
+
+  .header__menu-link[aria-current='page'] {
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
+  }
+
+  .header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: -1.25rem;
+    z-index: 10;
+    min-width: 15rem;
+    padding-block: 0.75rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .header__dropdown--mega {
+    left: 0;
+    right: 0;
+    border-width: 1px 0;
+    padding-block: 2.5rem;
+  }
+
+  .header__mega {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: 2rem;
+  }
+
+  .header__mega-heading {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: inherit;
+    font-family: var(--font-heading-family);
+    font-size: calc(1.25rem * var(--font-heading-scale));
+    text-decoration: none;
+  }
+
+  .header__mega-heading:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .header__mega-list .header__submenu-link {
+    padding-inline: 0;
+  }
+
+  .header__submenu-link {
+    display: flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.25rem 1.25rem;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+  }
+
+  .header__submenu-link:hover,
+  .header__submenu-link[aria-current='page'] {
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .header__submenu--nested .header__submenu-link {
+    padding-left: 2rem;
+    font-size: calc(0.875rem * var(--font-body-scale));
+  }
+
+  .header__account {
+    display: inline-flex;
+    --shopify-account-color-accent: var(--color-button);
+    --shopify-account-color-background: var(--color-bg);
+    --shopify-account-color-text: var(--color-fg);
+    --shopify-account-font-body: var(--font-body-family);
+    --shopify-account-font-heading: var(--font-heading-family);
+    --shopify-account-radius-base: var(--buttons-radius);
+    --shopify-account-signed-in-avatar-size: 1.75rem;
+    --shopify-account-signed-in-avatar-color-background: var(--color-fg);
+    --shopify-account-signed-in-avatar-color-text: var(--color-bg);
+  }
+
+  .header__account::part(signed-out-avatar) {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    color: var(--color-fg);
+  }
+
+  .header__account-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+
+  .header__cart {
+    position: relative;
+  }
+
+  .header__cart-count .cart-count {
+    position: absolute;
+    top: 0.375rem;
+    right: 0.25rem;
+    display: grid;
+    place-items: center;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding-inline: 0.25rem;
+    border-radius: 999px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    font-size: 0.625rem;
+    font-weight: var(--font-body-weight-bold);
+    line-height: 1;
+  }
+
+  @media (min-width: 990px) {
+    .header__mobile-only {
+      display: none;
+    }
+
+    .header__nav,
+    .header__desktop-only {
+      display: flex;
+    }
+
+    .header__start {
+      margin-left: 0;
+    }
+
+    .header--logo-left .header__inner {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .header--logo-left .header__logo {
+      order: -1;
+    }
+
+    .header--logo-left .header__start {
+      justify-content: center;
+    }
+  }
+
+  .menu-drawer__list {
+    display: grid;
+  }
+
+  .menu-drawer__list > li {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .menu-drawer__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 3.5rem;
+    color: inherit;
+    font-family: var(--font-heading-family);
+    font-size: calc(1.5rem * var(--font-heading-scale));
+    text-decoration: none;
+  }
+
+  .menu-drawer__sublist {
+    display: grid;
+    padding-bottom: 1rem;
+  }
+
+  .menu-drawer__sublist .menu-drawer__sublist {
+    padding: 0 0 0.5rem 1rem;
+  }
+
+  .menu-drawer__sublink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 2.75rem;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+  }
+
+  .menu-drawer__sublink:hover,
+  .menu-drawer__link[aria-current='page'],
+  .menu-drawer__sublink[aria-current='page'] {
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .menu-drawer__footer {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .search-modal .drawer__header {
+    border-bottom: 0;
+  }
+
+  .search-modal .drawer__body {
+    padding-inline: 0;
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+.main-cart__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .main-cart__layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 990px) {
+    .main-cart__layout {
+      grid-template-columns: minmax(0, 1fr) 24rem;
+      align-items: start;
+      gap: 4rem;
+    }
+
+    .main-cart__summary {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .main-cart__items .cart-item {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+
+  @media (min-width: 750px) {
+    .main-cart__items .cart-item {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+  }
+
+  .main-cart__items[aria-busy='true'] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .main-cart__summary {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    background-color: var(--color-surface);
+  }
+
+  .main-cart__dynamic-checkout {
+    margin-top: 1rem;
+  }
+
+  .main-cart__empty {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .main-cart__empty a:not(.button) {
+    color: inherit;
+  }
+
 .password {
     display: flex;
     min-height: 100svh;
@@ -346,6 +1116,89 @@
     color: inherit;
   }
 
+.predictive-search {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .predictive-search__grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 750px) {
+    .predictive-search__grid {
+      grid-template-columns: minmax(12rem, 1fr) minmax(0, 3fr);
+    }
+
+    .predictive-search__products:only-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .predictive-search__links {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+  }
+
+  .predictive-search__group .h6 {
+    margin-bottom: 0.75rem;
+    color: var(--color-fg-muted);
+  }
+
+  .predictive-search__link {
+    display: flex;
+    align-items: center;
+    min-height: 2.25rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .predictive-search__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .predictive-search__link mark {
+    background: none;
+    color: inherit;
+    font-weight: var(--font-body-weight-bold);
+  }
+
+  .predictive-search__product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem 1.5rem;
+  }
+
+  .predictive-search__product {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .predictive-search__product:hover .predictive-search__product-title {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .predictive-search__product-info {
+    display: grid;
+    gap: 0.125rem;
+  }
+
+  .predictive-search__product-title {
+    font-weight: var(--font-body-weight-medium);
+  }
+
+  .predictive-search__all {
+    justify-self: start;
+  }
+
 .ds-header { padding-block: 3rem 2rem; border-bottom: 1px solid var(--color-border); }
 .ds-header p { max-width: 40rem; margin-top: 0.75rem; }
 .ds-nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 1.5rem; }
@@ -369,6 +1222,10 @@
 .ds-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: 1rem; }
 .ds-icon { display: grid; justify-items: center; gap: 0.75rem; padding: 1.25rem 0.5rem; border: 1px solid var(--color-border); font-size: 0.75rem; }
 .ds-icon .icon { --icon-size: 1.5rem; }
+.ds-preview { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; }
+.ds-preview .drawer { position: relative; inset: auto; display: block; width: 100%; max-width: 30rem; height: 40rem; margin: 0; border: 1px solid var(--color-border); animation: none; }
+.ds-frame { border: 1px solid var(--color-border); }
+.ds-social { display: flex; gap: 0.5rem; }
 .ds-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--grid-gap); }
 </style>
 </head>
@@ -377,7 +1234,7 @@
   <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
   <h1 class="h0">Vermeil</h1>
   <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
-  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a></nav>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a></nav>
 </header>
 <main>
 
@@ -633,6 +1490,113 @@
 </ul></nav>
   </div>
 </section>
+
+
+<section id="header" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Header</h2>
+    <div class="ds-frame">
+  <div class="announcement-bar color-scheme-3"><div class="announcement-bar__inner page-width"><button type="button" class="icon-button announcement-bar__control"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><span class="visually-hidden">Previous</span></button><div class="announcement-bar__slides"><p class="announcement-bar__message">Complimentary engraving on every ring</p></div><button type="button" class="icon-button announcement-bar__control"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><span class="visually-hidden">Next</span></button></div></div>
+  <header class="header header--separator color-scheme-1"><div class="header__inner page-width">
+    <div class="header__start">
+      <button type="button" class="icon-button header__mobile-only"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><span class="visually-hidden">Menu</span></button>
+      <button type="button" class="icon-button header__mobile-only"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span class="visually-hidden">Search</span></button>
+      <nav class="header__nav"><ul class="header__menu list-unstyled"><li class="header__menu-item"><a class="header__menu-link" href="#" aria-current="page">New in</a></li><li class="header__menu-item"><button class="header__menu-link" type="button">Rings<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></li><li class="header__menu-item"><button class="header__menu-link" type="button">Earrings<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></li><li class="header__menu-item"><a class="header__menu-link" href="#">Journal</a></li></ul></nav>
+    </div>
+    <div class="header__logo"><a href="#" class="header__logo-link"><span class="header__wordmark">Vermeil</span></a></div>
+    <div class="header__end">
+      <button type="button" class="icon-button header__desktop-only"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span class="visually-hidden">Search</span></button>
+      <span class="header__account-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><span class="visually-hidden">Account</span></span>
+      <a href="#" class="icon-button header__cart"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><span class="header__cart-count"><span class="cart-count">2</span></span><span class="visually-hidden">Cart, 2 items</span></a>
+    </div>
+  </div></header>
+</div>
+  </div>
+</section>
+
+
+<section id="drawers" class="ds-section color-scheme-2">
+  <div class="page-width">
+    <h2 class="ds-label">Drawers</h2>
+    <div class="ds-preview">
+  <div class="drawer cart-drawer color-scheme-1"><div class="drawer__inner">
+    <div class="drawer__header"><p class="drawer__title h4">Your cart <span class="cart-drawer__count">(2)</span></p><button type="button" class="drawer__close">Close</button></div>
+    <div class="drawer__body"><ul class="cart-items list-unstyled">
+      
+<li class="cart-item">
+  <span class="cart-item__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 10%, var(--color-bg))"/></svg></span>
+  <div class="cart-item__details">
+    <a href="#" class="cart-item__title">Aurelia solitaire ring</a>
+    <dl class="cart-item__options text-small text-muted"><div><dt>Metal:</dt> <dd>18k yellow gold</dd></div><div><dt>Size:</dt> <dd>6</dd></div></dl>
+    <div class="cart-item__price price"><span class="price__regular">$1,280.00</span></div>
+    <div class="cart-item__actions">
+      <div class="quantity"><button type="button" class="quantity__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><span class="visually-hidden">Decrease</span></button><input class="quantity__input" type="number" value="1" aria-label="Quantity"><button type="button" class="quantity__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Increase</span></button></div>
+      <a href="#" class="icon-button cart-item__remove"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><span class="visually-hidden">Remove</span></a>
+    </div>
+  </div>
+</li>
+      
+<li class="cart-item">
+  <span class="cart-item__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 16%, var(--color-bg))"/></svg></span>
+  <div class="cart-item__details">
+    <a href="#" class="cart-item__title">Marguerite pearl drop earrings</a>
+    <dl class="cart-item__options text-small text-muted"><div><dt>Metal:</dt> <dd>Vermeil</dd></div></dl>
+    <div class="cart-item__price price"><span class="price__regular">$340.00</span><s class="price__compare">$420.00</s></div>
+    <div class="cart-item__actions">
+      <div class="quantity"><button type="button" class="quantity__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><span class="visually-hidden">Decrease</span></button><input class="quantity__input" type="number" value="1" aria-label="Quantity"><button type="button" class="quantity__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Increase</span></button></div>
+      <a href="#" class="icon-button cart-item__remove"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><span class="visually-hidden">Remove</span></a>
+    </div>
+  </div>
+</li>
+    </ul></div>
+    <div class="drawer__footer"><div class="cart-summary">
+      <div class="cart-summary__total"><span class="h5">Estimated total</span><span class="cart-summary__amount">$1,620.00 USD</span></div>
+      <p class="cart-summary__taxes text-small text-muted">Taxes included. Discounts and shipping calculated at checkout.</p>
+      <button type="button" class="button button--full">Check out</button>
+    </div><a href="#" class="button button--tertiary cart-drawer__view">View cart</a></div>
+  </div></div>
+  <div class="drawer drawer--left menu-drawer color-scheme-1"><div class="drawer__inner">
+    <div class="drawer__header"><p class="drawer__title h4">Menu</p><button type="button" class="drawer__close">Close</button></div>
+    <nav class="drawer__body"><ul class="menu-drawer__list list-unstyled">
+      <li><a href="#" class="menu-drawer__link" aria-current="page">New in</a></li>
+      <li><details class="disclosure menu-drawer__details" open><summary class="menu-drawer__link">Rings<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><ul class="menu-drawer__sublist list-unstyled"><li><a href="#" class="menu-drawer__sublink">Solitaires</a></li><li><a href="#" class="menu-drawer__sublink">Bands</a></li><li><a href="#" class="menu-drawer__sublink">Stacking</a></li></ul></details></li>
+      <li><details class="disclosure menu-drawer__details"><summary class="menu-drawer__link">Earrings<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary></details></li>
+      <li><a href="#" class="menu-drawer__link">Journal</a></li>
+    </ul></nav>
+    <div class="drawer__footer menu-drawer__footer">
+      <div class="field"><label class="field__label" for="ds-country">Country/region</label><select id="ds-country" class="select"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option></select></div>
+      <ul class="social-icons list-unstyled"><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><span class="visually-hidden">instagram</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><span class="visually-hidden">tiktok</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg><span class="visually-hidden">pinterest</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span class="visually-hidden">facebook</span></a></li></ul>
+    </div>
+  </div></div>
+</div>
+  </div>
+</section>
+
+
+<section id="footer" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Footer</h2>
+    <div class="footer"><div class="footer__blocks">
+    <div class="footer__block"><h2 class="footer__heading h6">Shop</h2><ul class="footer__menu list-unstyled"><li><a href="#" class="footer__link">Rings</a></li><li><a href="#" class="footer__link">Earrings</a></li><li><a href="#" class="footer__link">Necklaces</a></li></ul></div>
+    <div class="footer__block"><h2 class="footer__heading h6">Care</h2><ul class="footer__menu list-unstyled"><li><a href="#" class="footer__link">Shipping</a></li><li><a href="#" class="footer__link">Returns</a></li><li><a href="#" class="footer__link">Ring sizing</a></li></ul></div>
+    <div class="footer__block footer__block--newsletter"><h2 class="footer__heading h6">Subscribe to our emails</h2><div class="rte text-muted"><p>Be the first to know about new collections.</p></div><div class="field" style="margin-top: 1rem"><label class="visually-hidden" for="ds-footer-email">Email</label><div class="field__inline"><input id="ds-footer-email" class="input input--underline" placeholder="Email address"><button type="button" class="icon-button field__inline-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span class="visually-hidden">Subscribe</span></button></div></div></div>
+  </div>
+  <div class="footer__bottom">
+    <div class="footer__meta"><ul class="social-icons list-unstyled"><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><span class="visually-hidden">instagram</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><span class="visually-hidden">tiktok</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg><span class="visually-hidden">pinterest</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span class="visually-hidden">facebook</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg><span class="visually-hidden">x</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span class="visually-hidden">youtube</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z"/></svg><span class="visually-hidden">snapchat</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg><span class="visually-hidden">tumblr</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.9765 6.4168c-.105 2.338-1.739 5.5429-4.894 9.6088-3.2679 4.247-6.0258 6.3699-8.2898 6.3699-1.409 0-2.578-1.294-3.553-3.881l-1.9179-7.1138c-.719-2.584-1.488-3.878-2.312-3.878-.179 0-.806.378-1.8809 1.132l-1.129-1.457a315.06 315.06 0 003.501-3.1279c1.579-1.368 2.765-2.085 3.5539-2.159 1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.5069.5389 2.45 1.1309 3.674 1.7759 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.8679 3.434-5.7568 6.7619-5.6368 2.4729.06 3.6279 1.664 3.4929 4.7969z"/></svg><span class="visually-hidden">vimeo</span></a></li></ul></div>
+    <div class="footer__legal text-small text-muted"><p>&copy; 2026, Vermeil</p><ul class="footer__policies list-unstyled"><li><a href="#" class="footer__link">Privacy policy</a></li><li><a href="#" class="footer__link">Terms of service</a></li></ul></div>
+  </div>
+  <div class="footer__wordmark" aria-hidden="true"><span class="footer__wordmark-text" data-fit>Vermeil</span></div>
+</div>
+  </div>
+</section>
 </main>
+<script>
+  const fit = () => document.querySelectorAll('[data-fit]').forEach((text) => {
+    text.style.fontSize = '100px';
+    text.style.fontSize = Math.floor((text.parentElement.clientWidth / text.getBoundingClientRect().width) * 10000) / 100 + 'px';
+  });
+  document.fonts.ready.then(fit);
+  addEventListener('resize', fit);
+</script>
 </body>
 </html>

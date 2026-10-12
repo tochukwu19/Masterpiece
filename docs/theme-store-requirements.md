@@ -41,27 +41,27 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 | Feature | Status | Notes |
 |---|---|---|
 | Sections Everywhere (OS 2.0) | ⚠️ | Only index/product/collection/list-collections/search are JSON |
-| Discounts (line + order level) in cart | ❌ | Not rendered in drawer; partial on cart page |
-| Accelerated checkout buttons (product + cart) | ❌ | Missing |
+| Discounts (line + order level) in cart | ✅ | Line allocations + cart-level applications in drawer and cart page (Phase 2) |
+| Accelerated checkout buttons (product + cart) | ⚠️ | Cart page done (`content_for_additional_checkout_buttons`, on by default). Product page in Phase 3 |
 | Faceted filtering (availability, price, type, vendor, options) on collection + search | ⚠️ | Filter drawer exists; checkboxes not keyboard-operable, checkmark never shows |
 | Gift card template | ⚠️ | Barebones; no code shown, no logo/shop name, invalid HTML |
 | Image focal points | ❌ | Use `image.presentation.focal_point` / `image_tag` |
 | Social sharing image (`page_image`) | ❌ | No OG tags |
-| Country/currency selector | ❌ | Hardcoded "English($)" link |
-| Language selector | ❌ | Hardcoded |
-| Multi-level menus | ⚠️ | Mobile only; desktop shows top level only |
-| Newsletter form | ✅ | Hardcoded copy; needs settings + a11y label |
+| Country/currency selector | ✅ | `localization-form` in header (desktop), menu drawer and footer |
+| Language selector | ✅ | Same component; renders only when more than one option exists |
+| Multi-level menus | ✅ | Desktop dropdown or mega menu (3 levels); mobile drawer with nested accordions |
+| Newsletter form | ✅ | `newsletter-form` snippet (footer block, password page) |
 | Pickup availability | ❌ | |
 | Related product recommendations | ✅ | Works, but duplicate add-to-cart listeners (see audit) |
 | Complementary product recommendations | ❌ | |
 | Rich product media (3D, video, YouTube/Vimeo) | ❌ | Media rendered as background images only |
-| Search + **predictive search** | ⚠️ | Search page yes; predictive no; mobile menu search input is dead |
-| Selling plans in cart | ❌ | |
+| Search + **predictive search** | ⚠️ | Predictive search modal done (Phase 2). Search results page rewrite in Phase 4 |
+| Selling plans in cart | ✅ | Selling plan name per line item |
 | Shop Pay Installments banner on PDP | ❌ | `form \| payment_terms` |
-| Unit pricing (collection, product, cart) | ❌ | |
+| Unit pricing (collection, product, cart) | ⚠️ | Cards + cart done. Product page in Phase 3 |
 | Variant images | ❌ | |
-| Follow on Shop (`login_button`) | ❌ | |
-| `<shopify-account>` component in header (desktop + mobile) | ❌ | |
+| Follow on Shop (`login_button`) | ✅ | Footer, behind `shop.features.follow_on_shop?` |
+| `<shopify-account>` component in header (desktop + mobile) | ✅ | Themed via its CSS custom properties; menu setting defaults to `customer-account-main-menu` |
 
 ## 5. Templates, sections, blocks
 Required templates (✅ exists as JSON · ❌):
@@ -69,19 +69,19 @@ Required templates (✅ exists as JSON · ❌):
 - [ ] ❌ `404.json` (currently `.liquid`)
 - [ ] ❌ `article.json`
 - [ ] ❌ `blog.json`
-- [ ] ❌ `cart.json`
+- [x] ✅ `cart.json`
 - [x] ✅ `collection.json`
 - [x] ✅ `index.json`
 - [x] ✅ `list-collections.json`
 - [ ] ❌ `page.json`
 - [ ] ❌ `page.contact.json`
-- [ ] ❌ `password.json` (+ `layout/password.liquid`) — **missing entirely**
+- [x] ✅ `password.json` + `layout/password.liquid`
 - [x] ✅ `product.json`
 - [x] ✅ `search.json`
 - [x] ⚠️ `gift_card.liquid` (exists, invalid)
 - [x] ⚠️ `config/settings_schema.json` (only `theme_info`), `settings_data.json` (contains a Judge.me app block)
 - [ ] ❌ Custom Liquid **section** available on all templates
-- [ ] ❌ Header + footer in **section groups** (`sections/header-group.json`, `footer-group.json`)
+- [x] ✅ Header + footer in **section groups** (announcement bar + header; footer)
 - [ ] ❌ Main product section built from **blocks** (title, price, vendor, description, variant picker, buy buttons, …)
 - [ ] ❌ `@app` blocks in main product + featured product sections
 - [ ] ❌ Custom Liquid **blocks** wherever app blocks make sense
@@ -93,10 +93,10 @@ Required templates (✅ exists as JSON · ❌):
 
 ## 7. Pages
 **Layout**
-- [ ] ❌ `<html lang="{{ request.locale.iso_code }}">`
+- [x] ✅ `<html lang="{{ request.locale.iso_code }}">`
 - [ ] ⚠️ `routes.*` for all URLs — hardcoded `/search`, `/cart`, `/cart/change`, `/pages/wishlist`, `/`.
 - [x] ✅ `content_for_header` not modified.
-- [ ] ❌ Payment icons (if shown) via `enabled_payment_types` + `payment_type_svg_tag`.
+- [x] ✅ Payment icons via `enabled_payment_types` + `payment_type_svg_tag` (footer).
 
 **Product** — title (untruncated), `variant.price`, `unit_price`, compare-at, description, option names/values; all images viewable with mixed ratios; variant image on select; `cart.taxes_included`; separate option selectors; quantity; ATC disabled when sold out; JS callback updating price/compare/sold-out; first available variant loaded; recommendations; rich media; accelerated checkout (on by default); pickup availability; installments; gift-card recipient form (`form.email`, `form.name`, `form.message`, `gift_card.send_on`); swatches via `swatch.color` / `swatch.image`.
 - Status: ❌ most of these. Price never updates on variant change; swatches use option value as a CSS color.
@@ -107,7 +107,7 @@ Required templates (✅ exists as JSON · ❌):
 **Collection list** — title, `collection.featured_image` fallback, pagination. Status: ⚠️ uses `img_url` backgrounds; hardcoded description copy.
 
 **Cart** — line title, `unit_price`, image, `final_price`, quantity, `options_with_values`; `total_price`; taxes note; checkout button submits form; totals refresh on qty change; per-line qty; empty state; cart notes; selling plans; automatic discounts; accelerated checkout.
-- Status: ❌ unstyled Themekit table.
+- Status: ✅ Phase 2: `main-cart` + `cart-drawer` sharing `cart-items`/`cart-summary`, Section Rendering refresh of every cart surface, no-JS form fallback. Verify on the dev store.
 
 **Page** — title + content; contact alternate template. Status: ⚠️ unstyled.
 
@@ -121,7 +121,7 @@ Required templates (✅ exists as JSON · ❌):
 
 **Gift card** — Apple Wallet, code, QR ≥ 120×120, logo or shop name. Status: ⚠️ QR + wallet only.
 
-**Password** — logo/shop name, `shop.password_message`, password form. Status: ❌ missing.
+**Password** — logo/shop name, `shop.password_message`, password form. Status: ✅ Phase 1 (plus email signup).
 
 ## 8. Consistency and functionality
 - [ ] ❌ RTE styles (h1–h6, blockquote, ul, ol) consistent across product/collection/article/page.
@@ -160,15 +160,15 @@ Required templates (✅ exists as JSON · ❌):
 - [ ] ❌ h1–h6 visually distinct — no heading scale.
 
 ## 13. Social media
-- [ ] ❌ Social icon set selectable in settings.
-- [ ] ❌ Open Graph + Twitter card tags.
-- [ ] ❌ Social placeholder fields default to empty.
+- [x] ✅ Social icon set selectable in settings (9 platforms, CC0 brand paths).
+- [x] ✅ Open Graph + Twitter card tags (`meta-tags`).
+- [x] ✅ Social placeholder fields default to empty.
 
 ## 14. Settings
 - [ ] ❌ Sentence-case names; no "&"; American English; verbs on buttons; terminology list ("home page", "slideshow", "signup", "cart type", "show"/"enable"/"use"…). Current names to fix: "Material Template" (×2, meaningless), "Advice & Care Section Title", "Product Page Details".
 - [ ] ❌ Defaults demonstrate the setting — no Lorem ipsum, no demo content.
-- [ ] ❌ Favicon setting.
-- [ ] ❌ Logo upload (landscape + portrait).
+- [x] ✅ Favicon setting.
+- [x] ✅ Logo upload with width setting (header, password page).
 - [ ] ❌ Every setting has a `label` (and translated `t:` labels — add `locales/en.default.schema.json`).
 - [ ] ⚠️ `link_list` header default `main-menu` ✅ / footer must default `footer` (footer has no setting; reads `linklists['footer']` directly).
 - [ ] ❌ Resource defaults must exist in every store — remove `collections['featured']`, `['weekly-picks']`, `['summer-collection']`, `blogs.news`, hardcoded `file_img_url` images.

@@ -1,0 +1,68 @@
+{% doc %}
+  Links to the social accounts set in theme settings. Renders nothing when none are set.
+
+  @param {string} [class] - Extra classes for the list
+  @example
+  {% render 'social-icons' %}
+{% enddoc %}
+
+{%- liquid
+  assign platforms = 'instagram,tiktok,pinterest,facebook,twitter,youtube,snapchat,tumblr,vimeo' | split: ','
+  assign has_links = false
+  for platform in platforms
+    assign setting_id = 'social_' | append: platform | append: '_link'
+    if settings[setting_id] != blank
+      assign has_links = true
+      break
+    endif
+  endfor
+-%}
+
+{%- if has_links -%}
+  <ul class="social-icons list-unstyled {{ class }}" role="list">
+    {%- for platform in platforms -%}
+      {%- assign setting_id = 'social_' | append: platform | append: '_link' -%}
+      {%- assign url = settings[setting_id] -%}
+      {%- if url != blank -%}
+        {%- case platform -%}
+          {%- when 'instagram' -%}{%- assign label = 'Instagram' -%}{%- assign icon_name = 'instagram' -%}
+          {%- when 'tiktok' -%}{%- assign label = 'TikTok' -%}{%- assign icon_name = 'tiktok' -%}
+          {%- when 'pinterest' -%}{%- assign label = 'Pinterest' -%}{%- assign icon_name = 'pinterest' -%}
+          {%- when 'facebook' -%}{%- assign label = 'Facebook' -%}{%- assign icon_name = 'facebook' -%}
+          {%- when 'twitter' -%}{%- assign label = 'X' -%}{%- assign icon_name = 'x' -%}
+          {%- when 'youtube' -%}{%- assign label = 'YouTube' -%}{%- assign icon_name = 'youtube' -%}
+          {%- when 'snapchat' -%}{%- assign label = 'Snapchat' -%}{%- assign icon_name = 'snapchat' -%}
+          {%- when 'tumblr' -%}{%- assign label = 'Tumblr' -%}{%- assign icon_name = 'tumblr' -%}
+          {%- when 'vimeo' -%}{%- assign label = 'Vimeo' -%}{%- assign icon_name = 'vimeo' -%}
+        {%- endcase -%}
+        <li>
+          <a href="{{ url }}" class="icon-button social-icons__link">
+            {%- render 'icon-social', name: icon_name -%}
+            <span class="visually-hidden">{{ label }}</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
+
+{% stylesheet %}
+  .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-inline: -0.75rem;
+  }
+
+  .social-icons__link {
+    color: inherit;
+  }
+
+  .social-icons__link .icon {
+    --icon-size: 1.125rem;
+  }
+
+  .social-icons__link:hover {
+    color: var(--color-accent);
+  }
+{% endstylesheet %}

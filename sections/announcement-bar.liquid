@@ -1,0 +1,133 @@
+{%- assign count = section.blocks.size -%}
+
+{%- if count > 0 -%}
+  <div
+    class="announcement-bar color-{{ section.settings.color_scheme.id }}"
+    role="region"
+    aria-label="{{ 'announcements.label' | t }}"
+    {% if count > 1 %}
+      x-data="announcementBar({{ count }})"
+    {% endif %}
+  >
+    <div class="announcement-bar__inner page-width">
+      {%- if count > 1 -%}
+        <button type="button" class="icon-button announcement-bar__control" x-on:click="previous()" x-cloak>
+          {%- render 'icon', name: 'chevron-left' -%}
+          <span class="visually-hidden">{{ 'announcements.previous' | t }}</span>
+        </button>
+      {%- endif -%}
+
+      <div class="announcement-bar__slides" aria-live="polite">
+        {%- for block in section.blocks -%}
+          <p
+            class="announcement-bar__message"
+            {{ block.shopify_attributes }}
+            {% unless forloop.first %}
+              hidden
+            {% endunless %}
+            {% if count > 1 %}
+              x-bind:hidden="index !== {{ forloop.index0 }}"
+              x-on:shopify:block:select.window="$event.detail.blockId === '{{ block.id }}' && (index = {{ forloop.index0 }})"
+            {% endif %}
+          >
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="announcement-bar__link">{{ block.settings.text | escape }}</a>
+            {%- else -%}
+              {{ block.settings.text | escape }}
+            {%- endif -%}
+          </p>
+        {%- endfor -%}
+      </div>
+
+      {%- if count > 1 -%}
+        <button type="button" class="icon-button announcement-bar__control" x-on:click="next()" x-cloak>
+          {%- render 'icon', name: 'chevron-right' -%}
+          <span class="visually-hidden">{{ 'announcements.next' | t }}</span>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .announcement-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+  }
+
+  .announcement-bar__slides {
+    flex: 1;
+    text-align: center;
+  }
+
+  .announcement-bar__message {
+    padding-block: 0.5rem;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+    letter-spacing: 0.04em;
+  }
+
+  .announcement-bar__link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .announcement-bar__control {
+    min-height: 2.5rem;
+  }
+
+  .announcement-bar__control .icon {
+    --icon-size: 1rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.announcement_bar.name",
+  "class": "section-announcement-bar",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement_bar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "t:sections.announcement_bar.blocks.announcement.settings.text.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.announcement_bar.blocks.announcement.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement_bar.presets.name",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

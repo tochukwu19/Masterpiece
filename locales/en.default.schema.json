@@ -260,6 +260,11 @@
     "all": {
       "color_scheme": {
         "label": "Color scheme"
+      },
+      "padding": {
+        "header": "Section padding",
+        "padding_top": "Top padding",
+        "padding_bottom": "Bottom padding"
       }
     },
     "header_group": {
@@ -271,8 +276,81 @@
     "footer": {
       "name": "Footer",
       "settings": {
+        "header_wordmark": {
+          "content": "Wordmark"
+        },
+        "show_wordmark": {
+          "label": "Show wordmark"
+        },
+        "wordmark_text": {
+          "label": "Wordmark text",
+          "info": "Defaults to the store name."
+        },
+        "header_localization": {
+          "content": "Country/region and language"
+        },
+        "header_utilities": {
+          "content": "Utilities"
+        },
+        "enable_follow_on_shop": {
+          "label": "Show Follow on Shop",
+          "info": "Customers can follow your store on the Shop app. Shop Pay must be enabled."
+        },
+        "show_payment_icons": {
+          "label": "Show payment icons"
+        },
+        "show_policies": {
+          "label": "Show policy links",
+          "info": "To add store policies, go to your Policies settings."
+        }
+      },
+      "blocks": {
         "menu": {
-          "label": "Menu"
+          "name": "Menu",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "menu": {
+              "label": "Menu"
+            }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "text": {
+              "label": "Text"
+            }
+          }
+        },
+        "newsletter": {
+          "name": "Email signup",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "text": {
+              "label": "Text"
+            },
+            "paragraph": {
+              "content": "Signups add customers to your store's customer list with accepted marketing."
+            }
+          }
+        },
+        "social": {
+          "name": "Social media icons",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "paragraph": {
+              "content": "To show social media icons, add your accounts in theme settings under Social media."
+            }
+          }
         }
       }
     },
@@ -286,6 +364,104 @@
           "label": "Heading"
         }
       }
+    },
+    "announcement_bar": {
+      "name": "Announcement bar",
+      "presets": {
+        "name": "Announcement bar"
+      },
+      "blocks": {
+        "announcement": {
+          "name": "Announcement",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        }
+      }
+    },
+    "header": {
+      "name": "Header",
+      "settings": {
+        "logo_position": {
+          "label": "Desktop logo position",
+          "options__1": {
+            "label": "Center"
+          },
+          "options__2": {
+            "label": "Left"
+          }
+        },
+        "menu": {
+          "label": "Menu"
+        },
+        "menu_type_desktop": {
+          "label": "Desktop menu type",
+          "options__1": {
+            "label": "Dropdown"
+          },
+          "options__2": {
+            "label": "Mega menu"
+          }
+        },
+        "sticky_header_type": {
+          "label": "Sticky header",
+          "options__1": {
+            "label": "None"
+          },
+          "options__2": {
+            "label": "On scroll up"
+          },
+          "options__3": {
+            "label": "Always"
+          }
+        },
+        "show_separator": {
+          "label": "Show separator line"
+        },
+        "menu_color_scheme": {
+          "label": "Menu color scheme"
+        },
+        "header_localization": {
+          "content": "Country/region and language"
+        },
+        "enable_country_selector": {
+          "label": "Show country/region selector",
+          "info": "To add a country/region, go to your Markets settings."
+        },
+        "enable_language_selector": {
+          "label": "Show language selector",
+          "info": "To add a language, go to your Languages settings."
+        },
+        "header_account": {
+          "content": "Customer account"
+        },
+        "customer_account_menu": {
+          "label": "Customer account menu"
+        }
+      }
+    },
+    "cart_drawer": {
+      "name": "Cart drawer"
+    },
+    "cart_count": {
+      "name": "Cart count"
+    },
+    "main_cart": {
+      "name": "Cart",
+      "settings": {
+        "show_additional_checkout_buttons": {
+          "label": "Show dynamic checkout buttons",
+          "info": "Shows payment methods like Shop Pay, PayPal and Apple Pay, depending on what's enabled in your store."
+        }
+      }
+    },
+    "predictive_search": {
+      "name": "Search suggestions"
     }
   }
 }

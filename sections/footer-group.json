@@ -4,8 +4,45 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "menu-1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer"
+          }
+        },
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "heading": "About us",
+            "text": "<p>Share store details, promotions, or brand content with your customers.</p>"
+          }
+        },
+        "newsletter-1": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "menu-1",
+        "text-1",
+        "newsletter-1"
+      ],
       "settings": {
-        "menu": "footer"
+        "color_scheme": "scheme-1",
+        "show_wordmark": true,
+        "wordmark_text": "",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_follow_on_shop": true,
+        "show_payment_icons": true,
+        "show_policies": true,
+        "padding_top": 80,
+        "padding_bottom": 24
       }
     }
   },

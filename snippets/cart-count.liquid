@@ -1,0 +1,11 @@
+{% doc %}
+  Cart item count bubble with an accessible label.
+
+  @example
+  <span data-cart-section="cart-count">{% render 'cart-count' %}</span>
+{% enddoc %}
+
+{%- if cart.item_count > 0 -%}
+  <span class="cart-count" aria-hidden="true">{% if cart.item_count < 100 %}{{ cart.item_count }}{% else %}99+{% endif %}</span>
+{%- endif -%}
+<span class="visually-hidden">{{ 'cart.count' | t: count: cart.item_count }}</span>

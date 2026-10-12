@@ -19,7 +19,8 @@
       "page": "Page {{ number }}",
       "next": "Next page",
       "previous": "Previous page"
-    }
+    },
+    "close": "Close"
   },
   "accessibility": {
     "skip_to_content": "Skip to content"
@@ -62,6 +63,76 @@
     }
   },
   "search": {
-    "page_label": "Page"
+    "page_label": "Page",
+    "label": "Search",
+    "placeholder": "Search",
+    "submit": "Search",
+    "clear": "Clear search",
+    "suggestions": "Suggestions",
+    "collections": "Collections",
+    "pages": "Pages",
+    "products": "Products",
+    "results_count": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    },
+    "no_results": "No results found for “{{ terms }}”.",
+    "search_for": "Search for “{{ terms }}”"
+  },
+  "announcements": {
+    "label": "Announcements",
+    "previous": "Previous announcement",
+    "next": "Next announcement"
+  },
+  "header": {
+    "menu": "Menu",
+    "main_navigation": "Main",
+    "search": "Search",
+    "account": "Account",
+    "view_all": "View all"
+  },
+  "footer": {
+    "payment_methods": "Payment methods"
+  },
+  "localization": {
+    "country_label": "Country/region",
+    "language_label": "Language",
+    "update": "Update"
+  },
+  "cart": {
+    "title": "Your cart",
+    "count": {
+      "one": "Cart, {{ count }} item",
+      "other": "Cart, {{ count }} items"
+    },
+    "view_cart": "View cart",
+    "checkout": "Check out",
+    "update": "Update cart",
+    "summary": "Order summary",
+    "estimated_total": "Estimated total",
+    "discounts": "Discounts",
+    "item_removed": "Item removed from your cart.",
+    "decrease": "Decrease quantity for {{ title }}",
+    "increase": "Increase quantity for {{ title }}",
+    "quantity_for": "Quantity for {{ title }}",
+    "remove": "Remove {{ title }}",
+    "note": {
+      "toggle": "Add an order note",
+      "label": "Order note",
+      "placeholder": "Gift message or special instructions"
+    },
+    "empty": {
+      "title": "Your cart is empty",
+      "continue": "Continue shopping",
+      "login_html": "Have an account? <a href=\"{{ link }}\">Log in</a> to check out faster."
+    },
+    "taxes": {
+      "taxes_included": "Taxes included.",
+      "duties_included": "Duties included.",
+      "duties_and_taxes_included": "Duties and taxes included.",
+      "taxes_excluded": "Taxes calculated at checkout.",
+      "shipping_policy_html": "Discounts and <a href=\"{{ link }}\">shipping</a> calculated at checkout.",
+      "shipping_at_checkout": "Discounts and shipping calculated at checkout."
+    }
   }
 }

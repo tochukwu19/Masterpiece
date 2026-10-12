@@ -1,0 +1,230 @@
+{% doc %}
+  Cart line items with options, properties, selling plan, discounts, unit price,
+  quantity stepper and remove. Must sit inside an element with x-data="cart".
+
+  @param {string} context - drawer or page, used to keep element IDs unique
+  @example
+  {% render 'cart-items', context: 'drawer' %}
+{% enddoc %}
+
+<ul class="cart-items list-unstyled" role="list">
+  {%- for item in cart.items -%}
+    {%- liquid
+      assign line = forloop.index
+      assign title = item.product.title | escape
+      assign increment = item.variant.quantity_rule.increment | default: 1
+      assign decreased = item.quantity | minus: increment | at_least: 0
+      assign increased = item.quantity | plus: increment
+      assign at_max = false
+      if item.variant.quantity_rule.max and item.quantity >= item.variant.quantity_rule.max
+        assign at_max = true
+      endif
+    -%}
+    <li class="cart-item" id="CartItem-{{ context }}-{{ line }}">
+      <a href="{{ item.url }}" class="cart-item__media media" style="--ratio: 4 / 5;" tabindex="-1" aria-hidden="true">
+        {%- if item.image -%}
+          {%- render 'image', image: item.image, sizes: '(min-width: 750px) 8rem, 6rem', widths: '120, 180, 240, 360', alt: '' -%}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </a>
+
+      <div class="cart-item__details">
+        {%- if settings.cart_show_vendor and item.vendor != blank -%}
+          <p class="cart-item__vendor text-small text-muted">{{ item.vendor }}</p>
+        {%- endif -%}
+        <a href="{{ item.url }}" class="cart-item__title">{{ title }}</a>
+
+        {%- unless item.product.has_only_default_variant and item.properties == empty -%}
+          <dl class="cart-item__options text-small text-muted">
+            {%- unless item.product.has_only_default_variant -%}
+              {%- for option in item.options_with_values -%}
+                <div><dt>{{ option.name }}:</dt> <dd>{{ option.value }}</dd></div>
+              {%- endfor -%}
+            {%- endunless -%}
+            {%- for property in item.properties -%}
+              {%- assign property_first_char = property.first | slice: 0 -%}
+              {%- if property.last != blank and property_first_char != '_' -%}
+                <div>
+                  <dt>{{ property.first }}:</dt>
+                  <dd>
+                    {%- if property.last contains '/uploads/' -%}
+                      <a href="{{ property.last }}" class="link">{{ property.last | split: '/' | last }}</a>
+                    {%- else -%}
+                      {{ property.last }}
+                    {%- endif -%}
+                  </dd>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </dl>
+        {%- endunless -%}
+
+        {%- if item.selling_plan_allocation -%}
+          <p class="text-small text-muted">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+        {%- endif -%}
+
+        {%- if item.line_level_discount_allocations.size > 0 -%}
+          <ul class="cart-item__discounts list-unstyled text-small">
+            {%- for allocation in item.line_level_discount_allocations -%}
+              <li>{{ allocation.discount_application.title }} (&minus;{{ allocation.amount | money }})</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="cart-item__price price">
+          {%- if item.original_line_price != item.final_line_price -%}
+            <span class="visually-hidden">{{ 'products.price.sale_price' | t }}</span>
+            <span class="price__regular">{{ item.final_line_price | money }}</span>
+            <span class="visually-hidden">{{ 'products.price.regular_price' | t }}</span>
+            <s class="price__compare">{{ item.original_line_price | money }}</s>
+          {%- else -%}
+            <span class="price__regular">{{ item.final_line_price | money }}</span>
+          {%- endif -%}
+          {%- if item.unit_price_measurement -%}
+            <span class="price__unit">
+              <span class="visually-hidden">{{ 'products.price.unit_price' | t }}</span>
+              {{- item.unit_price | money -}}
+              <span aria-hidden="true">/</span>
+              <span class="visually-hidden">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+              {%- if item.unit_price_measurement.reference_value != 1 -%}
+                {{- item.unit_price_measurement.reference_value -}}
+              {%- endif -%}
+              {{- item.unit_price_measurement.reference_unit -}}
+            </span>
+          {%- endif -%}
+        </div>
+
+        <div class="cart-item__actions">
+          <div class="quantity">
+            <button
+              type="button"
+              class="quantity__button"
+              x-on:click="update({{ line }}, {{ decreased }})"
+              x-bind:disabled="loading"
+            >
+              {%- render 'icon', name: 'minus' -%}
+              <span class="visually-hidden">{{ 'cart.decrease' | t: title: title }}</span>
+            </button>
+            <input
+              class="quantity__input"
+              type="number"
+              name="updates[]"
+              id="Quantity-{{ context }}-{{ line }}"
+              value="{{ item.quantity }}"
+              min="0"
+              step="{{ increment }}"
+              {% if item.variant.quantity_rule.max %}
+                max="{{ item.variant.quantity_rule.max }}"
+              {% endif %}
+              aria-label="{{ 'cart.quantity_for' | t: title: title }}"
+              x-on:change.debounce.300ms="update({{ line }}, $event.target.value)"
+            >
+            <button
+              type="button"
+              class="quantity__button"
+              x-on:click="update({{ line }}, {{ increased }})"
+              {% if at_max %}
+                disabled
+              {% else %}
+                x-bind:disabled="loading"
+              {% endif %}
+            >
+              {%- render 'icon', name: 'plus' -%}
+              <span class="visually-hidden">{{ 'cart.increase' | t: title: title }}</span>
+            </button>
+          </div>
+          <a
+            href="{{ item.url_to_remove }}"
+            class="icon-button cart-item__remove"
+            x-on:click.prevent="update({{ line }}, 0)"
+          >
+            {%- render 'icon', name: 'trash' -%}
+            <span class="visually-hidden">{{ 'cart.remove' | t: title: title }}</span>
+          </a>
+        </div>
+
+        <p class="cart-item__error form-message form-message--error" role="alert" x-show="errors[{{ line }}]" x-cloak>
+          {%- render 'icon', name: 'error' -%}
+          <span x-text="errors[{{ line }}]"></span>
+        </p>
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>
+
+{% stylesheet %}
+  .cart-items {
+    display: grid;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 1.25rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cart-item:first-child {
+    padding-top: 0;
+  }
+
+  @media (min-width: 750px) {
+    .cart-items--page .cart-item {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+  }
+
+  .cart-item__details {
+    display: grid;
+    gap: 0.375rem;
+    align-content: start;
+  }
+
+  .cart-item__title {
+    font-weight: var(--font-body-weight-medium);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .cart-item__title:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .cart-item__options {
+    display: grid;
+    gap: 0.125rem;
+    margin: 0;
+  }
+
+  .cart-item__options div {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .cart-item__options dd {
+    margin: 0;
+  }
+
+  .cart-item__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .cart-item__actions .quantity {
+    min-height: 2.75rem;
+  }
+
+  .cart-item__remove {
+    color: var(--color-fg-muted);
+  }
+
+  .cart-item__remove:hover {
+    color: var(--color-fg);
+  }
+{% endstylesheet %}

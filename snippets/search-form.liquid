@@ -1,0 +1,108 @@
+{% doc %}
+  Search form with optional predictive results (theme setting "Enable search suggestions").
+
+  @param {string} id - Unique input ID
+  @param {boolean} [autofocus] - Focus the input when rendered
+  @example
+  {% render 'search-form', id: 'HeaderSearch' %}
+{% enddoc %}
+
+{%- assign predictive = settings.predictive_search_enabled -%}
+
+<div class="search-form"{% if predictive %} x-data="predictiveSearch"{% endif %}>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="search-form__form">
+    <label class="visually-hidden" for="{{ id }}">{{ 'search.label' | t }}</label>
+    <div class="search-form__field">
+      {%- render 'icon', name: 'search', class: 'search-form__icon' -%}
+      <input
+        id="{{ id }}"
+        class="search-form__input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'search.placeholder' | t }}"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        {% if autofocus %}
+          autofocus
+        {% endif %}
+        {% if predictive %}
+          x-ref="input"
+          x-model="query"
+          x-on:input.debounce.300ms="search()"
+          aria-controls="{{ id }}-Results"
+          aria-describedby="{{ id }}-Status"
+        {% endif %}
+      >
+      <input type="hidden" name="options[prefix]" value="last">
+      {%- if predictive -%}
+        <button type="button" class="icon-button" x-show="query" x-cloak x-on:click="clear()">
+          {%- render 'icon', name: 'close' -%}
+          <span class="visually-hidden">{{ 'search.clear' | t }}</span>
+        </button>
+      {%- endif -%}
+      <button type="submit" class="icon-button">
+        {%- render 'icon', name: 'arrow-right' -%}
+        <span class="visually-hidden">{{ 'search.submit' | t }}</span>
+      </button>
+    </div>
+  </form>
+  {%- if predictive -%}
+    <p class="visually-hidden" role="status" id="{{ id }}-Status" x-text="status"></p>
+    <div id="{{ id }}-Results" class="search-form__results" x-ref="results" x-bind:aria-busy="loading"></div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .search-form__field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--color-border-input);
+  }
+
+  .search-form__field:focus-within {
+    border-bottom-color: var(--color-fg);
+  }
+
+  .search-form__icon {
+    --icon-size: 1.375rem;
+    color: var(--color-fg-muted);
+  }
+
+  .search-form__input {
+    flex: 1;
+    min-width: 0;
+    min-height: 3.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: var(--font-heading-family);
+    font-size: calc(clamp(1.375rem, 1.1rem + 1.2vw, 2rem) * var(--font-heading-scale));
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .search-form__input:focus-visible {
+    outline: none;
+  }
+
+  .search-form__input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-form__input::placeholder {
+    color: var(--color-fg-muted);
+    opacity: 1;
+  }
+
+  .search-form__results:not(:empty) {
+    margin-top: 2rem;
+  }
+
+  .search-form__results[aria-busy='true'] {
+    opacity: 0.6;
+  }
+{% endstylesheet %}

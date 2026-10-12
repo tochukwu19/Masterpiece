@@ -1,0 +1,152 @@
+<div
+  class="main-cart section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width" data-cart-section="{{ section.id }}" x-data="cart">
+    <div class="main-cart__heading">
+      <h1 class="h1">{{ 'cart.title' | t }}</h1>
+      {%- if cart.item_count > 0 -%}
+        <a href="{{ routes.all_products_collection_url }}" class="button button--tertiary">{{ 'cart.empty.continue' | t }}</a>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="main-cart__layout">
+        <form action="{{ routes.cart_url }}" method="post" id="CartForm-page" class="main-cart__items" novalidate x-bind:aria-busy="loading">
+          {%- render 'cart-items', context: 'page' -%}
+          <noscript>
+            <button type="submit" name="update" class="button button--secondary">{{ 'cart.update' | t }}</button>
+          </noscript>
+        </form>
+
+        <aside class="main-cart__summary" aria-label="{{ 'cart.summary' | t }}">
+          {%- render 'cart-summary', context: 'page', form_id: 'CartForm-page' -%}
+          {%- if section.settings.show_additional_checkout_buttons and additional_checkout_buttons -%}
+            <div class="main-cart__dynamic-checkout">{{ content_for_additional_checkout_buttons }}</div>
+          {%- endif -%}
+        </aside>
+      </div>
+    {%- else -%}
+      <div class="main-cart__empty">
+        <p class="h3">{{ 'cart.empty.title' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'cart.empty.continue' | t }}</a>
+        {%- if shop.customer_accounts_enabled and customer == null -%}
+          <p class="text-small text-muted">{{ 'cart.empty.login_html' | t: link: routes.account_login_url }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <p class="visually-hidden" role="status" id="CartStatus"></p>
+  </div>
+</div>
+
+{% stylesheet %}
+  .main-cart__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .main-cart__layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 990px) {
+    .main-cart__layout {
+      grid-template-columns: minmax(0, 1fr) 24rem;
+      align-items: start;
+      gap: 4rem;
+    }
+
+    .main-cart__summary {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .main-cart__items .cart-item {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+
+  @media (min-width: 750px) {
+    .main-cart__items .cart-item {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+  }
+
+  .main-cart__items[aria-busy='true'] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .main-cart__summary {
+    padding: clamp(1.5rem, 3vw, 2rem);
+    background-color: var(--color-surface);
+  }
+
+  .main-cart__dynamic-checkout {
+    margin-top: 1rem;
+  }
+
+  .main-cart__empty {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .main-cart__empty a:not(.button) {
+    color: inherit;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.main_cart.name",
+  "class": "section-main-cart",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_additional_checkout_buttons",
+      "default": true,
+      "label": "t:sections.main_cart.settings.show_additional_checkout_buttons.label",
+      "info": "t:sections.main_cart.settings.show_additional_checkout_buttons.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ]
+}
+{% endschema %}
