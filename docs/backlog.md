@@ -10,3 +10,4 @@ would close it.
 | B3 | `customer-account-main-menu` missing on the dev store | Store setup | `<shopify-account>` falls back to default menu items and logs an error until the menu exists. |
 | B4 | CLI `auth-alias` not read from `shopify.theme.toml` | Upstream | CLI 4.9 ignores it. The owner switches the active account with `npx shopify auth login`. Re-check on CLI upgrades. |
 | B5 | Lighthouse scripts | Phase 6 | Add `npm run lighthouse` against the dev store once home, collection and product pages are rebuilt. |
+| B6 | YouTube/Vimeo product and section videos keep the platform player UI | Decided | Theming them needs each platform's player SDK, which is third-party code. Shopify-hosted video uses the theme's own `videoPlayer` controls. |

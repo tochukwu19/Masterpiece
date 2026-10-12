@@ -50,9 +50,61 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [ ] `featured-product` section moved to Phase 4 (backlog B2)
 
 ## Phase 4 — Discovery
-- [ ] `main-collection` (banner, grid, facets drawer, sort, sale/sold-out badges, price ranges, unit price, empty state)
-- [ ] `main-list-collections`, `main-search` (mixed object types + facets), predictive search
-- [ ] Home sections: hero/slideshow, featured products, collection carousel, editorial split, logo list, testimonials, image with text, rich text, video, multicolumn, blog posts, newsletter, custom liquid
+Branch `phase-4-discovery`. Four commits, in this order. Each one is store-tested with real clicks and has kit specimens before the next starts.
+
+**4a. Collection page**
+- [ ] `collection-banner` section: title, description, optional image; settings for alignment, image ratio, scheme and padding. It's a separate section so merchants can move or remove it.
+- [ ] `main-collection` section: toolbar (results count, sort, filter button), product grid (`card-product`), desktop and mobile column settings, products per page, pagination, empty and "no results for these filters" states.
+- [ ] `facets` snippet in a native `<dialog>` drawer:
+  - real checkboxes for list filters
+  - swatch and image presentation for `filter.presentation`
+  - price range with min and max inputs
+  - boolean filters; active-filter pills with remove links; Clear all
+  - a plain GET form, so it works without JS
+- [ ] Alpine `facets` component:
+  - serializes the form and fetches the grid with `section_id`
+  - swaps the grid, count and pills
+  - pushes the URL to history and restores on `popstate`
+  - aborts stale requests; announces the result count in a live region
+- [ ] `templates/collection.json` rebuilt from these sections
+
+**4b. Search and collection list**
+- [ ] `main-search` section:
+  - search form, with results that mix products, articles and pages (a new `card-page` snippet)
+  - the same `facets` and toolbar
+  - empty-query and no-results states; pagination
+- [ ] `main-list-collections` section: `card-collection` grid, sort setting, pagination
+- [ ] Predictive search: already shipped in Phase 2; only the roadmap tick is left
+
+**4c. Home sections**
+- [ ] Shared theme blocks in `blocks/`: `heading`, `text`, `button`, `custom-liquid`; sections list exactly which blocks they accept, plus `@app`
+- [ ] Generic Alpine `carousel` component:
+  - CSS scroll-snap with outlined prev/next buttons and keyboard support
+  - replaces Swiper 11, so no third-party code is left
+  - reused by the collection and product carousels
+- [ ] Sections:
+  - `hero` (single or slideshow)
+  - `featured-collection` (grid or carousel)
+  - `collection-list` (carousel)
+  - `editorial-split` (two-up collections)
+  - `image-with-text`, `rich-text`, `multicolumn`
+  - `logo-list`, `testimonials` (pull quotes)
+  - `video`: hosted video reuses `videoPlayer`; external video uses the platform player
+  - `blog-posts`, `newsletter`, `custom-liquid`
+- [ ] `featured-product` (B2): research spike first, on how a section outside the product template re-renders on variant change; build only once that's confirmed
+- [ ] `templates/index.json` rebuilt with settings-driven content, placeholders where blank, and no bundled demo images
+
+**4d. Clean-up and verification**
+- [ ] Delete the `template-*` sections plus `filter`, `collection` and the `icon-*` legacy snippets (only these sections use them). Drop Swiper from `docs/third-party.md`.
+- [ ] `application.css` and `legacy-bridge.css` stay until Phase 5 removes the legacy `.liquid` templates that still use Tailwind classes
+- [ ] B5 moved up from Phase 6: `npm run lighthouse` (pinned devDependency) against the dev server for home, collection and product, mobile and desktop
+- [ ] Theme Store checklist ticks; kit specimens for facets, toolbar, carousel, hero and the content sections
+
+**Owner prep for 4a and 4b** (dev store, not theme):
+- Search & Discovery filters: Availability, Price, Product type, and Metal (option, shown as swatches)
+- 8 or more products in one collection, so grid and pagination can be tested with a low per-page setting
+- One blog with 3 or more articles, with images, for `blog-posts` and search results
+- One or two pages with body text, for page results in search
 
 ## Phase 5 — Content and accounts
 - [ ] `main-blog`, `main-article` (comments + pagination + messages), `main-page`, contact form, 404, password, gift card
