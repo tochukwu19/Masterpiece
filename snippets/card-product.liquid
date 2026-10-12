@@ -84,7 +84,7 @@
 
     {%- if quick_add and product.available -%}
       {%- if product.has_only_default_variant -%}
-        <div class="card-product__quick-add" x-data="quickAdd" x-on:submit="submit($event)">
+        <div class="card-product__quick-add" x-data="addToCart" x-on:submit="submit($event)">
           {%- form 'product', product, novalidate: 'novalidate' -%}
             <input type="hidden" name="id" value="{{ first_variant.id }}">
             <input type="hidden" name="quantity" value="1">

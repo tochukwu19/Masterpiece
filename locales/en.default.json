@@ -52,6 +52,55 @@
     "quick_add": {
       "add_to_cart": "Add {{ title }} to cart",
       "choose_options": "Choose options for {{ title }}"
+    },
+    "taxes_included": "Taxes included.",
+    "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+    "sku": "SKU: {{ sku }}",
+    "media": {
+      "gallery": "Product media",
+      "lightbox": "Product images",
+      "open_lightbox": "Open image {{ index }} in full screen",
+      "play_video": "Play video {{ index }}",
+      "load_model": "Load 3D model {{ index }}",
+      "view_in_space": "View in your space"
+    },
+    "variant": {
+      "label": "Variant",
+      "unavailable": "Unavailable"
+    },
+    "quantity": {
+      "label": "Quantity",
+      "decrease": "Decrease quantity for {{ title }}",
+      "increase": "Increase quantity for {{ title }}",
+      "multiples_of": "Sold in multiples of {{ step }}.",
+      "maximum": "Maximum of {{ max }}."
+    },
+    "form": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable"
+    },
+    "pickup": {
+      "available_at_html": "Pickup available at <strong>{{ location }}</strong>",
+      "unavailable_at_html": "Pickup currently unavailable at <strong>{{ location }}</strong>",
+      "view_store": "View store information",
+      "check_other_stores": "Check availability at other stores",
+      "available": "Pickup available",
+      "unavailable": "Pickup currently unavailable"
+    },
+    "gift_card": {
+      "legend": "Gift card recipient",
+      "toggle": "Send as a gift to a recipient",
+      "email": "Recipient email",
+      "name": "Recipient name (optional)",
+      "message": "Message (optional)",
+      "message_help": "{{ max }} characters maximum.",
+      "send_on": "Send on (optional)",
+      "send_on_help": "Leave empty to send right away. Up to 90 days ahead."
+    },
+    "share": {
+      "label": "Share",
+      "copied": "Link copied"
     }
   },
   "collections": {

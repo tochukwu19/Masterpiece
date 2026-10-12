@@ -408,6 +408,19 @@
     color: inherit;
   }
 
+.gift-card-recipient {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .gift-card-recipient__fields {
+    display: grid;
+    gap: 1rem;
+  }
+
 .localization__form {
     display: flex;
     flex-wrap: wrap;
@@ -422,6 +435,184 @@
   .localization--compact .select {
     max-width: 14rem;
     text-overflow: ellipsis;
+  }
+
+.product-gallery {
+    position: relative;
+  }
+
+  .product-gallery__list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--page-gutter) * -1);
+  }
+
+  .product-gallery__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-gallery__item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .product-gallery__counter {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 990px) {
+    .product-gallery__list {
+      display: grid;
+      gap: 0.5rem;
+      overflow: visible;
+      margin-inline: 0;
+    }
+
+    .product-gallery--grid .product-gallery__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .product-gallery--grid .product-gallery__item:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .product-gallery__counter {
+      display: none;
+    }
+  }
+
+  .drawer--full {
+    inset: 0;
+    width: 100vw;
+    margin: 0;
+  }
+
+  .drawer--full[open] {
+    animation-name: fade-in;
+  }
+
+  .lightbox__list {
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .lightbox__item {
+    width: min(100%, 68.75rem);
+    scroll-margin-top: 1rem;
+  }
+
+  .lightbox__item img {
+    width: 100%;
+    height: auto;
+  }
+
+.product-media {
+    position: relative;
+  }
+
+  .product-media__zoom {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+
+  .product-media__poster {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .product-media__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-media__badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transform: translate(-50%, -50%);
+    transition: transform var(--duration-fast) ease;
+  }
+
+  .product-media__poster:hover .product-media__badge {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .product-media__target,
+  .product-media__target :is(video, iframe, model-viewer, .shopify-model-viewer-ui) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .product-media__target video {
+    object-fit: contain;
+    background-color: #000;
+  }
+
+  .product-media__target .shopify-model-viewer-ui__controls-area {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--buttons-radius);
+    background-color: var(--color-bg);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button {
+    color: var(--color-fg);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button--control:not(:last-child)::after {
+    background-color: var(--color-border);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button--poster {
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button:focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: -2px;
+  }
+
+  .product-media__xr {
+    margin-top: 0.5rem;
+  }
+
+  .product-media__xr[data-shopify-xr-hidden] {
+    display: none;
   }
 
 .search-form__field {
@@ -491,6 +682,129 @@
 
   .social-icons__link:hover {
     color: var(--color-accent);
+  }
+
+.variant-picker {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .variant-picker__option {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .variant-picker__legend {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.625rem;
+    padding: 0;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+  }
+
+  .variant-picker__name {
+    font-weight: var(--font-body-weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .variant-picker__selected {
+    color: var(--color-fg-muted);
+  }
+
+  .variant-picker__values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .variant-picker__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .variant-picker__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border-input);
+    border-radius: var(--inputs-radius);
+    cursor: pointer;
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+
+  .variant-picker__button:hover {
+    border-color: var(--color-fg);
+  }
+
+  .variant-picker__input:checked + .variant-picker__button {
+    border-color: var(--color-fg);
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+  }
+
+  .variant-picker__button.is-unavailable {
+    color: var(--color-fg-muted);
+    text-decoration: line-through;
+  }
+
+  .variant-picker__input:checked + .variant-picker__button.is-unavailable {
+    color: var(--color-bg);
+  }
+
+  .variant-picker__swatch {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .variant-picker__swatch--square {
+    border-radius: var(--inputs-radius);
+  }
+
+  .variant-picker__swatch-fill {
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: inherit;
+    background-color: var(--swatch-color, var(--color-surface));
+    background-image: var(--swatch-image, none);
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+  }
+
+  .variant-picker__swatch:hover,
+  .variant-picker__input:checked + .variant-picker__swatch {
+    border-color: var(--color-fg);
+  }
+
+  .variant-picker__swatch.is-unavailable::after {
+    content: '';
+    position: absolute;
+    width: 2.4rem;
+    height: 1px;
+    background-color: var(--color-fg);
+    transform: rotate(-45deg);
+  }
+
+  .variant-picker__input:focus-visible + label {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
   }
 
 .announcement-bar__inner {
@@ -1116,6 +1430,202 @@
     color: inherit;
   }
 
+.product__layout {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 990px) {
+    .product__layout {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: start;
+    }
+
+    .product--sticky .product__info {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .product[aria-busy='true'] [data-product-region] {
+    opacity: 0.6;
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .product__info {
+    display: grid;
+    gap: 1.5rem;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .product__info > .product__vendor + .product__title {
+    margin-top: -1rem;
+  }
+
+  .product__title {
+    overflow-wrap: break-word;
+  }
+
+  .product__price {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .product__price-amount {
+    font-size: calc(1.25rem * var(--font-body-scale));
+  }
+
+  .product__tax a {
+    color: inherit;
+  }
+
+  .product__quantity {
+    justify-items: start;
+  }
+
+  .product-form__buttons {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .product-form .form-message {
+    margin-top: 0.75rem;
+  }
+
+  .product-form .shopify-payment-button__button {
+    min-height: 3rem;
+    border-radius: var(--buttons-radius);
+  }
+
+  .pickup__summary {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .pickup__summary .icon {
+    margin-top: 0.125rem;
+  }
+
+  .pickup__text {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .pickup__more {
+    justify-self: start;
+    min-height: 2rem;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+  }
+
+  .pickup__list {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .pickup__location {
+    display: grid;
+    gap: 0.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .pickup__location address {
+    font-style: normal;
+  }
+
+  .product__text--subtitle {
+    font-family: var(--font-heading-family);
+    font-size: calc(1.25rem * var(--font-heading-scale));
+  }
+
+  .product__text--uppercase {
+    font-size: calc(0.8125rem * var(--font-body-scale));
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .product__tab {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .product__tab + .product__tab {
+    margin-top: -1.5rem;
+  }
+
+  .product__tab:last-of-type {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .product__tab-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.5rem;
+    list-style: none;
+    cursor: pointer;
+    font-weight: var(--font-body-weight-medium);
+    font-size: calc(0.8125rem * var(--font-body-scale));
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .product__tab-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .product__tab-icon {
+    transition: transform var(--duration-fast) ease;
+  }
+
+  .product__tab[open] .product__tab-icon {
+    transform: rotate(45deg);
+  }
+
+  .product__tab-content {
+    padding-bottom: 1.5rem;
+  }
+
+  .product__share {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .product__complementary:empty {
+    display: none;
+  }
+
+  .product__complementary-heading {
+    margin-bottom: 0.75rem;
+  }
+
+  .product__complementary-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .product__complementary-item {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .product__complementary-item:hover .product__complementary-title {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .product__complementary-info {
+    display: grid;
+    gap: 0.125rem;
+  }
+
 .predictive-search {
     display: grid;
     gap: 2rem;
@@ -1199,6 +1709,10 @@
     justify-self: start;
   }
 
+.product-recommendations [data-recommendations-pending] {
+    min-height: clamp(26rem, 45vw, 34rem);
+  }
+
 .ds-header { padding-block: 3rem 2rem; border-bottom: 1px solid var(--color-border); }
 .ds-header p { max-width: 40rem; margin-top: 0.75rem; }
 .ds-nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 1.5rem; }
@@ -1234,7 +1748,7 @@
   <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
   <h1 class="h0">Vermeil</h1>
   <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
-  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a></nav>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a></nav>
 </header>
 <main>
 
@@ -1388,7 +1902,7 @@
 <section id="icons" class="ds-section color-scheme-1">
   <div class="page-width">
     <h2 class="ds-label">Icons</h2>
-    <div class="ds-icons"><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><code>account</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg><code>arrow-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><code>arrow-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><code>bag</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg><code>check</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><code>chevron-down</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><code>chevron-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><code>chevron-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><code>chevron-up</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><code>close</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><code>error</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><code>filter</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><code>menu</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><code>minus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><code>plus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><code>search</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><code>trash</code></div></div>
+    <div class="ds-icons"><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><code>account</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg><code>arrow-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><code>arrow-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><code>bag</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg><code>check</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><code>chevron-down</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><code>chevron-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><code>chevron-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><code>chevron-up</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><code>close</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><code>error</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><code>filter</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><code>menu</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><code>minus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg><code>cube</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><code>pin</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></svg><code>play</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><code>plus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><code>search</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4.5-7.5L12 3l4.5 4.5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg><code>share</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><code>trash</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8.5v5M8.5 11h5"/></svg><code>zoom</code></div></div>
   </div>
 </section>
 
@@ -1520,7 +2034,7 @@
     <h2 class="ds-label">Drawers</h2>
     <div class="ds-preview">
   <div class="drawer cart-drawer color-scheme-1"><div class="drawer__inner">
-    <div class="drawer__header"><p class="drawer__title h4">Your cart <span class="cart-drawer__count">(2)</span></p><button type="button" class="drawer__close">Close</button></div>
+    <div class="drawer__header"><p class="drawer__title h4">Your cart <span class="cart-drawer__count">(2)</span></p><form method="dialog" class="drawer__close-form"><button class="drawer__close">Close</button></form></div>
     <div class="drawer__body"><ul class="cart-items list-unstyled">
       
 <li class="cart-item">
@@ -1556,7 +2070,7 @@
     </div><a href="#" class="button button--tertiary cart-drawer__view">View cart</a></div>
   </div></div>
   <div class="drawer drawer--left menu-drawer color-scheme-1"><div class="drawer__inner">
-    <div class="drawer__header"><p class="drawer__title h4">Menu</p><button type="button" class="drawer__close">Close</button></div>
+    <div class="drawer__header"><p class="drawer__title h4">Menu</p><form method="dialog" class="drawer__close-form"><button class="drawer__close">Close</button></form></div>
     <nav class="drawer__body"><ul class="menu-drawer__list list-unstyled">
       <li><a href="#" class="menu-drawer__link" aria-current="page">New in</a></li>
       <li><details class="disclosure menu-drawer__details" open><summary class="menu-drawer__link">Rings<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><ul class="menu-drawer__sublist list-unstyled"><li><a href="#" class="menu-drawer__sublink">Solitaires</a></li><li><a href="#" class="menu-drawer__sublink">Bands</a></li><li><a href="#" class="menu-drawer__sublink">Stacking</a></li></ul></details></li>
@@ -1586,6 +2100,41 @@
     <div class="footer__legal text-small text-muted"><p>&copy; 2026, Vermeil</p><ul class="footer__policies list-unstyled"><li><a href="#" class="footer__link">Privacy policy</a></li><li><a href="#" class="footer__link">Terms of service</a></li></ul></div>
   </div>
   <div class="footer__wordmark" aria-hidden="true"><span class="footer__wordmark-text" data-fit>Vermeil</span></div>
+</div>
+  </div>
+</section>
+
+
+<section id="product" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Product</h2>
+    <div class="product__layout">
+  <div class="product__media"><div class="product-gallery"><ul class="product-gallery__list list-unstyled">
+    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 8%, var(--color-bg))"/></svg></div></li>
+    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 14%, var(--color-bg))"/></svg><span class="product-media__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></svg></span></div></li>
+  </ul><p class="product-gallery__counter text-small">1 / 2</p></div></div>
+  <div class="product__info">
+    <p class="product__vendor eyebrow">Vermeil</p>
+    <h1 class="product__title h2">Aurelia solitaire ring</h1>
+    <div class="product__price"><div class="price product__price-amount price--on-sale"><span class="price__regular">$1,280.00 USD</span><s class="price__compare">$1,480.00 USD</s></div><p class="product__tax text-small text-muted">Taxes included. <a href="#">Shipping</a> calculated at checkout.</p></div>
+    <div class="variant-picker">
+      <fieldset class="variant-picker__option"><legend class="variant-picker__legend"><span class="variant-picker__name">Metal</span><span class="variant-picker__selected">Yellow gold</span></legend><div class="variant-picker__values">
+        <input type="radio" class="variant-picker__input" id="ds-metal-0" name="ds-metal" checked><label for="ds-metal-0" class="variant-picker__swatch variant-picker__swatch--circle" title="Yellow gold"><span class="variant-picker__swatch-fill" style="--swatch-color: #D4AF37;"></span><span class="visually-hidden">Yellow gold</span></label><input type="radio" class="variant-picker__input" id="ds-metal-1" name="ds-metal" ><label for="ds-metal-1" class="variant-picker__swatch variant-picker__swatch--circle" title="White gold"><span class="variant-picker__swatch-fill" style="--swatch-color: #E8E8E8;"></span><span class="visually-hidden">White gold</span></label><input type="radio" class="variant-picker__input" id="ds-metal-2" name="ds-metal" ><label for="ds-metal-2" class="variant-picker__swatch variant-picker__swatch--circle is-unavailable" title="Rose gold"><span class="variant-picker__swatch-fill" style="--swatch-color: #E0A98E;"></span><span class="visually-hidden">Rose gold</span></label>
+      </div></fieldset>
+      <fieldset class="variant-picker__option"><legend class="variant-picker__legend"><span class="variant-picker__name">Size</span></legend><div class="variant-picker__values">
+        <input type="radio" class="variant-picker__input" id="ds-size-0" name="ds-size" ><label for="ds-size-0" class="variant-picker__button">5</label><input type="radio" class="variant-picker__input" id="ds-size-1" name="ds-size" checked><label for="ds-size-1" class="variant-picker__button">6</label><input type="radio" class="variant-picker__input" id="ds-size-2" name="ds-size" ><label for="ds-size-2" class="variant-picker__button">7</label><input type="radio" class="variant-picker__input" id="ds-size-3" name="ds-size" ><label for="ds-size-3" class="variant-picker__button is-unavailable">8</label>
+      </div></fieldset>
+    </div>
+    <div class="product__quantity field"><label class="field__label" for="ds-qty">Quantity</label><div class="quantity"><button type="button" class="quantity__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><span class="visually-hidden">Decrease</span></button><input id="ds-qty" class="quantity__input" type="number" value="1"><button type="button" class="quantity__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Increase</span></button></div></div>
+    <div class="product-form__buttons"><button type="button" class="button button--full button--secondary">Add to cart</button><button type="button" class="button button--full">Buy it now</button></div>
+    <div class="pickup__summary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><div class="pickup__text"><p>Pickup available at <strong>Mercer Street studio</strong></p><p class="text-small text-muted">Usually ready in 24 hours</p><button type="button" class="button button--tertiary pickup__more">Check availability at other stores</button></div></div>
+    <div class="rte"><p>A single brilliant-cut diamond in a slim four-claw setting, on a 1.8 mm band of recycled 18k gold.</p></div>
+    <div>
+      <details class="disclosure product__tab" open><summary class="product__tab-summary"><span>Materials</span><svg class="icon product__tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="product__tab-content rte"><p>Recycled 18k gold, 0.5 ct lab-grown diamond.</p></div></details>
+      <details class="disclosure product__tab"><summary class="product__tab-summary"><span>Shipping and returns</span><svg class="icon product__tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary></details>
+    </div>
+    <div class="product__share"><button type="button" class="button button--tertiary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4.5-7.5L12 3l4.5 4.5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>Share</button></div>
+  </div>
 </div>
   </div>
 </section>

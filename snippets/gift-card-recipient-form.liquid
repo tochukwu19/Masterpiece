@@ -1,0 +1,110 @@
+{% doc %}
+  Optional recipient fields for gift card products, sent as line item properties.
+
+  @param {form} form - The product form object
+  @param {string} section_id - The section ID
+  @example
+  {% render 'gift-card-recipient-form', form: form, section_id: section.id %}
+{% enddoc %}
+
+{%- liquid
+  assign id = 'Recipient-' | append: section_id
+  assign today = 'now' | date: '%Y-%m-%d'
+  assign max_seconds = 'now' | date: '%s' | plus: 7776000
+  assign max_date = max_seconds | date: '%Y-%m-%d'
+-%}
+
+<fieldset class="gift-card-recipient" x-data="giftCardRecipient">
+  <legend class="visually-hidden">{{ 'products.gift_card.legend' | t }}</legend>
+  <label class="checkbox" for="{{ id }}-toggle">
+    <input
+      type="checkbox"
+      id="{{ id }}-toggle"
+      name="properties[__shopify_send_gift_card_to_recipient]"
+      value="on"
+      x-model="enabled"
+      {% if form.errors %}
+        checked
+      {% endif %}
+    >
+    <span>{{ 'products.gift_card.toggle' | t }}</span>
+  </label>
+
+  <div class="gift-card-recipient__fields" x-show="enabled" x-cloak>
+    {%- if form.errors -%}
+      <p class="form-message form-message--error" role="alert">
+        {%- render 'icon', name: 'error' -%}
+        {{ form.errors | default_errors }}
+      </p>
+    {%- endif -%}
+    <div class="field">
+      <label class="field__label" for="{{ id }}-email">{{ 'products.gift_card.email' | t }}</label>
+      <input
+        id="{{ id }}-email"
+        class="input"
+        type="email"
+        name="properties[Recipient email]"
+        value="{{ form.email }}"
+        autocomplete="email"
+        x-bind:required="enabled"
+        x-bind:disabled="!enabled"
+      >
+    </div>
+    <div class="field">
+      <label class="field__label" for="{{ id }}-name">{{ 'products.gift_card.name' | t }}</label>
+      <input
+        id="{{ id }}-name"
+        class="input"
+        type="text"
+        name="properties[Recipient name]"
+        value="{{ form.name }}"
+        autocomplete="name"
+        maxlength="255"
+        x-bind:disabled="!enabled"
+      >
+    </div>
+    <div class="field">
+      <label class="field__label" for="{{ id }}-message">{{ 'products.gift_card.message' | t }}</label>
+      <textarea
+        id="{{ id }}-message"
+        class="textarea"
+        name="properties[Message]"
+        maxlength="200"
+        aria-describedby="{{ id }}-message-help"
+        x-bind:disabled="!enabled"
+      >{{ form.message }}</textarea>
+      <p class="text-small text-muted" id="{{ id }}-message-help">{{ 'products.gift_card.message_help' | t: max: 200 }}</p>
+    </div>
+    <div class="field">
+      <label class="field__label" for="{{ id }}-date">{{ 'products.gift_card.send_on' | t }}</label>
+      <input
+        id="{{ id }}-date"
+        class="input"
+        type="date"
+        name="properties[Send on]"
+        value="{{ form.send_on }}"
+        min="{{ today }}"
+        max="{{ max_date }}"
+        aria-describedby="{{ id }}-date-help"
+        x-bind:disabled="!enabled"
+      >
+      <p class="text-small text-muted" id="{{ id }}-date-help">{{ 'products.gift_card.send_on_help' | t }}</p>
+    </div>
+    <input type="hidden" name="properties[__shopify_offset]" x-ref="offset" x-bind:disabled="!enabled">
+  </div>
+</fieldset>
+
+{% stylesheet %}
+  .gift-card-recipient {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .gift-card-recipient__fields {
+    display: grid;
+    gap: 1rem;
+  }
+{% endstylesheet %}

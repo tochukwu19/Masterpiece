@@ -1,0 +1,225 @@
+{% doc %}
+  Product option pickers. Options with swatches (swatch.color / swatch.image)
+  render as swatches; others as buttons or a dropdown. Changes bubble to the
+  productInfo component, which re-renders via option_values.
+
+  @param {product} product - The product
+  @param {string} section_id - The section ID, for unique input names and IDs
+  @param {string} [picker_type] - buttons or dropdown. Defaults to buttons
+  @param {string} [swatch_shape] - circle or square. Defaults to circle
+  @example
+  {% render 'variant-picker', product: product, section_id: section.id, picker_type: 'buttons' %}
+{% enddoc %}
+
+{%- unless product.has_only_default_variant -%}
+  <div class="variant-picker" data-variant-picker>
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_id = section_id | append: '-' | append: option.position
+        assign has_swatches = false
+        if option.values.first.swatch
+          assign has_swatches = true
+        endif
+      -%}
+
+      {%- if picker_type == 'dropdown' and has_swatches == false -%}
+        <div class="field variant-picker__option">
+          <label class="field__label" for="Option-{{ option_id }}">{{ option.name }}</label>
+          <select id="Option-{{ option_id }}" class="select" name="options[{{ option.name | escape }}]">
+            {%- for value in option.values -%}
+              <option
+                value="{{ value | escape }}"
+                data-option-value-id="{{ value.id }}"
+                data-product-url="{{ value.product_url }}"
+                {% if value.selected %}
+                  selected
+                {% endif %}
+              >
+                {{- value -}}
+                {%- unless value.available %} &ndash; {{ 'products.variant.unavailable' | t }}{% endunless -%}
+              </option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- else -%}
+        <fieldset class="variant-picker__option">
+          <legend class="variant-picker__legend">
+            <span class="variant-picker__name">{{ option.name }}</span>
+            {%- if has_swatches %}<span class="variant-picker__selected">{{ option.selected_value }}</span>{% endif -%}
+          </legend>
+          <div class="variant-picker__values">
+            {%- for value in option.values -%}
+              {%- assign input_id = 'Option-' | append: option_id | append: '-' | append: forloop.index0 -%}
+              <input
+                type="radio"
+                class="variant-picker__input"
+                id="{{ input_id }}"
+                name="Option-{{ option_id }}"
+                value="{{ value | escape }}"
+                data-option-value-id="{{ value.id }}"
+                data-product-url="{{ value.product_url }}"
+                {% if value.selected %}
+                  checked
+                {% endif %}
+              >
+              {%- if has_swatches -%}
+                {%- liquid
+                  assign swatch_style = ''
+                  if value.swatch.image
+                    assign swatch_image = value.swatch.image | image_url: width: 96
+                    assign swatch_style = '--swatch-image: url(' | append: swatch_image | append: ');'
+                  elsif value.swatch.color
+                    assign swatch_style = '--swatch-color: ' | append: value.swatch.color | append: ';'
+                  endif
+                -%}
+                <label
+                  for="{{ input_id }}"
+                  class="variant-picker__swatch variant-picker__swatch--{{ swatch_shape | default: 'circle' }}{% unless value.available %} is-unavailable{% endunless %}"
+                  title="{{ value | escape }}"
+                >
+                  <span class="variant-picker__swatch-fill" style="{{ swatch_style }}"></span>
+                  <span class="visually-hidden">
+                    {{- value -}}
+                    {%- unless value.available %}, {{ 'products.variant.unavailable' | t }}{% endunless -%}
+                  </span>
+                </label>
+              {%- else -%}
+                <label for="{{ input_id }}" class="variant-picker__button{% unless value.available %} is-unavailable{% endunless %}">
+                  {{- value -}}
+                  {%- unless value.available -%}
+                    <span class="visually-hidden">, {{ 'products.variant.unavailable' | t }}</span>
+                  {%- endunless -%}
+                </label>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endunless -%}
+
+{% stylesheet %}
+  .variant-picker {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .variant-picker__option {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .variant-picker__legend {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.625rem;
+    padding: 0;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+  }
+
+  .variant-picker__name {
+    font-weight: var(--font-body-weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .variant-picker__selected {
+    color: var(--color-fg-muted);
+  }
+
+  .variant-picker__values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .variant-picker__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .variant-picker__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border-input);
+    border-radius: var(--inputs-radius);
+    cursor: pointer;
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+
+  .variant-picker__button:hover {
+    border-color: var(--color-fg);
+  }
+
+  .variant-picker__input:checked + .variant-picker__button {
+    border-color: var(--color-fg);
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+  }
+
+  .variant-picker__button.is-unavailable {
+    color: var(--color-fg-muted);
+    text-decoration: line-through;
+  }
+
+  .variant-picker__input:checked + .variant-picker__button.is-unavailable {
+    color: var(--color-bg);
+  }
+
+  .variant-picker__swatch {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .variant-picker__swatch--square {
+    border-radius: var(--inputs-radius);
+  }
+
+  .variant-picker__swatch-fill {
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: inherit;
+    background-color: var(--swatch-color, var(--color-surface));
+    background-image: var(--swatch-image, none);
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+  }
+
+  .variant-picker__swatch:hover,
+  .variant-picker__input:checked + .variant-picker__swatch {
+    border-color: var(--color-fg);
+  }
+
+  .variant-picker__swatch.is-unavailable::after {
+    content: '';
+    position: absolute;
+    width: 2.4rem;
+    height: 1px;
+    background-color: var(--color-fg);
+    transform: rotate(-45deg);
+  }
+
+  .variant-picker__input:focus-visible + label {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+{% endstylesheet %}

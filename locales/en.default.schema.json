@@ -265,6 +265,24 @@
         "header": "Section padding",
         "padding_top": "Top padding",
         "padding_bottom": "Bottom padding"
+      },
+      "eyebrow": {
+        "label": "Eyebrow"
+      },
+      "heading": {
+        "label": "Heading"
+      },
+      "heading_size": {
+        "label": "Heading size",
+        "options__1": {
+          "label": "Display"
+        },
+        "options__2": {
+          "label": "Large"
+        },
+        "options__3": {
+          "label": "Medium"
+        }
       }
     },
     "header_group": {
@@ -462,6 +480,201 @@
     },
     "predictive_search": {
       "name": "Search suggestions"
+    },
+    "main_product": {
+      "name": "Product information",
+      "settings": {
+        "header_media": {
+          "content": "Media"
+        },
+        "gallery_layout": {
+          "label": "Desktop layout",
+          "options__1": {
+            "label": "Stacked"
+          },
+          "options__2": {
+            "label": "Two-column grid"
+          }
+        },
+        "media_ratio": {
+          "label": "Image ratio",
+          "options__1": {
+            "label": "Adapt to image"
+          },
+          "options__2": {
+            "label": "Portrait"
+          },
+          "options__3": {
+            "label": "Square"
+          }
+        },
+        "enable_lightbox": {
+          "label": "Enable full-screen image view"
+        },
+        "sticky_info": {
+          "label": "Enable sticky product information on desktop"
+        }
+      },
+      "blocks": {
+        "vendor": {
+          "name": "Vendor"
+        },
+        "title": {
+          "name": "Title"
+        },
+        "price": {
+          "name": "Price",
+          "settings": {
+            "show_installments": {
+              "label": "Show Shop Pay Installments",
+              "info": "Shows when Shop Pay Installments is available in your store."
+            }
+          }
+        },
+        "variant_picker": {
+          "name": "Variant picker",
+          "settings": {
+            "picker_type": {
+              "label": "Style",
+              "options__1": {
+                "label": "Buttons"
+              },
+              "options__2": {
+                "label": "Dropdown"
+              }
+            },
+            "swatch_shape": {
+              "label": "Swatch shape",
+              "info": "Swatches show for options with color or image values set up in your product options.",
+              "options__1": {
+                "label": "Circle"
+              },
+              "options__2": {
+                "label": "Square"
+              }
+            }
+          }
+        },
+        "quantity": {
+          "name": "Quantity selector"
+        },
+        "buy_buttons": {
+          "name": "Buy buttons",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Show dynamic checkout buttons",
+              "info": "Shows payment methods like Shop Pay, PayPal and Apple Pay, depending on what's enabled in your store."
+            },
+            "show_gift_card_recipient": {
+              "label": "Show recipient form for gift cards",
+              "info": "Customers can send gift cards to a recipient with a personal message."
+            }
+          }
+        },
+        "pickup_availability": {
+          "name": "Pickup availability"
+        },
+        "sku": {
+          "name": "SKU"
+        },
+        "description": {
+          "name": "Description"
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "text_style": {
+              "label": "Text style",
+              "options__1": {
+                "label": "Body"
+              },
+              "options__2": {
+                "label": "Subtitle"
+              },
+              "options__3": {
+                "label": "Uppercase"
+              }
+            }
+          }
+        },
+        "collapsible_tab": {
+          "name": "Collapsible row",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "content": {
+              "label": "Row content"
+            },
+            "page": {
+              "label": "Row content from page"
+            },
+            "open": {
+              "label": "Show row open by default"
+            }
+          }
+        },
+        "share": {
+          "name": "Share",
+          "settings": {
+            "label": {
+              "label": "Button label"
+            }
+          }
+        },
+        "complementary": {
+          "name": "Complementary products",
+          "settings": {
+            "paragraph": {
+              "content": "To select complementary products, add the Search and Discovery app."
+            },
+            "heading": {
+              "label": "Heading"
+            },
+            "product_limit": {
+              "label": "Maximum products to show"
+            }
+          }
+        },
+        "custom_liquid": {
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": {
+              "label": "Custom Liquid",
+              "info": "Add app snippets or other code to create advanced customizations."
+            }
+          }
+        }
+      }
+    },
+    "product_recommendations": {
+      "name": "Product recommendations",
+      "presets": {
+        "name": "Product recommendations"
+      },
+      "settings": {
+        "paragraph": {
+          "content": "Recommendations improve over time based on order and product data."
+        },
+        "intent": {
+          "label": "Recommendation type",
+          "options__1": {
+            "label": "Related products"
+          },
+          "options__2": {
+            "label": "Complementary products"
+          }
+        },
+        "products_to_show": {
+          "label": "Maximum products to show"
+        },
+        "columns_desktop": {
+          "label": "Number of columns on desktop"
+        }
+      }
     }
   }
 }

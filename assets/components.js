@@ -2,14 +2,18 @@ document.addEventListener('alpine:init', () => {
   const theme = window.theme;
 
   Alpine.data('drawer', () => ({
+    drawerDialog: null,
+    init() {
+      this.drawerDialog = this.$el;
+    },
     open() {
-      if (!this.$root.open) this.$root.showModal();
+      if (!this.drawerDialog.open) this.drawerDialog.showModal();
     },
     close() {
-      if (this.$root.open) this.$root.close();
+      if (this.drawerDialog.open) this.drawerDialog.close();
     },
     toggle(detail) {
-      if (detail?.id === this.$root.id) this.open();
+      if (detail?.id === this.drawerDialog.id) this.open();
     },
   }));
 

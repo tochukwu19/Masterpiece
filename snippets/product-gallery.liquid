@@ -1,0 +1,168 @@
+{% doc %}
+  Product media gallery: stacked (desktop) or two-column grid, swipeable carousel
+  on mobile, optional lightbox. The selected variant's media renders first.
+
+  @param {product} product - The product
+  @param {string} section_id - The section ID
+  @param {variant} [variant] - The selected variant
+  @param {string} [layout] - stacked or grid. Defaults to stacked
+  @param {string} [ratio] - adapt, 4 / 5 or 1 / 1
+  @param {boolean} [lightbox] - Enable the image lightbox
+  @example
+  {% render 'product-gallery', product: product, section_id: section.id, variant: variant %}
+{% enddoc %}
+
+{%- liquid
+  assign featured = variant.featured_media | default: product.featured_media
+  assign image_count = product.media | where: 'media_type', 'image' | size
+  assign models = product.media | where: 'media_type', 'model'
+  if layout == 'grid'
+    assign img_sizes = '(min-width: 990px) 29vw, 100vw'
+  else
+    assign img_sizes = '(min-width: 990px) 58vw, 100vw'
+  endif
+-%}
+
+<div
+  class="product-gallery product-gallery--{{ layout | default: 'stacked' }}"
+  x-data="productGallery('{{ section_id }}')"
+  x-on:variant-changed.window="showVariantMedia($event.detail)"
+>
+  {%- if product.media.size > 0 -%}
+    <ul class="product-gallery__list list-unstyled" role="list" x-ref="list" x-on:scroll.debounce.50ms="onScroll()" aria-label="{{ 'products.media.gallery' | t }}">
+      {%- if featured -%}
+        <li class="product-gallery__item" data-media-id="{{ featured.id }}">
+          {%- render 'product-media', media: featured, product: product, ratio: ratio, sizes: img_sizes, eager: true, lightbox: lightbox, position: 1 -%}
+        </li>
+      {%- endif -%}
+      {%- assign position = 1 -%}
+      {%- for media in product.media -%}
+        {%- unless media.id == featured.id -%}
+          {%- assign position = position | plus: 1 -%}
+          <li class="product-gallery__item" data-media-id="{{ media.id }}">
+            {%- render 'product-media', media: media, product: product, ratio: ratio, sizes: img_sizes, lightbox: lightbox, position: position -%}
+          </li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+
+    {%- if product.media.size > 1 -%}
+      <p class="product-gallery__counter text-small" aria-hidden="true">
+        <span x-text="index + 1">1</span> / {{ product.media.size }}
+      </p>
+    {%- endif -%}
+  {%- else -%}
+    <div class="media" style="--ratio: 4 / 5;">{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}</div>
+  {%- endif -%}
+
+  {%- if models.size > 0 -%}
+    <script type="application/json" data-product-models>{{ models | json }}</script>
+  {%- endif -%}
+
+  {%- if lightbox and image_count > 0 -%}
+    <dialog
+      id="Lightbox-{{ section_id }}"
+      class="drawer drawer--full lightbox"
+      aria-label="{{ 'products.media.lightbox' | t }}"
+      x-data="drawer"
+      x-on:click.self="close()"
+      x-on:keydown.escape.prevent="close()"
+    >
+      <div class="drawer__inner">
+        <div class="drawer__header">
+          <p class="h6">{{ product.title | escape }}</p>
+          <form method="dialog" class="drawer__close-form"><button class="drawer__close">{{ 'general.close' | t }}</button></form>
+        </div>
+        <ul class="drawer__body lightbox__list list-unstyled" role="list">
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <li class="lightbox__item" data-lightbox-media="{{ media.id }}">
+                {%- render 'image', image: media, sizes: '(min-width: 1200px) 1100px, 100vw', widths: '750, 1100, 1500, 2200' -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </dialog>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .product-gallery {
+    position: relative;
+  }
+
+  .product-gallery__list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--page-gutter) * -1);
+  }
+
+  .product-gallery__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-gallery__item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .product-gallery__counter {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 990px) {
+    .product-gallery__list {
+      display: grid;
+      gap: 0.5rem;
+      overflow: visible;
+      margin-inline: 0;
+    }
+
+    .product-gallery--grid .product-gallery__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .product-gallery--grid .product-gallery__item:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .product-gallery__counter {
+      display: none;
+    }
+  }
+
+  .drawer--full {
+    inset: 0;
+    width: 100vw;
+    margin: 0;
+  }
+
+  .drawer--full[open] {
+    animation-name: fade-in;
+  }
+
+  .lightbox__list {
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .lightbox__item {
+    width: min(100%, 68.75rem);
+    scroll-margin-top: 1rem;
+  }
+
+  .lightbox__item img {
+    width: 100%;
+    height: auto;
+  }
+{% endstylesheet %}

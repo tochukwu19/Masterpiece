@@ -29,17 +29,8 @@
     }
   };
 
-  window.addEventListener('added-to-cart', async () => {
-    if (theme.settings.cartType !== 'drawer') {
-      window.location.href = theme.routes.cart_url;
-      return;
-    }
-    await theme.refreshCart();
-    theme.openCart();
-  });
-
   document.addEventListener('alpine:init', () => {
-    Alpine.data('quickAdd', () => ({
+    Alpine.data('addToCart', () => ({
       loading: false,
       error: '',
 

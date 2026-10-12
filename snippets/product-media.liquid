@@ -1,0 +1,187 @@
+{% doc %}
+  One product media item: image, video, external video or 3D model. Video and
+  models load on demand behind a poster button.
+
+  @param {media} media - The media item
+  @param {product} product - The product the media belongs to
+  @param {string} [ratio] - CSS aspect ratio, or 'adapt' to use the media's own ratio
+  @param {string} [sizes] - Image sizes attribute
+  @param {boolean} [eager] - Load the image eagerly (first media)
+  @param {boolean} [lightbox] - Make images open the lightbox
+  @param {number} [position] - 1-based position, used in accessible labels
+  @example
+  {% render 'product-media', media: media, product: product, ratio: 'adapt', eager: forloop.first %}
+{% enddoc %}
+
+{%- liquid
+  assign img_sizes = sizes | default: '(min-width: 990px) 58vw, 100vw'
+  if ratio == 'adapt' or ratio == blank
+    assign media_ratio = media.preview_image.aspect_ratio | default: 1
+  else
+    assign media_ratio = ratio
+  endif
+-%}
+
+{%- case media.media_type -%}
+  {%- when 'image' -%}
+    <div class="product-media media" style="--ratio: {{ media_ratio }};">
+      {%- render 'image', image: media, sizes: img_sizes, eager: eager -%}
+      {%- if lightbox -%}
+        <button
+          type="button"
+          class="product-media__zoom"
+          x-on:click="openLightbox({{ media.id }})"
+          aria-haspopup="dialog"
+        >
+          <span class="visually-hidden">{{ 'products.media.open_lightbox' | t: index: position }}</span>
+        </button>
+      {%- endif -%}
+    </div>
+  {%- when 'video', 'external_video' -%}
+    <div class="product-media media" style="--ratio: {{ media_ratio }};" x-data="deferredMedia" data-deferred-media>
+      <button type="button" class="product-media__poster" x-show="!loaded" x-on:click="load()">
+        {%- render 'image', image: media.preview_image, sizes: img_sizes, eager: eager, alt: '' -%}
+        <span class="product-media__badge">
+          {%- render 'icon', name: 'play' -%}
+        </span>
+        <span class="visually-hidden">{{ 'products.media.play_video' | t: index: position }}</span>
+      </button>
+      <div class="product-media__target" x-ref="target" x-show="loaded" x-cloak></div>
+      <template x-ref="template">
+        {%- if media.media_type == 'video' -%}
+          {{ media | video_tag: image_size: '1600x', autoplay: true, controls: true, playsinline: true, loop: false, muted: false }}
+        {%- elsif media.host == 'youtube' -%}
+          {{ media | external_video_url: autoplay: true, rel: 0, enablejsapi: 1 | external_video_tag: loading: 'lazy' }}
+        {%- else -%}
+          {{ media | external_video_url: autoplay: true, api: 1 | external_video_tag: loading: 'lazy' }}
+        {%- endif -%}
+      </template>
+    </div>
+  {%- when 'model' -%}
+    <div class="product-media product-media--model media" style="--ratio: 1;" x-data="deferredMedia" data-deferred-media>
+      <button type="button" class="product-media__poster" x-show="!loaded" x-on:click="load()">
+        {%- render 'image', image: media.preview_image, sizes: img_sizes, eager: eager, alt: '' -%}
+        <span class="product-media__badge">
+          {%- render 'icon', name: 'cube' -%}
+        </span>
+        <span class="visually-hidden">{{ 'products.media.load_model' | t: index: position }}</span>
+      </button>
+      <div class="product-media__target" x-ref="target" x-show="loaded" x-cloak></div>
+      <template x-ref="template">
+        {{ media | model_viewer_tag: image_size: '1600x', reveal: 'interaction', toggleable: true, interaction-policy: 'allow-when-focused' }}
+      </template>
+    </div>
+    <button
+      type="button"
+      class="button button--secondary button--full product-media__xr"
+      data-shopify-xr
+      data-shopify-model3d-id="{{ media.id }}"
+      data-shopify-title="{{ product.title | escape }}"
+      data-shopify-xr-hidden
+    >
+      {%- render 'icon', name: 'cube' -%}
+      {{ 'products.media.view_in_space' | t }}
+    </button>
+{%- endcase -%}
+
+{% stylesheet %}
+  .product-media {
+    position: relative;
+  }
+
+  .product-media__zoom {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+
+  .product-media__poster {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .product-media__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-media__badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transform: translate(-50%, -50%);
+    transition: transform var(--duration-fast) ease;
+  }
+
+  .product-media__poster:hover .product-media__badge {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .product-media__target,
+  .product-media__target :is(video, iframe, model-viewer, .shopify-model-viewer-ui) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .product-media__target video {
+    object-fit: contain;
+    background-color: #000;
+  }
+
+  .product-media__target .shopify-model-viewer-ui__controls-area {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--buttons-radius);
+    background-color: var(--color-bg);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button {
+    color: var(--color-fg);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button--control:not(:last-child)::after {
+    background-color: var(--color-border);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button--poster {
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  .product-media__target .shopify-model-viewer-ui__button:focus-visible {
+    outline: 2px solid var(--color-fg);
+    outline-offset: -2px;
+  }
+
+  .product-media__xr {
+    margin-top: 0.5rem;
+  }
+
+  .product-media__xr[data-shopify-xr-hidden] {
+    display: none;
+  }
+{% endstylesheet %}

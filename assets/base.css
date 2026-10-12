@@ -669,7 +669,11 @@ main > .shopify-section + .shopify-section {
 }
 
 .quantity__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 2.75rem;
+  padding: 0;
   border: 0;
   background: none;
   color: inherit;
@@ -919,6 +923,10 @@ html:has(dialog.drawer[open]) {
 
 .drawer__title {
   font-size: calc(1.375rem * var(--font-heading-scale));
+}
+
+.drawer__close-form {
+  display: contents;
 }
 
 .drawer__close {

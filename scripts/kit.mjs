@@ -137,6 +137,7 @@ const nav = [
   ['header', 'Header'],
   ['drawers', 'Drawers'],
   ['footer', 'Footer'],
+  ['product', 'Product'],
 ];
 
 const cartItem = (title, options, price, compare, shade) => `
@@ -358,7 +359,7 @@ ${section('header', 'Header', 'scheme-1', `<div class="ds-frame">
 
 ${section('drawers', 'Drawers', 'scheme-2', `<div class="ds-preview">
   <div class="drawer cart-drawer color-scheme-1"><div class="drawer__inner">
-    <div class="drawer__header"><p class="drawer__title h4">Your cart <span class="cart-drawer__count">(2)</span></p><button type="button" class="drawer__close">Close</button></div>
+    <div class="drawer__header"><p class="drawer__title h4">Your cart <span class="cart-drawer__count">(2)</span></p><form method="dialog" class="drawer__close-form"><button class="drawer__close">Close</button></form></div>
     <div class="drawer__body"><ul class="cart-items list-unstyled">
       ${cartItem('Aurelia solitaire ring', [['Metal', '18k yellow gold'], ['Size', '6']], '$1,280.00', '', 10)}
       ${cartItem('Marguerite pearl drop earrings', [['Metal', 'Vermeil']], '$340.00', '$420.00', 16)}
@@ -370,7 +371,7 @@ ${section('drawers', 'Drawers', 'scheme-2', `<div class="ds-preview">
     </div><a href="#" class="button button--tertiary cart-drawer__view">View cart</a></div>
   </div></div>
   <div class="drawer drawer--left menu-drawer color-scheme-1"><div class="drawer__inner">
-    <div class="drawer__header"><p class="drawer__title h4">Menu</p><button type="button" class="drawer__close">Close</button></div>
+    <div class="drawer__header"><p class="drawer__title h4">Menu</p><form method="dialog" class="drawer__close-form"><button class="drawer__close">Close</button></form></div>
     <nav class="drawer__body"><ul class="menu-drawer__list list-unstyled">
       <li><a href="#" class="menu-drawer__link" aria-current="page">New in</a></li>
       <li><details class="disclosure menu-drawer__details" open><summary class="menu-drawer__link">Rings${icon('chevron-down')}</summary><ul class="menu-drawer__sublist list-unstyled"><li><a href="#" class="menu-drawer__sublink">Solitaires</a></li><li><a href="#" class="menu-drawer__sublink">Bands</a></li><li><a href="#" class="menu-drawer__sublink">Stacking</a></li></ul></details></li>
@@ -394,6 +395,35 @@ ${section('footer', 'Footer', 'scheme-1', `<div class="footer"><div class="foote
     <div class="footer__legal text-small text-muted"><p>&copy; 2026, ${themeName}</p><ul class="footer__policies list-unstyled"><li><a href="#" class="footer__link">Privacy policy</a></li><li><a href="#" class="footer__link">Terms of service</a></li></ul></div>
   </div>
   <div class="footer__wordmark" aria-hidden="true"><span class="footer__wordmark-text" data-fit>${themeName}</span></div>
+</div>`)}
+
+${section('product', 'Product', 'scheme-1', `<div class="product__layout">
+  <div class="product__media"><div class="product-gallery"><ul class="product-gallery__list list-unstyled">
+    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;">${placeholder(8)}</div></li>
+    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;">${placeholder(14)}<span class="product-media__badge">${icon('play')}</span></div></li>
+  </ul><p class="product-gallery__counter text-small">1 / 2</p></div></div>
+  <div class="product__info">
+    <p class="product__vendor eyebrow">${themeName}</p>
+    <h1 class="product__title h2">Aurelia solitaire ring</h1>
+    <div class="product__price"><div class="price product__price-amount price--on-sale"><span class="price__regular">$1,280.00 USD</span><s class="price__compare">$1,480.00 USD</s></div><p class="product__tax text-small text-muted">Taxes included. <a href="#">Shipping</a> calculated at checkout.</p></div>
+    <div class="variant-picker">
+      <fieldset class="variant-picker__option"><legend class="variant-picker__legend"><span class="variant-picker__name">Metal</span><span class="variant-picker__selected">Yellow gold</span></legend><div class="variant-picker__values">
+        ${[['#D4AF37', 'Yellow gold', true, true], ['#E8E8E8', 'White gold', false, true], ['#E0A98E', 'Rose gold', false, false]].map(([c, n, checked, available], i) => `<input type="radio" class="variant-picker__input" id="ds-metal-${i}" name="ds-metal" ${checked ? 'checked' : ''}><label for="ds-metal-${i}" class="variant-picker__swatch variant-picker__swatch--circle${available ? '' : ' is-unavailable'}" title="${n}"><span class="variant-picker__swatch-fill" style="--swatch-color: ${c};"></span><span class="visually-hidden">${n}</span></label>`).join('')}
+      </div></fieldset>
+      <fieldset class="variant-picker__option"><legend class="variant-picker__legend"><span class="variant-picker__name">Size</span></legend><div class="variant-picker__values">
+        ${['5', '6', '7', '8'].map((v, i) => `<input type="radio" class="variant-picker__input" id="ds-size-${i}" name="ds-size" ${i === 1 ? 'checked' : ''}><label for="ds-size-${i}" class="variant-picker__button${i === 3 ? ' is-unavailable' : ''}">${v}</label>`).join('')}
+      </div></fieldset>
+    </div>
+    <div class="product__quantity field"><label class="field__label" for="ds-qty">Quantity</label><div class="quantity"><button type="button" class="quantity__button">${icon('minus')}<span class="visually-hidden">Decrease</span></button><input id="ds-qty" class="quantity__input" type="number" value="1"><button type="button" class="quantity__button">${icon('plus')}<span class="visually-hidden">Increase</span></button></div></div>
+    <div class="product-form__buttons"><button type="button" class="button button--full button--secondary">Add to cart</button><button type="button" class="button button--full">Buy it now</button></div>
+    <div class="pickup__summary">${icon('pin')}<div class="pickup__text"><p>Pickup available at <strong>Mercer Street studio</strong></p><p class="text-small text-muted">Usually ready in 24 hours</p><button type="button" class="button button--tertiary pickup__more">Check availability at other stores</button></div></div>
+    <div class="rte"><p>A single brilliant-cut diamond in a slim four-claw setting, on a 1.8 mm band of recycled 18k gold.</p></div>
+    <div>
+      <details class="disclosure product__tab" open><summary class="product__tab-summary"><span>Materials</span><svg class="icon product__tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="product__tab-content rte"><p>Recycled 18k gold, 0.5 ct lab-grown diamond.</p></div></details>
+      <details class="disclosure product__tab"><summary class="product__tab-summary"><span>Shipping and returns</span><svg class="icon product__tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary></details>
+    </div>
+    <div class="product__share"><button type="button" class="button button--tertiary">${icon('share')}Share</button></div>
+  </div>
 </div>`)}
 </main>
 <script>

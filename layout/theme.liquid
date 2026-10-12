@@ -46,13 +46,15 @@
         },
         strings: {
           genericError: {{ 'general.errors.generic' | t | json }},
-          cartItemRemoved: {{ 'cart.item_removed' | t | json }}
+          cartItemRemoved: {{ 'cart.item_removed' | t | json }},
+          linkCopied: {{ 'products.share.copied' | t | json }}
         }
       };
     </script>
     <script src="{{ 'global.js' | asset_url }}" defer></script>
     <script src="{{ 'components.js' | asset_url }}" defer></script>
     <script src="{{ 'cart.js' | asset_url }}" defer></script>
+    <script src="{{ 'product.js' | asset_url }}" defer></script>
     <script src="{{ 'alpine.min.js' | asset_url }}" defer></script>
 
     {{ content_for_header }}
