@@ -5,6 +5,12 @@ import desktopConfig from 'lighthouse/core/config/desktop-config.js';
 import * as chromeLauncher from 'chrome-launcher';
 
 const base = (process.env.LH_BASE || 'http://127.0.0.1:9292').replace(/\/$/, '');
+const themeId = process.env.LH_THEME_ID;
+const withTheme = (path) => {
+  const url = new URL(path, base);
+  if (themeId) url.searchParams.set('preview_theme_id', themeId);
+  return url.toString();
+};
 const outDir = join(process.cwd(), '.lighthouse');
 const thresholds = { performance: 60, accessibility: 90 };
 const categories = ['performance', 'accessibility', 'best-practices'];
@@ -12,14 +18,14 @@ const categories = ['performance', 'accessibility', 'best-practices'];
 const lockedMessage = 'The storefront is showing its password page. Unlock it in the browser, then run again.';
 
 const assertUnlocked = async () => {
-  const response = await fetch(`${base}/`, { redirect: 'manual' });
+  const response = await fetch(withTheme('/'), { redirect: 'manual' });
   if (response.status >= 300 && response.status < 400 && response.headers.get('location')?.includes('/password')) {
     throw new Error(lockedMessage);
   }
 };
 
 const firstProductPath = async () => {
-  const response = await fetch(`${base}/products.json?limit=1`);
+  const response = await fetch(withTheme('/products.json?limit=1'));
   const { products } = await response.json();
   if (!products?.length) throw new Error(`No products found at ${base}/products.json`);
   return `/products/${products[0].handle}`;
@@ -39,29 +45,30 @@ const formFactors = [
 ];
 
 mkdirSync(outDir, { recursive: true });
-const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless=new'] });
 const rows = [];
 
-try {
-  for (const [formFactor, config] of formFactors) {
-    for (const [name, path] of pages) {
-      const url = `${base}${path}`;
-      const result = await lighthouse(
-        url,
-        { port: chrome.port, output: 'html', onlyCategories: categories, logLevel: 'error', disableStorageReset: true },
-        config
-      );
-      if (new URL(result.lhr.finalDisplayedUrl).pathname.startsWith('/password')) {
-        throw new Error(`${url}: ${lockedMessage}`);
-      }
-      const scores = Object.fromEntries(categories.map((id) => [id, Math.round(result.lhr.categories[id].score * 100)]));
-      writeFileSync(join(outDir, `${name}-${formFactor}.html`), result.report);
-      rows.push({ formFactor, page: name, path, ...scores });
-      console.log(`${formFactor.padEnd(8)} ${name.padEnd(11)} perf ${String(scores.performance).padStart(3)}  a11y ${String(scores.accessibility).padStart(3)}  bp ${String(scores['best-practices']).padStart(3)}  ${path}`);
-    }
+const measure = async (url, config) => {
+  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless=new'] });
+  try {
+    return await lighthouse(url, { port: chrome.port, output: 'html', onlyCategories: categories, logLevel: 'error' }, config);
+  } finally {
+    await chrome.kill();
   }
-} finally {
-  await chrome.kill();
+};
+
+for (const [formFactor, config] of formFactors) {
+  for (const [name, path] of pages) {
+    await assertUnlocked();
+    const url = withTheme(path);
+    const result = await measure(url, config);
+    if (new URL(result.lhr.finalDisplayedUrl).pathname.startsWith('/password')) {
+      throw new Error(`${url}: ${lockedMessage}`);
+    }
+    const scores = Object.fromEntries(categories.map((id) => [id, Math.round(result.lhr.categories[id].score * 100)]));
+    writeFileSync(join(outDir, `${name}-${formFactor}.html`), result.report);
+    rows.push({ formFactor, page: name, path, ...scores });
+    console.log(`${formFactor.padEnd(8)} ${name.padEnd(11)} perf ${String(scores.performance).padStart(3)}  a11y ${String(scores.accessibility).padStart(3)}  bp ${String(scores['best-practices']).padStart(3)}  ${path}`);
+  }
 }
 
 let failed = false;

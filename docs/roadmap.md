@@ -88,7 +88,8 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 **4d. Clean-up and verification**
 - [x] Delete the `template-*` sections plus `filter`, `collection` and the `icon-*` legacy snippets (only these sections use them). Drop Swiper from `docs/third-party.md`.
 - [ ] `application.css` and `legacy-bridge.css` stay until Phase 5 removes the legacy `.liquid` templates that still use Tailwind classes
-- [ ] B5 moved up from Phase 6: `npm run lighthouse` (pinned devDependency) against the dev server for home, collection and product, mobile and desktop
+- [x] B5 moved up from Phase 6: `npm run lighthouse` (pinned devDependency) for home, collection and product, mobile and desktop
+- [ ] Lighthouse numbers: blocked by the CLI proxy locking the storefront (B5); measure on the unlocked demo store
 - [ ] Theme Store checklist ticks; kit specimens for facets, toolbar, carousel, hero and the content sections
 
 **Owner prep for 4a and 4b** (dev store, not theme):
