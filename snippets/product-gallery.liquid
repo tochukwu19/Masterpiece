@@ -29,7 +29,7 @@
   x-on:variant-changed.window="showVariantMedia($event.detail)"
 >
   {%- if product.media.size > 0 -%}
-    <ul class="product-gallery__list list-unstyled" role="list" x-ref="list" x-on:scroll.debounce.50ms="onScroll()" aria-label="{{ 'products.media.gallery' | t }}">
+    <ul class="product-gallery__list list-unstyled" role="list" data-media-list x-on:scroll.debounce.50ms="onScroll($el)" aria-label="{{ 'products.media.gallery' | t }}">
       {%- if featured -%}
         <li class="product-gallery__item" data-media-id="{{ featured.id }}">
           {%- render 'product-media', media: featured, product: product, ratio: ratio, sizes: img_sizes, eager: true, lightbox: lightbox, position: 1 -%}
@@ -112,7 +112,7 @@
   .product-gallery__counter {
     position: absolute;
     right: 0.75rem;
-    bottom: 0.75rem;
+    top: 0.75rem;
     padding: 0.25rem 0.625rem;
     border-radius: 999px;
     background-color: var(--color-bg);

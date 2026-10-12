@@ -101,6 +101,15 @@
     "share": {
       "label": "Share",
       "copied": "Link copied"
+    },
+    "video": {
+      "play": "Play video",
+      "pause": "Pause video",
+      "seek": "Video progress",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "enter_fullscreen": "Enter full screen",
+      "exit_fullscreen": "Exit full screen"
     }
   },
   "collections": {

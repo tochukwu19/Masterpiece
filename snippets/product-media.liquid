@@ -49,7 +49,36 @@
       <div class="product-media__target" x-ref="target" x-show="loaded" x-cloak></div>
       <template x-ref="template">
         {%- if media.media_type == 'video' -%}
-          {{ media | video_tag: image_size: '1600x', autoplay: true, controls: true, playsinline: true, loop: false, muted: false }}
+          <div class="video-player" x-data="videoPlayer" x-bind:data-idle="idle" x-on:pointermove="wake()" x-on:keydown="wake()">
+            {{ media | video_tag: image_size: '1600x', autoplay: true, controls: false, playsinline: true, loop: false, muted: false, class: 'video-player__video' }}
+            <div class="video-player__controls">
+              <button type="button" class="video-player__button" x-on:click="toggle()">
+                <span x-show="!playing">{% render 'icon', name: 'play' %}<span class="visually-hidden">{{ 'products.video.play' | t }}</span></span>
+                <span x-show="playing" x-cloak>{% render 'icon', name: 'pause' %}<span class="visually-hidden">{{ 'products.video.pause' | t }}</span></span>
+              </button>
+              <input
+                type="range"
+                class="video-player__seek"
+                min="0"
+                step="0.1"
+                value="0"
+                x-bind:max="duration"
+                x-bind:value="current"
+                x-on:input="seek($event.target.value)"
+                x-bind:aria-valuetext="format(current) + ' / ' + format(duration)"
+                aria-label="{{ 'products.video.seek' | t }}"
+              >
+              <span class="video-player__time" aria-hidden="true" x-text="format(current) + ' / ' + format(duration)"></span>
+              <button type="button" class="video-player__button" x-on:click="toggleMute()">
+                <span x-show="!muted">{% render 'icon', name: 'volume' %}<span class="visually-hidden">{{ 'products.video.mute' | t }}</span></span>
+                <span x-show="muted" x-cloak>{% render 'icon', name: 'volume-off' %}<span class="visually-hidden">{{ 'products.video.unmute' | t }}</span></span>
+              </button>
+              <button type="button" class="video-player__button" x-on:click="toggleFullscreen()">
+                <span x-show="!fullscreen">{% render 'icon', name: 'expand' %}<span class="visually-hidden">{{ 'products.video.enter_fullscreen' | t }}</span></span>
+                <span x-show="fullscreen" x-cloak>{% render 'icon', name: 'collapse' %}<span class="visually-hidden">{{ 'products.video.exit_fullscreen' | t }}</span></span>
+              </button>
+            </div>
+          </div>
         {%- elsif media.host == 'youtube' -%}
           {{ media | external_video_url: autoplay: true, rel: 0, enablejsapi: 1 | external_video_tag: loading: 'lazy' }}
         {%- else -%}
@@ -147,7 +176,6 @@
 
   .product-media__target video {
     object-fit: contain;
-    background-color: #000;
   }
 
   .product-media__target .shopify-model-viewer-ui__controls-area {
@@ -175,6 +203,74 @@
   .product-media__target .shopify-model-viewer-ui__button:focus-visible {
     outline: 2px solid var(--color-fg);
     outline-offset: -2px;
+  }
+
+  .product-media__target .video-player {
+    position: absolute;
+    inset: 0;
+  }
+
+  .video-player[data-idle] {
+    cursor: none;
+  }
+
+  .video-player__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+  }
+
+  .video-player__controls {
+    position: absolute;
+    inset: auto 0.75rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--buttons-radius);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transition: opacity var(--duration) ease;
+  }
+
+  .video-player[data-idle] .video-player__controls {
+    opacity: 0;
+  }
+
+  .video-player:focus-within .video-player__controls {
+    opacity: 1;
+  }
+
+  .video-player__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+  }
+
+  .video-player__seek {
+    flex: 1;
+    min-width: 0;
+    height: 2.75rem;
+    margin: 0;
+    background: transparent;
+    accent-color: var(--color-fg);
+    cursor: pointer;
+  }
+
+  .video-player__time {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .product-media__xr {
