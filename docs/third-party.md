@@ -13,4 +13,5 @@ and listed here with its license (Theme Store §8: properly licensed, hosted on 
 |---|---|---|
 | Swiper 11 (`cdn.jsdelivr.net`) | `sections/template-categories.liquid` | Phase 4 (carousel rewrite) |
 | Swiper 7 (`unpkg.com`) | `sections/template-product.liquid` | Phase 3 (product rewrite) |
-| Calvino Grande Trial + General Sans (`fonts.cdnfonts.com`) | `assets/main.css` | Phase 1 (typography). See the font decision in `design-language.md` |
+
+Removed: Calvino Grande Trial + General Sans from `fonts.cdnfonts.com` (Phase 1, replaced by font_picker defaults Gloock + Figtree).

@@ -18,7 +18,7 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 
 ## 1. Exclusivity
 - [ ] 👤 Distributed only on the Theme Store (no other marketplaces).
-- [x] ✅ No designer credits or affiliate links in theme files. `theme_info` now reads Jewls / Tochukwu Onwunali. Keep it free of marketing links.
+- [x] ✅ No designer credits or affiliate links in theme files. `theme_info` now reads Vermeil / Tochukwu Onwunali. Keep it free of marketing links.
 
 ## 2. Uniqueness
 - [ ] ⚠️ Fundamentally different from every Theme Store theme. Identity must come from **architecture**: header/nav system, product card, media treatment, page structure — not colors/fonts/spacing.
@@ -173,7 +173,7 @@ Required templates (✅ exists as JSON · ❌):
 - [ ] ⚠️ `link_list` header default `main-menu` ✅ / footer must default `footer` (footer has no setting; reads `linklists['footer']` directly).
 - [ ] ❌ Resource defaults must exist in every store — remove `collections['featured']`, `['weekly-picks']`, `['summer-collection']`, `blogs.news`, hardcoded `file_img_url` images.
 - [ ] ❌ Editor live preview works for every change (`request.design_mode`; re-init JS on `shopify:section:load`).
-- [ ] ⚠️ `theme_info` updated (Jewls 0.1.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
+- [ ] ⚠️ `theme_info` updated (Vermeil 0.1.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
 
 ## 15. Font picker
 - [ ] ❌ All fonts via `font_picker`, with a loading default (e.g. `work_sans_n6`) and bold/italic/bold-italic via `font_modify`.
@@ -186,7 +186,7 @@ Required templates (✅ exists as JSON · ❌):
 - [ ] ❌ `image_url` + `image_tag` with `widths`/`sizes`, `loading="lazy"` below the fold, eager + `fetchpriority="high"` for the LCP image.
 
 ## 18. Naming and presets
-- [ ] ⚠️ 1–2 words, < 30 chars, unique, not an industry/platform/brand word. **Chosen: "Jewls".** No Theme Store theme by that name was found (2026-10-12). Risk: the rules forbid industry names ("Jewelry" is the example given) and advise against unusual spellings, and "Jewls" reads as a misspelling of "Jewels". Reviewers judge this in stage 5, so the cost of a rename is low if it's flagged (theme_info + preset name).
+- [x] ✅ 1–2 words, < 30 chars, unique, not an industry word. **Theme name: "Vermeil"** (gilded silver), chosen 2026-10-12. No Theme Store listing by that name. "Atelier" was preferred but is taken.
 - [ ] One preset must carry the theme's name. Extra presets need their own templates in `/listings/<preset>/`.
 - [ ] Install parity: a fresh install should look like the demo store (minus images).
 

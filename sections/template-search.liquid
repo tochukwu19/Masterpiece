@@ -38,11 +38,21 @@
       <!-- Filters section -->
       {% render 'filter', collection: search %}
 
-        {% paginate search.results by 6 %}
-          <!-- Existing search results grid -->
+        {% paginate search.results by 12 %}
           <div class="w-[96%] mx-auto my-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for item in search.results %}
-              {% render "search-result", item: item %}
+              {%- case item.object_type -%}
+                {%- when 'product' -%}
+                  {% render 'card-product', product: item, id_prefix: section.id %}
+                {%- when 'article' -%}
+                  {% render 'card-article', article: item, show_excerpt: false %}
+                {%- else -%}
+                  <article class="card-page">
+                    <p class="eyebrow text-muted">{{ 'search.page_label' | t }}</p>
+                    <h3 class="h4"><a href="{{ item.url }}" class="link--plain">{{ item.title | escape }}</a></h3>
+                    <p class="text-muted text-small">{{ item.content | strip_html | truncatewords: 20 }}</p>
+                  </article>
+              {%- endcase -%}
             {% else %}
               <div class="mx-auto w-fit my-8 h-[300px] flex items-center justify-center">
                 <p>No results</p>
@@ -50,9 +60,7 @@
             {% endfor %}
           </div>
         
-          <!-- Pagination links -->
-          {% render 'pagination'
-          , paginate: paginate %}
+          {% render 'pagination', paginate: paginate %}
         {% endpaginate %}
 
       {% endif %}

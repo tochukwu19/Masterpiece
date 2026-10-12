@@ -1,48 +1,14 @@
 {% style %}
-  .product-recommendations {
-    text-align: left;
-
-    h2 {
-    ;
-    /* margin: auto; */
+  .product-recommendations .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
   }
 
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-
-    @media only screen and (max-width: 400px) {
-      grid-template-columns: 1fr;
+  @media (min-width: 750px) {
+    .product-recommendations .grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
-
-  .card {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-  }
-
-  .overlay {
-    opacity: 0;
-    transition: all ease-in-out 0.3s;
-    z-index: -1;
-  }
-
-  .card-container:hover .overlay {
-    opacity: 1;
-    z-index: 1;
-  }
-}
-
-.product-card {
-  .card {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-  }
-}
 {% endstyle %}
 
 {% if section.settings.show_recommendations %}
@@ -59,8 +25,7 @@
 
       <div class="w-full mx-auto grid gap-8">
         {% for product in recommendations.products %}
-          {% render "product-card"
-            , product: product %}
+          {% render 'card-product', product: product, id_prefix: section.id %}
         {% else %}
           <p>No products found.</p>
         {% endfor %}
@@ -71,59 +36,24 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const productRecommendationsSection = document.querySelector('.product-recommendations');
-      if (!productRecommendationsSection) return;
-    
-      const observer = new IntersectionObserver((entries, observer) => {
-        if (!entries[0].isIntersecting) return;
-        observer.unobserve(entries[0].target);
-    
-        const url = entries[0].target.dataset.url;
-    
-        fetch(url)
-          .then(response => response.text())
-          .then(text => {
-            const html = document.createElement('div');
-            html.innerHTML = text;
-            const recommendations = html.querySelector('.product-recommendations');
-    
-            if (recommendations && recommendations.innerHTML.trim().length) {
-              entries[0].target.innerHTML = recommendations.innerHTML;
-              attachEventListeners(); // Attach event listeners after content is loaded
-            }
-          })
-          .catch(e => {
-            console.error('Error fetching recommendations:', e);
-          });
-      }, { rootMargin: '0px 0px 200px 0px' });
-    
-      observer.observe(productRecommendationsSection);
-      attachEventListeners(); // Attach event listeners on initial load
-    });
-    
-    const attachEventListeners = () => {
-      document.querySelectorAll('.add_to_cart').forEach(item => {
-        item.addEventListener('click', event => {
-          event.preventDefault(); // Prevent default form submission
-          const id = item.getAttribute('data-id');
-          fetch(`/cart/add.js?id=${id}&quantity=1`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            window.location.href = '/cart';
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-        });
-      });
-    };
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.product-recommendations');
+    if (!container) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      observer.disconnect();
+      fetch(container.dataset.url)
+        .then((response) => response.text())
+        .then((text) => {
+          const incoming = theme.parseHTML(text).querySelector('.product-recommendations');
+          if (incoming && incoming.innerHTML.trim().length) container.innerHTML = incoming.innerHTML;
+        })
+        .catch((error) => console.error(error));
+    }, { rootMargin: '0px 0px 200px 0px' });
+
+    observer.observe(container);
+  });
 </script>
 
 {% schema %}

@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vermeil design system</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock:ital,wght@0,400;1,400&family=Figtree:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap">
+<style>
+:root {
+  --font-heading-family: 'Gloock', serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 400;
+  --font-heading-case: none;
+  --font-heading-scale: 1;
+  --font-body-family: 'Figtree', sans-serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-body-weight-medium: 500;
+  --font-body-weight-bold: 700;
+  --font-body-scale: 1;
+  --page-width: 90rem;
+  --spacing-sections: 0px;
+  --grid-gap: 20px;
+  --buttons-radius: 0px;
+  --buttons-text-transform: uppercase;
+  --inputs-radius: 0px;
+  --card-ratio: 4 / 5;
+  --media-zoom: 1.05;
+}
+:root, .color-scheme-1 {
+  --color-bg: #FFFFFF;
+  --color-bg-image: none;
+  --color-fg: #141414;
+  --color-accent: #9C5232;
+  --color-button: #141414;
+  --color-button-label: #FFFFFF;
+  --color-secondary-button-label: #141414;
+  --color-fg-muted: color-mix(in srgb, var(--color-fg) 80%, var(--color-bg));
+  --color-border: color-mix(in srgb, var(--color-fg) 18%, var(--color-bg));
+  --color-border-input: color-mix(in srgb, var(--color-fg) 60%, var(--color-bg));
+  --color-surface: color-mix(in srgb, var(--color-fg) 5%, var(--color-bg));
+}
+.color-scheme-2 {
+  --color-bg: #F4EFE8;
+  --color-bg-image: none;
+  --color-fg: #141414;
+  --color-accent: #8F4B2E;
+  --color-button: #141414;
+  --color-button-label: #F4EFE8;
+  --color-secondary-button-label: #141414;
+  --color-fg-muted: color-mix(in srgb, var(--color-fg) 80%, var(--color-bg));
+  --color-border: color-mix(in srgb, var(--color-fg) 18%, var(--color-bg));
+  --color-border-input: color-mix(in srgb, var(--color-fg) 60%, var(--color-bg));
+  --color-surface: color-mix(in srgb, var(--color-fg) 5%, var(--color-bg));
+}
+.color-scheme-3 {
+  --color-bg: #141414;
+  --color-bg-image: none;
+  --color-fg: #FFFFFF;
+  --color-accent: #E0A98E;
+  --color-button: #FFFFFF;
+  --color-button-label: #141414;
+  --color-secondary-button-label: #FFFFFF;
+  --color-fg-muted: color-mix(in srgb, var(--color-fg) 80%, var(--color-bg));
+  --color-border: color-mix(in srgb, var(--color-fg) 18%, var(--color-bg));
+  --color-border-input: color-mix(in srgb, var(--color-fg) 60%, var(--color-bg));
+  --color-surface: color-mix(in srgb, var(--color-fg) 5%, var(--color-bg));
+}
+.color-scheme-4 {
+  --color-bg: #D59474;
+  --color-bg-image: none;
+  --color-fg: #141414;
+  --color-accent: #141414;
+  --color-button: #141414;
+  --color-button-label: #FFFFFF;
+  --color-secondary-button-label: #141414;
+  --color-fg-muted: color-mix(in srgb, var(--color-fg) 80%, var(--color-bg));
+  --color-border: color-mix(in srgb, var(--color-fg) 18%, var(--color-bg));
+  --color-border-input: color-mix(in srgb, var(--color-fg) 60%, var(--color-bg));
+  --color-surface: color-mix(in srgb, var(--color-fg) 5%, var(--color-bg));
+}
+.color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4 { background-color: var(--color-bg); background-image: var(--color-bg-image); color: var(--color-fg); }
+</style>
+<link rel="stylesheet" href="../../assets/base.css">
+<style>
+.card-article {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .card-article__image {
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .card-article:hover .card-article__image {
+      transform: scale(var(--media-zoom));
+    }
+  }
+
+  .card-article__info {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .card-article__meta {
+    font-size: 0.75rem;
+  }
+
+  .card-article__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card-article__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card-article__link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+
+  .card-article__link:focus-visible {
+    outline: none;
+  }
+
+  .card-article__link:focus-visible::after {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+
+.card-collection {
+    position: relative;
+    display: block;
+    color: var(--color-on-media);
+    text-decoration: none;
+  }
+
+  .card-collection__media::after {
+    content: '';
+    position: absolute;
+    inset: 40% 0 0;
+    background: linear-gradient(to top, var(--color-media-scrim), transparent);
+    pointer-events: none;
+  }
+
+  .card-collection__image {
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .card-collection:hover .card-collection__image {
+      transform: scale(var(--media-zoom));
+    }
+  }
+
+  .card-collection__caption {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    display: grid;
+    gap: 0.25rem;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .card-collection__title {
+    color: inherit;
+  }
+
+  .card-collection:hover .card-collection__title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+
+.card-product {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    height: 100%;
+  }
+
+  .card-product__media img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .card-product__image--secondary {
+    opacity: 0;
+  }
+
+  @media (hover: hover) {
+    .card-product:hover .card-product__image {
+      transform: scale(var(--media-zoom));
+    }
+
+    .card-product--has-secondary:hover .card-product__image--secondary {
+      opacity: 1;
+    }
+  }
+
+  .card-product__badge {
+    position: absolute;
+    z-index: 2;
+    margin: 0.75rem;
+  }
+
+  .card-product__badge--top-left { top: 0; left: 0; }
+  .card-product__badge--top-right { top: 0; right: 0; }
+  .card-product__badge--bottom-left { bottom: 0; left: 0; }
+
+  .card-product__info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .card-product__text {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .card-product__title {
+    font-family: var(--font-body-family);
+    font-weight: var(--font-body-weight-medium);
+    font-size: calc(1rem * var(--font-body-scale));
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    text-transform: none;
+  }
+
+  .card-product__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card-product__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .card-product__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .card-product__link:focus-visible {
+    outline: none;
+  }
+
+  .card-product__link:focus-visible::after {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+
+  .card-product__price {
+    color: var(--color-fg-muted);
+    font-size: calc(0.9375rem * var(--font-body-scale));
+  }
+
+  .card-product__quick-add {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    margin: -0.625rem -0.625rem 0 0;
+  }
+
+  .card-product__quick-add-button[aria-busy='true'] .icon {
+    animation: spin 0.8s linear infinite;
+  }
+
+  .card-product__error {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: max-content;
+    max-width: 14rem;
+    text-align: right;
+  }
+
+.password {
+    display: flex;
+    min-height: 100svh;
+    align-items: center;
+  }
+
+  .password__inner {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
+    justify-items: center;
+    padding-block: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .password__logo img {
+    width: var(--logo-width);
+    height: auto;
+  }
+
+  .password__wordmark {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .password__message {
+    max-width: 32rem;
+  }
+
+  .password__newsletter,
+  .password__entry {
+    display: grid;
+    gap: 1rem;
+    width: min(100%, 26rem);
+  }
+
+  .password__entry details {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .password__entry summary {
+    justify-self: center;
+    list-style: none;
+  }
+
+  .password__entry summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .password__form {
+    text-align: left;
+  }
+
+  .password__footer a {
+    color: inherit;
+  }
+
+.ds-header { padding-block: 3rem 2rem; border-bottom: 1px solid var(--color-border); }
+.ds-header p { max-width: 40rem; margin-top: 0.75rem; }
+.ds-nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 1.5rem; }
+.ds-section { padding-block: clamp(3rem, 6vw, 5rem); }
+.ds-label { margin-bottom: 2rem; font-family: var(--font-body-family); font-weight: 500; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-fg-muted); }
+.ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.ds-stack { display: grid; gap: 1.5rem; }
+.ds-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 2.5rem; }
+.ds-schemes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.ds-scheme { display: grid; gap: 1rem; padding: 1.5rem; border: 1px solid var(--color-border); }
+.ds-scheme dl { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; font-size: 0.8125rem; }
+.ds-scheme dd { margin: 0; }
+.ds-chips { display: flex; gap: 0.375rem; }
+.ds-chip { width: 1.75rem; height: 1.75rem; border: 1px solid var(--color-border); }
+.ds-ratio { font-variant-numeric: tabular-nums; }
+.ds-ratio::after { margin-left: 0.35rem; }
+.ds-pass::after { content: 'AA'; }
+.ds-fail::after { content: 'fail'; font-weight: 700; }
+.ds-type-row { display: grid; grid-template-columns: 6rem 1fr; align-items: baseline; gap: 1rem; padding-block: 0.75rem; border-bottom: 1px solid var(--color-border); }
+.ds-type-row code { font-size: 0.75rem; color: var(--color-fg-muted); }
+.ds-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: 1rem; }
+.ds-icon { display: grid; justify-items: center; gap: 0.75rem; padding: 1.25rem 0.5rem; border: 1px solid var(--color-border); font-size: 0.75rem; }
+.ds-icon .icon { --icon-size: 1.5rem; }
+.ds-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--grid-gap); }
+</style>
+</head>
+<body>
+<header class="ds-header page-width">
+  <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
+  <h1 class="h0">Vermeil</h1>
+  <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a></nav>
+</header>
+<main>
+
+<section id="colors" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Color schemes</h2>
+    <div class="ds-schemes"><div class="ds-scheme color-scheme-1">
+      <p class="h4">Scheme 1</p>
+      <div class="ds-chips"><span class="ds-chip" style="background:#FFFFFF" title="#FFFFFF"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#9C5232" title="#9C5232"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#FFFFFF" title="#FFFFFF"></span></div>
+      <dl>
+        <dt>Text</dt><dd><span class="ds-ratio ds-pass">18.42</span></dd>
+        <dt>Muted text</dt><dd><span class="ds-ratio ds-pass">9.89</span></dd>
+        <dt>Accent</dt><dd><span class="ds-ratio ds-pass">5.73</span></dd>
+        <dt>Input border</dt><dd><span class="ds-ratio ds-pass">4.81</span></dd>
+        <dt>Button label</dt><dd><span class="ds-ratio ds-pass">18.42</span></dd>
+      </dl>
+      <div class="ds-row"><button class="button" type="button">Solid</button><button class="button button--secondary" type="button">Outline</button></div>
+    </div><div class="ds-scheme color-scheme-2">
+      <p class="h4">Scheme 2</p>
+      <div class="ds-chips"><span class="ds-chip" style="background:#F4EFE8" title="#F4EFE8"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#8F4B2E" title="#8F4B2E"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#F4EFE8" title="#F4EFE8"></span></div>
+      <dl>
+        <dt>Text</dt><dd><span class="ds-ratio ds-pass">16.11</span></dd>
+        <dt>Muted text</dt><dd><span class="ds-ratio ds-pass">9.05</span></dd>
+        <dt>Accent</dt><dd><span class="ds-ratio ds-pass">5.71</span></dd>
+        <dt>Input border</dt><dd><span class="ds-ratio ds-pass">4.58</span></dd>
+        <dt>Button label</dt><dd><span class="ds-ratio ds-pass">16.11</span></dd>
+      </dl>
+      <div class="ds-row"><button class="button" type="button">Solid</button><button class="button button--secondary" type="button">Outline</button></div>
+    </div><div class="ds-scheme color-scheme-3">
+      <p class="h4">Scheme 3</p>
+      <div class="ds-chips"><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#FFFFFF" title="#FFFFFF"></span><span class="ds-chip" style="background:#E0A98E" title="#E0A98E"></span><span class="ds-chip" style="background:#FFFFFF" title="#FFFFFF"></span><span class="ds-chip" style="background:#141414" title="#141414"></span></div>
+      <dl>
+        <dt>Text</dt><dd><span class="ds-ratio ds-pass">18.42</span></dd>
+        <dt>Muted text</dt><dd><span class="ds-ratio ds-pass">11.94</span></dd>
+        <dt>Accent</dt><dd><span class="ds-ratio ds-pass">8.98</span></dd>
+        <dt>Input border</dt><dd><span class="ds-ratio ds-pass">7.13</span></dd>
+        <dt>Button label</dt><dd><span class="ds-ratio ds-pass">18.42</span></dd>
+      </dl>
+      <div class="ds-row"><button class="button" type="button">Solid</button><button class="button button--secondary" type="button">Outline</button></div>
+    </div><div class="ds-scheme color-scheme-4">
+      <p class="h4">Scheme 4</p>
+      <div class="ds-chips"><span class="ds-chip" style="background:#D59474" title="#D59474"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#141414" title="#141414"></span><span class="ds-chip" style="background:#FFFFFF" title="#FFFFFF"></span></div>
+      <dl>
+        <dt>Text</dt><dd><span class="ds-ratio ds-pass">7.30</span></dd>
+        <dt>Muted text</dt><dd><span class="ds-ratio ds-pass">5.18</span></dd>
+        <dt>Accent</dt><dd><span class="ds-ratio ds-pass">7.30</span></dd>
+        <dt>Input border</dt><dd><span class="ds-ratio ds-pass">3.37</span></dd>
+        <dt>Button label</dt><dd><span class="ds-ratio ds-pass">18.42</span></dd>
+      </dl>
+      <div class="ds-row"><button class="button" type="button">Solid</button><button class="button button--secondary" type="button">Outline</button></div>
+    </div></div>
+  </div>
+</section>
+
+
+<section id="type" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Typography</h2>
+    <div class="ds-cols"><div>
+  <div class="ds-type-row"><code>.h0</code><p class="h0">New arrivals</p></div><div class="ds-type-row"><code>.h1</code><p class="h1">Pieces made to last</p></div><div class="ds-type-row"><code>.h2</code><p class="h2">Recycled 18k gold</p></div><div class="ds-type-row"><code>.h3</code><p class="h3">Our signature hoops</p></div><div class="ds-type-row"><code>.h4</code><p class="h4">Care and repair</p></div><div class="ds-type-row"><code>.h5</code><p class="h5">Shipping and returns</p></div><div class="ds-type-row"><code>.h6</code><p class="h6">Ring size guide</p></div><div class="ds-type-row"><code>.eyebrow</code><p class="eyebrow">See what’s new</p></div>
+  <p class="ds-type-row"><code>Gloock</code><span>Headings, 400</span></p>
+  <p class="ds-type-row"><code>Figtree</code><span>Body and UI, 400 / 500 / 700</span></p>
+</div>
+<div class="rte">
+  <h2>Rich text</h2>
+  <p>Every piece is hand-finished in our studio from <strong>recycled 18k gold</strong> and conflict-free stones. <a href="#">Read the care guide</a>.</p>
+  <blockquote>Made to be worn every day and passed down.</blockquote>
+  <h3>Materials</h3>
+  <ul><li>Recycled 18k yellow, white and rose gold</li><li>Lab-grown and ethically mined diamonds</li></ul>
+  <ol><li>Clean with warm water</li><li>Dry with a soft cloth</li></ol>
+  <table><tr><th>Size</th><th>Diameter</th></tr><tr><td>6</td><td>16.5 mm</td></tr><tr><td>7</td><td>17.3 mm</td></tr></table>
+</div></div>
+  </div>
+</section>
+
+
+<section id="buttons" class="ds-section color-scheme-2">
+  <div class="page-width">
+    <h2 class="ds-label">Buttons</h2>
+    <div class="ds-stack">
+  <div class="ds-row">
+    <button class="button" type="button">Add to cart</button>
+    <button class="button button--secondary" type="button">Save for later</button>
+    <button class="button button--tertiary" type="button">View all</button>
+    <button class="button" type="button" aria-busy="true"><svg class="loading-spinner" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" opacity="0.25"/><path d="M21 12a9 9 0 0 0-9-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Adding</button>
+    <button class="button" type="button" disabled>Sold out</button>
+  </div>
+  <div class="ds-row">
+    <button class="icon-button" type="button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><span class="visually-hidden">Menu</span></button>
+    <button class="icon-button" type="button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span class="visually-hidden">Search</span></button>
+    <button class="icon-button" type="button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><span class="visually-hidden">Cart</span></button>
+    <button class="icon-button" type="button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span class="visually-hidden">Close</span></button>
+  </div>
+  <div style="max-width: 24rem"><button class="button button--full" type="button">Checkout</button></div>
+</div>
+  </div>
+</section>
+
+
+<section id="forms" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Forms</h2>
+    <div class="ds-cols">
+  <div class="ds-stack">
+    <div class="field"><label class="field__label" for="ds-email">Email</label><input id="ds-email" class="input" type="email" placeholder="you@example.com"></div>
+    <div class="field"><label class="field__label" for="ds-size">Ring size</label><select id="ds-size" class="select"><option>6</option><option>7</option><option>8</option></select></div>
+    <div class="field"><label class="field__label" for="ds-note">Order note</label><textarea id="ds-note" class="textarea" placeholder="Gift message"></textarea></div>
+    <div class="field"><label class="field__label" for="ds-invalid">Email</label><input id="ds-invalid" class="input" type="email" value="you@" aria-invalid="true" aria-describedby="ds-invalid-error"><p id="ds-invalid-error" class="form-message form-message--error"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg>Enter a valid email address.</p></div>
+  </div>
+  <div class="ds-stack">
+    <div class="field"><label class="visually-hidden" for="ds-news">Email</label><div class="field__inline"><input id="ds-news" class="input input--underline" placeholder="Email address"><button type="button" class="icon-button field__inline-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span class="visually-hidden">Subscribe</span></button></div></div>
+    <div class="ds-row">
+      <div class="quantity"><button class="quantity__button" type="button" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><span class="visually-hidden">Decrease quantity</span></button><input class="quantity__input" type="number" value="1" min="1" aria-label="Quantity"><button class="quantity__button" type="button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Increase quantity</span></button></div>
+    </div>
+    <div class="ds-row">
+      <label class="checkbox"><input type="checkbox" checked><span>In stock</span></label>
+      <label class="checkbox"><input type="checkbox"><span>Yellow gold</span></label>
+      <label class="checkbox"><input type="checkbox" disabled><span>Platinum</span></label>
+    </div>
+    <div class="ds-row">
+      <label class="radio"><input type="radio" name="ds-sort" checked><span>Featured</span></label>
+      <label class="radio"><input type="radio" name="ds-sort"><span>Price, low to high</span></label>
+    </div>
+    <p class="form-message"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>Thanks for subscribing.</p>
+  </div>
+</div>
+  </div>
+</section>
+
+
+<section id="badges" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Badges and price</h2>
+    <div class="ds-stack">
+  <div class="ds-row"><span class="badge color-scheme-1">Scheme 1</span><span class="badge color-scheme-2">Scheme 2</span><span class="badge color-scheme-3">Scheme 3</span><span class="badge color-scheme-4">Scheme 4</span></div>
+  <div class="ds-row">
+    <span class="badge color-scheme-4">Sale</span>
+    <span class="badge color-scheme-3">Sold out</span>
+  </div>
+  <div class="ds-row" style="gap: 2.5rem">
+    <div class="price"><span class="price__regular">$1,280.00 USD</span></div>
+    <div class="price price--on-sale"><span class="price__regular">$340.00 USD</span><s class="price__compare">$420.00 USD</s></div>
+    <div class="price"><span class="price__regular">From $190.00 USD</span><span class="price__unit">$4.75 / g</span></div>
+    <div class="price price--sold-out"><span class="price__regular">$560.00 USD</span></div>
+  </div>
+</div>
+  </div>
+</section>
+
+
+<section id="icons" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Icons</h2>
+    <div class="ds-icons"><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><code>account</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg><code>arrow-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><code>arrow-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><code>bag</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg><code>check</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><code>chevron-down</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><code>chevron-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><code>chevron-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><code>chevron-up</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><code>close</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><code>error</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><code>filter</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><code>menu</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><code>minus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><code>plus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><code>search</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><code>trash</code></div></div>
+  </div>
+</section>
+
+
+<section id="cards" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Cards</h2>
+    <div class="ds-stack">
+  <ul class="layout-grid list-unstyled" style="--cols: 4">
+    <li>
+<article class="card-product card-product--has-secondary">
+  <div class="card-product__media media" style="--ratio: var(--card-ratio);">
+    <svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 8%, var(--color-bg))"/></svg>
+    
+  </div>
+  <div class="card-product__info">
+    <div class="card-product__text">
+      <h3 class="card-product__title"><a href="#" class="card-product__link">Aurelia solitaire ring</a></h3>
+      <div class="price card-product__price"><span class="price__regular">$1,280.00 USD</span></div>
+    </div>
+    <div class="card-product__quick-add"><button type="button" class="icon-button card-product__quick-add-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Add Aurelia solitaire ring to cart</span></button></div>
+  </div>
+</article></li>
+    <li>
+<article class="card-product card-product--has-secondary">
+  <div class="card-product__media media" style="--ratio: var(--card-ratio);">
+    <svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 12%, var(--color-bg))"/></svg>
+    <span class="card-product__badge card-product__badge--top-left badge color-scheme-4">Sale</span>
+  </div>
+  <div class="card-product__info">
+    <div class="card-product__text">
+      <h3 class="card-product__title"><a href="#" class="card-product__link">Marguerite pearl drop earrings</a></h3>
+      <div class="price card-product__price price--on-sale"><span class="price__regular">$340.00 USD</span><s class="price__compare">$420.00 USD</s></div>
+    </div>
+    <div class="card-product__quick-add"><button type="button" class="icon-button card-product__quick-add-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Add Marguerite pearl drop earrings to cart</span></button></div>
+  </div>
+</article></li>
+    <li>
+<article class="card-product card-product--has-secondary">
+  <div class="card-product__media media" style="--ratio: var(--card-ratio);">
+    <svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 16%, var(--color-bg))"/></svg>
+    <span class="card-product__badge card-product__badge--top-left badge color-scheme-3">Sold out</span>
+  </div>
+  <div class="card-product__info">
+    <div class="card-product__text">
+      <h3 class="card-product__title"><a href="#" class="card-product__link">Fine curb chain</a></h3>
+      <div class="price card-product__price"><span class="price__regular">$560.00 USD</span></div>
+    </div>
+    <div class="card-product__quick-add"><button type="button" class="icon-button card-product__quick-add-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Add Fine curb chain to cart</span></button></div>
+  </div>
+</article></li>
+    <li>
+<article class="card-product card-product--has-secondary">
+  <div class="card-product__media media" style="--ratio: var(--card-ratio);">
+    <svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 10%, var(--color-bg))"/></svg>
+    
+  </div>
+  <div class="card-product__info">
+    <div class="card-product__text">
+      <h3 class="card-product__title"><a href="#" class="card-product__link">Petite hoops</a></h3>
+      <div class="price card-product__price"><span class="price__regular">From $190.00 USD</span></div>
+    </div>
+    <div class="card-product__quick-add"><button type="button" class="icon-button card-product__quick-add-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="visually-hidden">Add Petite hoops to cart</span></button></div>
+  </div>
+</article></li>
+  </ul>
+  <div class="ds-cards">
+    <a href="#" class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 45%, var(--color-bg))"/></svg></div><div class="card-collection__caption"><h3 class="card-collection__title h3">Rings</h3><p class="card-collection__count text-small">24 products</p></div></a>
+    <a href="#" class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 30%, var(--color-bg))"/></svg></div><div class="card-collection__caption"><h3 class="card-collection__title h3">Earrings</h3></div></a>
+    <article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 14%, var(--color-bg))"/></svg></div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 2, 2026</p><h3 class="card-article__title h4"><a href="#" class="card-article__link">How to stack rings</a></h3><p class="card-article__excerpt text-muted">Mixing metals, widths and textures without losing the thread.</p></div></article>
+  </div>
+</div>
+  </div>
+</section>
+
+
+<section id="heading" class="ds-section color-scheme-2">
+  <div class="page-width">
+    <h2 class="ds-label">Section heading</h2>
+    <div class="ds-stack">
+  <div class="section-heading"><div class="section-heading__text"><p class="eyebrow">See what’s new</p><h2 class="h0">New arrivals</h2></div><a href="#" class="button button--tertiary">View all</a></div>
+  <div class="section-heading section-heading--center"><div class="section-heading__text"><p class="eyebrow">Join our circle</p><h2 class="h1">Early access, always</h2><div class="section-heading__subheading rte"><p>New collections first, and 10% off your first order.</p></div></div></div>
+</div>
+  </div>
+</section>
+
+
+<section id="pagination" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Pagination</h2>
+    <nav class="pagination" aria-label="Pagination"><ul class="pagination__list list-unstyled">
+  <li><span class="pagination__item pagination__item--disabled" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></span></li>
+  <li><span class="pagination__item" aria-current="page">1</span></li>
+  <li><a class="pagination__item" href="#">2</a></li>
+  <li><a class="pagination__item" href="#">3</a></li>
+  <li><span class="pagination__item pagination__item--disabled">…</span></li>
+  <li><a class="pagination__item" href="#">9</a></li>
+  <li><a class="pagination__item" href="#"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><span class="visually-hidden">Next page</span></a></li>
+</ul></nav>
+  </div>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% doc %}
+  Article card.
+
+  @param {article} article - The article
+  @param {string} [sizes] - Image sizes attribute
+  @param {boolean} [show_date] - Show the publish date. Defaults to true
+  @param {boolean} [show_author] - Show the author
+  @param {boolean} [show_excerpt] - Show the excerpt. Defaults to true
+  @param {string} [heading_tag] - Title element. Defaults to h3
+  @example
+  {% render 'card-article', article: article %}
+{% enddoc %}
+
+{%- liquid
+  assign tag = heading_tag | default: 'h3'
+  assign img_sizes = sizes | default: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw'
+-%}
+
+<article class="card-article">
+  <div class="card-article__media media" style="--ratio: 4 / 5;">
+    {%- if article.image -%}
+      {%- render 'image', image: article.image, sizes: img_sizes, alt: '', class: 'card-article__image' -%}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="card-article__info">
+    {%- unless show_date == false and show_author != true -%}
+      <p class="card-article__meta eyebrow text-muted">
+        {%- unless show_date == false -%}
+          {{- article.published_at | time_tag: format: 'date' -}}
+        {%- endunless -%}
+        {%- if show_author -%}
+          {%- unless show_date == false %} · {% endunless -%}
+          {{- article.author -}}
+        {%- endif -%}
+      </p>
+    {%- endunless -%}
+    <{{ tag }} class="card-article__title h4">
+      <a href="{{ article.url }}" class="card-article__link">{{ article.title | escape }}</a>
+    </{{ tag }}>
+    {%- unless show_excerpt == false -%}
+      <p class="card-article__excerpt text-muted">
+        {{- article.excerpt_or_content | strip_html | truncatewords: 26 -}}
+      </p>
+    {%- endunless -%}
+  </div>
+</article>
+
+{% stylesheet %}
+  .card-article {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .card-article__image {
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .card-article:hover .card-article__image {
+      transform: scale(var(--media-zoom));
+    }
+  }
+
+  .card-article__info {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .card-article__meta {
+    font-size: 0.75rem;
+  }
+
+  .card-article__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card-article__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card-article__link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+
+  .card-article__link:focus-visible {
+    outline: none;
+  }
+
+  .card-article__link:focus-visible::after {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+{% endstylesheet %}

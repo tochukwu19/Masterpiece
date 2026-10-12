@@ -1,0 +1,42 @@
+{% doc %}
+  Eyebrow, heading, subheading and optional link.
+
+  @param {string} [eyebrow] - Small uppercase label above the heading
+  @param {string} [heading] - Heading text
+  @param {string} [subheading] - Supporting text (may contain HTML from a richtext/inline_richtext setting)
+  @param {string} [size] - Heading size class: h0 (display), h1, h2, h3. Defaults to h0
+  @param {string} [alignment] - left or center. Defaults to left
+  @param {string} [heading_tag] - Heading element. Defaults to h2
+  @param {string} [link_url] - Optional link, e.g. "View all"
+  @param {string} [link_label] - Link text
+  @example
+  {% render 'section-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, link_url: section.settings.collection.url, link_label: 'View all' %}
+{% enddoc %}
+
+{%- liquid
+  assign tag = heading_tag | default: 'h2'
+  assign size_class = size | default: 'h0'
+  assign show_link = false
+  if link_url != blank and link_label != blank
+    assign show_link = true
+  endif
+-%}
+
+{%- if eyebrow != blank or heading != blank or subheading != blank or show_link -%}
+  <div class="section-heading{% if alignment == 'center' %} section-heading--center{% endif %}">
+    <div class="section-heading__text">
+      {%- if eyebrow != blank -%}
+        <p class="eyebrow">{{ eyebrow }}</p>
+      {%- endif -%}
+      {%- if heading != blank -%}
+        <{{ tag }} class="{{ size_class }}">{{ heading }}</{{ tag }}>
+      {%- endif -%}
+      {%- if subheading != blank -%}
+        <div class="section-heading__subheading rte">{{ subheading }}</div>
+      {%- endif -%}
+    </div>
+    {%- if show_link -%}
+      <a href="{{ link_url }}" class="button button--tertiary">{{ link_label }}</a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

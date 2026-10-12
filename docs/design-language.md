@@ -1,5 +1,9 @@
 # Design language
 
+Live reference: `docs/design-system/index.html` (generate with `npm run kit`). It renders every token,
+color scheme (with contrast checks), type style, button, form control, badge, icon and card from the
+real theme files.
+
 Part 1 records the language **as built** (extracted from the code, 2026-10-12). Part 2 lists
 what it is **missing** for a complete, editor-driven Theme Store theme. Part 3 is the proposed
 token system that replaces the hardcoded values.
@@ -51,8 +55,9 @@ These are the Theme Store expectations plus the interfaces that don't exist yet:
 1. **Fonts must come from `font_picker`.** Calvino Grande Trial and General Sans aren't in Shopify's library, and the trial font isn't licensed. Closest library candidates (all confirmed available):
    - Display: **Gloock** (closest to Calvino's high-contrast, wide build), then *Fraunces*, *DM Serif Display*, *Bodoni Moda*, *Gilda Display*.
    - Body: **Figtree** (closest to General Sans), then *Host Grotesk*, *Instrument Sans*, *Manrope*, *Plus Jakarta Sans*.
-   - Defaults need bold, italic and bold-italic via `font_modify`. **To decide:** pick the pair by eye on a preview store.
-2. **Color schemes.** At least 4 colors with paired background/foreground. Proposed default schemes: *Paper* (white/black), *Ink* (black/white, for announcement, newsletter, footer option), *Stone* (warm off-white `#F5F1EC`/black), *Clay* (accent-tinted). Every section gets a `color_scheme` setting.
+   - Defaults need bold, italic and bold-italic via `font_modify`.
+   - **Decided (2026-10-12): Gloock + Figtree.** Gloock ships one weight (400), so headings never use faux bold (`font-synthesis: none` in the legacy bridge).
+2. **Color schemes.** At least 4 colors with paired background/foreground. Proposed default schemes: *Paper* (white/black), *Ink* (black/white, for announcement, newsletter, footer option), *Stone* (warm off-white `#F4EFE8`/black), *Clay* (`#D59474`/black, lightened from `#CB8161` so muted text passes 4.5:1). Implemented as scheme-1 Paper, scheme-2 Stone, scheme-3 Ink, scheme-4 Clay. Every section gets a `color_scheme` setting.
 3. **A real type scale with distinct h1–h6.** Today there are only "giant" and "small". The 100px display needs a responsive `clamp()` and a settings-driven scale multiplier.
 4. **Button system.** Primary (solid ink), secondary (outline), tertiary/link (underline), and icon button (24px minimum target). Each needs hover, focus-visible, disabled and loading states. Today there are six ad-hoc variants.
 5. **Form system.** Text inputs (the underline style from the newsletter becomes the house style), select, checkbox, radio, quantity stepper, textarea, error/success messages, labels. Customer, contact, cart note and comment forms are currently unstyled.

@@ -1,8 +1,67 @@
 {
   "general": {
     "404": {
-      "title": "Not found",
-      "subtext_html": "The page you were looking for does not exist"
+      "title": "Page not found",
+      "subtext_html": "The page you were looking for doesn't exist."
+    },
+    "accessibility": {
+      "unit_price_separator": "per"
+    },
+    "errors": {
+      "generic": "Something went wrong. Try again."
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "page": "Page {{ number }}",
+      "next": "Next page",
+      "previous": "Previous page"
     }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content"
+  },
+  "newsletter": {
+    "label": "Email",
+    "placeholder": "Email address",
+    "button_label": "Subscribe",
+    "success": "Thanks for subscribing."
+  },
+  "password": {
+    "enter_using_password": "Enter using password",
+    "label": "Password",
+    "submit": "Enter",
+    "error": "That password isn't right. Try again."
+  },
+  "products": {
+    "vendor": "Vendor",
+    "badge": {
+      "sale": "Sale",
+      "sold_out": "Sold out"
+    },
+    "price": {
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "unit_price": "Unit price",
+      "from_price_html": "From {{ price }}"
+    },
+    "quick_add": {
+      "add_to_cart": "Add {{ title }} to cart",
+      "choose_options": "Choose options for {{ title }}"
+    }
+  },
+  "collections": {
+    "card": {
+      "product_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    }
+  },
+  "search": {
+    "page_label": "Page"
   }
 }

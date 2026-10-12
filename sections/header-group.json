@@ -1,0 +1,15 @@
+{
+  "type": "header",
+  "name": "t:sections.header_group.name",
+  "sections": {
+    "header": {
+      "type": "navbar",
+      "settings": {
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

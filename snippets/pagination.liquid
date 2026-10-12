@@ -1,101 +1,58 @@
-<style>
+{% doc %}
+  Numbered pagination.
 
-  .visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-    white-space: nowrap;
-  }
+  @param {paginate} paginate - The paginate object from a {% paginate %} block
+  @param {string} [anchor] - Fragment appended to page links, e.g. '#ProductGrid'
+  @example
+  {% render 'pagination', paginate: paginate, anchor: '#ProductGrid' %}
+{% enddoc %}
 
-  .pagination{
-    display: flex;
-    align-items: center;
-  }
-
-  .page{
-    place-content: center;
-    width: 30px;
-    display: grid;
-    height: 30px;
-  }
-
-  .page-active{
-    place-content: center;
-    width: 30px;
-    display: grid;
-    height: 30px;
-  }
-
-  .pagination li {
-    /* display: inline; */
-    margin: 0 5px;
-  }
-</style>
-
-<div class="mx-auto mb-8 w-fit">
-  {%- if paginate.pages > 1 -%}
-    <nav role="navigation">
-      <ol class="pagination">
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+    <ul class="pagination__list list-unstyled">
+      <li>
         {%- if paginate.previous -%}
-          <li>
-            <a href="{{ paginate.previous.url }}">
-              <span aria-hidden="true">&laquo;</span>
-              Previous
-              <span class="visuallyhidden">page</span>
-            </a>
-          </li>
+          <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item" rel="prev">
+            {%- render 'icon', name: 'chevron-left' -%}
+            <span class="visually-hidden">{{ 'general.pagination.previous' | t }}</span>
+          </a>
         {%- else -%}
-          <li class="disabled">
-            <span aria-hidden="true">&laquo;</span>
-            Previous
-            <span class="visuallyhidden">page</span>
-          </li>
+          <span class="pagination__item pagination__item--disabled" aria-hidden="true">
+            {%- render 'icon', name: 'chevron-left' -%}
+          </span>
         {%- endif -%}
+      </li>
 
-        {%- for part in paginate.parts -%}
+      {%- for part in paginate.parts -%}
+        <li>
           {%- if part.is_link -%}
-            <li>
-              <a href="{{ part.url }}" class="page bg-[#F9FAFB] text-[#9CA3AF] hover:border-[1px] rounded-full hover:border-solid hover:border-[#1F2937] hover:text-[#1F2937] hover:bg-white rounded-full">
-                <span class="visuallyhidden">page</span>
-                {{ part.title }}
-              </a>
-            </li>
-          {%- else -%}
-            {%- if part.title == paginate.current_page -%}
-              <li class="active page-active border-[1px] rounded-full border-solid border-[#1F2937] text-[#1F2937] bg-white" aria-current="page">
-                <span class="visuallyhidden">page</span>
-                {{ part.title }}
-              </li>
-            {%- else -%}
-              <li>
-                <span class="visuallyhidden">page</span>
-                {{ part.title }}
-              </li>
-            {%- endif -%}
-          {%- endif -%}
-        {%- endfor -%}
-
-        {%- if paginate.next -%}
-          <li>
-            <a href="{{ paginate.next.url }}">
-              Next
-              <span class="visuallyhidden">page</span>
-              <span aria-hidden="true">&raquo;</span>
+            <a href="{{ part.url }}{{ anchor }}" class="pagination__item">
+              <span class="visually-hidden">{{ 'general.pagination.page' | t: number: part.title }}</span>
+              <span aria-hidden="true">{{ part.title }}</span>
             </a>
-          </li>
+          {%- elsif part.title == paginate.current_page -%}
+            <span class="pagination__item" aria-current="page">
+              <span class="visually-hidden">{{ 'general.pagination.page' | t: number: part.title }}</span>
+              <span aria-hidden="true">{{ part.title }}</span>
+            </span>
+          {%- else -%}
+            <span class="pagination__item pagination__item--disabled">{{ part.title }}</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+
+      <li>
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item" rel="next">
+            {%- render 'icon', name: 'chevron-right' -%}
+            <span class="visually-hidden">{{ 'general.pagination.next' | t }}</span>
+          </a>
         {%- else -%}
-          <li class="disabled">
-            Next
-            <span class="visuallyhidden">page</span>
-            <span aria-hidden="true">&raquo;</span>
-          </li>
+          <span class="pagination__item pagination__item--disabled" aria-hidden="true">
+            {%- render 'icon', name: 'chevron-right' -%}
+          </span>
         {%- endif -%}
-      </ol>
-    </nav>
-  {%- endif -%}
-</div>
+      </li>
+    </ul>
+  </nav>
+{%- endif -%}

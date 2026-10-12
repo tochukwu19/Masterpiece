@@ -1,0 +1,81 @@
+{% doc %}
+  Collection card with overlaid title.
+
+  @param {collection} collection - The collection
+  @param {string} [ratio] - CSS aspect ratio, e.g. '4 / 5'. Defaults to 4 / 5
+  @param {string} [sizes] - Image sizes attribute
+  @param {boolean} [show_count] - Show the product count
+  @param {string} [heading_tag] - Title element. Defaults to h3
+  @example
+  {% render 'card-collection', collection: collection, sizes: '(min-width: 990px) 33vw, 100vw' %}
+{% enddoc %}
+
+{%- liquid
+  assign tag = heading_tag | default: 'h3'
+  assign card_ratio = ratio | default: '4 / 5'
+  assign img_sizes = sizes | default: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw'
+-%}
+
+<a href="{{ collection.url }}" class="card-collection">
+  <div class="card-collection__media media" style="--ratio: {{ card_ratio }};">
+    {%- if collection.featured_image -%}
+      {%- render 'image', image: collection.featured_image, sizes: img_sizes, alt: '', class: 'card-collection__image' -%}
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="card-collection__caption">
+    <{{ tag }} class="card-collection__title h3">{{ collection.title | escape }}</{{ tag }}>
+    {%- if show_count -%}
+      <p class="card-collection__count text-small">
+        {{- 'collections.card.product_count' | t: count: collection.products_count -}}
+      </p>
+    {%- endif -%}
+  </div>
+</a>
+
+{% stylesheet %}
+  .card-collection {
+    position: relative;
+    display: block;
+    color: var(--color-on-media);
+    text-decoration: none;
+  }
+
+  .card-collection__media::after {
+    content: '';
+    position: absolute;
+    inset: 40% 0 0;
+    background: linear-gradient(to top, var(--color-media-scrim), transparent);
+    pointer-events: none;
+  }
+
+  .card-collection__image {
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    .card-collection:hover .card-collection__image {
+      transform: scale(var(--media-zoom));
+    }
+  }
+
+  .card-collection__caption {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    display: grid;
+    gap: 0.25rem;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .card-collection__title {
+    color: inherit;
+  }
+
+  .card-collection:hover .card-collection__title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+{% endstylesheet %}

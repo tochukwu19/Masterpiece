@@ -6,8 +6,8 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 ## Phase 0 — Decisions + tooling (blocking)
 - [x] Stack: vanilla CSS on tokens, no Tailwind. **Alpine kept** (vendored, pinned) for interactions. Ajax Cart + Section Rendering APIs where needed.
 - [x] Target industry: jewelry / fine accessories
-- [x] Theme name: **Jewls** (see the naming risk in `theme-store-requirements.md` §18)
-- [ ] ⚠️ Fonts: owner wants Calvino Grande + General Sans, but neither is in Shopify's font library, which §15 requires. **Must be resolved before Phase 1 typography.**
+- [x] Theme name: **Vermeil** (2026-10-12; replaced the placeholder "Jewls". No Theme Store theme by that name)
+- [x] Fonts: Gloock (headings) + Figtree (body) via `font_picker`. Bodoni Moda + Manrope is the alternative pairing.
 - [x] Shopify CLI installed (4.9.3, global + pinned devDependency)
 - [ ] 👤 Connect a development store: `shopify theme dev --store <store>.myshopify.com` (owner logs in through the browser)
 - [x] `.theme-check.yml`, `package.json` (dev/check/vendor scripts), `.gitignore` fixed, `.shopifyignore` updated
@@ -16,12 +16,16 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [ ] Lighthouse script (deferred to Phase 6, needs the dev store URL)
 
 ## Phase 1 — Foundation
-- [ ] `settings_schema.json`: theme_info, logo, favicon, color schemes (≥ 4), typography, layout, buttons, cards, cart type, social links, search
-- [ ] `css-variables`, `base.css` (reset, type scale, h1–h6, RTE, focus ring, buttons, forms, badges)
-- [ ] `layout/theme.liquid` + `layout/password.liquid`, `meta-tags` snippet (SEO, OG, Twitter), skip link, `lang`
-- [ ] Core snippets: `image`, `icon`, `price`, `card-product`, `card-collection`, `card-article`, `section-heading`, `pagination`, `loading-spinner`
-- [ ] `global.js`: pub/sub, fetch helpers, focus trap, `drawer-panel` element
-- [ ] Locales: `en.default.json` + `en.default.schema.json`
+- [x] `settings_schema.json`: theme_info, logo, favicon, 4 color schemes, typography (Gloock + Figtree), layout, buttons/inputs, product cards and badges, animations, cart type, search, currency, social links
+- [x] `css-variables`, `base.css` (reset, type scale with distinct h0–h6, RTE, focus ring, buttons, forms, quantity, badges, media, price, pagination, reduced motion)
+- [x] `layout/theme.liquid` + `layout/password.liquid`, `meta-tags` snippet (SEO, OG, Twitter), skip link, `lang`
+- [x] Header and footer moved into section groups (legacy sections inside until Phase 2)
+- [x] Core snippets: `image`, `icon`, `price`, `card-product`, `card-collection`, `card-article`, `section-heading`, `pagination`, `loading-spinner`
+- [x] Legacy sections switched to the new cards and pagination (fixes audit A1–A3, A15, A21); old card snippets deleted
+- [x] `global.js` (fetch, Section Rendering, events) and `cart.js` (`quickAdd`, legacy drawer store in cart currency, fixing A10)
+- [x] Password template + section (moved up from Phase 5)
+- [x] Locales: `en.default.json` + `en.default.schema.json`
+- [ ] Drawer primitive with focus trap: moved to Phase 2 with its first consumer
 
 ## Phase 2 — Header, footer, cart
 - [ ] `header-group.json`: announcement bar (blocks), header (logo, main menu with dropdowns and mega menu, mobile drawer, `<shopify-account>`, predictive search, localization, cart count)

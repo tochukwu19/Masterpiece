@@ -10,8 +10,7 @@
       {% assign featured_collection = collections['featured'] %}
       {% for product in featured_collection.products limit: 10 %}
         <swiper-slide>
-          {% render "product-card"
-            , product: product %}
+          {% render 'card-product', product: product, id_prefix: section.id, sizes: '(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 50vw' %}
         </swiper-slide>
       {% endfor %}
     </swiper-container>

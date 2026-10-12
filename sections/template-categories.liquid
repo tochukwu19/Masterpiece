@@ -18,8 +18,7 @@
         {% for collection in section.settings.collections limit: section.settings.number_of_slides %}
           {% if collection.title != "Home page" %}
             <swiper-slide>
-              {% render "collection-card"
-                , collection: collection %}
+              {% render 'card-collection', collection: collection %}
             </swiper-slide>
           {% endif %}
         {% endfor %}
@@ -29,8 +28,7 @@
         {% for collection in collections limit: section.settings.number_of_slides %}
           {% if collection.title != "Home page" %}
             <swiper-slide>
-              {% render "collection-card"
-                , collection: collection %}
+              {% render 'card-collection', collection: collection %}
             </swiper-slide>
           {% endif %}
         {% endfor %}

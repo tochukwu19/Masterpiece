@@ -1,0 +1,40 @@
+{% doc %}
+  Responsive image with srcset, sizes, lazy loading and focal point.
+
+  @param {image} image - The image to render
+  @param {string} [sizes] - The sizes attribute. Defaults to 100vw
+  @param {string} [widths] - Comma-separated srcset widths. Defaults to a full-width set
+  @param {boolean} [eager] - Load eagerly with high fetch priority (use for the first, above-the-fold image)
+  @param {string} [alt] - Alt text override. Defaults to the image's own alt
+  @param {string} [class] - Class for the <img>
+  @example
+  {% render 'image', image: product.featured_media, sizes: '(min-width: 990px) 25vw, 50vw' %}
+{% enddoc %}
+
+{%- liquid
+  assign img_sizes = sizes | default: '100vw'
+  assign img_widths = widths | default: '360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048'
+  assign img_alt = alt | default: image.alt | escape
+
+  if eager
+    assign img_loading = 'eager'
+    assign img_priority = 'high'
+  else
+    assign img_loading = 'lazy'
+    assign img_priority = 'auto'
+  endif
+-%}
+
+{%- if image != blank -%}
+  {{
+    image
+    | image_url: width: 2048
+    | image_tag:
+      widths: img_widths,
+      sizes: img_sizes,
+      loading: img_loading,
+      fetchpriority: img_priority,
+      alt: img_alt,
+      class: class
+  }}
+{%- endif -%}

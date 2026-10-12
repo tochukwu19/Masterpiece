@@ -1,14 +1,15 @@
 {
-  "name": "jewls-theme",
+  "name": "vermeil-theme",
   "version": "0.1.0",
   "private": true,
-  "description": "Jewls — Shopify Online Store 2.0 theme for jewelry and fine accessories",
+  "description": "Vermeil \u2014 Shopify Online Store 2.0 theme for jewelry and fine accessories",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "shopify theme dev",
     "check": "shopify theme check --fail-level error",
     "check:all": "shopify theme check --fail-level warning",
-    "vendor": "cp node_modules/alpinejs/dist/cdn.min.js assets/alpine.min.js"
+    "vendor": "cp node_modules/alpinejs/dist/cdn.min.js assets/alpine.min.js",
+    "kit": "node scripts/kit.mjs"
   },
   "devDependencies": {
     "@shopify/cli": "4.9.3",
