@@ -77,25 +77,16 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 - [x] Predictive search: already shipped in Phase 2; only the roadmap tick is left
 
 **4c. Home sections**
-- [ ] Shared theme blocks in `blocks/`: `heading`, `text`, `button`, `custom-liquid`; sections list exactly which blocks they accept, plus `@app`
-- [ ] Generic Alpine `carousel` component:
-  - CSS scroll-snap with outlined prev/next buttons and keyboard support
-  - replaces Swiper 11, so no third-party code is left
-  - reused by the collection and product carousels
-- [ ] Sections:
-  - `hero` (single or slideshow)
-  - `featured-collection` (grid or carousel)
-  - `collection-list` (carousel)
-  - `editorial-split` (two-up collections)
-  - `image-with-text`, `rich-text`, `multicolumn`
-  - `logo-list`, `testimonials` (pull quotes)
-  - `video`: hosted video reuses `videoPlayer`; external video uses the platform player
-  - `blog-posts`, `newsletter`, `custom-liquid`
-- [ ] `featured-product` (B2): research spike first, on how a section outside the product template re-renders on variant change; build only once that's confirmed
-- [ ] `templates/index.json` rebuilt with settings-driven content, placeholders where blank, and no bundled demo images
+- [x] Shared theme blocks in `blocks/`: `heading`, `text`, `button`, `custom-liquid`, and a private `_slide`; sections list exactly which blocks they accept, plus `@app`
+- [x] Generic Alpine `carousel` component (`assets/components.js`): CSS scroll-snap, outlined prev/next buttons, loop and autoplay with pause, RTL-aware. Swiper 11 removed
+- [x] Shared primitives in `base.css`: `.banner` (frame, heights, content positions), `.on-media` (text over images), `.content-stack`, `.deferred-media`
+- [x] Sections: `hero`, `slideshow`, `featured-collection` (grid or carousel), `collection-list` (grid or carousel), `editorial-split`, `image-with-text`, `rich-text`, `multicolumn`, `logo-list`, `testimonials`, `video` (hosted video uses the `video-player` snippet, YouTube/Vimeo use the platform player), `blog-posts`, `newsletter`, `custom-liquid`
+- [x] `featured-product` (B2): the product URL plus the section's own ID re-renders a home section in that product's context, so `productInfo` works unchanged. Price, quantity and buy buttons are shared snippets with `main-product`
+- [x] `templates/index.json` rebuilt: settings-driven content, placeholders where blank, no bundled images, only resources every store has (`all` collection, `news` blog)
+- [ ] Carousel end-of-track behavior re-checked in a visible browser (the in-app pane kept going hidden, which pauses smooth scrolling)
 
 **4d. Clean-up and verification**
-- [ ] Delete the `template-*` sections plus `filter`, `collection` and the `icon-*` legacy snippets (only these sections use them). Drop Swiper from `docs/third-party.md`.
+- [x] Delete the `template-*` sections plus `filter`, `collection` and the `icon-*` legacy snippets (only these sections use them). Drop Swiper from `docs/third-party.md`.
 - [ ] `application.css` and `legacy-bridge.css` stay until Phase 5 removes the legacy `.liquid` templates that still use Tailwind classes
 - [ ] B5 moved up from Phase 6: `npm run lighthouse` (pinned devDependency) against the dev server for home, collection and product, mobile and desktop
 - [ ] Theme Store checklist ticks; kit specimens for facets, toolbar, carousel, hero and the content sections

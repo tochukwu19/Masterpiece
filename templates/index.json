@@ -1,49 +1,334 @@
-
 {
   "sections": {
-    "home": {
-      "type": "template-hero",
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "eyebrow": "New season",
+            "heading": "Made to be worn every day",
+            "size": "h0"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Recycled gold and ethically sourced stones, finished by hand.</p>",
+            "size": "large"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "label": "Shop the collection",
+            "link": "shopify://collections/all",
+            "style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
+        "overlay_opacity": 30,
+        "height": "full",
+        "content_position": "center-center",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "categories": {
-      "type": "template-categories",
+    "new_arrivals": {
+      "type": "featured-collection",
       "settings": {
+        "eyebrow": "Just in",
+        "heading": "New arrivals",
+        "heading_size": "h0",
+        "collection": "all",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "layout": "carousel",
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 64
       }
     },
-    "client": {
-      "type": "template-client",
+    "editorial_split": {
+      "type": "editorial-split",
+      "blocks": {
+        "panel_1": {
+          "type": "panel",
+          "settings": {
+            "eyebrow": "Shop",
+            "heading": "Rings",
+            "button_label": "Shop rings"
+          }
+        },
+        "panel_2": {
+          "type": "panel",
+          "settings": {
+            "eyebrow": "Shop",
+            "heading": "Necklaces",
+            "button_label": "Shop necklaces"
+          }
+        }
+      },
+      "block_order": [
+        "panel_1",
+        "panel_2"
+      ],
       "settings": {
+        "height": "full",
+        "overlay_opacity": 25,
+        "heading_size": "h0",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "selection": {
-      "type": "template-selection",
+    "collections": {
+      "type": "collection-list",
+      "blocks": {
+        "c1": {
+          "type": "collection"
+        },
+        "c2": {
+          "type": "collection"
+        },
+        "c3": {
+          "type": "collection"
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
       "settings": {
+        "eyebrow": "Shop by category",
+        "heading": "Collections",
+        "heading_size": "h0",
+        "image_ratio": "4 / 5",
+        "show_product_count": false,
+        "layout": "carousel",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 64
       }
     },
-    "arrivals": {
-      "type": "template-arrivals",
+    "craft": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "eyebrow": "Craft",
+            "heading": "Finished by hand",
+            "size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every piece is cast, polished and checked by the same small team before it ships.</p>",
+            "size": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "label": "Our story",
+            "link": "",
+            "style": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
+        "image_position": "left",
+        "image_ratio": "4 / 5",
+        "vertical_alignment": "center",
+        "color_scheme": "scheme-2",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
-    "blog": {
-      "type": "template-blog",
+    "featured_product": {
+      "type": "featured-product",
       "settings": {
+        "show_vendor": false,
+        "picker_type": "buttons",
+        "swatch_shape": "circle",
+        "show_quantity": true,
+        "show_dynamic_checkout": true,
+        "media_ratio": "portrait",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "press": {
+      "type": "logo-list",
+      "blocks": {
+        "l1": {
+          "type": "logo"
+        },
+        "l2": {
+          "type": "logo"
+        },
+        "l3": {
+          "type": "logo"
+        },
+        "l4": {
+          "type": "logo"
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4"
+      ],
+      "settings": {
+        "heading": "As featured in",
+        "heading_size": "h2",
+        "logo_height": "medium",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Share a review or a press quote that captures how customers feel about your pieces.",
+            "author": "Customer name",
+            "detail": "Location"
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Add a second quote. Shorter quotes read best at this size.",
+            "author": "Customer name",
+            "detail": "Publication"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2"
+      ],
+      "settings": {
+        "eyebrow": "Kind words",
+        "heading_size": "h2",
+        "color_scheme": "scheme-2",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "promises": {
+      "type": "multicolumn",
+      "blocks": {
+        "c1": {
+          "type": "column",
+          "settings": {
+            "title": "Recycled gold",
+            "text": "<p>Describe your materials and where they come from.</p>"
+          }
+        },
+        "c2": {
+          "type": "column",
+          "settings": {
+            "title": "Free shipping",
+            "text": "<p>Tell customers about shipping, returns or gift wrapping.</p>"
+          }
+        },
+        "c3": {
+          "type": "column",
+          "settings": {
+            "title": "Lifetime care",
+            "text": "<p>Describe repairs, cleaning or your warranty.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "eyebrow": "Our promise",
+        "heading": "Made with care",
+        "heading_size": "h1",
+        "image_ratio": "1 / 1",
+        "columns_desktop": 3,
+        "alignment": "left",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 64
+      }
+    },
+    "journal": {
+      "type": "blog-posts",
+      "settings": {
+        "eyebrow": "Journal",
+        "heading": "From the journal",
+        "heading_size": "h0",
+        "blog": "news",
+        "post_count": 3,
+        "show_date": true,
+        "show_author": false,
+        "show_excerpt": true,
+        "show_view_all": true,
+        "layout": "grid",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "newsletter": {
-      "type": "template-newsletter",
+      "type": "newsletter",
       "settings": {
+        "eyebrow": "Newsletter",
+        "heading": "Stay in the loop",
+        "heading_size": "h1",
+        "text": "<p>New collections, restocks and the occasional private sale. No spam.</p>",
+        "overlay_opacity": 35,
+        "height": "medium",
+        "color_scheme": "scheme-3",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
   "order": [
-    "home",
-    "categories",
-    "client",
-    "selection",
-    "arrivals",
-    "blog",
+    "hero",
+    "new_arrivals",
+    "editorial_split",
+    "collections",
+    "craft",
+    "featured_product",
+    "press",
+    "testimonials",
+    "promises",
+    "journal",
     "newsletter"
   ]
 }

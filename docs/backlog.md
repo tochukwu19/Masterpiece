@@ -6,7 +6,7 @@ would close it.
 | # | Item | Status | Notes |
 |---|---|---|---|
 | B1 | **Pickup availability shows nothing on the dev store** | Open | Block follows Shopify's documented lookup (`variant.store_availabilities \| where: 'pick_up_enabled', true`) and renders nothing through both the product URL and `/variants/{id}` Section Rendering. Store has local pickup enabled on "Shop location" (Canada, address shows country only). Next: confirm the location has a full address and stocked inventory for the test variants; render-test on a second store before touching the theme. |
-| B2 | **Featured product section** (moved from Phase 3) | Phase 4 | Needs a confirmed way to re-render variants outside the product template (Section Rendering resolves section IDs against the requested URL's template). Research before building. |
+| B2 | **Featured product section** (moved from Phase 3) | Done (4c) | Spike result: `/products/<handle>?section_id=<home section id>&option_values=…` renders the home section in the product's context with the variant selected; `?variant=`/`option_values` on the home URL are ignored. The section renders `product \| default: section.settings.product` and is disabled on the product template. |
 | B3 | `customer-account-main-menu` missing on the dev store | Store setup | `<shopify-account>` falls back to default menu items and logs an error until the menu exists. |
 | B4 | CLI `auth-alias` not read from `shopify.theme.toml` | Upstream | CLI 4.9 ignores it. The owner switches the active account with `npx shopify auth login`. Re-check on CLI upgrades. |
 | B5 | Lighthouse scripts | Phase 6 | Add `npm run lighthouse` against the dev store once home, collection and product pages are rebuilt. |

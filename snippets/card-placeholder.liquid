@@ -1,0 +1,49 @@
+{% doc %}
+  Placeholder card for sections that have no product, collection or blog selected yet.
+
+  @param {string} type - product, collection or article
+  @param {number} [index] - Position in the list, used to vary the illustration
+  @param {string} [ratio] - Collection card aspect ratio, e.g. '4 / 5'
+  @example
+  {% render 'card-placeholder', type: 'product', index: forloop.index %}
+{% enddoc %}
+
+{%- liquid
+  assign position = index | default: 1 | minus: 1 | modulo: 6 | plus: 1
+  assign card_ratio = ratio | default: '4 / 5'
+-%}
+
+{%- case type -%}
+  {%- when 'product' -%}
+    {%- assign illustration = 'product-' | append: position -%}
+    <div class="card-product">
+      <div class="card-product__media media" style="--ratio: var(--card-ratio);">
+        {{- illustration | placeholder_svg_tag: 'placeholder' -}}
+      </div>
+      <div class="card-product__info">
+        <div class="card-product__text">
+          <h3 class="card-product__title">{{ 'placeholders.product_title' | t }}</h3>
+        </div>
+      </div>
+    </div>
+  {%- when 'collection' -%}
+    {%- assign illustration = 'collection-' | append: position -%}
+    <div class="card-collection">
+      <div class="card-collection__media media" style="--ratio: {{ card_ratio }};">
+        {{- illustration | placeholder_svg_tag: 'placeholder' -}}
+      </div>
+      <div class="card-collection__caption">
+        <h3 class="card-collection__title h3">{{ 'placeholders.collection_title' | t }}</h3>
+      </div>
+    </div>
+  {%- when 'article' -%}
+    {%- assign illustration = position | modulo: 2 | plus: 1 | prepend: 'lifestyle-' -%}
+    <article class="card-article">
+      <div class="card-article__media media" style="--ratio: 4 / 5;">
+        {{- illustration | placeholder_svg_tag: 'placeholder' -}}
+      </div>
+      <div class="card-article__info">
+        <h3 class="card-article__title h4">{{ 'placeholders.article_title' | t }}</h3>
+      </div>
+    </article>
+{%- endcase -%}

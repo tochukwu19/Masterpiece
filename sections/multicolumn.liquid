@@ -1,0 +1,251 @@
+<div
+  class="multicolumn section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    {%- render 'section-heading',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      size: section.settings.heading_size
+    -%}
+    <ul
+      class="multicolumn__list layout-grid list-unstyled multicolumn__list--{{ section.settings.alignment }}"
+      role="list"
+      style="--cols: {{ section.settings.columns_desktop }}; --cols-tablet: {{ section.settings.columns_desktop | at_most: 2 }}; --cols-mobile: 1;"
+    >
+      {%- for block in section.blocks -%}
+        <li class="multicolumn__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.image -%}
+            <div class="multicolumn__media media" style="--ratio: {{ section.settings.image_ratio }};">
+              {%- render 'image', image: block.settings.image, sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw' -%}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.title != blank -%}
+            <h3 class="multicolumn__title h4">{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <div class="multicolumn__text rte text-muted">{{ block.settings.text }}</div>
+          {%- endif -%}
+          {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="button button--tertiary">{{ block.settings.link_label | escape }}</a>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% stylesheet %}
+  .multicolumn__item {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .multicolumn__media {
+    margin-bottom: 0.5rem;
+  }
+
+  .multicolumn__item > .button {
+    justify-self: start;
+  }
+
+  .multicolumn__title,
+  .multicolumn__text {
+    margin: 0;
+  }
+
+  .multicolumn__list--center .multicolumn__item {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .multicolumn__list--center .multicolumn__item > .button {
+    justify-self: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.multicolumn.name",
+  "class": "section-multicolumn",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.multicolumn.blocks.column.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.image_with_text.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Recycled gold",
+          "label": "t:sections.multicolumn.blocks.column.settings.title.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Explain a promise, a material or a service in a sentence or two.</p>",
+          "label": "t:blocks.text.settings.text.label"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "t:sections.multicolumn.blocks.column.settings.link_label.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:blocks.button.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "Our promise",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Made with care",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.heading_size.label",
+      "options": [
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:sections.main_list_collections.settings.image_ratio.label",
+      "options": [
+        {
+          "value": "4 / 5",
+          "label": "t:sections.main_list_collections.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "1 / 1",
+          "label": "t:sections.main_list_collections.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "3 / 2",
+          "label": "t:sections.main_list_collections.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "1 / 1"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.main_collection.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.rich_text.settings.alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich_text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich_text.settings.alignment.options__2.label"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.multicolumn.presets.name",
+      "blocks": {
+        "c1": {
+          "type": "column",
+          "settings": {
+            "title": "Recycled gold",
+            "text": "<p>Every piece is cast in recycled 14k gold or gold vermeil.</p>"
+          }
+        },
+        "c2": {
+          "type": "column",
+          "settings": {
+            "title": "Free shipping",
+            "text": "<p>Tell customers about shipping, returns or gift wrapping.</p>"
+          }
+        },
+        "c3": {
+          "type": "column",
+          "settings": {
+            "title": "Lifetime care",
+            "text": "<p>Describe repairs, cleaning or your warranty.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ]
+    }
+  ]
+}
+{% endschema %}

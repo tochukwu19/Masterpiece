@@ -1,0 +1,17 @@
+{% doc %}
+  Previous and next buttons for a carousel. Render inside an element with x-data="carousel".
+
+  @example
+  {% render 'carousel-controls' %}
+{% enddoc %}
+
+<div class="carousel__controls" x-show="scrollable" x-cloak>
+  <button type="button" class="carousel__button" x-on:click="prev()" x-bind:disabled="atStart">
+    {%- render 'icon', name: 'arrow-left' -%}
+    <span class="visually-hidden">{{ 'carousel.previous' | t }}</span>
+  </button>
+  <button type="button" class="carousel__button" x-on:click="next()" x-bind:disabled="atEnd">
+    {%- render 'icon', name: 'arrow-right' -%}
+    <span class="visually-hidden">{{ 'carousel.next' | t }}</span>
+  </button>
+</div>

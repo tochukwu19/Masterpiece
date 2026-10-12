@@ -1,0 +1,142 @@
+<div
+  class="rich-text section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    <div class="rich-text__inner rich-text__inner--{{ section.settings.width }} content-stack content-stack--{{ section.settings.alignment }}">
+      {%- content_for 'blocks' -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .rich-text__inner--narrow {
+    --content-width: 42rem;
+  }
+
+  .rich-text__inner--wide {
+    --content-width: 64rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.rich_text.name",
+  "class": "section-rich-text",
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "custom-liquid"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:sections.rich_text.settings.alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich_text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich_text.settings.alignment.options__2.label"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.rich_text.settings.width.label",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "t:sections.rich_text.settings.width.options__1.label"
+        },
+        {
+          "value": "wide",
+          "label": "t:sections.rich_text.settings.width.options__2.label"
+        }
+      ],
+      "default": "narrow"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich_text.presets.name",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "eyebrow": "Our story",
+            "heading": "Fine jewelry, made to be lived in",
+            "size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell customers about your brand: where your materials come from, who makes each piece, and how to care for it.</p>",
+            "size": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "label": "Read our story",
+            "style": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+{% doc %}
+  Product form: variant ID, no-JS variant select, gift card recipient fields, add to cart and dynamic checkout.
+  Render inside an element with x-data="addToCart" x-on:submit="submit($event)".
+
+  @param {product} product - The product
+  @param {variant} variant - The selected variant
+  @param {string} section_id - The section ID, used for element IDs
+  @param {string} form_id - ID for the product form
+  @param {boolean} [show_dynamic_checkout] - Show dynamic checkout buttons
+  @param {boolean} [gift_card_recipient] - Show the gift card recipient form
+  @example
+  {% render 'product-buy-buttons', product: product, variant: variant, section_id: section.id, form_id: form_id, show_dynamic_checkout: true %}
+{% enddoc %}
+
+{%- form 'product', product, id: form_id, class: 'product-form__form', novalidate: 'novalidate' -%}
+  <input type="hidden" name="id" value="{{ variant.id }}">
+  <noscript>
+    <div class="field">
+      <label class="field__label" for="Variants-{{ section_id }}">{{ 'products.variant.label' | t }}</label>
+      <div class="select-field">
+        <select id="Variants-{{ section_id }}" class="select" name="id">
+          {%- for v in product.variants -%}
+            <option value="{{ v.id }}" {% if v.id == variant.id %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>
+              {{- v.title }} &ndash; {{ v.price | money -}}
+            </option>
+          {%- endfor -%}
+        </select>
+        {%- render 'icon', name: 'chevron-down', class: 'select-field__icon' -%}
+      </div>
+    </div>
+  </noscript>
+
+  {%- if gift_card_recipient -%}
+    {%- render 'gift-card-recipient-form', form: form, section_id: section_id -%}
+  {%- endif -%}
+
+  <div class="product-form__buttons">
+    <button
+      type="submit"
+      name="add"
+      class="button button--full{% if show_dynamic_checkout and gift_card_recipient == false %} button--secondary{% endif %}"
+      {% unless variant.available %}
+        disabled
+      {% endunless %}
+      x-bind:aria-busy="loading"
+    >
+      {%- render 'loading-spinner' -%}
+      <span>
+        {%- if variant == null -%}
+          {{ 'products.form.unavailable' | t }}
+        {%- elsif variant.available -%}
+          {{ 'products.form.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.form.sold_out' | t }}
+        {%- endif -%}
+      </span>
+    </button>
+    {%- if show_dynamic_checkout and gift_card_recipient == false -%}
+      {{ form | payment_button }}
+    {%- endif -%}
+  </div>
+
+  <p class="form-message form-message--error" role="alert" x-show="error" x-cloak>
+    {%- render 'icon', name: 'error' -%}
+    <span x-text="error"></span>
+  </p>
+{%- endform -%}

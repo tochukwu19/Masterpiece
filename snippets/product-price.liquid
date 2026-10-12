@@ -1,0 +1,27 @@
+{% doc %}
+  Product price with tax and shipping note and optional Shop Pay Installments message.
+
+  @param {product} product - The product
+  @param {variant} variant - The selected variant
+  @param {string} section_id - The section ID, used for the installments form ID
+  @param {boolean} [show_installments] - Show the Shop Pay Installments message
+  @example
+  {% render 'product-price', product: product, variant: variant, section_id: section.id, show_installments: true %}
+{% enddoc %}
+
+{%- render 'price', product: product, variant: variant, class: 'product__price-amount' -%}
+{%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+  <p class="product__tax text-small text-muted">
+    {%- if cart.taxes_included -%}{{ 'products.taxes_included' | t }} {% endif -%}
+    {%- if shop.shipping_policy.body != blank -%}
+      {{- 'products.shipping_policy_html' | t: link: shop.shipping_policy.url -}}
+    {%- endif -%}
+  </p>
+{%- endif -%}
+{%- if show_installments and variant -%}
+  {%- assign installments_form_id = 'ProductInstallments-' | append: section_id -%}
+  {%- form 'product', product, id: installments_form_id, class: 'product__installments' -%}
+    <input type="hidden" name="id" value="{{ variant.id }}">
+    {{ form | payment_terms }}
+  {%- endform -%}
+{%- endif -%}

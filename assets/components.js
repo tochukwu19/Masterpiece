@@ -126,6 +126,92 @@ document.addEventListener('alpine:init', () => {
     },
   }));
 
+  Alpine.data('carousel', ({ loop = false, autoplay = 0 } = {}) => {
+    let track;
+    let observer;
+    let timer;
+    let held = false;
+
+    const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const direction = () => (getComputedStyle(track).direction === 'rtl' ? -1 : 1);
+    const offset = () => Math.abs(track.scrollLeft);
+    const pageWidth = () => track.clientWidth;
+
+    const scrollToOffset = (left) => {
+      track.scrollTo({ left: left * direction(), behavior: reducedMotion() ? 'auto' : 'smooth' });
+    };
+
+    return {
+      scrollable: false,
+      atStart: true,
+      atEnd: false,
+      current: 0,
+      playing: false,
+
+      init() {
+        track = this.$el.querySelector('[data-carousel-track]');
+        this.sync();
+        observer = new ResizeObserver(() => this.sync());
+        observer.observe(track);
+        if (autoplay > 0 && !reducedMotion()) this.play();
+      },
+
+      destroy() {
+        observer?.disconnect();
+        clearInterval(timer);
+      },
+
+      sync() {
+        const max = track.scrollWidth - track.clientWidth;
+        this.scrollable = max > 1;
+        this.atStart = offset() <= 1;
+        this.atEnd = offset() >= max - 1;
+        this.current = Math.round(offset() / Math.max(pageWidth(), 1));
+      },
+
+      prev() {
+        if (loop && this.atStart) {
+          scrollToOffset(track.scrollWidth);
+          return;
+        }
+        scrollToOffset(Math.max(offset() - pageWidth(), 0));
+      },
+
+      next() {
+        if (loop && this.atEnd) {
+          scrollToOffset(0);
+          return;
+        }
+        scrollToOffset(offset() + pageWidth());
+      },
+
+      goTo(index) {
+        scrollToOffset(index * pageWidth());
+      },
+
+      play() {
+        this.playing = true;
+        clearInterval(timer);
+        timer = setInterval(() => {
+          if (!held && !document.hidden) this.next();
+        }, autoplay * 1000);
+      },
+
+      pause() {
+        this.playing = false;
+        clearInterval(timer);
+      },
+
+      togglePlay() {
+        this.playing ? this.pause() : this.play();
+      },
+
+      hold(value) {
+        held = value;
+      },
+    };
+  });
+
   Alpine.data('wordmark', () => {
     let observer;
 

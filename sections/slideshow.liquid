@@ -1,0 +1,235 @@
+{%- liquid
+  assign slide_count = section.blocks.size
+  assign autoplay = 0
+  if section.settings.autoplay and slide_count > 1
+    assign autoplay = section.settings.autoplay_speed
+  endif
+-%}
+
+<div
+  class="slideshow banner--{{ section.settings.height }} section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+  role="region"
+  aria-roledescription="{{ 'slideshow.label' | t }}"
+  aria-label="{{ 'slideshow.label' | t }}"
+  x-data="carousel({ loop: true, autoplay: {{ autoplay }} })"
+  x-on:pointerenter="hold(true)"
+  x-on:pointerleave="hold(false)"
+  x-on:focusin="hold(true)"
+  x-on:focusout="hold(false)"
+>
+  <ul class="slideshow__track carousel__track" data-carousel-track x-on:scroll.debounce.80ms="sync()">
+    {%- content_for 'blocks' -%}
+  </ul>
+
+  {%- if slide_count > 1 -%}
+    <div class="slideshow__controls page-width">
+      <button type="button" class="carousel__button" x-on:click="prev()">
+        {%- render 'icon', name: 'arrow-left' -%}
+        <span class="visually-hidden">{{ 'slideshow.previous' | t }}</span>
+      </button>
+      <ul class="slideshow__dots list-unstyled" role="list">
+        {%- for slide in section.blocks -%}
+          <li>
+            <button
+              type="button"
+              class="slideshow__dot"
+              x-on:click="goTo({{ forloop.index0 }})"
+              x-bind:aria-current="current === {{ forloop.index0 }} ? 'true' : 'false'"
+            >
+              <span class="visually-hidden">{{ 'slideshow.go_to' | t: index: forloop.index }}</span>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <button type="button" class="carousel__button" x-on:click="next()">
+        {%- render 'icon', name: 'arrow-right' -%}
+        <span class="visually-hidden">{{ 'slideshow.next' | t }}</span>
+      </button>
+      {%- if autoplay > 0 -%}
+        <button type="button" class="carousel__button" x-on:click="togglePlay()">
+          <span x-show="playing">{% render 'icon', name: 'pause' %}<span class="visually-hidden">{{ 'slideshow.pause' | t }}</span></span>
+          <span x-show="!playing" x-cloak>{% render 'icon', name: 'play' %}<span class="visually-hidden">{{ 'slideshow.play' | t }}</span></span>
+        </button>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .slideshow {
+    --per-view: 1;
+    --carousel-gap: 0px;
+  }
+
+  .slideshow__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .slideshow__dots {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .slideshow__dot {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .slideshow__dot::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid var(--color-fg);
+    border-radius: 999px;
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  .slideshow__dot[aria-current='true']::before {
+    background-color: var(--color-fg);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.slideshow.name",
+  "class": "section-slideshow",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "_slide"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "height",
+      "label": "t:sections.hero.settings.height.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.hero.settings.height.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.hero.settings.height.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.hero.settings.height.options__3.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.hero.settings.height.options__4.label"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "t:sections.slideshow.settings.autoplay.label",
+      "info": "t:sections.slideshow.settings.autoplay.info",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 6,
+      "label": "t:sections.slideshow.settings.autoplay_speed.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.slideshow.presets.name",
+      "blocks": {
+        "slide_1": {
+          "type": "_slide",
+          "blocks": {
+            "heading": {
+              "type": "heading",
+              "settings": {
+                "heading": "Pieces for every day",
+                "size": "h0"
+              }
+            },
+            "button": {
+              "type": "button",
+              "settings": {
+                "label": "Shop now",
+                "link": "shopify://collections/all"
+              }
+            }
+          },
+          "block_order": ["heading", "button"]
+        },
+        "slide_2": {
+          "type": "_slide",
+          "blocks": {
+            "heading": {
+              "type": "heading",
+              "settings": {
+                "heading": "Gifts, wrapped and ready",
+                "size": "h0"
+              }
+            },
+            "button": {
+              "type": "button",
+              "settings": {
+                "label": "Shop gifts",
+                "link": "shopify://collections/all"
+              }
+            }
+          },
+          "block_order": ["heading", "button"]
+        }
+      },
+      "block_order": ["slide_1", "slide_2"]
+    }
+  ]
+}
+{% endschema %}

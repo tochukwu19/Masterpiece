@@ -1,0 +1,42 @@
+<div class="block-text block-text--{{ block.settings.size }} rte" {{ block.shopify_attributes }}>
+  {{- block.settings.text -}}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.text.name",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Share what makes your pieces special: the materials, the makers, the way they wear.</p>",
+      "label": "t:blocks.text.settings.text.label"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "t:blocks.text.settings.size.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:blocks.text.settings.size.options__1.label"
+        },
+        {
+          "value": "body",
+          "label": "t:blocks.text.settings.size.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:blocks.text.settings.size.options__3.label"
+        }
+      ],
+      "default": "body"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.text.name"
+    }
+  ]
+}
+{% endschema %}

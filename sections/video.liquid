@@ -1,0 +1,191 @@
+{%- liquid
+  assign video = section.settings.video
+  assign external = section.settings.video_url
+  assign cover = section.settings.cover_image
+  if cover == blank and video
+    assign cover = video.preview_image
+  endif
+  assign has_video = false
+  if video or external
+    assign has_video = true
+  endif
+-%}
+
+<div
+  class="video-section section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    {%- render 'section-heading',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      size: section.settings.heading_size
+    -%}
+  </div>
+  <div class="{% unless section.settings.full_width %}page-width{% endunless %}">
+    <div class="video-section__media media" style="--ratio: {{ section.settings.ratio }};" x-data="deferredMedia" data-deferred-media>
+      {%- if has_video -%}
+        <button type="button" class="deferred-media__poster" x-show="!loaded" x-on:click="load()">
+          {%- if cover -%}
+            {%- render 'image', image: cover, sizes: '100vw', alt: '' -%}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}
+          {%- endif -%}
+          <span class="deferred-media__badge">{% render 'icon', name: 'play' %}</span>
+          <span class="visually-hidden">{{ 'video.play' | t }}</span>
+        </button>
+        <div class="deferred-media__target" x-ref="target" x-show="loaded" x-cloak></div>
+        <template x-ref="template">
+          {%- if video -%}
+            {%- render 'video-player', video: video -%}
+          {%- elsif external.type == 'youtube' -%}
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/{{ external.id }}?autoplay=1&rel=0&playsinline=1"
+              title="{{ section.settings.video_title | default: section.settings.heading | strip_html | escape }}"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          {%- else -%}
+            <iframe
+              src="https://player.vimeo.com/video/{{ external.id }}?autoplay=1&dnt=1"
+              title="{{ section.settings.video_title | default: section.settings.heading | strip_html | escape }}"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          {%- endif -%}
+        </template>
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.video.name",
+  "class": "section-video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Behind the bench",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.heading_size.label",
+      "options": [
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:sections.video.settings.video.label",
+      "info": "t:sections.video.settings.video.info"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": [
+        "youtube",
+        "vimeo"
+      ],
+      "label": "t:sections.video.settings.video_url.label",
+      "info": "t:sections.video.settings.video_url.info"
+    },
+    {
+      "type": "text",
+      "id": "video_title",
+      "label": "t:sections.video.settings.video_title.label",
+      "info": "t:sections.video.settings.video_title.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "t:sections.video.settings.cover_image.label",
+      "info": "t:sections.video.settings.cover_image.info"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "t:sections.main_list_collections.settings.image_ratio.label",
+      "options": [
+        {
+          "value": "16 / 9",
+          "label": "t:sections.video.settings.ratio.options__1.label"
+        },
+        {
+          "value": "4 / 3",
+          "label": "t:sections.video.settings.ratio.options__2.label"
+        },
+        {
+          "value": "1 / 1",
+          "label": "t:sections.video.settings.ratio.options__3.label"
+        }
+      ],
+      "default": "16 / 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.video.settings.full_width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.video.presets.name"
+    }
+  ]
+}
+{% endschema %}

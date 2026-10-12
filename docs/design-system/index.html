@@ -83,6 +83,7 @@
 </style>
 <link rel="stylesheet" href="../../assets/base.css">
 <link rel="stylesheet" href="../../assets/component-facets.css">
+<link rel="stylesheet" href="../../assets/component-product.css">
 <style>
 .card-article {
     position: relative;
@@ -576,57 +577,7 @@
     cursor: zoom-in;
   }
 
-  .product-media__poster {
-    position: absolute;
-    inset: 0;
-    display: block;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-  }
-
-  .product-media__poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .product-media__badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: grid;
-    place-items: center;
-    width: 4rem;
-    height: 4rem;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    background-color: var(--color-bg);
-    color: var(--color-fg);
-    transform: translate(-50%, -50%);
-    transition: transform var(--duration-fast) ease;
-  }
-
-  .product-media__poster:hover .product-media__badge {
-    transform: translate(-50%, -50%) scale(1.06);
-  }
-
-  .product-media__target,
-  .product-media__target :is(video, iframe, model-viewer, .shopify-model-viewer-ui) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
-  .product-media__target video {
-    object-fit: contain;
-  }
-
-  .product-media__target .shopify-model-viewer-ui__controls-area {
+  .deferred-media__target .shopify-model-viewer-ui__controls-area {
     right: 0.75rem;
     bottom: 0.75rem;
     border: 1px solid var(--color-border);
@@ -634,91 +585,23 @@
     background-color: var(--color-bg);
   }
 
-  .product-media__target .shopify-model-viewer-ui__button {
+  .deferred-media__target .shopify-model-viewer-ui__button {
     color: var(--color-fg);
   }
 
-  .product-media__target .shopify-model-viewer-ui__button--control:not(:last-child)::after {
+  .deferred-media__target .shopify-model-viewer-ui__button--control:not(:last-child)::after {
     background-color: var(--color-border);
   }
 
-  .product-media__target .shopify-model-viewer-ui__button--poster {
+  .deferred-media__target .shopify-model-viewer-ui__button--poster {
     border-radius: 999px;
     background-color: var(--color-bg);
     color: var(--color-fg);
   }
 
-  .product-media__target .shopify-model-viewer-ui__button:focus-visible {
+  .deferred-media__target .shopify-model-viewer-ui__button:focus-visible {
     outline: 2px solid var(--color-fg);
     outline-offset: -2px;
-  }
-
-  .product-media__target .video-player {
-    position: absolute;
-    inset: 0;
-  }
-
-  .video-player[data-idle] {
-    cursor: none;
-  }
-
-  .video-player__video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    cursor: pointer;
-  }
-
-  .video-player__controls {
-    position: absolute;
-    inset: auto 0.75rem 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--buttons-radius);
-    background-color: var(--color-bg);
-    color: var(--color-fg);
-    transition: opacity var(--duration) ease;
-  }
-
-  .video-player[data-idle] .video-player__controls {
-    opacity: 0;
-  }
-
-  .video-player:focus-within .video-player__controls {
-    opacity: 1;
-  }
-
-  .video-player__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: inherit;
-  }
-
-  .video-player__seek {
-    flex: 1;
-    min-width: 0;
-    height: 2.75rem;
-    margin: 0;
-    background: transparent;
-    accent-color: var(--color-fg);
-    cursor: pointer;
-  }
-
-  .video-player__time {
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
   }
 
   .product-media__xr {
@@ -921,6 +804,69 @@
     outline-offset: 3px;
   }
 
+.video-player[data-idle] {
+    cursor: none;
+  }
+
+  .video-player__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+  }
+
+  .video-player__controls {
+    position: absolute;
+    inset: auto 0.75rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--buttons-radius);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transition: opacity var(--duration) ease;
+  }
+
+  .video-player[data-idle] .video-player__controls {
+    opacity: 0;
+  }
+
+  .video-player:focus-within .video-player__controls {
+    opacity: 1;
+  }
+
+  .video-player__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+  }
+
+  .video-player__seek {
+    flex: 1;
+    min-width: 0;
+    height: 2.75rem;
+    margin: 0;
+    background: transparent;
+    accent-color: var(--color-fg);
+    cursor: pointer;
+  }
+
+  .video-player__time {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
 .announcement-bar__inner {
     display: flex;
     align-items: center;
@@ -1081,6 +1027,24 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: center;
     }
+  }
+
+.editorial-split__panels {
+    display: grid;
+  }
+
+  @media (min-width: 750px) {
+    .editorial-split__panels {
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    }
+  }
+
+.featured-collection__empty {
+    grid-column: 1 / -1;
+  }
+
+.featured-product__details {
+    justify-self: start;
   }
 
 .footer__blocks {
@@ -1523,6 +1487,69 @@
     padding-bottom: clamp(2rem, 5vw, 3.5rem);
   }
 
+.image-with-text__inner {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: var(--align, center);
+  }
+
+  @media (min-width: 750px) {
+    .image-with-text__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .image-with-text__inner--right .image-with-text__media {
+      order: 2;
+    }
+  }
+
+.logo-list--small {
+    --logo-height: 1.75rem;
+  }
+
+  .logo-list--medium {
+    --logo-height: 2.5rem;
+  }
+
+  .logo-list--large {
+    --logo-height: 3.5rem;
+  }
+
+  .logo-list__items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .logo-list__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-list__image,
+  .logo-list__placeholder {
+    display: block;
+    width: auto;
+    height: var(--logo-height);
+    max-width: 10rem;
+    object-fit: contain;
+  }
+
+  .logo-list__placeholder {
+    width: calc(var(--logo-height) * 3);
+  }
+
+  .logo-list__link {
+    display: block;
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .logo-list__link:hover {
+    opacity: 0.7;
+  }
+
 .main-cart__heading {
     display: flex;
     flex-wrap: wrap;
@@ -1672,202 +1699,6 @@
     color: inherit;
   }
 
-.product__layout {
-    display: grid;
-    gap: 2rem;
-  }
-
-  @media (min-width: 990px) {
-    .product__layout {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      gap: clamp(2.5rem, 5vw, 5rem);
-      align-items: start;
-    }
-
-    .product--sticky .product__info {
-      position: sticky;
-      top: 6rem;
-    }
-  }
-
-  .product[aria-busy='true'] [data-product-region] {
-    opacity: 0.6;
-    transition: opacity var(--duration-fast) ease;
-  }
-
-  .product__info {
-    display: grid;
-    gap: 1.5rem;
-    align-content: start;
-    min-width: 0;
-  }
-
-  .product__info > .product__vendor + .product__title {
-    margin-top: -1rem;
-  }
-
-  .product__title {
-    overflow-wrap: break-word;
-  }
-
-  .product__price {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .product__price-amount {
-    font-size: calc(1.25rem * var(--font-body-scale));
-  }
-
-  .product__tax a {
-    color: inherit;
-  }
-
-  .product__quantity {
-    justify-items: start;
-  }
-
-  .product-form__buttons {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .product-form .form-message {
-    margin-top: 0.75rem;
-  }
-
-  .product-form .shopify-payment-button__button {
-    min-height: 3rem;
-    border-radius: var(--buttons-radius);
-  }
-
-  .pickup__summary {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .pickup__summary .icon {
-    margin-top: 0.125rem;
-  }
-
-  .pickup__text {
-    display: grid;
-    gap: 0.25rem;
-  }
-
-  .pickup__more {
-    justify-self: start;
-    min-height: 2rem;
-    font-size: calc(0.8125rem * var(--font-body-scale));
-  }
-
-  .pickup__list {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .pickup__location {
-    display: grid;
-    gap: 0.25rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .pickup__location address {
-    font-style: normal;
-  }
-
-  .product__text--subtitle {
-    font-family: var(--font-heading-family);
-    font-size: calc(1.25rem * var(--font-heading-scale));
-  }
-
-  .product__text--uppercase {
-    font-size: calc(0.8125rem * var(--font-body-scale));
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .product__tab {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .product__tab + .product__tab {
-    margin-top: -1.5rem;
-  }
-
-  .product__tab:last-of-type {
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .product__tab-summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-height: 3.5rem;
-    list-style: none;
-    cursor: pointer;
-    font-weight: var(--font-body-weight-medium);
-    font-size: calc(0.8125rem * var(--font-body-scale));
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .product__tab-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .product__tab-icon {
-    transition: transform var(--duration-fast) ease;
-  }
-
-  .product__tab[open] .product__tab-icon {
-    transform: rotate(45deg);
-  }
-
-  .product__tab-content {
-    padding-bottom: 1.5rem;
-  }
-
-  .product__share {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .product__complementary:empty {
-    display: none;
-  }
-
-  .product__complementary-heading {
-    margin-bottom: 0.75rem;
-  }
-
-  .product__complementary-list {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .product__complementary-item {
-    display: grid;
-    grid-template-columns: 4rem minmax(0, 1fr);
-    align-items: center;
-    gap: 1rem;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .product__complementary-item:hover .product__complementary-title {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  .product__complementary-info {
-    display: grid;
-    gap: 0.125rem;
-  }
-
 .main-search__header {
     display: grid;
     gap: clamp(1rem, 3vw, 2rem);
@@ -1908,6 +1739,42 @@
 
   .main-search__empty .button {
     margin-top: 0.75rem;
+  }
+
+.multicolumn__item {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .multicolumn__media {
+    margin-bottom: 0.5rem;
+  }
+
+  .multicolumn__item > .button {
+    justify-self: start;
+  }
+
+  .multicolumn__title,
+  .multicolumn__text {
+    margin: 0;
+  }
+
+  .multicolumn__list--center .multicolumn__item {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .multicolumn__list--center .multicolumn__item > .button {
+    justify-self: center;
+  }
+
+.newsletter__content {
+    --content-width: 36rem;
+  }
+
+  .newsletter__form {
+    width: 100%;
   }
 
 .predictive-search {
@@ -1997,6 +1864,99 @@
     min-height: clamp(26rem, 45vw, 34rem);
   }
 
+.rich-text__inner--narrow {
+    --content-width: 42rem;
+  }
+
+  .rich-text__inner--wide {
+    --content-width: 64rem;
+  }
+
+.slideshow {
+    --per-view: 1;
+    --carousel-gap: 0px;
+  }
+
+  .slideshow__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .slideshow__dots {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .slideshow__dot {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .slideshow__dot::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid var(--color-fg);
+    border-radius: 999px;
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  .slideshow__dot[aria-current='true']::before {
+    background-color: var(--color-fg);
+  }
+
+.testimonials__carousel {
+    --per-view: 1;
+    --carousel-gap: 2rem;
+  }
+
+  .testimonials__figure {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    max-width: 52rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .testimonials__quote {
+    margin: 0;
+    quotes: '\201C' '\201D';
+  }
+
+  .testimonials__quote::before {
+    content: open-quote;
+  }
+
+  .testimonials__quote::after {
+    content: close-quote;
+  }
+
+  .testimonials__caption {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .testimonials__author {
+    font-weight: var(--font-body-weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+  }
+
+  .testimonials .carousel__controls {
+    justify-content: center;
+  }
+
 .ds-header { padding-block: 3rem 2rem; border-bottom: 1px solid var(--color-border); }
 .ds-header p { max-width: 40rem; margin-top: 0.75rem; }
 .ds-nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 1.5rem; }
@@ -2032,7 +1992,7 @@
   <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
   <h1 class="h0">Vermeil</h1>
   <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
-  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a></nav>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a><a class="link" href="#home">Home sections</a></nav>
 </header>
 <main>
 
@@ -2396,7 +2356,7 @@
     <div class="product__layout">
   <div class="product__media"><div class="product-gallery"><ul class="product-gallery__list list-unstyled">
     <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 8%, var(--color-bg))"/></svg></div></li>
-    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 14%, var(--color-bg))"/></svg><span class="product-media__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></svg></span></div></li>
+    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 14%, var(--color-bg))"/></svg><span class="deferred-media__badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></svg></span></div></li>
   </ul><p class="product-gallery__counter text-small">1 / 2</p></div></div>
   <div class="product__info">
     <p class="product__vendor eyebrow">Vermeil</p>
@@ -2473,6 +2433,44 @@
     </div></div>
     <div class="main-collection__empty" style="flex: 1; min-width: 16rem;"><p class="h3">No products found</p><p class="text-muted">Try removing a filter or two.</p><a href="#" class="button button--secondary">Clear all</a></div>
   </div>
+</div>
+  </div>
+</section>
+
+
+<section id="home" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Home sections</h2>
+    <div class="ds-stack">
+  <div class="banner banner--small"><div class="banner__frame" style="--overlay: 0.35;">
+    <div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 55%, var(--color-bg))"/></svg><span class="media-scrim"></span></div>
+    <div class="banner__content banner__content--center-center page-width"><div class="content-stack content-stack--center on-media">
+      <div class="block-heading"><p class="eyebrow">New season</p><h2 class="h0">Made to be worn every day</h2></div>
+      <div class="block-text block-text--large rte"><p>Text over images uses the on-media colors.</p></div>
+      <a href="#" class="block-button button">Shop now</a><a href="#" class="block-button button button--secondary">Our story</a>
+    </div></div>
+  </div></div>
+  <div class="ds-cols">
+    <div class="ds-stack">
+      <div class="ds-row">
+        <button type="button" class="carousel__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg><span class="visually-hidden">Previous</span></button>
+        <button type="button" class="carousel__button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span class="visually-hidden">Next</span></button>
+        <button type="button" class="carousel__button" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span class="visually-hidden">Next</span></button>
+        <ul class="slideshow__dots list-unstyled"><li><button type="button" class="slideshow__dot" aria-current="true"></button></li><li><button type="button" class="slideshow__dot"></button></li><li><button type="button" class="slideshow__dot"></button></li></ul>
+      </div>
+      <div class="multicolumn__item"><h3 class="multicolumn__title h4">Recycled gold</h3><div class="multicolumn__text rte text-muted"><p>Every piece is cast in recycled 14k gold or gold vermeil.</p></div><a href="#" class="button button--tertiary">Learn more</a></div>
+    </div>
+    <figure class="testimonials__figure"><blockquote class="testimonials__quote h2">The ring I reach for every single morning.</blockquote><figcaption class="testimonials__caption"><span class="testimonials__author">Amara O.</span><span class="testimonials__detail text-muted">Toronto</span></figcaption></figure>
+  </div>
+  <div class="editorial-split banner--small"><ul class="editorial-split__panels list-unstyled">
+    <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 40%, var(--color-bg))"/></svg><span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Rings</h2></div><a href="#" class="block-button button button--secondary">Shop rings</a></div></div></li>
+    <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 30%, var(--color-bg))"/></svg><span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Necklaces</h2></div><a href="#" class="block-button button button--secondary">Shop necklaces</a></div></div></li>
+  </ul></div>
+  <ul class="layout-grid list-unstyled" style="--cols: 3; --cols-mobile: 1;">
+    <li><div class="card-product"><div class="card-product__media media" style="--ratio: var(--card-ratio);"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 10%, var(--color-bg))"/></svg></div><div class="card-product__info"><div class="card-product__text"><h3 class="card-product__title">Example product</h3></div></div></div></li>
+    <li><div class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 20%, var(--color-bg))"/></svg></div><div class="card-collection__caption"><h3 class="card-collection__title h3">Collection title</h3></div></div></li>
+    <li><article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 12%, var(--color-bg))"/></svg></div><div class="card-article__info"><h3 class="card-article__title h4">Blog post title</h3></div></article></li>
+  </ul>
 </div>
   </div>
 </section>

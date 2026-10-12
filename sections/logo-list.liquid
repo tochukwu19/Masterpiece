@@ -1,0 +1,214 @@
+<div
+  class="logo-list logo-list--{{ section.settings.logo_height }} section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    {%- render 'section-heading',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      size: section.settings.heading_size
+    -%}
+    <ul class="logo-list__items list-unstyled" role="list">
+      {%- for block in section.blocks -%}
+        <li class="logo-list__item" {{ block.shopify_attributes }}>
+          {%- capture logo -%}
+            {%- if block.settings.image -%}
+              {{- block.settings.image | image_url: height: 240 | image_tag: loading: 'lazy', class: 'logo-list__image', alt: block.settings.image.alt -}}
+            {%- else -%}
+              {{- 'image' | placeholder_svg_tag: 'placeholder logo-list__placeholder' -}}
+            {%- endif -%}
+          {%- endcapture -%}
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="logo-list__link">{{ logo }}</a>
+          {%- else -%}
+            {{ logo }}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% stylesheet %}
+  .logo-list--small {
+    --logo-height: 1.75rem;
+  }
+
+  .logo-list--medium {
+    --logo-height: 2.5rem;
+  }
+
+  .logo-list--large {
+    --logo-height: 3.5rem;
+  }
+
+  .logo-list__items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .logo-list__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-list__image,
+  .logo-list__placeholder {
+    display: block;
+    width: auto;
+    height: var(--logo-height);
+    max-width: 10rem;
+    object-fit: contain;
+  }
+
+  .logo-list__placeholder {
+    width: calc(var(--logo-height) * 3);
+  }
+
+  .logo-list__link {
+    display: block;
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .logo-list__link:hover {
+    opacity: 0.7;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.logo_list.name",
+  "class": "section-logo-list",
+  "max_blocks": 16,
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "t:sections.logo_list.blocks.logo.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.logo_list.blocks.logo.settings.image.label",
+          "info": "t:sections.logo_list.blocks.logo.settings.image.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:blocks.button.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "As featured in",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.heading_size.label",
+      "options": [
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "logo_height",
+      "label": "t:sections.logo_list.settings.logo_height.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.logo_list.settings.logo_height.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.logo_list.settings.logo_height.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.logo_list.settings.logo_height.options__3.label"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.logo_list.presets.name",
+      "blocks": {
+        "l1": {
+          "type": "logo"
+        },
+        "l2": {
+          "type": "logo"
+        },
+        "l3": {
+          "type": "logo"
+        },
+        "l4": {
+          "type": "logo"
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4"
+      ]
+    }
+  ]
+}
+{% endschema %}

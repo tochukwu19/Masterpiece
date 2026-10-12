@@ -283,6 +283,16 @@
         "options__3": {
           "label": "Medium"
         }
+      },
+      "layout": {
+        "header": "Layout",
+        "label": "Layout",
+        "options__1": {
+          "label": "Grid"
+        },
+        "options__2": {
+          "label": "Carousel"
+        }
       }
     },
     "header_group": {
@@ -787,6 +797,468 @@
           "label": "Show product count"
         }
       }
+    },
+    "hero": {
+      "name": "Hero",
+      "settings": {
+        "image": {
+          "label": "Image",
+          "info": "2400 x 1350px recommended."
+        },
+        "image_mobile": {
+          "label": "Mobile image",
+          "info": "Optional. Shows on small screens. 750 x 1100px recommended."
+        },
+        "overlay_opacity": {
+          "label": "Image overlay opacity"
+        },
+        "height": {
+          "label": "Height",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          },
+          "options__4": {
+            "label": "Full screen"
+          }
+        },
+        "content_position": {
+          "label": "Content position",
+          "options__1": {
+            "label": "Top left"
+          },
+          "options__2": {
+            "label": "Top center"
+          },
+          "options__3": {
+            "label": "Top right"
+          },
+          "options__4": {
+            "label": "Middle left"
+          },
+          "options__5": {
+            "label": "Middle center"
+          },
+          "options__6": {
+            "label": "Middle right"
+          },
+          "options__7": {
+            "label": "Bottom left"
+          },
+          "options__8": {
+            "label": "Bottom center"
+          },
+          "options__9": {
+            "label": "Bottom right"
+          }
+        },
+        "color_scheme": {
+          "info": "Applies when no image is selected. Text over images is white."
+        }
+      },
+      "presets": {
+        "name": "Hero"
+      }
+    },
+    "slideshow": {
+      "name": "Slideshow",
+      "settings": {
+        "autoplay": {
+          "label": "Auto-rotate slides",
+          "info": "A pause button shows when slides rotate."
+        },
+        "autoplay_speed": {
+          "label": "Change slides every"
+        }
+      },
+      "presets": {
+        "name": "Slideshow"
+      }
+    },
+    "rich_text": {
+      "name": "Rich text",
+      "settings": {
+        "alignment": {
+          "label": "Alignment",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          }
+        },
+        "width": {
+          "label": "Content width",
+          "options__1": {
+            "label": "Narrow"
+          },
+          "options__2": {
+            "label": "Wide"
+          }
+        }
+      },
+      "presets": {
+        "name": "Rich text"
+      }
+    },
+    "image_with_text": {
+      "name": "Image with text",
+      "settings": {
+        "image": {
+          "label": "Image"
+        },
+        "image_position": {
+          "label": "Image position",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Right"
+          }
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options__1": {
+            "label": "Adapt to image"
+          },
+          "options__2": {
+            "label": "Portrait"
+          },
+          "options__3": {
+            "label": "Square"
+          },
+          "options__4": {
+            "label": "Landscape"
+          }
+        },
+        "vertical_alignment": {
+          "label": "Content alignment",
+          "options__1": {
+            "label": "Top"
+          },
+          "options__2": {
+            "label": "Middle"
+          },
+          "options__3": {
+            "label": "Bottom"
+          }
+        }
+      },
+      "presets": {
+        "name": "Image with text"
+      }
+    },
+    "custom_liquid": {
+      "name": "Custom Liquid",
+      "presets": {
+        "name": "Custom Liquid"
+      }
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "settings": {
+        "collection": {
+          "label": "Collection"
+        },
+        "products_to_show": {
+          "label": "Products to show"
+        },
+        "show_view_all": {
+          "label": "Show \"View all\" link"
+        }
+      },
+      "presets": {
+        "name": "Featured collection"
+      }
+    },
+    "collection_list": {
+      "name": "Collection list",
+      "blocks": {
+        "collection": {
+          "name": "Collection"
+        }
+      },
+      "presets": {
+        "name": "Collection list"
+      }
+    },
+    "blog_posts": {
+      "name": "Blog posts",
+      "settings": {
+        "blog": {
+          "label": "Blog"
+        },
+        "post_count": {
+          "label": "Posts to show"
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_author": {
+          "label": "Show author"
+        },
+        "show_excerpt": {
+          "label": "Show excerpt"
+        }
+      },
+      "presets": {
+        "name": "Blog posts"
+      }
+    },
+    "editorial_split": {
+      "name": "Editorial split",
+      "blocks": {
+        "panel": {
+          "name": "Panel",
+          "settings": {
+            "image": {
+              "info": "1200 x 1600px recommended."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Editorial split"
+      }
+    },
+    "multicolumn": {
+      "name": "Multicolumn",
+      "blocks": {
+        "column": {
+          "name": "Column",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "link_label": {
+              "label": "Link label"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Multicolumn"
+      }
+    },
+    "logo_list": {
+      "name": "Logo list",
+      "settings": {
+        "logo_height": {
+          "label": "Logo height",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        }
+      },
+      "blocks": {
+        "logo": {
+          "name": "Logo",
+          "settings": {
+            "image": {
+              "label": "Logo",
+              "info": "Transparent PNG or SVG works best. Uses the image alt text."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Logo list"
+      }
+    },
+    "testimonials": {
+      "name": "Testimonials",
+      "blocks": {
+        "testimonial": {
+          "name": "Testimonial",
+          "settings": {
+            "quote": {
+              "label": "Quote"
+            },
+            "author": {
+              "label": "Author"
+            },
+            "detail": {
+              "label": "Detail",
+              "info": "For example a location or publication."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Testimonials"
+      }
+    },
+    "newsletter": {
+      "name": "Email signup",
+      "settings": {
+        "image": {
+          "label": "Background image",
+          "info": "Optional. Text and the form turn white over the image."
+        }
+      },
+      "presets": {
+        "name": "Email signup"
+      }
+    },
+    "video": {
+      "name": "Video",
+      "settings": {
+        "video": {
+          "label": "Video",
+          "info": "Upload a video to play it with the theme's own controls."
+        },
+        "video_url": {
+          "label": "YouTube or Vimeo URL",
+          "info": "Used when no video is uploaded."
+        },
+        "video_title": {
+          "label": "Video description",
+          "info": "Describes the video for screen readers."
+        },
+        "cover_image": {
+          "label": "Cover image",
+          "info": "Shows before the video plays."
+        },
+        "ratio": {
+          "options__1": {
+            "label": "Landscape (16:9)"
+          },
+          "options__2": {
+            "label": "Classic (4:3)"
+          },
+          "options__3": {
+            "label": "Square"
+          }
+        },
+        "full_width": {
+          "label": "Full width"
+        }
+      },
+      "presets": {
+        "name": "Video"
+      }
+    },
+    "featured_product": {
+      "name": "Featured product",
+      "settings": {
+        "product": {
+          "label": "Product"
+        },
+        "show_vendor": {
+          "label": "Show vendor"
+        },
+        "picker_type": {
+          "label": "Variant picker",
+          "options__1": {
+            "label": "Buttons"
+          },
+          "options__2": {
+            "label": "Dropdown"
+          }
+        },
+        "swatch_shape": {
+          "label": "Swatch shape",
+          "options__1": {
+            "label": "Circle"
+          },
+          "options__2": {
+            "label": "Square"
+          }
+        },
+        "show_quantity": {
+          "label": "Show quantity selector"
+        },
+        "show_dynamic_checkout": {
+          "label": "Show dynamic checkout buttons",
+          "info": "Customers see their preferred payment method, like PayPal or Apple Pay."
+        },
+        "media_ratio": {
+          "label": "Media ratio",
+          "options__1": {
+            "label": "Adapt to media"
+          },
+          "options__2": {
+            "label": "Portrait"
+          },
+          "options__3": {
+            "label": "Square"
+          }
+        }
+      },
+      "presets": {
+        "name": "Featured product"
+      }
+    }
+  },
+  "blocks": {
+    "heading": {
+      "name": "Heading"
+    },
+    "text": {
+      "name": "Text",
+      "settings": {
+        "text": {
+          "label": "Text"
+        },
+        "size": {
+          "label": "Text size",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Body"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        }
+      }
+    },
+    "button": {
+      "name": "Button",
+      "settings": {
+        "label": {
+          "label": "Label"
+        },
+        "link": {
+          "label": "Link"
+        },
+        "style": {
+          "label": "Style",
+          "options__1": {
+            "label": "Primary"
+          },
+          "options__2": {
+            "label": "Secondary"
+          },
+          "options__3": {
+            "label": "Link"
+          }
+        }
+      }
+    },
+    "custom_liquid": {
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": {
+          "label": "Liquid code",
+          "info": "Add app snippets or other code to create advanced customizations."
+        }
+      }
+    },
+    "slide": {
+      "name": "Slide"
     }
   }
 }

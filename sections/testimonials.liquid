@@ -1,0 +1,197 @@
+{%- assign count = section.blocks.size -%}
+
+<div
+  class="testimonials section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    {%- render 'section-heading',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      size: section.settings.heading_size
+    -%}
+    <div class="testimonials__carousel" x-data="carousel({ loop: true })">
+      <ul class="testimonials__track carousel__track list-unstyled" role="list" data-carousel-track x-on:scroll.debounce.80ms="sync()">
+        {%- for block in section.blocks -%}
+          <li class="testimonials__item" {{ block.shopify_attributes }}>
+            <figure class="testimonials__figure">
+              <blockquote class="testimonials__quote h2">{{ block.settings.quote }}</blockquote>
+              {%- if block.settings.author != blank or block.settings.detail != blank -%}
+                <figcaption class="testimonials__caption">
+                  {%- if block.settings.author != blank -%}
+                    <span class="testimonials__author">{{ block.settings.author | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.detail != blank -%}
+                    <span class="testimonials__detail text-muted">{{ block.settings.detail | escape }}</span>
+                  {%- endif -%}
+                </figcaption>
+              {%- endif -%}
+            </figure>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if count > 1 -%}
+        {%- render 'carousel-controls' -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .testimonials__carousel {
+    --per-view: 1;
+    --carousel-gap: 2rem;
+  }
+
+  .testimonials__figure {
+    display: grid;
+    justify-items: center;
+    gap: 1.5rem;
+    max-width: 52rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .testimonials__quote {
+    margin: 0;
+    quotes: '\201C' '\201D';
+  }
+
+  .testimonials__quote::before {
+    content: open-quote;
+  }
+
+  .testimonials__quote::after {
+    content: close-quote;
+  }
+
+  .testimonials__caption {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .testimonials__author {
+    font-weight: var(--font-body-weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: calc(0.8125rem * var(--font-body-scale));
+  }
+
+  .testimonials .carousel__controls {
+    justify-content: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.testimonials.name",
+  "class": "section-testimonials",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:sections.testimonials.blocks.testimonial.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "default": "Share a review or a press quote that captures how customers feel about your pieces.",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.quote.label"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "default": "Customer name",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.author.label"
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "t:sections.testimonials.blocks.testimonial.settings.detail.label",
+          "info": "t:sections.testimonials.blocks.testimonial.settings.detail.info"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "default": "Kind words",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.heading_size.label",
+      "options": [
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.testimonials.presets.name",
+      "blocks": {
+        "t1": {
+          "type": "testimonial"
+        },
+        "t2": {
+          "type": "testimonial"
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2"
+      ]
+    }
+  ]
+}
+{% endschema %}

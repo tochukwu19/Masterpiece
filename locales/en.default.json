@@ -20,7 +20,8 @@
       "next": "Next page",
       "previous": "Previous page"
     },
-    "close": "Close"
+    "close": "Close",
+    "view_all": "View all"
   },
   "accessibility": {
     "skip_to_content": "Skip to content"
@@ -110,7 +111,8 @@
       "unmute": "Unmute",
       "enter_fullscreen": "Enter full screen",
       "exit_fullscreen": "Exit full screen"
-    }
+    },
+    "view_full_details": "View full details"
   },
   "collections": {
     "card": {
@@ -231,5 +233,27 @@
       "shipping_policy_html": "Discounts and <a href=\"{{ link }}\">shipping</a> calculated at checkout.",
       "shipping_at_checkout": "Discounts and shipping calculated at checkout."
     }
+  },
+  "slideshow": {
+    "label": "Slideshow",
+    "slide": "Slide",
+    "slide_label": "{{ index }} of {{ count }}",
+    "previous": "Previous slide",
+    "next": "Next slide",
+    "go_to": "Go to slide {{ index }}",
+    "pause": "Pause slideshow",
+    "play": "Play slideshow"
+  },
+  "carousel": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "placeholders": {
+    "product_title": "Example product",
+    "collection_title": "Collection title",
+    "article_title": "Blog post title"
+  },
+  "video": {
+    "play": "Play video"
   }
 }

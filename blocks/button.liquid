@@ -1,0 +1,57 @@
+{%- if block.settings.label != blank -%}
+  <a
+    {% if block.settings.link != blank %}
+      href="{{ block.settings.link }}"
+    {% else %}
+      role="link" aria-disabled="true"
+    {% endif %}
+    class="block-button button{% unless block.settings.style == 'primary' %} button--{{ block.settings.style }}{% endunless %}"
+    {{ block.shopify_attributes }}
+  >
+    {{- block.settings.label | escape -}}
+  </a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.button.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Shop now",
+      "label": "t:blocks.button.settings.label.label"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:blocks.button.settings.link.label"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "t:blocks.button.settings.style.label",
+      "options": [
+        {
+          "value": "primary",
+          "label": "t:blocks.button.settings.style.options__1.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:blocks.button.settings.style.options__2.label"
+        },
+        {
+          "value": "tertiary",
+          "label": "t:blocks.button.settings.style.options__3.label"
+        }
+      ],
+      "default": "primary"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.button.name"
+    }
+  ]
+}
+{% endschema %}

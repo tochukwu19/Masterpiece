@@ -88,7 +88,7 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ No `config/markets.json`
 
 ## 6. Lighthouse (benchmark dataset, sections must contain real content)
-- [ ] ❌ Performance ≥ **60** average across home, product, collection — desktop **and** mobile. Risks: 3 CDN script libs, 2 Swiper versions, remote fonts via `@import`, full-size background images.
+- [ ] ❌ Performance ≥ **60** average across home, product, collection — desktop **and** mobile. CDN script libraries and both Swiper versions are gone (Phase 4); measure with Lighthouse in 4d.
 - [ ] ❌ Accessibility ≥ **90** average across the same pages.
 
 ## 7. Pages

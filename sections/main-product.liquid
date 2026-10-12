@@ -1,3 +1,5 @@
+{{ 'component-product.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign variant = product.selected_or_first_available_variant
   assign form_id = 'ProductForm-' | append: section.id
@@ -50,22 +52,7 @@
 
           {%- when 'price' -%}
             <div class="product__price" data-product-region="{{ block.id }}" {{ block.shopify_attributes }}>
-              {%- render 'price', product: product, variant: variant, class: 'product__price-amount' -%}
-              {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
-                <p class="product__tax text-small text-muted">
-                  {%- if cart.taxes_included -%}{{ 'products.taxes_included' | t }} {% endif -%}
-                  {%- if shop.shipping_policy.body != blank -%}
-                    {{- 'products.shipping_policy_html' | t: link: shop.shipping_policy.url -}}
-                  {%- endif -%}
-                </p>
-              {%- endif -%}
-              {%- if block.settings.show_installments and variant -%}
-                {%- assign installments_form_id = 'ProductInstallments-' | append: section.id -%}
-                {%- form 'product', product, id: installments_form_id, class: 'product__installments' -%}
-                  <input type="hidden" name="id" value="{{ variant.id }}">
-                  {{ form | payment_terms }}
-                {%- endform -%}
-              {%- endif -%}
+              {%- render 'product-price', product: product, variant: variant, section_id: section.id, show_installments: block.settings.show_installments -%}
             </div>
 
           {%- when 'variant_picker' -%}
@@ -79,44 +66,7 @@
             </div>
 
           {%- when 'quantity' -%}
-            {%- liquid
-              assign rule = variant.quantity_rule
-              assign min_qty = rule.min | default: 1
-              assign step_qty = rule.increment | default: 1
-            -%}
-            <div class="product__quantity field" {{ block.shopify_attributes }}>
-              <label class="field__label" for="Quantity-{{ section.id }}">{{ 'products.quantity.label' | t }}</label>
-              <div class="quantity" x-data="quantityInput">
-                <button type="button" class="quantity__button" x-on:click="step(-1)">
-                  {%- render 'icon', name: 'minus' -%}
-                  <span class="visually-hidden">{{ 'products.quantity.decrease' | t: title: product.title }}</span>
-                </button>
-                <input
-                  id="Quantity-{{ section.id }}"
-                  class="quantity__input"
-                  type="number"
-                  name="quantity"
-                  form="{{ form_id }}"
-                  value="{{ min_qty }}"
-                  min="{{ min_qty }}"
-                  step="{{ step_qty }}"
-                  {% if rule.max %}
-                    max="{{ rule.max }}"
-                  {% endif %}
-                  x-ref="input"
-                >
-                <button type="button" class="quantity__button" x-on:click="step(1)">
-                  {%- render 'icon', name: 'plus' -%}
-                  <span class="visually-hidden">{{ 'products.quantity.increase' | t: title: product.title }}</span>
-                </button>
-              </div>
-              {%- if step_qty > 1 or rule.max -%}
-                <p class="text-small text-muted">
-                  {%- if step_qty > 1 %}{{ 'products.quantity.multiples_of' | t: step: step_qty }} {% endif -%}
-                  {%- if rule.max %}{{ 'products.quantity.maximum' | t: max: rule.max }}{% endif -%}
-                </p>
-              {%- endif -%}
-            </div>
+            {%- render 'product-quantity', product: product, variant: variant, section_id: section.id, form_id: form_id, attributes: block.shopify_attributes -%}
 
           {%- when 'buy_buttons' -%}
             {%- liquid
@@ -126,59 +76,7 @@
               endif
             -%}
             <div class="product-form" data-product-region="{{ block.id }}" x-data="addToCart" x-on:submit="submit($event)" {{ block.shopify_attributes }}>
-              {%- form 'product', product, id: form_id, class: 'product-form__form', novalidate: 'novalidate' -%}
-                <input type="hidden" name="id" value="{{ variant.id }}">
-                <noscript>
-                  <div class="field">
-                    <label class="field__label" for="Variants-{{ section.id }}">{{ 'products.variant.label' | t }}</label>
-                    <div class="select-field">
-                      <select id="Variants-{{ section.id }}" class="select" name="id">
-                        {%- for v in product.variants -%}
-                          <option value="{{ v.id }}" {% if v.id == variant.id %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>
-                            {{- v.title }} &ndash; {{ v.price | money -}}
-                          </option>
-                        {%- endfor -%}
-                      </select>
-                      {%- render 'icon', name: 'chevron-down', class: 'select-field__icon' -%}
-                    </div>
-                  </div>
-                </noscript>
-
-                {%- if gift_card_recipient -%}
-                  {%- render 'gift-card-recipient-form', form: form, section_id: section.id -%}
-                {%- endif -%}
-
-                <div class="product-form__buttons">
-                  <button
-                    type="submit"
-                    name="add"
-                    class="button button--full{% if block.settings.show_dynamic_checkout and gift_card_recipient == false %} button--secondary{% endif %}"
-                    {% unless variant.available %}
-                      disabled
-                    {% endunless %}
-                    x-bind:aria-busy="loading"
-                  >
-                    {%- render 'loading-spinner' -%}
-                    <span>
-                      {%- if variant == null -%}
-                        {{ 'products.form.unavailable' | t }}
-                      {%- elsif variant.available -%}
-                        {{ 'products.form.add_to_cart' | t }}
-                      {%- else -%}
-                        {{ 'products.form.sold_out' | t }}
-                      {%- endif -%}
-                    </span>
-                  </button>
-                  {%- if block.settings.show_dynamic_checkout and gift_card_recipient == false -%}
-                    {{ form | payment_button }}
-                  {%- endif -%}
-                </div>
-
-                <p class="form-message form-message--error" role="alert" x-show="error" x-cloak>
-                  {%- render 'icon', name: 'error' -%}
-                  <span x-text="error"></span>
-                </p>
-              {%- endform -%}
+              {%- render 'product-buy-buttons', product: product, variant: variant, section_id: section.id, form_id: form_id, show_dynamic_checkout: block.settings.show_dynamic_checkout, gift_card_recipient: gift_card_recipient -%}
             </div>
 
           {%- when 'pickup_availability' -%}
@@ -341,204 +239,6 @@
   <script type="application/json" data-selected-variant>{{ variant | json }}</script>
   <script type="application/ld+json">{{ product | structured_data }}</script>
 </section>
-
-{% stylesheet %}
-  .product__layout {
-    display: grid;
-    gap: 2rem;
-  }
-
-  @media (min-width: 990px) {
-    .product__layout {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      gap: clamp(2.5rem, 5vw, 5rem);
-      align-items: start;
-    }
-
-    .product--sticky .product__info {
-      position: sticky;
-      top: 6rem;
-    }
-  }
-
-  .product[aria-busy='true'] [data-product-region] {
-    opacity: 0.6;
-    transition: opacity var(--duration-fast) ease;
-  }
-
-  .product__info {
-    display: grid;
-    gap: 1.5rem;
-    align-content: start;
-    min-width: 0;
-  }
-
-  .product__info > .product__vendor + .product__title {
-    margin-top: -1rem;
-  }
-
-  .product__title {
-    overflow-wrap: break-word;
-  }
-
-  .product__price {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .product__price-amount {
-    font-size: calc(1.25rem * var(--font-body-scale));
-  }
-
-  .product__tax a {
-    color: inherit;
-  }
-
-  .product__quantity {
-    justify-items: start;
-  }
-
-  .product-form__buttons {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .product-form .form-message {
-    margin-top: 0.75rem;
-  }
-
-  .product-form .shopify-payment-button__button {
-    min-height: 3rem;
-    border-radius: var(--buttons-radius);
-  }
-
-  .pickup__summary {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .pickup__summary .icon {
-    margin-top: 0.125rem;
-  }
-
-  .pickup__text {
-    display: grid;
-    gap: 0.25rem;
-  }
-
-  .pickup__more {
-    justify-self: start;
-    min-height: 2rem;
-    font-size: calc(0.8125rem * var(--font-body-scale));
-  }
-
-  .pickup__list {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .pickup__location {
-    display: grid;
-    gap: 0.25rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .pickup__location address {
-    font-style: normal;
-  }
-
-  .product__text--subtitle {
-    font-family: var(--font-heading-family);
-    font-size: calc(1.25rem * var(--font-heading-scale));
-  }
-
-  .product__text--uppercase {
-    font-size: calc(0.8125rem * var(--font-body-scale));
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .product__tab {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .product__tab + .product__tab {
-    margin-top: -1.5rem;
-  }
-
-  .product__tab:last-of-type {
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .product__tab-summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-height: 3.5rem;
-    list-style: none;
-    cursor: pointer;
-    font-weight: var(--font-body-weight-medium);
-    font-size: calc(0.8125rem * var(--font-body-scale));
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .product__tab-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .product__tab-icon {
-    transition: transform var(--duration-fast) ease;
-  }
-
-  .product__tab[open] .product__tab-icon {
-    transform: rotate(45deg);
-  }
-
-  .product__tab-content {
-    padding-bottom: 1.5rem;
-  }
-
-  .product__share {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .product__complementary:empty {
-    display: none;
-  }
-
-  .product__complementary-heading {
-    margin-bottom: 0.75rem;
-  }
-
-  .product__complementary-list {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .product__complementary-item {
-    display: grid;
-    grid-template-columns: 4rem minmax(0, 1fr);
-    align-items: center;
-    gap: 1rem;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .product__complementary-item:hover .product__complementary-title {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  .product__complementary-info {
-    display: grid;
-    gap: 0.125rem;
-  }
-{% endstylesheet %}
 
 {% schema %}
 {

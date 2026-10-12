@@ -1,0 +1,216 @@
+{{ 'component-product.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign featured = product | default: section.settings.product
+  assign variant = featured.selected_or_first_available_variant
+  assign form_id = 'ProductForm-' | append: section.id
+  assign media = variant.featured_media | default: featured.featured_media
+  case section.settings.media_ratio
+    when 'portrait'
+      assign media_ratio = '4 / 5'
+    when 'square'
+      assign media_ratio = '1 / 1'
+    else
+      assign media_ratio = 'adapt'
+  endcase
+-%}
+
+<section
+  id="Product-{{ section.id }}"
+  class="product featured-product section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+  {% if featured != blank %}
+    x-data="productInfo({ sectionId: '{{ section.id }}', productUrl: '{{ featured.url }}', updateUrl: false })"
+    x-on:change="onOptionChange($event)"
+    x-bind:aria-busy="loading"
+  {% endif %}
+>
+  <div class="product__layout page-width">
+    <div class="product__media" data-product-region="media">
+      {%- if media -%}
+        {%- render 'product-media', media: media, product: featured, ratio: media_ratio, sizes: '(min-width: 990px) 50vw, 100vw', position: 1 -%}
+      {%- else -%}
+        <div class="media" style="--ratio: 4 / 5;">{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      {%- if featured == blank -%}
+        <h2 class="product__title h2">{{ 'placeholders.product_title' | t }}</h2>
+      {%- else -%}
+        {%- if section.settings.show_vendor and featured.vendor != blank -%}
+          <p class="product__vendor eyebrow">
+            <span class="visually-hidden">{{ 'products.vendor' | t }}</span>
+            {{- featured.vendor -}}
+          </p>
+        {%- endif -%}
+
+        <h2 class="product__title h2">
+          <a href="{{ featured.url }}" class="link--plain">{{ featured.title | escape }}</a>
+        </h2>
+
+        <div class="product__price" data-product-region="price">
+          {%- render 'product-price', product: featured, variant: variant, section_id: section.id -%}
+        </div>
+
+        <div class="product__picker" data-product-region="picker">
+          {%- render 'variant-picker',
+            product: featured,
+            section_id: section.id,
+            picker_type: section.settings.picker_type,
+            swatch_shape: section.settings.swatch_shape
+          -%}
+        </div>
+
+        {%- if section.settings.show_quantity -%}
+          {%- render 'product-quantity', product: featured, variant: variant, section_id: section.id, form_id: form_id -%}
+        {%- endif -%}
+
+        <div class="product-form" data-product-region="buttons" x-data="addToCart" x-on:submit="submit($event)">
+          {%- render 'product-buy-buttons',
+            product: featured,
+            variant: variant,
+            section_id: section.id,
+            form_id: form_id,
+            show_dynamic_checkout: section.settings.show_dynamic_checkout
+          -%}
+        </div>
+
+        <a href="{{ featured.url }}" class="button button--tertiary featured-product__details">
+          {{- 'products.view_full_details' | t -}}
+        </a>
+
+        <script type="application/json" data-selected-variant>{{ variant | json }}</script>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-product__details {
+    justify-self: start;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.featured_product.name",
+  "class": "section-featured-product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.featured_product.settings.product.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.featured_product.settings.show_vendor.label"
+    },
+    {
+      "type": "select",
+      "id": "picker_type",
+      "label": "t:sections.featured_product.settings.picker_type.label",
+      "options": [
+        {
+          "value": "buttons",
+          "label": "t:sections.featured_product.settings.picker_type.options__1.label"
+        },
+        {
+          "value": "dropdown",
+          "label": "t:sections.featured_product.settings.picker_type.options__2.label"
+        }
+      ],
+      "default": "buttons"
+    },
+    {
+      "type": "select",
+      "id": "swatch_shape",
+      "label": "t:sections.featured_product.settings.swatch_shape.label",
+      "options": [
+        {
+          "value": "circle",
+          "label": "t:sections.featured_product.settings.swatch_shape.options__1.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured_product.settings.swatch_shape.options__2.label"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "default": true,
+      "label": "t:sections.featured_product.settings.show_quantity.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "default": true,
+      "label": "t:sections.featured_product.settings.show_dynamic_checkout.label",
+      "info": "t:sections.featured_product.settings.show_dynamic_checkout.info"
+    },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "t:sections.featured_product.settings.media_ratio.label",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.featured_product.settings.media_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.featured_product.settings.media_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.featured_product.settings.media_ratio.options__3.label"
+        }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["product"]
+  },
+  "presets": [
+    {
+      "name": "t:sections.featured_product.presets.name"
+    }
+  ]
+}
+{% endschema %}

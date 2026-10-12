@@ -144,6 +144,7 @@ const nav = [
   ['footer', 'Footer'],
   ['product', 'Product'],
   ['collection', 'Collection'],
+  ['home', 'Home sections'],
 ];
 
 const cartItem = (title, options, price, compare, shade) => `
@@ -408,7 +409,7 @@ ${section('footer', 'Footer', 'scheme-1', `<div class="footer"><div class="foote
 ${section('product', 'Product', 'scheme-1', `<div class="product__layout">
   <div class="product__media"><div class="product-gallery"><ul class="product-gallery__list list-unstyled">
     <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;">${placeholder(8)}</div></li>
-    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;">${placeholder(14)}<span class="product-media__badge">${icon('play')}</span></div></li>
+    <li class="product-gallery__item"><div class="product-media media" style="--ratio: 4 / 5;">${placeholder(14)}<span class="deferred-media__badge">${icon('play')}</span></div></li>
   </ul><p class="product-gallery__counter text-small">1 / 2</p></div></div>
   <div class="product__info">
     <p class="product__vendor eyebrow">${themeName}</p>
@@ -479,6 +480,38 @@ ${section('collection', 'Collection', 'scheme-1', `<div class="ds-stack">
     </div></div>
     <div class="main-collection__empty" style="flex: 1; min-width: 16rem;"><p class="h3">No products found</p><p class="text-muted">Try removing a filter or two.</p><a href="#" class="button button--secondary">Clear all</a></div>
   </div>
+</div>`)}
+
+${section('home', 'Home sections', 'scheme-1', `<div class="ds-stack">
+  <div class="banner banner--small"><div class="banner__frame" style="--overlay: 0.35;">
+    <div class="banner__media media">${placeholder(55)}<span class="media-scrim"></span></div>
+    <div class="banner__content banner__content--center-center page-width"><div class="content-stack content-stack--center on-media">
+      <div class="block-heading"><p class="eyebrow">New season</p><h2 class="h0">Made to be worn every day</h2></div>
+      <div class="block-text block-text--large rte"><p>Text over images uses the on-media colors.</p></div>
+      <a href="#" class="block-button button">Shop now</a><a href="#" class="block-button button button--secondary">Our story</a>
+    </div></div>
+  </div></div>
+  <div class="ds-cols">
+    <div class="ds-stack">
+      <div class="ds-row">
+        <button type="button" class="carousel__button">${icon('arrow-left')}<span class="visually-hidden">Previous</span></button>
+        <button type="button" class="carousel__button">${icon('arrow-right')}<span class="visually-hidden">Next</span></button>
+        <button type="button" class="carousel__button" disabled>${icon('arrow-right')}<span class="visually-hidden">Next</span></button>
+        <ul class="slideshow__dots list-unstyled"><li><button type="button" class="slideshow__dot" aria-current="true"></button></li><li><button type="button" class="slideshow__dot"></button></li><li><button type="button" class="slideshow__dot"></button></li></ul>
+      </div>
+      <div class="multicolumn__item"><h3 class="multicolumn__title h4">Recycled gold</h3><div class="multicolumn__text rte text-muted"><p>Every piece is cast in recycled 14k gold or gold vermeil.</p></div><a href="#" class="button button--tertiary">Learn more</a></div>
+    </div>
+    <figure class="testimonials__figure"><blockquote class="testimonials__quote h2">The ring I reach for every single morning.</blockquote><figcaption class="testimonials__caption"><span class="testimonials__author">Amara O.</span><span class="testimonials__detail text-muted">Toronto</span></figcaption></figure>
+  </div>
+  <div class="editorial-split banner--small"><ul class="editorial-split__panels list-unstyled">
+    <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media">${placeholder(40)}<span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Rings</h2></div><a href="#" class="block-button button button--secondary">Shop rings</a></div></div></li>
+    <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media">${placeholder(30)}<span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Necklaces</h2></div><a href="#" class="block-button button button--secondary">Shop necklaces</a></div></div></li>
+  </ul></div>
+  <ul class="layout-grid list-unstyled" style="--cols: 3; --cols-mobile: 1;">
+    <li><div class="card-product"><div class="card-product__media media" style="--ratio: var(--card-ratio);">${placeholder(10)}</div><div class="card-product__info"><div class="card-product__text"><h3 class="card-product__title">Example product</h3></div></div></div></li>
+    <li><div class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;">${placeholder(20)}</div><div class="card-collection__caption"><h3 class="card-collection__title h3">Collection title</h3></div></div></li>
+    <li><article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;">${placeholder(12)}</div><div class="card-article__info"><h3 class="card-article__title h4">Blog post title</h3></div></article></li>
+  </ul>
 </div>`)}
 </main>
 <script>

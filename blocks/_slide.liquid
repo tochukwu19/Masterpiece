@@ -1,0 +1,156 @@
+{%- liquid
+  assign image = block.settings.image
+  assign horizontal = block.settings.content_position | split: '-' | last
+  for item in section.blocks
+    if item.id == block.id
+      assign slide_index = forloop.index
+    endif
+  endfor
+  assign eager = false
+  if slide_index == 1 and section.index <= 2
+    assign eager = true
+  endif
+-%}
+
+<li
+  class="slideshow__slide color-{{ block.settings.color_scheme.id }}"
+  role="group"
+  aria-roledescription="{{ 'slideshow.slide' | t }}"
+  aria-label="{{ 'slideshow.slide_label' | t: index: slide_index, count: section.blocks.size }}"
+  style="--overlay: {{ block.settings.overlay_opacity | divided_by: 100.0 }};"
+  {{ block.shopify_attributes }}
+>
+  <div class="banner__frame">
+    <div class="banner__media media">
+      {%- if image -%}
+        {%- render 'picture', image: image, mobile_image: block.settings.image_mobile, eager: eager -%}
+        <span class="media-scrim"></span>
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="banner__content banner__content--{{ block.settings.content_position }} page-width">
+      <div class="content-stack content-stack--{{ horizontal }}{% if image %} on-media{% endif %}">
+        {%- content_for 'blocks' -%}
+      </div>
+    </div>
+  </div>
+</li>
+
+{% schema %}
+{
+  "name": "t:blocks.slide.name",
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "custom-liquid"
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.hero.settings.image.label",
+      "info": "t:sections.hero.settings.image.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.hero.settings.image_mobile.label",
+      "info": "t:sections.hero.settings.image_mobile.info"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30,
+      "label": "t:sections.hero.settings.overlay_opacity.label"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "t:sections.hero.settings.content_position.label",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "t:sections.hero.settings.content_position.options__1.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.hero.settings.content_position.options__2.label"
+        },
+        {
+          "value": "top-right",
+          "label": "t:sections.hero.settings.content_position.options__3.label"
+        },
+        {
+          "value": "center-left",
+          "label": "t:sections.hero.settings.content_position.options__4.label"
+        },
+        {
+          "value": "center-center",
+          "label": "t:sections.hero.settings.content_position.options__5.label"
+        },
+        {
+          "value": "center-right",
+          "label": "t:sections.hero.settings.content_position.options__6.label"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:sections.hero.settings.content_position.options__7.label"
+        },
+        {
+          "value": "bottom-center",
+          "label": "t:sections.hero.settings.content_position.options__8.label"
+        },
+        {
+          "value": "bottom-right",
+          "label": "t:sections.hero.settings.content_position.options__9.label"
+        }
+      ],
+      "default": "bottom-left"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "info": "t:sections.hero.settings.color_scheme.info",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.slide.name",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Pieces for every day",
+            "size": "h0"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": ["heading", "button"]
+    }
+  ]
+}
+{% endschema %}

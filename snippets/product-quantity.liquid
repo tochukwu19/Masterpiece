@@ -1,0 +1,50 @@
+{% doc %}
+  Quantity stepper bound to a product form, honoring the variant's quantity rules.
+
+  @param {product} product - The product
+  @param {variant} variant - The selected variant
+  @param {string} section_id - The section ID, used for the input ID
+  @param {string} form_id - ID of the product form the input submits with
+  @param {string} [attributes] - Extra attributes for the wrapper, e.g. block.shopify_attributes
+  @example
+  {% render 'product-quantity', product: product, variant: variant, section_id: section.id, form_id: form_id %}
+{% enddoc %}
+
+{%- liquid
+  assign rule = variant.quantity_rule
+  assign min_qty = rule.min | default: 1
+  assign step_qty = rule.increment | default: 1
+-%}
+<div class="product__quantity field" {{ attributes }}>
+  <label class="field__label" for="Quantity-{{ section_id }}">{{ 'products.quantity.label' | t }}</label>
+  <div class="quantity" x-data="quantityInput">
+    <button type="button" class="quantity__button" x-on:click="step(-1)">
+      {%- render 'icon', name: 'minus' -%}
+      <span class="visually-hidden">{{ 'products.quantity.decrease' | t: title: product.title }}</span>
+    </button>
+    <input
+      id="Quantity-{{ section_id }}"
+      class="quantity__input"
+      type="number"
+      name="quantity"
+      form="{{ form_id }}"
+      value="{{ min_qty }}"
+      min="{{ min_qty }}"
+      step="{{ step_qty }}"
+      {% if rule.max %}
+        max="{{ rule.max }}"
+      {% endif %}
+      x-ref="input"
+    >
+    <button type="button" class="quantity__button" x-on:click="step(1)">
+      {%- render 'icon', name: 'plus' -%}
+      <span class="visually-hidden">{{ 'products.quantity.increase' | t: title: product.title }}</span>
+    </button>
+  </div>
+  {%- if step_qty > 1 or rule.max -%}
+    <p class="text-small text-muted">
+      {%- if step_qty > 1 %}{{ 'products.quantity.multiples_of' | t: step: step_qty }} {% endif -%}
+      {%- if rule.max %}{{ 'products.quantity.maximum' | t: max: rule.max }}{% endif -%}
+    </p>
+  {%- endif -%}
+</div>
