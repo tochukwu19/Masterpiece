@@ -39,6 +39,4 @@
   theme.emit = (name, detail = {}) => {
     window.dispatchEvent(new CustomEvent(name, { detail }));
   };
-
-  document.documentElement.classList.replace('no-js', 'js');
 })();

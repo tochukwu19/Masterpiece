@@ -72,7 +72,7 @@
                 endif
               -%}
               <li>
-                {%- render 'card-product', product: product, sizes: card_sizes, eager: eager, id_prefix: section.id -%}
+                {%- render 'card-product', product: product, sizes: card_sizes, eager: eager, id_prefix: section.id, heading_tag: 'h2' -%}
               </li>
             {%- endfor -%}
           </ul>

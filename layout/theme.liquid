@@ -2,6 +2,7 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="{{ canonical_url }}">
@@ -24,9 +25,20 @@
     {%- endunless %}
 
     {% render 'css-variables' %}
-    {{ 'application.css' | asset_url | stylesheet_tag }}
+    {%- liquid
+      assign legacy_templates = '404,article,blog,page' | split: ','
+      assign legacy_styles = false
+      if legacy_templates contains template.name or template.directory == 'customers'
+        assign legacy_styles = true
+      endif
+    -%}
+    {%- if legacy_styles -%}
+      {{ 'application.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'legacy-bridge.css' | asset_url | stylesheet_tag }}
+    {%- if legacy_styles -%}
+      {{ 'legacy-bridge.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
 
     <script>
       window.theme = {

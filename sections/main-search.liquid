@@ -94,11 +94,11 @@
                 <li>
                   {%- case item.object_type -%}
                     {%- when 'product' -%}
-                      {%- render 'card-product', product: item, sizes: card_sizes, eager: eager, id_prefix: section.id -%}
+                      {%- render 'card-product', product: item, sizes: card_sizes, eager: eager, id_prefix: section.id, heading_tag: 'h2' -%}
                     {%- when 'article' -%}
-                      {%- render 'card-article', article: item, sizes: card_sizes, show_excerpt: false -%}
+                      {%- render 'card-article', article: item, sizes: card_sizes, show_excerpt: false, heading_tag: 'h2' -%}
                     {%- when 'page' -%}
-                      {%- render 'card-page', page: item -%}
+                      {%- render 'card-page', page: item, heading_tag: 'h2' -%}
                   {%- endcase -%}
                 </li>
               {%- endfor -%}
