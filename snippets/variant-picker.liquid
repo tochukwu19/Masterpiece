@@ -25,21 +25,24 @@
       {%- if picker_type == 'dropdown' and has_swatches == false -%}
         <div class="field variant-picker__option">
           <label class="field__label" for="Option-{{ option_id }}">{{ option.name }}</label>
-          <select id="Option-{{ option_id }}" class="select" name="options[{{ option.name | escape }}]">
-            {%- for value in option.values -%}
-              <option
-                value="{{ value | escape }}"
-                data-option-value-id="{{ value.id }}"
-                data-product-url="{{ value.product_url }}"
-                {% if value.selected %}
-                  selected
-                {% endif %}
-              >
-                {{- value -}}
-                {%- unless value.available %} &ndash; {{ 'products.variant.unavailable' | t }}{% endunless -%}
-              </option>
-            {%- endfor -%}
-          </select>
+          <div class="select-field">
+            <select id="Option-{{ option_id }}" class="select" name="options[{{ option.name | escape }}]">
+              {%- for value in option.values -%}
+                <option
+                  value="{{ value | escape }}"
+                  data-option-value-id="{{ value.id }}"
+                  data-product-url="{{ value.product_url }}"
+                  {% if value.selected %}
+                    selected
+                  {% endif %}
+                >
+                  {{- value -}}
+                  {%- unless value.available %} &ndash; {{ 'products.variant.unavailable' | t }}{% endunless -%}
+                </option>
+              {%- endfor -%}
+            </select>
+            {%- render 'icon', name: 'chevron-down', class: 'select-field__icon' -%}
+          </div>
         </div>
       {%- else -%}
         <fieldset class="variant-picker__option">

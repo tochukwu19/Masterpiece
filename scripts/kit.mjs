@@ -273,7 +273,7 @@ ${section('buttons', 'Buttons', 'scheme-2', `<div class="ds-stack">
 ${section('forms', 'Forms', 'scheme-1', `<div class="ds-cols">
   <div class="ds-stack">
     <div class="field"><label class="field__label" for="ds-email">Email</label><input id="ds-email" class="input" type="email" placeholder="you@example.com"></div>
-    <div class="field"><label class="field__label" for="ds-size">Ring size</label><select id="ds-size" class="select"><option>6</option><option>7</option><option>8</option></select></div>
+    <div class="field"><label class="field__label" for="ds-size">Ring size</label><div class="select-field"><select id="ds-size" class="select"><option>6</option><option>7</option><option>8</option></select>${icon('chevron-down').replace('class="icon"', 'class="icon select-field__icon"')}</div></div>
     <div class="field"><label class="field__label" for="ds-note">Order note</label><textarea id="ds-note" class="textarea" placeholder="Gift message"></textarea></div>
     <div class="field"><label class="field__label" for="ds-invalid">Email</label><input id="ds-invalid" class="input" type="email" value="you@" aria-invalid="true" aria-describedby="ds-invalid-error"><p id="ds-invalid-error" class="form-message form-message--error">${icon('error')}Enter a valid email address.</p></div>
   </div>
@@ -379,7 +379,7 @@ ${section('drawers', 'Drawers', 'scheme-2', `<div class="ds-preview">
       <li><a href="#" class="menu-drawer__link">Journal</a></li>
     </ul></nav>
     <div class="drawer__footer menu-drawer__footer">
-      <div class="field"><label class="field__label" for="ds-country">Country/region</label><select id="ds-country" class="select"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option></select></div>
+      <div class="field"><label class="field__label" for="ds-country">Country/region</label><div class="select-field"><select id="ds-country" class="select"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option></select>${icon('chevron-down').replace('class="icon"', 'class="icon select-field__icon"')}</div></div>
       <ul class="social-icons list-unstyled">${socialIcons.slice(0, 4).map(({ name, svg }) => `<li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true">${svg}</svg><span class="visually-hidden">${name}</span></a></li>`).join('')}</ul>
     </div>
   </div></div>

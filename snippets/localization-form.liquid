@@ -22,9 +22,11 @@
   if compact
     assign label_class = 'visually-hidden'
     assign select_class = 'select select--inline'
+    assign select_field_class = 'select-field select-field--inline'
   else
     assign label_class = 'field__label'
     assign select_class = 'select'
+    assign select_field_class = 'select-field'
   endif
   assign form_id = id_prefix | append: '-LocalizationForm'
 -%}
@@ -35,25 +37,31 @@
       {%- if country_enabled -%}
         <div class="field localization__field">
           <label class="{{ label_class }}" for="{{ id_prefix }}-Country">{{ 'localization.country_label' | t }}</label>
-          <select id="{{ id_prefix }}-Country" class="{{ select_class }}" name="country_code">
-            {%- for country in localization.available_countries -%}
-              <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
-                {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol -}})
-              </option>
-            {%- endfor -%}
-          </select>
+          <div class="{{ select_field_class }}">
+            <select id="{{ id_prefix }}-Country" class="{{ select_class }}" name="country_code">
+              {%- for country in localization.available_countries -%}
+                <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                  {{- country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol -}})
+                </option>
+              {%- endfor -%}
+            </select>
+            {%- render 'icon', name: 'chevron-down', class: 'select-field__icon' -%}
+          </div>
         </div>
       {%- endif -%}
       {%- if language_enabled -%}
         <div class="field localization__field">
           <label class="{{ label_class }}" for="{{ id_prefix }}-Language">{{ 'localization.language_label' | t }}</label>
-          <select id="{{ id_prefix }}-Language" class="{{ select_class }}" name="language_code">
-            {%- for language in localization.available_languages -%}
-              <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
-                {{- language.endonym_name | capitalize -}}
-              </option>
-            {%- endfor -%}
-          </select>
+          <div class="{{ select_field_class }}">
+            <select id="{{ id_prefix }}-Language" class="{{ select_class }}" name="language_code">
+              {%- for language in localization.available_languages -%}
+                <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
+                  {{- language.endonym_name | capitalize -}}
+                </option>
+              {%- endfor -%}
+            </select>
+            {%- render 'icon', name: 'chevron-down', class: 'select-field__icon' -%}
+          </div>
         </div>
       {%- endif -%}
       <noscript>

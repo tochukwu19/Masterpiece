@@ -461,7 +461,7 @@
   .product-gallery__counter {
     position: absolute;
     right: 0.75rem;
-    bottom: 0.75rem;
+    top: 0.75rem;
     padding: 0.25rem 0.625rem;
     border-radius: 999px;
     background-color: var(--color-bg);
@@ -577,7 +577,6 @@
 
   .product-media__target video {
     object-fit: contain;
-    background-color: #000;
   }
 
   .product-media__target .shopify-model-viewer-ui__controls-area {
@@ -605,6 +604,74 @@
   .product-media__target .shopify-model-viewer-ui__button:focus-visible {
     outline: 2px solid var(--color-fg);
     outline-offset: -2px;
+  }
+
+  .product-media__target .video-player {
+    position: absolute;
+    inset: 0;
+  }
+
+  .video-player[data-idle] {
+    cursor: none;
+  }
+
+  .video-player__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+  }
+
+  .video-player__controls {
+    position: absolute;
+    inset: auto 0.75rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--buttons-radius);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    transition: opacity var(--duration) ease;
+  }
+
+  .video-player[data-idle] .video-player__controls {
+    opacity: 0;
+  }
+
+  .video-player:focus-within .video-player__controls {
+    opacity: 1;
+  }
+
+  .video-player__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+  }
+
+  .video-player__seek {
+    flex: 1;
+    min-width: 0;
+    height: 2.75rem;
+    margin: 0;
+    background: transparent;
+    accent-color: var(--color-fg);
+    cursor: pointer;
+  }
+
+  .video-player__time {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .product-media__xr {
@@ -1854,7 +1921,7 @@
     <div class="ds-cols">
   <div class="ds-stack">
     <div class="field"><label class="field__label" for="ds-email">Email</label><input id="ds-email" class="input" type="email" placeholder="you@example.com"></div>
-    <div class="field"><label class="field__label" for="ds-size">Ring size</label><select id="ds-size" class="select"><option>6</option><option>7</option><option>8</option></select></div>
+    <div class="field"><label class="field__label" for="ds-size">Ring size</label><div class="select-field"><select id="ds-size" class="select"><option>6</option><option>7</option><option>8</option></select><svg class="icon select-field__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div></div>
     <div class="field"><label class="field__label" for="ds-note">Order note</label><textarea id="ds-note" class="textarea" placeholder="Gift message"></textarea></div>
     <div class="field"><label class="field__label" for="ds-invalid">Email</label><input id="ds-invalid" class="input" type="email" value="you@" aria-invalid="true" aria-describedby="ds-invalid-error"><p id="ds-invalid-error" class="form-message form-message--error"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg>Enter a valid email address.</p></div>
   </div>
@@ -1902,7 +1969,7 @@
 <section id="icons" class="ds-section color-scheme-1">
   <div class="page-width">
     <h2 class="ds-label">Icons</h2>
-    <div class="ds-icons"><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><code>account</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg><code>arrow-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><code>arrow-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><code>bag</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg><code>check</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><code>chevron-down</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><code>chevron-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><code>chevron-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><code>chevron-up</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><code>close</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><code>error</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><code>filter</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><code>menu</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><code>minus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg><code>cube</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><code>pin</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></svg><code>play</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><code>plus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><code>search</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4.5-7.5L12 3l4.5 4.5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg><code>share</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><code>trash</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8.5v5M8.5 11h5"/></svg><code>zoom</code></div></div>
+    <div class="ds-icons"><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg><code>account</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg><code>arrow-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><code>arrow-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><code>bag</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg><code>check</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><code>chevron-down</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg><code>chevron-left</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg><code>chevron-right</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><code>chevron-up</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><code>close</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><code>error</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><code>filter</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg><code>menu</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg><code>minus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg><code>cube</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><code>pin</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z"/></svg><code>play</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><code>plus</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><code>search</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4.5-7.5L12 3l4.5 4.5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg><code>share</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6m4-6v6"/></svg><code>trash</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5M11 8.5v5M8.5 11h5"/></svg><code>zoom</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13M16 5.5v13"/></svg><code>pause</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><code>volume</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z"/><path d="m16 9.5 5 5m0-5-5 5"/></svg><code>volume-off</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><code>expand</code></div><div class="ds-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg><code>collapse</code></div></div>
   </div>
 </section>
 
@@ -2078,7 +2145,7 @@
       <li><a href="#" class="menu-drawer__link">Journal</a></li>
     </ul></nav>
     <div class="drawer__footer menu-drawer__footer">
-      <div class="field"><label class="field__label" for="ds-country">Country/region</label><select id="ds-country" class="select"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option></select></div>
+      <div class="field"><label class="field__label" for="ds-country">Country/region</label><div class="select-field"><select id="ds-country" class="select"><option>United States (USD $)</option><option>United Kingdom (GBP £)</option></select><svg class="icon select-field__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div></div>
       <ul class="social-icons list-unstyled"><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg><span class="visually-hidden">instagram</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg><span class="visually-hidden">tiktok</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg><span class="visually-hidden">pinterest</span></a></li><li><a href="#" class="icon-button social-icons__link"><svg class="icon icon--fill icon-social" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span class="visually-hidden">facebook</span></a></li></ul>
     </div>
   </div></div>

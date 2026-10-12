@@ -583,15 +583,21 @@ main > .shopify-section + .shopify-section {
   resize: vertical;
 }
 
+.select-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-field__icon {
+  --icon-size: 1rem;
+  position: absolute;
+  inset-inline-end: 1rem;
+  pointer-events: none;
+}
+
 .select {
-  padding-right: 2.75rem;
-  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
-    linear-gradient(135deg, currentColor 50%, transparent 50%);
-  background-position:
-    calc(100% - 1.25rem) 50%,
-    calc(100% - 1rem) 50%;
-  background-size: 0.3rem 0.3rem;
-  background-repeat: no-repeat;
+  padding-inline-end: 2.75rem;
 }
 
 .select option {
@@ -811,12 +817,14 @@ a.pagination__item:hover {
 .select--inline {
   width: auto;
   min-height: 2.75rem;
-  padding: 0.25rem 1.75rem 0.25rem 0;
+  padding-block: 0.25rem;
+  padding-inline: 0 1.5rem;
   border: 0;
-  background-position:
-    calc(100% - 0.75rem) 50%,
-    calc(100% - 0.5rem) 50%;
   font-size: calc(0.875rem * var(--font-body-scale));
+}
+
+.select-field--inline .select-field__icon {
+  inset-inline-end: 0;
 }
 
 .disclosure > summary {
