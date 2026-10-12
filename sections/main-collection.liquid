@@ -1,0 +1,217 @@
+{{ 'component-facets.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign cols = section.settings.columns_desktop
+  assign cols_tablet = cols | at_most: 3
+  assign cols_mobile = section.settings.columns_mobile | plus: 0
+  assign vw_desktop = 100 | divided_by: cols
+  assign vw_tablet = 100 | divided_by: cols_tablet
+  assign vw_mobile = 100 | divided_by: cols_mobile
+  capture card_sizes
+    echo '(min-width: 990px) ' | append: vw_desktop | append: 'vw, (min-width: 750px) ' | append: vw_tablet | append: 'vw, ' | append: vw_mobile | append: 'vw'
+  endcapture
+
+  assign show_filters = false
+  if section.settings.enable_filtering and collection.filters.size > 0
+    assign show_filters = true
+  endif
+
+  assign clear_url = collection.url
+  if collection.sort_by != blank
+    assign clear_url = collection.url | append: '?sort_by=' | append: collection.sort_by
+  endif
+
+  assign count_label = 'collections.products_count' | t: count: collection.products_count
+-%}
+
+<div
+  class="main-collection section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+  x-data="facets('{{ section.id }}')"
+  x-on:change="onChange($event)"
+  x-on:submit="onSubmit($event)"
+  x-on:click="onClick($event)"
+  x-on:popstate.window="onPopState()"
+>
+  <div class="page-width">
+    {%- render 'facets-toolbar',
+      results: collection,
+      section_id: section.id,
+      action: collection.url,
+      clear_url: clear_url,
+      count_label: count_label,
+      show_filters: show_filters,
+      show_sort: section.settings.enable_sorting
+    -%}
+
+    {%- if show_filters -%}
+      {%- render 'facets',
+        results: collection,
+        section_id: section.id,
+        action: collection.url,
+        clear_url: clear_url,
+        results_count: collection.products_count
+      -%}
+    {%- endif -%}
+
+    <p class="visually-hidden" role="status" data-facets-status></p>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      <div id="ProductGrid-{{ section.id }}" class="main-collection__results" data-facets-region="results">
+        {%- if collection.products.size > 0 -%}
+          <ul
+            class="layout-grid list-unstyled"
+            role="list"
+            style="--cols: {{ cols }}; --cols-tablet: {{ cols_tablet }}; --cols-mobile: {{ cols_mobile }};"
+          >
+            {%- for product in collection.products -%}
+              {%- liquid
+                assign eager = false
+                if forloop.index <= cols_mobile and paginate.current_page == 1
+                  assign eager = true
+                endif
+              -%}
+              <li>
+                {%- render 'card-product', product: product, sizes: card_sizes, eager: eager, id_prefix: section.id -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- assign grid_anchor = '#ProductGrid-' | append: section.id -%}
+          {%- render 'pagination', paginate: paginate, anchor: grid_anchor -%}
+        {%- elsif collection.all_products_count > 0 -%}
+          <div class="main-collection__empty">
+            <p class="h3">{{ 'collections.empty_filtered.title' | t }}</p>
+            <p class="text-muted">{{ 'collections.empty_filtered.text' | t }}</p>
+            <a href="{{ clear_url }}" class="button button--secondary" data-facets-link>{{ 'facets.clear_all' | t }}</a>
+          </div>
+        {%- else -%}
+          <div class="main-collection__empty">
+            <p class="h3">{{ 'collections.empty.title' | t }}</p>
+            <p class="text-muted">{{ 'collections.empty.text' | t }}</p>
+            <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">{{ 'collections.empty.link' | t }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endpaginate -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .main-collection__results {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    transition: opacity var(--duration) ease;
+  }
+
+  .main-collection .pagination {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .main-collection__empty {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .main-collection__empty p {
+    margin: 0;
+  }
+
+  .main-collection__empty .button {
+    margin-top: 0.75rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.main_collection.name",
+  "class": "section-main-collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 16,
+      "label": "t:sections.main_collection.settings.products_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.main_collection.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "t:sections.main_collection.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.main_collection.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.main_collection.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main_collection.settings.header_filtering.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "t:sections.main_collection.settings.enable_filtering.label",
+      "info": "t:sections.main_collection.settings.enable_filtering.info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "t:sections.main_collection.settings.enable_sorting.label",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 16,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["collection"]
+  }
+}
+{% endschema %}

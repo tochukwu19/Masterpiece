@@ -53,20 +53,20 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 Branch `phase-4-discovery`. Four commits, in this order. Each one is store-tested with real clicks and has kit specimens before the next starts.
 
 **4a. Collection page**
-- [ ] `collection-banner` section: title, description, optional image; settings for alignment, image ratio, scheme and padding. It's a separate section so merchants can move or remove it.
-- [ ] `main-collection` section: toolbar (results count, sort, filter button), product grid (`card-product`), desktop and mobile column settings, products per page, pagination, empty and "no results for these filters" states.
-- [ ] `facets` snippet in a native `<dialog>` drawer:
+- [x] `collection-banner` section: title, description, optional image; settings for alignment, image ratio, scheme and padding. It's a separate section so merchants can move or remove it.
+- [x] `main-collection` section: toolbar (results count, sort, filter button), product grid (`card-product`), desktop and mobile column settings, products per page, pagination, empty and "no results for these filters" states.
+- [x] `facets` snippet in a native `<dialog>` drawer:
   - real checkboxes for list filters
   - swatch and image presentation for `filter.presentation`
   - price range with min and max inputs
   - boolean filters; active-filter pills with remove links; Clear all
   - a plain GET form, so it works without JS
-- [ ] Alpine `facets` component:
+- [x] Alpine `facets` component:
   - serializes the form and fetches the grid with `section_id`
   - swaps the grid, count and pills
   - pushes the URL to history and restores on `popstate`
   - aborts stale requests; announces the result count in a live region
-- [ ] `templates/collection.json` rebuilt from these sections
+- [x] `templates/collection.json` rebuilt from these sections
 
 **4b. Search and collection list**
 - [ ] `main-search` section:

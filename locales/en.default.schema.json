@@ -675,6 +675,84 @@
           "label": "Number of columns on desktop"
         }
       }
+    },
+    "collection_banner": {
+      "name": "Collection banner",
+      "settings": {
+        "paragraph": {
+          "content": "Edit the collection title, description and image in your collection settings."
+        },
+        "alignment": {
+          "label": "Text alignment",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          }
+        },
+        "show_description": {
+          "label": "Show collection description"
+        },
+        "header_image": {
+          "content": "Image"
+        },
+        "show_image": {
+          "label": "Show collection image",
+          "info": "Uses the collection image. 2400 x 1200px recommended."
+        },
+        "image_layout": {
+          "label": "Image layout",
+          "options__1": {
+            "label": "Beside text"
+          },
+          "options__2": {
+            "label": "Behind text"
+          }
+        },
+        "image_height": {
+          "label": "Image height",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        }
+      }
+    },
+    "main_collection": {
+      "name": "Product grid",
+      "settings": {
+        "products_per_page": {
+          "label": "Products per page"
+        },
+        "columns_desktop": {
+          "label": "Columns on desktop"
+        },
+        "columns_mobile": {
+          "label": "Columns on mobile",
+          "options__1": {
+            "label": "1 column"
+          },
+          "options__2": {
+            "label": "2 columns"
+          }
+        },
+        "header_filtering": {
+          "content": "Filtering and sorting"
+        },
+        "enable_filtering": {
+          "label": "Enable filtering",
+          "info": "Customize filters with the [Search & Discovery app](https://apps.shopify.com/search-and-discovery)."
+        },
+        "enable_sorting": {
+          "label": "Enable sorting"
+        }
+      }
     }
   }
 }

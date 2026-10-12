@@ -55,6 +55,9 @@
     <script src="{{ 'components.js' | asset_url }}" defer></script>
     <script src="{{ 'cart.js' | asset_url }}" defer></script>
     <script src="{{ 'product.js' | asset_url }}" defer></script>
+    {%- if template.name == 'collection' or template.name == 'search' -%}
+      <script src="{{ 'facets.js' | asset_url }}" defer></script>
+    {%- endif -%}
     <script src="{{ 'alpine.min.js' | asset_url }}" defer></script>
 
     {{ content_for_header }}

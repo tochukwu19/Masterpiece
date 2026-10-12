@@ -82,6 +82,7 @@
 .color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4 { background-color: var(--color-bg); background-image: var(--color-bg-image); color: var(--color-fg); }
 </style>
 <link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" href="../../assets/component-facets.css">
 <style>
 .card-article {
     position: relative;
@@ -937,6 +938,105 @@
     color: inherit;
   }
 
+.collection-banner__inner {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .collection-banner__text {
+    display: grid;
+    gap: 1rem;
+    max-width: 48rem;
+  }
+
+  .collection-banner--center .collection-banner__text {
+    justify-items: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .collection-banner__title {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .collection-banner__description {
+    color: var(--color-fg-muted);
+  }
+
+  .collection-banner--small {
+    --banner-height: 16rem;
+  }
+
+  .collection-banner--medium {
+    --banner-height: 24rem;
+  }
+
+  .collection-banner--large {
+    --banner-height: 32rem;
+  }
+
+  .collection-banner--split .collection-banner__media {
+    height: var(--banner-height);
+  }
+
+  .collection-banner--overlay .collection-banner__inner {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: var(--banner-height);
+  }
+
+  .collection-banner--overlay.collection-banner--center .collection-banner__inner {
+    align-items: center;
+  }
+
+  .collection-banner--overlay .collection-banner__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .collection-banner--overlay .collection-banner__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--color-media-scrim), transparent 70%);
+  }
+
+  .collection-banner--overlay.collection-banner--center .collection-banner__media::after {
+    background: color-mix(in srgb, var(--color-media-scrim) 75%, transparent);
+  }
+
+  .collection-banner--overlay .collection-banner__content {
+    position: relative;
+    width: 100%;
+    padding-block: clamp(1.5rem, 5vw, 3.5rem);
+    color: var(--color-on-media);
+  }
+
+  .collection-banner--overlay .collection-banner__description {
+    color: inherit;
+  }
+
+  @media (min-width: 750px) {
+    .collection-banner--small {
+      --banner-height: 20rem;
+    }
+
+    .collection-banner--medium {
+      --banner-height: 32rem;
+    }
+
+    .collection-banner--large {
+      --banner-height: 44rem;
+    }
+
+    .collection-banner--split .collection-banner__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+    }
+  }
+
 .footer__blocks {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
@@ -1440,6 +1540,31 @@
     color: inherit;
   }
 
+.main-collection__results {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    transition: opacity var(--duration) ease;
+  }
+
+  .main-collection .pagination {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .main-collection__empty {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    padding-block: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  .main-collection__empty p {
+    margin: 0;
+  }
+
+  .main-collection__empty .button {
+    margin-top: 0.75rem;
+  }
+
 .password {
     display: flex;
     min-height: 100svh;
@@ -1815,7 +1940,7 @@
   <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
   <h1 class="h0">Vermeil</h1>
   <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
-  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a></nav>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a></nav>
 </header>
 <main>
 
@@ -2201,6 +2326,59 @@
       <details class="disclosure product__tab"><summary class="product__tab-summary"><span>Shipping and returns</span><svg class="icon product__tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary></details>
     </div>
     <div class="product__share"><button type="button" class="button button--tertiary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4.5-7.5L12 3l4.5 4.5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>Share</button></div>
+  </div>
+</div>
+  </div>
+</section>
+
+
+<section id="collection" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Collection</h2>
+    <div class="ds-stack">
+  <div class="ds-frame"><div class="collection-banner collection-banner--split collection-banner--center collection-banner--small section color-scheme-2" style="--section-pt: 24px; --section-pb: 24px;">
+    <div class="collection-banner__inner page-width">
+      <div class="collection-banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 14%, var(--color-bg))"/></svg></div>
+      <div class="collection-banner__content"><div class="collection-banner__text"><p class="eyebrow">The edit</p><h1 class="collection-banner__title h0">Rings</h1><div class="collection-banner__description rte"><p>Solitaires, bands and stackers in recycled gold.</p></div></div></div>
+    </div>
+  </div></div>
+  <div>
+    <div class="facets-toolbar">
+      <div class="facets-toolbar__start">
+        <button type="button" class="facets-toolbar__filter button button--secondary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Filter</span><span class="facets-toolbar__badge"><span aria-hidden="true">2</span></span></button>
+        <p class="facets-toolbar__count text-small text-muted">6 products</p>
+      </div>
+      <div class="facets-toolbar__sort"><label class="facets-toolbar__sort-label text-small" for="ds-sort">Sort by</label><div class="select-field select-field--inline"><select id="ds-sort" class="select select--inline"><option>Featured</option><option>Price, low to high</option></select><svg class="icon select-field__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div></div>
+    </div>
+    <div class="facets-pills"><ul class="facets-pills__list list-unstyled">
+      <li><a href="#" class="facets-pills__pill"><span>Metal: Yellow gold</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></li>
+      <li><a href="#" class="facets-pills__pill"><span>Up to $500.00</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></li>
+      <li><a href="#" class="facets-pills__clear link">Clear all</a></li>
+    </ul></div>
+  </div>
+  <div class="ds-preview">
+    <div class="drawer drawer--left facets color-scheme-1"><div class="drawer__inner">
+      <div class="drawer__header"><p class="drawer__title h3">Filters</p><form method="dialog" class="drawer__close-form"><button class="drawer__close">Close</button></form></div>
+      <div class="facets__form">
+        <div class="drawer__body facets__groups">
+          <details class="facets__group" open><summary class="facets__summary"><span class="facets__label">Availability</span><svg class="icon facets__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><fieldset class="facets__fieldset"><ul class="facets__values list-unstyled">
+            <li><label class="facets__value"><input class="facets__input" type="checkbox" checked><span class="facets__value-label">In stock <span class="facets__count">(10)</span></span></label></li>
+            <li><label class="facets__value is-unavailable"><input class="facets__input" type="checkbox" disabled><span class="facets__value-label">Out of stock <span class="facets__count">(0)</span></span></label></li>
+          </ul></fieldset></details>
+          <details class="facets__group" open><summary class="facets__summary"><span class="facets__label">Price</span><svg class="icon facets__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><fieldset class="facets__fieldset">
+            <div class="facets__price"><div class="field"><label class="field__label" for="ds-min">From</label><div class="facets__price-input"><span class="facets__currency">$</span><input id="ds-min" class="input" type="number" placeholder="0"></div></div><div class="field"><label class="field__label" for="ds-max">To</label><div class="facets__price-input"><span class="facets__currency">$</span><input id="ds-max" class="input" type="number" value="500"></div></div></div>
+            <p class="facets__hint text-small text-muted">The highest price is $1,280.00</p>
+          </fieldset></details>
+          <details class="facets__group" open><summary class="facets__summary"><span class="facets__label">Metal <span class="facets__active-count">(1)</span></span><svg class="icon facets__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><fieldset class="facets__fieldset"><ul class="facets__values list-unstyled">
+            <li><label class="facets__value"><input class="facets__input visually-hidden" type="checkbox" checked><span class="facets__swatch" style="--swatch-color: #D4AF37"></span><span class="facets__value-label">Yellow gold <span class="facets__count">(4)</span></span></label></li>
+            <li><label class="facets__value"><input class="facets__input visually-hidden" type="checkbox"><span class="facets__swatch" style="--swatch-color: #E8B4A0"></span><span class="facets__value-label">Rose gold <span class="facets__count">(2)</span></span></label></li>
+            <li><label class="facets__value"><input class="facets__input visually-hidden" type="checkbox"><span class="facets__swatch" style="--swatch-color: #D9D9D9"></span><span class="facets__value-label">Silver <span class="facets__count">(3)</span></span></label></li>
+          </ul></fieldset></details>
+        </div>
+        <div class="drawer__footer facets__footer"><a href="#" class="button button--secondary">Clear all</a><button type="button" class="button">Show 6 results</button></div>
+      </div>
+    </div></div>
+    <div class="main-collection__empty" style="flex: 1; min-width: 16rem;"><p class="h3">No products found</p><p class="text-muted">Try removing a filter or two.</p><a href="#" class="button button--secondary">Clear all</a></div>
   </div>
 </div>
   </div>

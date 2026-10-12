@@ -43,7 +43,7 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 | Sections Everywhere (OS 2.0) | ⚠️ | Only index/product/collection/list-collections/search are JSON |
 | Discounts (line + order level) in cart | ✅ | Line allocations + cart-level applications in drawer and cart page (Phase 2) |
 | Accelerated checkout buttons (product + cart) | ⚠️ | Cart page done (`content_for_additional_checkout_buttons`, on by default). Product page in Phase 3 |
-| Faceted filtering (availability, price, type, vendor, options) on collection + search | ⚠️ | Filter drawer exists; checkboxes not keyboard-operable, checkmark never shows |
+| Faceted filtering (availability, price, type, vendor, options) on collection + search | ⚠️ | Collection done (Phase 4a): native `<dialog>` drawer, real checkboxes, swatch and image presentations, price range, pills, Section Rendering updates with history, no-JS GET form. Search in 4b |
 | Gift card template | ⚠️ | Barebones; no code shown, no logo/shop name, invalid HTML |
 | Image focal points | ❌ | Use `image.presentation.focal_point` / `image_tag` |
 | Social sharing image (`page_image`) | ❌ | No OG tags |
@@ -102,7 +102,7 @@ Required templates (✅ exists as JSON · ❌):
 - Status: ❌ most of these. Price never updates on variant change; swatches use option value as a CSS color.
 
 **Collection** — title, description, image; grid with title→url, price, image, unit price; mixed ratios OK; sale badge; sorting; empty message; `price_varies` range; pagination.
-- Status: ⚠️ grid/sort/empty/pagination exist; no collection image, no unit price, no sale badge, no price range; page size is 3.
+- Status: ✅ Phase 4a: `collection-banner` (title, description, image beside or behind text) + `main-collection` (cards with unit price, sale/sold-out badges, `price_varies` "From", sorting, products per page, pagination, empty and filtered-empty states).
 
 **Collection list** — title, `collection.featured_image` fallback, pagination. Status: ⚠️ uses `img_url` backgrounds; hardcoded description copy.
 

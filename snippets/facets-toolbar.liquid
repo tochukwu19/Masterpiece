@@ -1,0 +1,128 @@
+{% doc %}
+  Results toolbar: filter button, results count, sort and active filter pills.
+
+  @param {object} results - The collection or search object
+  @param {string} section_id - The section ID, matching the one passed to the facets snippet
+  @param {string} action - Form action URL, used when sorting without filters
+  @param {string} clear_url - URL with every filter removed
+  @param {string} count_label - Translated results count, e.g. "12 products"
+  @param {boolean} show_filters - Show the filter button and pills
+  @param {boolean} show_sort - Show the sort selector
+  @param {string} [terms] - Search terms, kept when sorting search results
+  @example
+  {% render 'facets-toolbar', results: collection, section_id: section.id, action: collection.url, clear_url: clear_url, count_label: count_label, show_filters: true, show_sort: true %}
+{% enddoc %}
+
+{%- liquid
+  assign form_id = 'Facets-' | append: section_id
+  assign drawer_id = 'FacetsDrawer-' | append: section_id
+  assign sort_by = results.sort_by | default: results.default_sort_by
+
+  assign active_total = 0
+  for filter in results.filters
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign active_total = active_total | plus: 1
+      endif
+    else
+      assign active_total = active_total | plus: filter.active_values.size
+    endif
+  endfor
+-%}
+
+<div class="facets-toolbar">
+  <div class="facets-toolbar__start">
+    {%- if show_filters -%}
+      <button
+        type="button"
+        class="facets-toolbar__filter button button--secondary"
+        aria-haspopup="dialog"
+        aria-controls="{{ drawer_id }}"
+        x-cloak
+        x-on:click="$dispatch('drawer-open', { id: '{{ drawer_id }}' })"
+      >
+        {%- render 'icon', name: 'filter' -%}
+        <span>{{ 'facets.filter' | t }}</span>
+        <span class="facets-toolbar__badge" data-facets-region="badge">
+          {%- if active_total > 0 -%}
+            <span aria-hidden="true">{{ active_total }}</span>
+            <span class="visually-hidden">{{ 'facets.active_count' | t: count: active_total }}</span>
+          {%- endif -%}
+        </span>
+      </button>
+    {%- endif -%}
+    <p class="facets-toolbar__count text-small text-muted" data-facets-region="count">{{ count_label }}</p>
+  </div>
+
+  {%- if show_sort and results.sort_options.size > 0 -%}
+    {%- unless show_filters -%}
+      <form id="{{ form_id }}" action="{{ action }}" method="get" data-facets-form>
+        {%- if terms != blank -%}
+          <input type="hidden" name="q" value="{{ terms | escape }}">
+        {%- endif -%}
+      </form>
+    {%- endunless -%}
+    <div class="facets-toolbar__sort" data-facets-region="sort">
+      <label class="facets-toolbar__sort-label text-small" for="SortBy-{{ section_id }}">{{ 'facets.sort_by' | t }}</label>
+      <div class="select-field select-field--inline">
+        <select id="SortBy-{{ section_id }}" class="select select--inline" name="sort_by" form="{{ form_id }}" data-default-value="{{ results.default_sort_by | escape }}">
+          {%- for option in results.sort_options -%}
+            <option value="{{ option.value | escape }}" {% if option.value == sort_by %}selected{% endif %}>
+              {{- option.name | escape -}}
+            </option>
+          {%- endfor -%}
+        </select>
+        {%- render 'icon', name: 'chevron-down', class: 'select-field__icon' -%}
+      </div>
+      <noscript>
+        <button type="submit" class="button button--tertiary" form="{{ form_id }}">{{ 'facets.apply' | t }}</button>
+      </noscript>
+    </div>
+  {%- endif -%}
+</div>
+
+{%- if show_filters -%}
+  <div class="facets-pills" data-facets-region="pills">
+    {%- if active_total > 0 -%}
+      <ul class="facets-pills__list list-unstyled" role="list" aria-label="{{ 'facets.active_label' | t }}">
+        {%- for filter in results.filters -%}
+          {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+              {%- liquid
+                assign price_min = filter.min_value.value | money
+                assign price_max = filter.max_value.value | money
+                if filter.min_value.value != nil and filter.max_value.value != nil
+                  assign price_label = 'facets.price_range_html' | t: min: price_min, max: price_max
+                elsif filter.min_value.value != nil
+                  assign price_label = 'facets.price_from_html' | t: price: price_min
+                else
+                  assign price_label = 'facets.price_up_to_html' | t: price: price_max
+                endif
+              -%}
+              <li>
+                <a href="{{ filter.url_to_remove }}" class="facets-pills__pill" data-facets-link>
+                  <span class="visually-hidden">{{ 'facets.remove' | t }}</span>
+                  <span>{{ price_label }}</span>
+                  {%- render 'icon', name: 'close' -%}
+                </a>
+              </li>
+            {%- endif -%}
+          {%- else -%}
+            {%- for value in filter.active_values -%}
+              <li>
+                <a href="{{ value.url_to_remove }}" class="facets-pills__pill" data-facets-link>
+                  <span class="visually-hidden">{{ 'facets.remove' | t }}</span>
+                  <span>{{ filter.label | escape }}: {{ value.label | escape }}</span>
+                  {%- render 'icon', name: 'close' -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <li>
+          <a href="{{ clear_url }}" class="facets-pills__clear link" data-facets-link>{{ 'facets.clear_all' | t }}</a>
+        </li>
+      </ul>
+    {%- endif -%}
+  </div>
+{%- endif -%}

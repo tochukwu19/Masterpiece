@@ -118,7 +118,43 @@
         "one": "{{ count }} product",
         "other": "{{ count }} products"
       }
+    },
+    "products_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty": {
+      "title": "This collection is empty",
+      "text": "Products added to it will show here.",
+      "link": "Continue shopping"
+    },
+    "empty_filtered": {
+      "title": "No products found",
+      "text": "Try removing a filter or two."
     }
+  },
+  "facets": {
+    "title": "Filters",
+    "filter": "Filter",
+    "active_count": {
+      "one": "{{ count }} filter applied",
+      "other": "{{ count }} filters applied"
+    },
+    "active_label": "Active filters",
+    "remove": "Remove filter",
+    "clear_all": "Clear all",
+    "show_results": {
+      "one": "Show {{ count }} result",
+      "other": "Show {{ count }} results"
+    },
+    "sort_by": "Sort by",
+    "apply": "Apply",
+    "price_from": "From",
+    "price_to": "To",
+    "price_max_html": "The highest price is {{ price }}",
+    "price_range_html": "{{ min }}–{{ max }}",
+    "price_from_html": "From {{ price }}",
+    "price_up_to_html": "Up to {{ price }}"
   },
   "search": {
     "page_label": "Page",

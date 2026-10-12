@@ -77,6 +77,11 @@ const componentCss = ['snippets', 'sections', 'blocks']
   .filter(Boolean)
   .join('\n\n');
 
+const componentStylesheets = readdirSync(join(root, 'assets'))
+  .filter((f) => /^component-.+\.css$/.test(f))
+  .map((f) => `<link rel="stylesheet" href="../../assets/${f}">`)
+  .join('\n');
+
 const iconSource = read('snippets/icon.liquid');
 const icons = [...iconSource.matchAll(/when '([^']+)' -%}\s*([\s\S]*?)\s*{%-/g)].map(([, name, svg]) => ({ name, svg }));
 const socialSource = read('snippets/icon-social.liquid');
@@ -138,6 +143,7 @@ const nav = [
   ['drawers', 'Drawers'],
   ['footer', 'Footer'],
   ['product', 'Product'],
+  ['collection', 'Collection'],
 ];
 
 const cartItem = (title, options, price, compare, shade) => `
@@ -167,6 +173,7 @@ ${schemeTokens}
 ${schemeBase}
 </style>
 <link rel="stylesheet" href="../../assets/base.css">
+${componentStylesheets}
 <style>
 ${componentCss}
 
@@ -423,6 +430,53 @@ ${section('product', 'Product', 'scheme-1', `<div class="product__layout">
       <details class="disclosure product__tab"><summary class="product__tab-summary"><span>Shipping and returns</span><svg class="icon product__tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary></details>
     </div>
     <div class="product__share"><button type="button" class="button button--tertiary">${icon('share')}Share</button></div>
+  </div>
+</div>`)}
+
+${section('collection', 'Collection', 'scheme-1', `<div class="ds-stack">
+  <div class="ds-frame"><div class="collection-banner collection-banner--split collection-banner--center collection-banner--small section color-scheme-2" style="--section-pt: 24px; --section-pb: 24px;">
+    <div class="collection-banner__inner page-width">
+      <div class="collection-banner__media media">${placeholder(14)}</div>
+      <div class="collection-banner__content"><div class="collection-banner__text"><p class="eyebrow">The edit</p><h1 class="collection-banner__title h0">Rings</h1><div class="collection-banner__description rte"><p>Solitaires, bands and stackers in recycled gold.</p></div></div></div>
+    </div>
+  </div></div>
+  <div>
+    <div class="facets-toolbar">
+      <div class="facets-toolbar__start">
+        <button type="button" class="facets-toolbar__filter button button--secondary">${icon('filter')}<span>Filter</span><span class="facets-toolbar__badge"><span aria-hidden="true">2</span></span></button>
+        <p class="facets-toolbar__count text-small text-muted">6 products</p>
+      </div>
+      <div class="facets-toolbar__sort"><label class="facets-toolbar__sort-label text-small" for="ds-sort">Sort by</label><div class="select-field select-field--inline"><select id="ds-sort" class="select select--inline"><option>Featured</option><option>Price, low to high</option></select>${icon('chevron-down').replace('class="icon"', 'class="icon select-field__icon"')}</div></div>
+    </div>
+    <div class="facets-pills"><ul class="facets-pills__list list-unstyled">
+      <li><a href="#" class="facets-pills__pill"><span>Metal: Yellow gold</span>${icon('close')}</a></li>
+      <li><a href="#" class="facets-pills__pill"><span>Up to $500.00</span>${icon('close')}</a></li>
+      <li><a href="#" class="facets-pills__clear link">Clear all</a></li>
+    </ul></div>
+  </div>
+  <div class="ds-preview">
+    <div class="drawer drawer--left facets color-scheme-1"><div class="drawer__inner">
+      <div class="drawer__header"><p class="drawer__title h3">Filters</p><form method="dialog" class="drawer__close-form"><button class="drawer__close">Close</button></form></div>
+      <div class="facets__form">
+        <div class="drawer__body facets__groups">
+          <details class="facets__group" open><summary class="facets__summary"><span class="facets__label">Availability</span>${icon('chevron-down').replace('class="icon"', 'class="icon facets__chevron"')}</summary><fieldset class="facets__fieldset"><ul class="facets__values list-unstyled">
+            <li><label class="facets__value"><input class="facets__input" type="checkbox" checked><span class="facets__value-label">In stock <span class="facets__count">(10)</span></span></label></li>
+            <li><label class="facets__value is-unavailable"><input class="facets__input" type="checkbox" disabled><span class="facets__value-label">Out of stock <span class="facets__count">(0)</span></span></label></li>
+          </ul></fieldset></details>
+          <details class="facets__group" open><summary class="facets__summary"><span class="facets__label">Price</span>${icon('chevron-down').replace('class="icon"', 'class="icon facets__chevron"')}</summary><fieldset class="facets__fieldset">
+            <div class="facets__price"><div class="field"><label class="field__label" for="ds-min">From</label><div class="facets__price-input"><span class="facets__currency">$</span><input id="ds-min" class="input" type="number" placeholder="0"></div></div><div class="field"><label class="field__label" for="ds-max">To</label><div class="facets__price-input"><span class="facets__currency">$</span><input id="ds-max" class="input" type="number" value="500"></div></div></div>
+            <p class="facets__hint text-small text-muted">The highest price is $1,280.00</p>
+          </fieldset></details>
+          <details class="facets__group" open><summary class="facets__summary"><span class="facets__label">Metal <span class="facets__active-count">(1)</span></span>${icon('chevron-down').replace('class="icon"', 'class="icon facets__chevron"')}</summary><fieldset class="facets__fieldset"><ul class="facets__values list-unstyled">
+            <li><label class="facets__value"><input class="facets__input visually-hidden" type="checkbox" checked><span class="facets__swatch" style="--swatch-color: #D4AF37"></span><span class="facets__value-label">Yellow gold <span class="facets__count">(4)</span></span></label></li>
+            <li><label class="facets__value"><input class="facets__input visually-hidden" type="checkbox"><span class="facets__swatch" style="--swatch-color: #E8B4A0"></span><span class="facets__value-label">Rose gold <span class="facets__count">(2)</span></span></label></li>
+            <li><label class="facets__value"><input class="facets__input visually-hidden" type="checkbox"><span class="facets__swatch" style="--swatch-color: #D9D9D9"></span><span class="facets__value-label">Silver <span class="facets__count">(3)</span></span></label></li>
+          </ul></fieldset></details>
+        </div>
+        <div class="drawer__footer facets__footer"><a href="#" class="button button--secondary">Clear all</a><button type="button" class="button">Show 6 results</button></div>
+      </div>
+    </div></div>
+    <div class="main-collection__empty" style="flex: 1; min-width: 16rem;"><p class="h3">No products found</p><p class="text-muted">Try removing a filter or two.</p><a href="#" class="button button--secondary">Clear all</a></div>
   </div>
 </div>`)}
 </main>
