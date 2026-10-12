@@ -684,12 +684,30 @@ main > .shopify-section + .shopify-section {
   --button-bg: transparent;
   --button-fg: var(--color-secondary-button-label);
   --button-border: var(--color-secondary-button-label);
+  isolation: isolate;
+  overflow: hidden;
+  transition: color var(--duration) var(--ease-out);
 }
 
-.button--secondary:hover {
-  --button-bg: var(--color-secondary-button-label);
+.button--secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--color-secondary-button-label);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.button--secondary:is(:hover, :focus-visible):not(:disabled, [aria-disabled='true']) {
+  --button-bg: transparent;
   --button-fg: var(--color-bg);
   --button-border: var(--color-secondary-button-label);
+}
+
+.button--secondary:is(:hover, :focus-visible):not(:disabled, [aria-disabled='true'])::before {
+  transform: scaleY(1);
 }
 
 .button--tertiary {

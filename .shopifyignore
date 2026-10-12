@@ -7,3 +7,4 @@ scripts/*
 .theme-check.yml
 shopify.theme.toml
 .claude/*
+.lighthouse/*
