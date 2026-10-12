@@ -90,7 +90,7 @@
       >
       <p class="text-small text-muted" id="{{ id }}-date-help">{{ 'products.gift_card.send_on_help' | t }}</p>
     </div>
-    <input type="hidden" name="properties[__shopify_offset]" x-ref="offset" x-bind:disabled="!enabled">
+    <input type="hidden" name="properties[__shopify_offset]" x-bind:value="timezoneOffset" x-bind:disabled="!enabled">
   </div>
 </fieldset>
 

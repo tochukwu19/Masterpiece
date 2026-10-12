@@ -1,21 +1,26 @@
 document.addEventListener('alpine:init', () => {
   const theme = window.theme;
 
-  Alpine.data('drawer', () => ({
-    drawerDialog: null,
-    init() {
-      this.drawerDialog = this.$el;
-    },
-    open() {
-      if (!this.drawerDialog.open) this.drawerDialog.showModal();
-    },
-    close() {
-      if (this.drawerDialog.open) this.drawerDialog.close();
-    },
-    toggle(detail) {
-      if (detail?.id === this.drawerDialog.id) this.open();
-    },
-  }));
+  Alpine.data('drawer', () => {
+    let dialog;
+    const open = () => {
+      if (!dialog.open) dialog.showModal();
+    };
+    const close = () => {
+      if (dialog.open) dialog.close();
+    };
+
+    return {
+      init() {
+        dialog = this.$el;
+      },
+      open,
+      close,
+      toggle(detail) {
+        if (detail?.id === dialog.id) open();
+      },
+    };
+  });
 
   Alpine.data('disclosure', () => ({
     expanded: false,
@@ -30,76 +35,86 @@ document.addEventListener('alpine:init', () => {
     toggle() {
       this.expanded ? this.hide() : this.show();
     },
+    press(event) {
+      event.pointerType === 'mouse' ? this.show() : this.toggle();
+    },
     leave(event) {
-      if (!this.$root.contains(event.relatedTarget)) this.hide();
+      if (!event.currentTarget.contains(event.relatedTarget)) this.hide();
     },
   }));
 
-  Alpine.data('header', (mode) => ({
-    hidden: false,
-    lastY: 0,
-    init() {
-      if (mode !== 'on-scroll-up') return;
-      this.onScroll = () => {
-        const y = window.scrollY;
-        const threshold = this.$root.offsetHeight;
-        if (Math.abs(y - this.lastY) < 8) return;
-        this.hidden = y > this.lastY && y > threshold && !this.$root.querySelector('[aria-expanded="true"]');
-        this.lastY = y;
-      };
-      window.addEventListener('scroll', this.onScroll, { passive: true });
-    },
-    destroy() {
-      if (this.onScroll) window.removeEventListener('scroll', this.onScroll);
-    },
-  }));
+  Alpine.data('header', (mode) => {
+    let onScroll;
 
-  Alpine.data('predictiveSearch', () => ({
-    query: '',
-    loading: false,
-    hasResults: false,
-    status: '',
-    controller: null,
+    return {
+      hidden: false,
+      init() {
+        if (mode !== 'on-scroll-up') return;
+        const header = this.$el;
+        let lastY = window.scrollY;
+        onScroll = () => {
+          const y = window.scrollY;
+          if (Math.abs(y - lastY) < 8) return;
+          this.hidden = y > lastY && y > header.offsetHeight && !header.querySelector('[aria-expanded="true"]');
+          lastY = y;
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+      },
+      destroy() {
+        if (onScroll) window.removeEventListener('scroll', onScroll);
+      },
+    };
+  });
 
-    async search() {
-      const terms = this.query.trim();
-      this.controller?.abort();
-      if (!terms) {
-        this.$refs.results.innerHTML = '';
-        this.hasResults = false;
-        this.status = '';
-        return;
-      }
+  Alpine.data('predictiveSearch', () => {
+    let controller;
 
-      this.controller = new AbortController();
-      this.loading = true;
-      const url = new URL(theme.routes.predictive_search_url, window.location.origin);
-      url.searchParams.set('q', terms);
-      url.searchParams.set('section_id', 'predictive-search');
-      url.searchParams.set('resources[limit]', '4');
-      url.searchParams.set('resources[limit_scope]', 'each');
+    return {
+      query: '',
+      loading: false,
+      hasResults: false,
+      status: '',
 
-      try {
-        const response = await fetch(url, { signal: this.controller.signal });
-        const html = await response.text();
-        const section = theme.parseHTML(html).querySelector('#shopify-section-predictive-search');
-        this.$refs.results.innerHTML = section ? section.innerHTML : '';
-        const summary = this.$refs.results.querySelector('[data-status]');
-        this.status = summary?.dataset.status ?? '';
-        this.hasResults = Boolean(section);
-      } catch (error) {
-        if (error.name !== 'AbortError') this.status = theme.strings.genericError;
-      } finally {
-        this.loading = false;
-      }
-    },
+      async search() {
+        const terms = this.query.trim();
+        const results = this.$refs.results;
+        controller?.abort();
+        if (!terms) {
+          results.innerHTML = '';
+          this.hasResults = false;
+          this.status = '';
+          return;
+        }
 
-    clear() {
-      this.query = '';
-      this.search();
-      this.$refs.input.focus();
-    },
-  }));
+        controller = new AbortController();
+        this.loading = true;
+        const url = new URL(theme.routes.predictive_search_url, window.location.origin);
+        url.searchParams.set('q', terms);
+        url.searchParams.set('section_id', 'predictive-search');
+        url.searchParams.set('resources[limit]', '4');
+        url.searchParams.set('resources[limit_scope]', 'each');
+
+        try {
+          const response = await fetch(url, { signal: controller.signal });
+          const html = await response.text();
+          const section = theme.parseHTML(html).querySelector('#shopify-section-predictive-search');
+          results.innerHTML = section ? section.innerHTML : '';
+          this.status = results.querySelector('[data-status]')?.dataset.status ?? '';
+          this.hasResults = Boolean(section);
+        } catch (error) {
+          if (error.name !== 'AbortError') this.status = theme.strings.genericError;
+        } finally {
+          this.loading = false;
+        }
+      },
+
+      clear() {
+        this.query = '';
+        this.search();
+        this.$refs.input.focus();
+      },
+    };
+  });
 
   Alpine.data('announcementBar', (count) => ({
     index: 0,
@@ -111,24 +126,28 @@ document.addEventListener('alpine:init', () => {
     },
   }));
 
-  Alpine.data('wordmark', () => ({
-    init() {
-      this.fit();
-      this.observer = new ResizeObserver(() => this.fit());
-      this.observer.observe(this.$root);
-      document.fonts?.ready.then(() => this.fit());
-    },
-    destroy() {
-      this.observer?.disconnect();
-    },
-    fit() {
-      const text = this.$refs.text;
-      text.style.fontSize = '100px';
-      const available = this.$root.clientWidth;
-      const natural = text.getBoundingClientRect().width;
-      if (natural > 0) text.style.fontSize = `${Math.floor((available / natural) * 10000) / 100}px`;
-    },
-  }));
+  Alpine.data('wordmark', () => {
+    let observer;
+
+    return {
+      init() {
+        const container = this.$el;
+        const text = container.querySelector('[data-wordmark-text]');
+        const fit = () => {
+          text.style.fontSize = '100px';
+          const natural = text.getBoundingClientRect().width;
+          if (natural > 0) text.style.fontSize = `${Math.floor((container.clientWidth / natural) * 10000) / 100}px`;
+        };
+        fit();
+        observer = new ResizeObserver(fit);
+        observer.observe(container);
+        document.fonts?.ready.then(fit);
+      },
+      destroy() {
+        observer?.disconnect();
+      },
+    };
+  });
 });
 
 document.addEventListener('shopify:section:select', (event) => {

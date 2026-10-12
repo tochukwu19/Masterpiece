@@ -102,7 +102,7 @@
 
     {%- if section.settings.show_wordmark -%}
       <div class="footer__wordmark" x-data="wordmark" aria-hidden="true">
-        <span class="footer__wordmark-text" x-ref="text">{{ wordmark | escape }}</span>
+        <span class="footer__wordmark-text" data-wordmark-text>{{ wordmark | escape }}</span>
       </div>
     {%- endif -%}
   </div>

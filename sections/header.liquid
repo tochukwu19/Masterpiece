@@ -64,7 +64,7 @@
                     type="button"
                     class="header__menu-link"
                     x-ref="trigger"
-                    x-on:click="toggle()"
+                    x-on:click="press($event)"
                     x-bind:aria-expanded="expanded.toString()"
                     aria-expanded="false"
                     aria-controls="HeaderMenu-{{ forloop.index }}"
