@@ -17,7 +17,7 @@
   endif
 
   assign clear_url = collection.url
-  if collection.sort_by != blank
+  if collection.sort_by != blank and collection.sort_by != collection.default_sort_by
     assign clear_url = collection.url | append: '?sort_by=' | append: collection.sort_by
   endif
 
@@ -80,8 +80,8 @@
           {%- render 'pagination', paginate: paginate, anchor: grid_anchor -%}
         {%- elsif collection.all_products_count > 0 -%}
           <div class="main-collection__empty">
-            <p class="h3">{{ 'collections.empty_filtered.title' | t }}</p>
-            <p class="text-muted">{{ 'collections.empty_filtered.text' | t }}</p>
+            <p class="h3">{{ 'facets.no_matches.title' | t }}</p>
+            <p class="text-muted">{{ 'facets.no_matches.text' | t }}</p>
             <a href="{{ clear_url }}" class="button button--secondary" data-facets-link>{{ 'facets.clear_all' | t }}</a>
           </div>
         {%- else -%}

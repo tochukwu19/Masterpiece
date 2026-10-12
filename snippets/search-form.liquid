@@ -3,11 +3,17 @@
 
   @param {string} id - Unique input ID
   @param {boolean} [autofocus] - Focus the input when rendered
+  @param {boolean} [suggestions] - Show predictive results. Defaults to the theme setting
   @example
   {% render 'search-form', id: 'HeaderSearch' %}
 {% enddoc %}
 
-{%- assign predictive = settings.predictive_search_enabled -%}
+{%- liquid
+  assign predictive = settings.predictive_search_enabled
+  if suggestions == false
+    assign predictive = false
+  endif
+-%}
 
 <div class="search-form"{% if predictive %} x-data="predictiveSearch"{% endif %}>
   <form action="{{ routes.search_url }}" method="get" role="search" class="search-form__form">

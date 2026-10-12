@@ -329,6 +329,7 @@ ${section('cards', 'Cards', 'scheme-1', `<div class="ds-stack">
     <a href="#" class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;">${placeholder(45)}</div><div class="card-collection__caption"><h3 class="card-collection__title h3">Rings</h3><p class="card-collection__count text-small">24 products</p></div></a>
     <a href="#" class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;">${placeholder(30)}</div><div class="card-collection__caption"><h3 class="card-collection__title h3">Earrings</h3></div></a>
     <article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;">${placeholder(14)}</div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 2, 2026</p><h3 class="card-article__title h4"><a href="#" class="card-article__link">How to stack rings</a></h3><p class="card-article__excerpt text-muted">Mixing metals, widths and textures without losing the thread.</p></div></article>
+    <article class="card-page"><p class="card-page__type eyebrow text-muted">Page</p><h3 class="card-page__title h4"><a href="#" class="card-page__link">Jewelry care</a></h3><p class="card-page__excerpt text-muted">Store pieces separately, keep them dry, and polish with a soft cloth after wearing.</p></article>
   </div>
 </div>`)}
 

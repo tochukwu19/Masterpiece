@@ -69,12 +69,12 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 - [x] `templates/collection.json` rebuilt from these sections
 
 **4b. Search and collection list**
-- [ ] `main-search` section:
+- [x] `main-search` section:
   - search form, with results that mix products, articles and pages (a new `card-page` snippet)
   - the same `facets` and toolbar
   - empty-query and no-results states; pagination
-- [ ] `main-list-collections` section: `card-collection` grid, sort setting, pagination
-- [ ] Predictive search: already shipped in Phase 2; only the roadmap tick is left
+- [x] `main-list-collections` section: `card-collection` grid, image ratio, product count, pagination (no sort setting: `paginate` only works on the unsorted `collections` drop)
+- [x] Predictive search: already shipped in Phase 2; only the roadmap tick is left
 
 **4c. Home sections**
 - [ ] Shared theme blocks in `blocks/`: `heading`, `text`, `button`, `custom-liquid`; sections list exactly which blocks they accept, plus `@app`

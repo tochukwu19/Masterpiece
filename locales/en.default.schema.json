@@ -753,6 +753,40 @@
           "label": "Enable sorting"
         }
       }
+    },
+    "main_search": {
+      "name": "Search results",
+      "settings": {
+        "results_per_page": {
+          "label": "Results per page"
+        },
+        "enable_filtering": {
+          "info": "Filters show for product results. Customize them with the [Search & Discovery app](https://apps.shopify.com/search-and-discovery)."
+        }
+      }
+    },
+    "main_list_collections": {
+      "name": "Collections list",
+      "settings": {
+        "collections_per_page": {
+          "label": "Collections per page"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options__1": {
+            "label": "Portrait"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Landscape"
+          }
+        },
+        "show_product_count": {
+          "label": "Show product count"
+        }
+      }
     }
   }
 }

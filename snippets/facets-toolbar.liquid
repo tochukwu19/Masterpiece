@@ -59,6 +59,7 @@
       <form id="{{ form_id }}" action="{{ action }}" method="get" data-facets-form>
         {%- if terms != blank -%}
           <input type="hidden" name="q" value="{{ terms | escape }}">
+        <input type="hidden" name="options[prefix]" value="last">
         {%- endif -%}
       </form>
     {%- endunless -%}

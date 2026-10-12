@@ -43,7 +43,7 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 | Sections Everywhere (OS 2.0) | ⚠️ | Only index/product/collection/list-collections/search are JSON |
 | Discounts (line + order level) in cart | ✅ | Line allocations + cart-level applications in drawer and cart page (Phase 2) |
 | Accelerated checkout buttons (product + cart) | ⚠️ | Cart page done (`content_for_additional_checkout_buttons`, on by default). Product page in Phase 3 |
-| Faceted filtering (availability, price, type, vendor, options) on collection + search | ⚠️ | Collection done (Phase 4a): native `<dialog>` drawer, real checkboxes, swatch and image presentations, price range, pills, Section Rendering updates with history, no-JS GET form. Search in 4b |
+| Faceted filtering (availability, price, type, vendor, options) on collection + search | ✅ | Collection (4a) and search (4b): native `<dialog>` drawer, real checkboxes, swatch and image presentations, price range, pills, Section Rendering updates with history, no-JS GET form |
 | Gift card template | ⚠️ | Barebones; no code shown, no logo/shop name, invalid HTML |
 | Image focal points | ❌ | Use `image.presentation.focal_point` / `image_tag` |
 | Social sharing image (`page_image`) | ❌ | No OG tags |
@@ -104,7 +104,7 @@ Required templates (✅ exists as JSON · ❌):
 **Collection** — title, description, image; grid with title→url, price, image, unit price; mixed ratios OK; sale badge; sorting; empty message; `price_varies` range; pagination.
 - Status: ✅ Phase 4a: `collection-banner` (title, description, image beside or behind text) + `main-collection` (cards with unit price, sale/sold-out badges, `price_varies` "From", sorting, products per page, pagination, empty and filtered-empty states).
 
-**Collection list** — title, `collection.featured_image` fallback, pagination. Status: ⚠️ uses `img_url` backgrounds; hardcoded description copy.
+**Collection list** — title, `collection.featured_image` fallback, pagination. Status: ✅ Phase 4b `main-list-collections` (`card-collection` with `featured_image`, placeholder fallback, pagination).
 
 **Cart** — line title, `unit_price`, image, `final_price`, quantity, `options_with_values`; `total_price`; taxes note; checkout button submits form; totals refresh on qty change; per-line qty; empty state; cart notes; selling plans; automatic discounts; accelerated checkout.
 - Status: ✅ Phase 2: `main-cart` + `cart-drawer` sharing `cart-items`/`cart-summary`, Section Rendering refresh of every cart surface, no-JS form fallback. Verify on the dev store.
@@ -115,7 +115,7 @@ Required templates (✅ exists as JSON · ❌):
 
 **Article** — title, `article.comments`, `published_at` (not `created_at`), paginated comments, comment success/error messages. Status: ❌ uses `created_at`; unstyled.
 
-**Search** — empty message; products + articles + pages via `object_type`; pagination. Status: ⚠️ products-only card breaks on articles/pages.
+**Search** — empty message; products + articles + pages via `object_type`; pagination. Status: ✅ Phase 4b `main-search` (product, article and page cards, filters, sort, empty-query, no-results and filtered-empty states, pagination).
 
 **404** — clear message + next step (search / home link). Status: ⚠️ message only.
 

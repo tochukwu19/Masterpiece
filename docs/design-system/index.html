@@ -180,6 +180,52 @@
     text-underline-offset: 0.15em;
   }
 
+.card-page {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    min-height: 100%;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background-color: var(--color-surface);
+  }
+
+  .card-page__type {
+    margin: 0;
+    font-size: 0.75rem;
+  }
+
+  .card-page__title,
+  .card-page__excerpt {
+    margin: 0;
+  }
+
+  .card-page__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card-page__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card-page:hover .card-page__link {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+
+  .card-page__link:focus-visible {
+    outline: none;
+  }
+
+  .card-page__link:focus-visible::after {
+    outline: 2px solid var(--color-fg);
+    outline-offset: 3px;
+  }
+
 .card-product {
     position: relative;
     display: flex;
@@ -1565,6 +1611,10 @@
     margin-top: 0.75rem;
   }
 
+.main-list-collections .pagination {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
 .password {
     display: flex;
     min-height: 100svh;
@@ -1816,6 +1866,48 @@
   .product__complementary-info {
     display: grid;
     gap: 0.125rem;
+  }
+
+.main-search__header {
+    display: grid;
+    gap: clamp(1rem, 3vw, 2rem);
+    max-width: 48rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+  }
+
+  .main-search__title {
+    margin: 0;
+  }
+
+  .main-search__header .search-form {
+    text-align: start;
+  }
+
+  .main-search__results {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    transition: opacity var(--duration) ease;
+  }
+
+  .main-search .pagination {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .main-search__empty {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    padding-block: clamp(2rem, 6vw, 4rem);
+    text-align: center;
+  }
+
+  .main-search__empty p {
+    margin: 0;
+  }
+
+  .main-search__empty .button {
+    margin-top: 0.75rem;
   }
 
 .predictive-search {
@@ -2165,6 +2257,7 @@
     <a href="#" class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 45%, var(--color-bg))"/></svg></div><div class="card-collection__caption"><h3 class="card-collection__title h3">Rings</h3><p class="card-collection__count text-small">24 products</p></div></a>
     <a href="#" class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 30%, var(--color-bg))"/></svg></div><div class="card-collection__caption"><h3 class="card-collection__title h3">Earrings</h3></div></a>
     <article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 14%, var(--color-bg))"/></svg></div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 2, 2026</p><h3 class="card-article__title h4"><a href="#" class="card-article__link">How to stack rings</a></h3><p class="card-article__excerpt text-muted">Mixing metals, widths and textures without losing the thread.</p></div></article>
+    <article class="card-page"><p class="card-page__type eyebrow text-muted">Page</p><h3 class="card-page__title h4"><a href="#" class="card-page__link">Jewelry care</a></h3><p class="card-page__excerpt text-muted">Store pieces separately, keep them dry, and polish with a soft cloth after wearing.</p></article>
   </div>
 </div>
   </div>
