@@ -36,14 +36,18 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [x] Legacy navbar, footer, sidebar cart, `templates/cart.liquid` and their icons removed
 - [x] Kit: header, drawers and footer specimens
 - [ ] 👤 Dev store connection (CLI signed in with an account that can't access `vermeil-6sitmu3d`)
-- [ ] Store pass: menus with 3 levels, Markets with 2+ countries and languages, cart with discount + selling plan + unit price, Follow on Shop, editor live preview of every setting
+- [x] Store pass: 3-level menu, Canada/France + English/French selectors, cart with `VERMEIL10` discount, drawer open/close/quantity
+- [ ] Store pass still open: selling plan + unit price in cart, Follow on Shop, editor live preview of every setting
 
 ## Phase 3 — Product
-- [ ] `main-product` with blocks; gallery with rich media (image, video, external video, 3D), variant images, sticky info column
-- [ ] Variant picker (buttons, swatches, dropdown) via Section Rendering; price, compare-at, unit price, sold-out handling
-- [ ] Buy buttons (`payment_button`), pickup availability, Shop Pay Installments, gift card recipient form
-- [ ] `featured-product` section, `product-recommendations` (related + complementary)
-- [ ] Structured data
+- [x] `main-product` with blocks; gallery (stacked/grid, mobile carousel, lightbox), rich media (image, video, external video, 3D + AR), variant images
+- [x] Variant picker (native swatches, buttons, dropdown) via Section Rendering `option_values`; price, compare-at, unit price, sold-out handling; combined listings
+- [x] Buy buttons (`payment_button`), Shop Pay Installments, gift card recipient form, quantity rules
+- [x] `product-recommendations` (related + complementary) and complementary block
+- [x] Structured data
+- [x] Store pass: 9 ring variants incl. sold-out combination, sale, sold-out product, gift card, 3D model, video, add to cart + discount
+- [ ] Pickup availability renders nothing on the dev store (backlog B1)
+- [ ] `featured-product` section moved to Phase 4 (backlog B2)
 
 ## Phase 4 — Discovery
 - [ ] `main-collection` (banner, grid, facets drawer, sort, sale/sold-out badges, price ranges, unit price, empty state)
