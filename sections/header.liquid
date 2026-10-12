@@ -204,6 +204,7 @@
     x-data="drawer"
     x-on:drawer-open.window="toggle($event.detail)"
     x-on:click.self="close()"
+    x-on:keydown.escape.prevent="close()"
   >
     <div class="drawer__inner">
       <div class="drawer__header">
@@ -278,6 +279,7 @@
     x-data="drawer"
     x-on:drawer-open.window="toggle($event.detail)"
     x-on:click.self="close()"
+    x-on:keydown.escape.prevent="close()"
   >
     <div class="drawer__inner">
       <div class="drawer__header page-width">

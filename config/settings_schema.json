@@ -171,7 +171,7 @@
         "id": "page_width",
         "min": 1000,
         "max": 1800,
-        "step": 50,
+        "step": 20,
         "unit": "px",
         "default": 1440,
         "label": "t:settings_schema.layout.settings.page_width.label"

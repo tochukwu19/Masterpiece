@@ -5,6 +5,7 @@
   x-data="drawer"
   x-on:drawer-open.window="toggle($event.detail)"
   x-on:click.self="close()"
+  x-on:keydown.escape.prevent="close()"
 >
   <div class="drawer__inner" data-cart-section="cart-drawer" x-data="cart">
     <div class="drawer__header">

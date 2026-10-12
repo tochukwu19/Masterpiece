@@ -6,8 +6,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "shopify theme dev -e development",
-    "check": "shopify theme check --fail-level error",
-    "check:all": "shopify theme check --fail-level warning",
+    "check": "node scripts/validate-schema.mjs && shopify theme check --fail-level error",
+    "check:all": "node scripts/validate-schema.mjs && shopify theme check --fail-level warning",
     "vendor": "cp node_modules/alpinejs/dist/cdn.min.js assets/alpine.min.js && node scripts/social-icons.mjs",
     "kit": "node scripts/kit.mjs"
   },
