@@ -1,27 +1,44 @@
 {% layout none %}
+{%- assign initial_value = gift_card.initial_value | money_without_trailing_zeros | strip_html -%}
 <!doctype html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="format-detection" content="telephone=no">
-  {{ 'vendor/qrcode.js' | shopify_asset_url | script_tag }}
-</head>
-<body>
-  <div id="qr-code"></div>
-  <script>
-    new QRCode(document.getElementById("qr-code"), {
-      text: "{{ gift_card.qr_identifier }}",
-      width: 120,
-      height: 120
-    });
-  </script>
-  <footer>
-    {% if gift_card.pass_url %}
-    <a href="{{ gift_card.pass_url }}">
-      <img id="apple-wallet-badge" src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="Add To Apple Wallet">
-    </a>
-    {% endif %}
-  </footer>
-</body>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="noindex">
+    <title>{{ 'gift_cards.issued.title' | t: value: initial_value, shop: shop.name }}</title>
+    <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+    {%- if settings.favicon != blank %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif %}
+
+    {% render 'css-variables' %}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'component-gift-card.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.theme = {
+        strings: {
+          codeCopied: {{ 'gift_cards.issued.copied' | t | json }},
+          copyFailed: {{ 'gift_cards.issued.copy_failed' | t | json }}
+        }
+      };
+    </script>
+    <script src="{{ 'global.js' | asset_url }}" defer></script>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <script src="{{ 'gift-card.js' | asset_url }}" defer></script>
+    <script src="{{ 'alpine.min.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body>
+    <main id="MainContent">
+      {% section 'main-gift-card' %}
+    </main>
+  </body>
 </html>

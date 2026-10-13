@@ -44,7 +44,7 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 | Discounts (line + order level) in cart | ✅ | Line allocations + cart-level applications in drawer and cart page (Phase 2) |
 | Accelerated checkout buttons (product + cart) | ⚠️ | Cart page done (`content_for_additional_checkout_buttons`, on by default). Product page in Phase 3 |
 | Faceted filtering (availability, price, type, vendor, options) on collection + search | ✅ | Collection (4a) and search (4b): native `<dialog>` drawer, real checkboxes, swatch and image presentations, price range, pills, Section Rendering updates with history, no-JS GET form |
-| Gift card template | ⚠️ | Barebones; no code shown, no logo/shop name, invalid HTML |
+| Gift card template | ✅ | Phase 5c: logo or shop name, code with copy, balance, initial value, expiry and inactive states, sender message, QR code (Shopify-hosted `qrcode.js`), Apple Wallet, print styles |
 | Image focal points | ❌ | Use `image.presentation.focal_point` / `image_tag` |
 | Social sharing image (`page_image`) | ❌ | No OG tags |
 | Country/currency selector | ✅ | `localization-form` in header (desktop), menu drawer and footer |
@@ -78,7 +78,7 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ `password.json` + `layout/password.liquid`
 - [x] ✅ `product.json`
 - [x] ✅ `search.json`
-- [x] ⚠️ `gift_card.liquid` (exists, invalid)
+- [x] ✅ `gift_card.liquid` (renders the `main-gift-card` section)
 - [x] ⚠️ `config/settings_schema.json` (only `theme_info`), `settings_data.json` (contains a Judge.me app block)
 - [ ] ❌ Custom Liquid **section** available on all templates
 - [x] ✅ Header + footer in **section groups** (announcement bar + header; footer)
@@ -119,7 +119,7 @@ Required templates (✅ exists as JSON · ❌):
 
 **404** — clear message + next step (search / home link). Status: ✅ Phase 5b `main-404`: message, search with suggestions, link to all products.
 
-**Gift card** — Apple Wallet, code, QR ≥ 120×120, logo or shop name. Status: ⚠️ QR + wallet only.
+**Gift card** — Apple Wallet, code, QR ≥ 120×120, logo or shop name. Status: ✅ Phase 5c.
 
 **Password** — logo/shop name, `shop.password_message`, password form. Status: ✅ Phase 1 (plus email signup).
 

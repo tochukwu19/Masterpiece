@@ -574,6 +574,13 @@ ${section('pages', 'Pages', 'scheme-1', `<div class="ds-stack">
     <div><button type="submit" class="button">Send message</button></div>
     <p class="form-message" role="status">${icon('check')}Thanks for getting in touch. We'll get back to you as soon as possible.</p>
   </form></div>
+  <div class="gift-card"><div class="gift-card__inner page-width">
+    <div class="gift-card__intro"><p class="gift-card__title h1">Your $100 gift card</p><p class="text-muted">Use this code at checkout to pay with your gift card.</p></div>
+    <div class="gift-card__card"><div class="gift-card__card-top"><span class="gift-card__card-shop">Vermeil</span><span class="gift-card__card-value h2">$100</span></div><div class="gift-card__card-bottom"><span class="eyebrow">Gift card</span><span class="gift-card__card-last-four">•••• 7G8H</span></div></div>
+    <dl class="gift-card__details"><div class="gift-card__detail"><dt class="eyebrow text-muted">Balance</dt><dd class="h3">$64.00</dd></div><div class="gift-card__detail"><dt class="eyebrow text-muted">Initial value</dt><dd class="h3">$100.00</dd></div><div class="gift-card__detail"><dt class="eyebrow text-muted">Expires</dt><dd class="h3">October 12, 2027</dd></div></dl>
+    <div class="gift-card__redeem"><div class="gift-card__code-field"><p class="eyebrow text-muted">Gift card code</p><p class="gift-card__code">A1B23C4D5E6F7G8H</p><div class="gift-card__copy"><button type="button" class="button button--secondary">Copy code</button><span class="text-small text-muted">Code copied</span></div></div><div class="gift-card__qr-field"><div class="gift-card__qr">${placeholder(90).replace('class="placeholder"', 'class="placeholder" width="120" height="120"')}</div><p class="text-small text-muted">Scan to redeem in store</p></div></div>
+    <div class="gift-card__actions"><a href="#" class="button">Start shopping</a><button type="button" class="button button--secondary">Print</button></div>
+  </div></div>
   <div class="main-404__inner"><p class="main-404__code eyebrow text-muted">404</p><p class="main-404__title h0">Page not found</p><p class="main-404__text text-muted">The page you were looking for doesn't exist or has moved. Try a search, or keep browsing.</p><a href="#" class="button">Continue shopping</a></div>
 </div>`)}
 </main>

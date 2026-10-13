@@ -1338,6 +1338,14 @@
           "label": "Show search"
         }
       }
+    },
+    "main_gift_card": {
+      "name": "Gift card",
+      "settings": {
+        "show_qr_code": {
+          "label": "Show QR code"
+        }
+      }
     }
   },
   "blocks": {

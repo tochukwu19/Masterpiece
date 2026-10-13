@@ -1,0 +1,145 @@
+{%- liquid
+  assign initial_value = gift_card.initial_value | money
+  assign card_value = gift_card.initial_value | money_without_trailing_zeros
+  assign balance = gift_card.balance | money
+  assign usable = true
+  if gift_card.expired or gift_card.enabled == false
+    assign usable = false
+  endif
+-%}
+
+<div
+  class="gift-card color-{{ section.settings.color_scheme.id }}"
+  x-data="giftCard({ code: {{ gift_card.code | json | escape }}, qrIdentifier: {{ gift_card.qr_identifier | json | escape }} })"
+>
+  <div class="gift-card__inner page-width">
+    <header class="gift-card__brand">
+      <a href="{{ shop.url }}" class="gift-card__brand-link" style="--logo-width: {{ settings.logo_width }}px;">
+        {%- if settings.logo -%}
+          {%- render 'image', image: settings.logo, sizes: '300px', widths: '150, 300, 450, 600', eager: true, alt: shop.name, class: 'gift-card__logo' -%}
+        {%- else -%}
+          <span class="gift-card__wordmark h3">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </header>
+
+    <div class="gift-card__intro">
+      <h1 class="gift-card__title h1">{{ 'gift_cards.issued.heading' | t: value: card_value }}</h1>
+      <p class="text-muted">{{ 'gift_cards.issued.subtext' | t }}</p>
+    </div>
+
+    <div class="gift-card__card{% unless usable %} gift-card__card--inactive{% endunless %}">
+      <div class="gift-card__card-top">
+        <span class="gift-card__card-shop">{{ shop.name }}</span>
+        <span class="gift-card__card-value h2">{{ card_value }}</span>
+      </div>
+      <div class="gift-card__card-bottom">
+        <span class="eyebrow">{{ 'gift_cards.issued.card_label' | t }}</span>
+        <span class="gift-card__card-last-four" aria-hidden="true">•••• {{ gift_card.last_four_characters | upcase }}</span>
+      </div>
+    </div>
+
+    {%- if gift_card.message != blank -%}
+      <figure class="gift-card__message">
+        <blockquote class="h4">{{ gift_card.message | escape | newline_to_br }}</blockquote>
+      </figure>
+    {%- endif -%}
+
+    <dl class="gift-card__details">
+      <div class="gift-card__detail">
+        <dt class="eyebrow text-muted">{{ 'gift_cards.issued.balance' | t }}</dt>
+        <dd class="h3">{{ balance }}</dd>
+      </div>
+      {%- if gift_card.balance != gift_card.initial_value -%}
+        <div class="gift-card__detail">
+          <dt class="eyebrow text-muted">{{ 'gift_cards.issued.initial_value' | t }}</dt>
+          <dd class="h3">{{ initial_value }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if gift_card.expires_on -%}
+        <div class="gift-card__detail">
+          <dt class="eyebrow text-muted">
+            {%- if gift_card.expired -%}
+              {{ 'gift_cards.issued.expired_on' | t }}
+            {%- else -%}
+              {{ 'gift_cards.issued.expires_on' | t }}
+            {%- endif -%}
+          </dt>
+          <dd class="h3">{{ gift_card.expires_on | date: format: 'date' }}</dd>
+        </div>
+      {%- endif -%}
+    </dl>
+
+    {%- if gift_card.expired -%}
+      <p class="form-message form-message--error">
+        {%- render 'icon', name: 'error' -%}
+        {{ 'gift_cards.issued.expired' | t }}
+      </p>
+    {%- elsif gift_card.enabled == false -%}
+      <p class="form-message form-message--error">
+        {%- render 'icon', name: 'error' -%}
+        {{ 'gift_cards.issued.disabled' | t }}
+      </p>
+    {%- endif -%}
+
+    <div class="gift-card__redeem">
+      <div class="gift-card__code-field">
+        <p class="eyebrow text-muted">{{ 'gift_cards.issued.code_label' | t }}</p>
+        <p class="gift-card__code">{{ gift_card.code | upcase }}</p>
+        <div class="gift-card__copy">
+          <button type="button" class="button button--secondary" x-on:click="copy()" x-cloak>
+            {{- 'gift_cards.issued.copy_code' | t -}}
+          </button>
+          <span class="text-small text-muted" role="status" x-text="status"></span>
+        </div>
+      </div>
+
+      {%- if section.settings.show_qr_code -%}
+        <div class="gift-card__qr-field">
+          <div class="gift-card__qr" role="img" aria-label="{{ 'gift_cards.issued.qr_label' | t }}" data-gift-card-qr></div>
+          <p class="text-small text-muted">{{ 'gift_cards.issued.qr_hint' | t }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="gift-card__actions">
+      {%- if usable -%}
+        <a href="{{ shop.url }}" class="button">{{ 'gift_cards.issued.shop_link' | t }}</a>
+      {%- endif -%}
+      <button type="button" class="button button--secondary" x-on:click="print()" x-cloak>
+        {{- 'gift_cards.issued.print' | t -}}
+      </button>
+      {%- if gift_card.pass_url -%}
+        <a href="{{ gift_card.pass_url }}" class="gift-card__wallet">
+          <img
+            src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+            width="120"
+            height="40"
+            alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+          >
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main_gift_card.name",
+  "class": "section-main-gift-card",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_qr_code",
+      "default": true,
+      "label": "t:sections.main_gift_card.settings.show_qr_code.label"
+    }
+  ]
+}
+{% endschema %}

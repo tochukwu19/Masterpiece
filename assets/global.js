@@ -28,6 +28,10 @@
 
   theme.parseHTML = (html) => new DOMParser().parseFromString(html, 'text/html');
 
+  theme.strings = Object.fromEntries(
+    Object.entries(theme.strings || {}).map(([key, value]) => [key, theme.parseHTML(value).documentElement.textContent])
+  );
+
   theme.debounce = (fn, wait = 300) => {
     let timer;
     return (...args) => {

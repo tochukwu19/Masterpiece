@@ -296,5 +296,28 @@
     "submit": "Send message",
     "success": "Thanks for getting in touch. We'll get back to you as soon as possible.",
     "error": "Check the following and try again:"
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Your {{ value }} gift card for {{ shop }}",
+      "heading": "Your {{ value }} gift card",
+      "subtext": "Use this code at checkout to pay with your gift card.",
+      "card_label": "Gift card",
+      "balance": "Balance",
+      "initial_value": "Initial value",
+      "expires_on": "Expires",
+      "expired_on": "Expired",
+      "expired": "This gift card has expired.",
+      "disabled": "This gift card is no longer active.",
+      "code_label": "Gift card code",
+      "copy_code": "Copy code",
+      "copied": "Code copied",
+      "copy_failed": "Couldn't copy. Select the code to copy it.",
+      "qr_label": "QR code for this gift card",
+      "qr_hint": "Scan to redeem in store",
+      "shop_link": "Start shopping",
+      "print": "Print",
+      "add_to_apple_wallet": "Add to Apple Wallet"
+    }
   }
 }
