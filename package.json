@@ -15,6 +15,7 @@
   "devDependencies": {
     "@shopify/cli": "4.9.3",
     "alpinejs": "3.17.4",
+    "html-validate": "11.16.1",
     "lighthouse": "13.5.0",
     "simple-icons": "16.35.0"
   },

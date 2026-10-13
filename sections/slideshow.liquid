@@ -6,10 +6,9 @@
   endif
 -%}
 
-<div
+<section
   class="slideshow banner--{{ section.settings.height }} section color-{{ section.settings.color_scheme.id }}"
   style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
-  role="region"
   aria-roledescription="{{ 'slideshow.label' | t }}"
   aria-label="{{ 'slideshow.label' | t }}"
   x-data="carousel({ loop: true, autoplay: {{ autoplay }} })"
@@ -18,7 +17,7 @@
   x-on:focusin="hold(true)"
   x-on:focusout="hold(false)"
 >
-  <ul class="slideshow__track carousel__track" data-carousel-track x-on:scroll.debounce.80ms="sync()">
+  <ul class="slideshow__track carousel__track" tabindex="0" aria-label="{{ 'slideshow.slides' | t }}" data-carousel-track x-on:scroll.debounce.80ms="sync()">
     {%- content_for 'blocks' -%}
   </ul>
 
@@ -54,7 +53,7 @@
       {%- endif -%}
     </div>
   {%- endif -%}
-</div>
+</section>
 
 {% stylesheet %}
   .slideshow {

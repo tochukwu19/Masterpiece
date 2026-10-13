@@ -11,7 +11,7 @@
       size: section.settings.heading_size
     -%}
     <div class="testimonials__carousel" x-data="carousel({ loop: true })">
-      <ul class="testimonials__track carousel__track list-unstyled" role="list" data-carousel-track x-on:scroll.debounce.80ms="sync()">
+      <ul class="testimonials__track carousel__track list-unstyled" role="list" tabindex="0" aria-label="{{ 'testimonials.label' | t }}" data-carousel-track x-on:scroll.debounce.80ms="sync()">
         {%- for block in section.blocks -%}
           <li class="testimonials__item" {{ block.shopify_attributes }}>
             <figure class="testimonials__figure">

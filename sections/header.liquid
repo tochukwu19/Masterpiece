@@ -209,9 +209,9 @@
     <div class="drawer__inner">
       <div class="drawer__header">
         <p class="drawer__title h4" id="MenuDrawer-Title">{{ 'header.menu' | t }}</p>
-        <form method="dialog" class="drawer__close-form"><button class="drawer__close">{{ 'general.close' | t }}</button></form>
+        <form method="dialog" class="drawer__close-form"><button type="submit" class="drawer__close">{{ 'general.close' | t }}</button></form>
       </div>
-      <nav class="drawer__body" aria-label="{{ 'header.main_navigation' | t }}">
+      <nav class="drawer__body" aria-label="{{ 'header.menu' | t }}">
         <ul class="menu-drawer__list list-unstyled" role="list">
           {%- for link in menu.links -%}
             <li>
@@ -284,7 +284,7 @@
     <div class="drawer__inner">
       <div class="drawer__header page-width">
         <p class="h6" id="SearchModal-Title">{{ 'header.search' | t }}</p>
-        <form method="dialog" class="drawer__close-form"><button class="drawer__close">{{ 'general.close' | t }}</button></form>
+        <form method="dialog" class="drawer__close-form"><button type="submit" class="drawer__close">{{ 'general.close' | t }}</button></form>
       </div>
       <div class="drawer__body">
         <div class="page-width">
@@ -336,13 +336,13 @@
   }
 
   .header__start {
-    margin-left: -0.75rem;
+    margin-inline-start: -0.75rem;
   }
 
   .header__end {
     justify-content: flex-end;
     gap: 0.25rem;
-    margin-right: -0.75rem;
+    margin-inline-end: -0.75rem;
   }
 
   .header__logo {
@@ -428,7 +428,7 @@
   .header__dropdown {
     position: absolute;
     top: 100%;
-    left: -1.25rem;
+    inset-inline-start: -1.25rem;
     z-index: 10;
     min-width: 15rem;
     padding-block: 0.75rem;
@@ -436,8 +436,7 @@
   }
 
   .header__dropdown--mega {
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     border-width: 1px 0;
     padding-block: 2.5rem;
   }
@@ -483,7 +482,7 @@
   }
 
   .header__submenu--nested .header__submenu-link {
-    padding-left: 2rem;
+    padding-inline-start: 2rem;
     font-size: calc(0.875rem * var(--font-body-scale));
   }
 
@@ -522,7 +521,7 @@
   .header__cart-count .cart-count {
     position: absolute;
     top: 0.375rem;
-    right: 0.25rem;
+    inset-inline-end: 0.25rem;
     display: grid;
     place-items: center;
     min-width: 1.125rem;
@@ -547,7 +546,7 @@
     }
 
     .header__start {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
 
     .header--logo-left .header__inner {

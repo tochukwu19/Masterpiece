@@ -238,6 +238,7 @@
   },
   "slideshow": {
     "label": "Slideshow",
+    "slides": "Slides",
     "slide": "Slide",
     "slide_label": "{{ index }} of {{ count }}",
     "previous": "Previous slide",
@@ -249,6 +250,9 @@
   "carousel": {
     "previous": "Previous",
     "next": "Next"
+  },
+  "testimonials": {
+    "label": "Testimonials"
   },
   "placeholders": {
     "product_title": "Example product",

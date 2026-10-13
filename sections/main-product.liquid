@@ -130,7 +130,7 @@
                           <p class="text-small text-muted">{{ variant.title }}</p>
                         {%- endunless -%}
                       </div>
-                      <form method="dialog" class="drawer__close-form"><button class="drawer__close">{{ 'general.close' | t }}</button></form>
+                      <form method="dialog" class="drawer__close-form"><button type="submit" class="drawer__close">{{ 'general.close' | t }}</button></form>
                     </div>
                     <ul class="drawer__body pickup__list list-unstyled" role="list">
                       {%- for availability in pickups -%}

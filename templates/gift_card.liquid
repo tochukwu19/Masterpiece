@@ -1,7 +1,7 @@
 {% layout none %}
 {%- assign initial_value = gift_card.initial_value | money_without_trailing_zeros | strip_html -%}
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% render 'text-direction' %}">
   <head>
     <meta charset="utf-8">
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>

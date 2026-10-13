@@ -1,0 +1,16 @@
+{% doc %}
+  Outputs rtl for right-to-left storefront languages and ltr otherwise.
+
+  @example
+  <html dir="{% render 'text-direction' %}">
+{% enddoc -%}
+
+{%- liquid
+  assign language = request.locale.iso_code | split: '-' | first
+  assign rtl_languages = 'ar,ckb,dv,fa,he,ku,ps,sd,ug,ur,yi' | split: ','
+  if rtl_languages contains language
+    echo 'rtl'
+  else
+    echo 'ltr'
+  endif
+-%}

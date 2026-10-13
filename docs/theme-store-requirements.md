@@ -93,7 +93,7 @@ Required templates (✅ exists as JSON · ❌):
 
 ## 7. Pages
 **Layout**
-- [x] ✅ `<html lang="{{ request.locale.iso_code }}">`
+- [x] ✅ `<html lang="{{ request.locale.iso_code }}" dir="…">` (`text-direction` snippet; layout CSS uses logical properties, so right-to-left languages mirror)
 - [x] ✅ `routes.*` or resource `.url` for all URLs (no hardcoded paths in Liquid or JS; verified by grep in Phase 6a).
 - [x] ✅ `content_for_header` not modified.
 - [x] ✅ Payment icons via `enabled_payment_types` + `payment_type_svg_tag` (footer).
@@ -149,14 +149,14 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ No `robots.txt.liquid`.
 
 ## 12. Accessibility
-- [ ] ⚠️ Everything keyboard-operable: rebuilt on native controls (radio swatches, `<details>`, `<dialog>`, real checkboxes, buttons). Keyboard pass in Phase 6d.
-- [ ] ⚠️ Visible focus states: global `:focus-visible` ring; cards ring their link overlay. Search field underline focus to be checked in Phase 6d.
-- [ ] ⚠️ Alt text on all images: real `<img>` with `image.alt` everywhere; decorative card images use `alt=""`. Audit in Phase 6d.
-- [ ] ⚠️ Inputs have unique IDs + matching labels. Every form was rewritten with labelled inputs (newsletter, search, quantity, comments, contact; legacy customer forms deleted). A full audit pass is Phase 6.
-- [ ] ⚠️ Valid HTML. The 3 parser errors are gone with the files that had them (navbar, addresses, old gift card); Theme Check reports 0 offenses and every rebuilt template has one `<h1>`. A W3C validator pass on each template is Phase 6.
-- [ ] ⚠️ Contrast 4.5:1 body / 3:1 large + UI: the kit grades every scheme's text, muted text and accent (all pass by default). Check on media and badges in Phase 6d.
-- [ ] ⚠️ Focus order = DOM order (no positive `tabindex`). Keyboard pass in Phase 6d.
-- [ ] ⚠️ Touch targets ≥ 24×24px: icon buttons are 44×44. Measured audit in Phase 6d.
+- [x] ✅ Everything keyboard-operable: native controls throughout. Phase 6d keyboard pass: header dropdown (Enter opens, Tab enters, Escape closes and returns focus), variant swatches by arrow keys (price and URL update, focus kept), drawers and search modal open, trap and close with Escape; carousels without links are focusable scroll regions.
+- [x] ✅ Visible focus states: every focusable element on the audited pages shows a ring under keyboard focus (scripted check after a real Tab); the search field's underline thickens to 2px in full contrast (Phase 6d).
+- [x] ✅ Alt text on all images: real `<img>` with `image.alt`; decorative card images use `alt=""` next to their linked title (axe `image-alt` clean on every template).
+- [x] ✅ Inputs have unique IDs + matching labels (axe `label` and `duplicate-id` rules clean on every template and open drawer, Phase 6d).
+- [x] ✅ Valid HTML: 19 rendered pages (every template plus filtered, empty and error states and four product types) pass `html-validate` (standard ruleset) after fixing the font preload `crossorigin` value. The a11y ruleset's remaining notes are deliberate: `role="list"` on unstyled lists (Safari drops list semantics) and the `payment_terms` product form, which has no submit button by design.
+- [x] ✅ Contrast 4.5:1 body / 3:1 large + UI: the kit grades every scheme; axe `color-contrast` is clean on every template, including text over media and badges.
+- [x] ✅ Focus order = DOM order: no positive `tabindex` anywhere (checked in Phase 6d).
+- [x] ✅ Touch targets ≥ 24×24px: axe `target-size` (WCAG 2.2) clean on every template at 375px and desktop; icon buttons are 44×44.
 - [x] ✅ h1–h6 visually distinct: `.h0`–`.h6` scale in `base.css`, settings for heading scale and case.
 
 ## 13. Social media

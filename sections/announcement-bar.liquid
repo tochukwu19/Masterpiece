@@ -1,9 +1,8 @@
 {%- assign count = section.blocks.size -%}
 
 {%- if count > 0 -%}
-  <div
+  <section
     class="announcement-bar color-{{ section.settings.color_scheme.id }}"
-    role="region"
     aria-label="{{ 'announcements.label' | t }}"
     {% if count > 1 %}
       x-data="announcementBar({{ count }})"
@@ -46,7 +45,7 @@
         </button>
       {%- endif -%}
     </div>
-  </div>
+  </section>
 {%- endif -%}
 
 {% stylesheet %}

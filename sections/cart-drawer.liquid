@@ -14,7 +14,7 @@
         {{- 'cart.title' | t -}}
         {%- if cart.item_count > 0 %} <span class="cart-drawer__count">({{ cart.item_count }})</span>{% endif -%}
       </p>
-      <form method="dialog" class="drawer__close-form"><button class="drawer__close">{{ 'general.close' | t }}</button></form>
+      <form method="dialog" class="drawer__close-form"><button type="submit" class="drawer__close">{{ 'general.close' | t }}</button></form>
     </div>
 
     {%- if cart.item_count > 0 -%}

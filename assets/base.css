@@ -201,7 +201,7 @@ body.overflow-hidden {
 .rte h6 { font-size: 0.8125rem; }
 
 .rte :is(ul, ol) {
-  padding-left: 1.25em;
+  padding-inline-start: 1.25em;
 }
 
 .rte li + li {
@@ -215,8 +215,8 @@ body.overflow-hidden {
 }
 
 .rte blockquote {
-  padding-left: 1.25rem;
-  border-left: 2px solid currentColor;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 2px solid currentColor;
   font-family: var(--font-heading-family);
   font-size: calc(1.25rem * var(--font-heading-scale));
   line-height: 1.4;
@@ -231,7 +231,7 @@ body.overflow-hidden {
 .rte :is(th, td) {
   padding: 0.6em 0.75em;
   border: 1px solid var(--color-border);
-  text-align: left;
+  text-align: start;
 }
 
 .rte img {
@@ -309,7 +309,7 @@ body.overflow-hidden {
 .skip-link {
   position: absolute;
   top: 0.5rem;
-  left: 0.5rem;
+  inset-inline-start: 0.5rem;
   z-index: 1000;
   padding: 0.75rem 1.25rem;
   background-color: var(--color-fg);
@@ -848,6 +848,10 @@ main > .shopify-section + .shopify-section {
   stroke-linejoin: round;
 }
 
+:dir(rtl) :is(.icon-arrow-left, .icon-arrow-right, .icon-chevron-left, .icon-chevron-right) {
+  transform: scaleX(-1);
+}
+
 .icon--fill {
   fill: currentColor;
   stroke: none;
@@ -958,13 +962,13 @@ main > .shopify-section + .shopify-section {
 }
 
 .field__inline .input {
-  padding-right: 3.25rem;
+  padding-inline-end: 3.25rem;
 }
 
 .field__inline-button {
   position: absolute;
   inset-block: 0;
-  right: 0;
+  inset-inline-end: 0;
 }
 
 .checkbox,
@@ -1009,7 +1013,7 @@ main > .shopify-section + .shopify-section {
 
 .form-message ul {
   margin: 0;
-  padding-left: 1.1em;
+  padding-inline-start: 1.1em;
 }
 
 .quantity {
@@ -1202,12 +1206,15 @@ html:has(dialog.drawer[open]) {
 .drawer {
   --drawer-pad: clamp(1.25rem, 4vw, 2rem);
   position: fixed;
-  inset: 0 0 0 auto;
+  --drawer-from: 100%;
+  inset-block: 0;
+  inset-inline: auto 0;
   width: min(100vw, 30rem);
   max-width: 100vw;
   height: 100dvh;
   max-height: 100dvh;
-  margin: 0 0 0 auto;
+  margin: 0;
+  margin-inline-start: auto;
   padding: 0;
   border: 0;
   overflow: hidden;
@@ -1216,8 +1223,17 @@ html:has(dialog.drawer[open]) {
 }
 
 .drawer--left {
-  inset: 0 auto 0 0;
-  margin: 0 auto 0 0;
+  --drawer-from: -100%;
+  inset-inline: 0 auto;
+  margin-inline: 0 auto;
+}
+
+.drawer:dir(rtl) {
+  --drawer-from: -100%;
+}
+
+.drawer--left:dir(rtl) {
+  --drawer-from: 100%;
 }
 
 .drawer--top {
@@ -1233,11 +1249,7 @@ html:has(dialog.drawer[open]) {
 }
 
 .drawer[open] {
-  animation: drawer-in-right var(--duration) var(--ease-out);
-}
-
-.drawer--left[open] {
-  animation-name: drawer-in-left;
+  animation: drawer-in var(--duration) var(--ease-out);
 }
 
 .drawer--top[open] {
@@ -1248,12 +1260,8 @@ html:has(dialog.drawer[open]) {
   animation: fade-in var(--duration) ease;
 }
 
-@keyframes drawer-in-right {
-  from { transform: translateX(100%); }
-}
-
-@keyframes drawer-in-left {
-  from { transform: translateX(-100%); }
+@keyframes drawer-in {
+  from { transform: translateX(var(--drawer-from)); }
 }
 
 @keyframes drawer-in-top {

@@ -25,10 +25,10 @@
 -%}
 
 <title>
-  {{- page_title -}}
+  {{- og_title -}}
   {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: tags_joined }}{% endif -%}
   {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- unless og_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
 </title>
 
 {%- if page_description %}
