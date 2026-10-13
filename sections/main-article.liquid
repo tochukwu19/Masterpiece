@@ -1,0 +1,279 @@
+{{ 'component-article.css' | asset_url | stylesheet_tag }}
+
+<article
+  class="main-article section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="main-article__body page-width">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          <div class="main-article__block">{% render block %}</div>
+
+        {%- when 'title' -%}
+          <header class="main-article__block main-article__block--wide main-article__header" {{ block.shopify_attributes }}>
+            {%- if block.settings.show_date or block.settings.show_author -%}
+              <p class="main-article__meta eyebrow text-muted">
+                {%- if block.settings.show_date -%}
+                  {{- article.published_at | time_tag: format: 'date' -}}
+                {%- endif -%}
+                {%- if block.settings.show_author and article.author != blank -%}
+                  {%- if block.settings.show_date %} · {% endif -%}
+                  <span>{{ 'blogs.article.by_author' | t: author: article.author }}</span>
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            <h1 class="main-article__title {{ block.settings.heading_size }}">{{ article.title | escape }}</h1>
+          </header>
+
+        {%- when 'image' -%}
+          {%- if article.image -%}
+            {%- liquid
+              case block.settings.ratio
+                when 'landscape'
+                  assign image_ratio = '3 / 2'
+                when 'wide'
+                  assign image_ratio = '16 / 9'
+                else
+                  assign image_ratio = article.image.aspect_ratio
+              endcase
+            -%}
+            <figure class="main-article__block main-article__block--wide main-article__image" {{ block.shopify_attributes }}>
+              <div class="media" style="--ratio: {{ image_ratio }};">
+                {%- render 'image', image: article.image, sizes: '(min-width: 1400px) 1400px, 100vw', eager: true -%}
+              </div>
+            </figure>
+          {%- endif -%}
+
+        {%- when 'content' -%}
+          <div class="main-article__block main-article__content rte" {{ block.shopify_attributes }}>
+            {{- article.content -}}
+          </div>
+
+        {%- when 'tags' -%}
+          {%- if article.tags.size > 0 -%}
+            <div class="main-article__block" {{ block.shopify_attributes }}>
+              <ul class="main-article__tags list-unstyled" role="list" aria-label="{{ 'blogs.article.tags_label' | t }}">
+                {%- for tag in article.tags -%}
+                  <li>
+                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="pill">{{ tag | escape }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+        {%- when 'share' -%}
+          <div
+            class="main-article__block main-article__share"
+            x-data="share({ url: {{ shop.url | append: article.url | json | escape }}, title: {{ article.title | json | escape }} })"
+            {{ block.shopify_attributes }}
+          >
+            <button type="button" class="button button--tertiary" x-on:click="share()">
+              {%- render 'icon', name: 'share' -%}
+              {% if block.settings.label != blank %}{{ block.settings.label | escape }}{% else %}{{ 'general.share.label' | t }}{% endif %}
+            </button>
+            <span class="text-small text-muted" role="status" x-text="status"></span>
+          </div>
+
+        {%- when 'custom_liquid' -%}
+          <div class="main-article__block" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if blog.comments_enabled? -%}
+    {%- render 'article-comments', article: article, blog: blog, per_page: section.settings.comments_per_page -%}
+  {%- endif -%}
+
+  {%- if section.settings.show_navigation -%}
+    {%- if blog.previous_article or blog.next_article -%}
+      <nav class="article-nav page-width" aria-label="{{ 'blogs.article.navigation_label' | t }}">
+        {%- if blog.previous_article -%}
+          <a href="{{ blog.previous_article.url }}" class="article-nav__link article-nav__link--previous" rel="prev">
+            <span class="article-nav__label eyebrow text-muted">
+              {%- render 'icon', name: 'arrow-left' -%}
+              {{- 'blogs.article.previous_post' | t -}}
+            </span>
+            <span class="article-nav__title h4">{{ blog.previous_article.title | escape }}</span>
+          </a>
+        {%- endif -%}
+        {%- if blog.next_article -%}
+          <a href="{{ blog.next_article.url }}" class="article-nav__link article-nav__link--next" rel="next">
+            <span class="article-nav__label eyebrow text-muted">
+              {{- 'blogs.article.next_post' | t -}}
+              {%- render 'icon', name: 'arrow-right' -%}
+            </span>
+            <span class="article-nav__title h4">{{ blog.next_article.title | escape }}</span>
+          </a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endif -%}
+</article>
+
+<script type="application/ld+json">{{ article | structured_data }}</script>
+
+{% schema %}
+{
+  "name": "t:sections.main_article.name",
+  "class": "section-main-article",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main_article.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "t:sections.all.heading_size.label",
+          "options": [
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h1"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_date",
+          "default": true,
+          "label": "t:sections.blog_posts.settings.show_date.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_author",
+          "default": true,
+          "label": "t:sections.blog_posts.settings.show_author.label"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "t:sections.main_article.blocks.image.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "ratio",
+          "label": "t:sections.main_article.blocks.image.settings.ratio.label",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.main_article.blocks.image.settings.ratio.options__1.label"
+            },
+            {
+              "value": "landscape",
+              "label": "t:sections.main_article.blocks.image.settings.ratio.options__2.label"
+            },
+            {
+              "value": "wide",
+              "label": "t:sections.main_article.blocks.image.settings.ratio.options__3.label"
+            }
+          ],
+          "default": "landscape"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.main_article.blocks.content.name",
+      "limit": 1
+    },
+    {
+      "type": "tags",
+      "name": "t:sections.main_article.blocks.tags.name",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "t:sections.main_article.blocks.share.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "default": "Share",
+          "label": "t:sections.main_article.blocks.share.settings.label.label"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "t:sections.main_article.blocks.custom_liquid.name",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:sections.main_article.blocks.custom_liquid.settings.custom_liquid.label",
+          "info": "t:sections.main_article.blocks.custom_liquid.settings.custom_liquid.info"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "default": true,
+      "label": "t:sections.main_article.settings.show_navigation.label"
+    },
+    {
+      "type": "range",
+      "id": "comments_per_page",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "default": 10,
+      "label": "t:sections.main_article.settings.comments_per_page.label",
+      "info": "t:sections.main_article.settings.comments_per_page.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["article"]
+  }
+}
+{% endschema %}

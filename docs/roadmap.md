@@ -99,7 +99,11 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 - One or two pages with body text, for page results in search
 
 ## Phase 5 — Content and accounts
-- [ ] `main-blog`, `main-article` (comments + pagination + messages), `main-page`, contact form, 404, password, gift card
+Branch `phase-5-content`. Each commit removes its templates from the layout's legacy CSS list.
+- [x] 5a. `main-blog` (tag filter, featured first post, pagination, empty state) and `main-article` (blocks, comments with pagination and messages, previous and next links). Shared `.pill` primitive; `share` moved to `components.js`
+- [ ] 5b. `main-page`, contact form, 404
+- [ ] 5c. Gift card rewrite; password re-check
+- [ ] 5d. Delete `customers/*`, `application.css` and `legacy-bridge.css`; RTE pass; kit specimens
 - [ ] ~~Customer templates~~ Not required: legacy customer accounts are deprecated and the legacy `customers/*` templates are no longer a Theme Store requirement (changelog, July 2026). Delete them, rely on new customer accounts + `<shopify-account>`
 
 ## Phase 6 — Hardening

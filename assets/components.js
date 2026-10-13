@@ -212,6 +212,23 @@ document.addEventListener('alpine:init', () => {
     };
   });
 
+  Alpine.data('share', ({ url, title }) => ({
+    status: '',
+    async share() {
+      try {
+        if (navigator.share) {
+          await navigator.share({ url, title });
+          return;
+        }
+        await navigator.clipboard.writeText(url);
+        this.status = theme.strings.linkCopied;
+        setTimeout(() => (this.status = ''), 3000);
+      } catch (error) {
+        if (error.name !== 'AbortError') this.status = theme.strings.genericError;
+      }
+    },
+  }));
+
   Alpine.data('wordmark', () => {
     let observer;
 

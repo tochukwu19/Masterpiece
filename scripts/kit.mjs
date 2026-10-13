@@ -145,6 +145,7 @@ const nav = [
   ['product', 'Product'],
   ['collection', 'Collection'],
   ['home', 'Home sections'],
+  ['blog', 'Blog and article'],
 ];
 
 const cartItem = (title, options, price, compare, shade) => `
@@ -451,8 +452,8 @@ ${section('collection', 'Collection', 'scheme-1', `<div class="ds-stack">
       <div class="facets-toolbar__sort"><label class="facets-toolbar__sort-label text-small" for="ds-sort">Sort by</label><div class="select-field select-field--inline"><select id="ds-sort" class="select select--inline"><option>Featured</option><option>Price, low to high</option></select>${icon('chevron-down').replace('class="icon"', 'class="icon select-field__icon"')}</div></div>
     </div>
     <div class="facets-pills"><ul class="facets-pills__list list-unstyled">
-      <li><a href="#" class="facets-pills__pill"><span>Metal: Yellow gold</span>${icon('close')}</a></li>
-      <li><a href="#" class="facets-pills__pill"><span>Up to $500.00</span>${icon('close')}</a></li>
+      <li><a href="#" class="pill facets-pills__pill"><span>Metal: Yellow gold</span>${icon('close')}</a></li>
+      <li><a href="#" class="pill facets-pills__pill"><span>Up to $500.00</span>${icon('close')}</a></li>
       <li><a href="#" class="facets-pills__clear link">Clear all</a></li>
     </ul></div>
   </div>
@@ -513,6 +514,51 @@ ${section('home', 'Home sections', 'scheme-1', `<div class="ds-stack">
     <li><article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;">${placeholder(12)}</div><div class="card-article__info"><h3 class="card-article__title h4">Blog post title</h3></div></article></li>
   </ul>
 </div>`)}
+${section('blog', 'Blog and article', 'scheme-1', `<div class="ds-stack">
+  <ul class="main-blog__tag-list list-unstyled"><li><a href="#" class="pill" aria-current="page">All</a></li><li><a href="#" class="pill">Care</a></li><li><a href="#" class="pill">Rings</a></li><li><a href="#" class="pill">Styling</a></li></ul>
+  <ul class="layout-grid list-unstyled" style="--cols: 3; --cols-mobile: 1;">
+    <li class="main-blog__feature"><article class="card-article card-article--wide"><div class="card-article__media media" style="--ratio: 3 / 2;">${placeholder(18)}</div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 12, 2026</p><h2 class="card-article__title h2"><a href="#" class="card-article__link">Caring for your jewelry</a></h2><p class="card-article__excerpt text-muted">Simple wearing and storage habits help you look after delicate chains and polished finishes.</p></div></article></li>
+    <li><article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;">${placeholder(12)}</div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 2, 2026</p><h2 class="card-article__title h4"><a href="#" class="card-article__link">Finding your ring size</a></h2><p class="card-article__excerpt text-muted">Measure the finger you plan to wear it on.</p></div></article></li>
+    <li><article class="card-article card-article--text"><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">September 20, 2026</p><h2 class="card-article__title h4"><a href="#" class="card-article__link">A post without an image</a></h2><p class="card-article__excerpt text-muted">Posts without a featured image sit on a surface panel.</p></div></article></li>
+  </ul>
+  <div class="main-article" style="--article-width: 40rem;"><div class="main-article__body">
+    <header class="main-article__block main-article__block--wide main-article__header"><p class="main-article__meta eyebrow text-muted">October 12, 2026 · By Vermeil Journal</p><h1 class="main-article__title h1">Finding your ring size</h1></header>
+    <div class="main-article__block main-article__content rte">
+      <p>A ring should feel secure while still allowing you to remove it comfortably. <a href="#">Browse rings</a> or read on.</p>
+      <h2>Measure the intended finger</h2>
+      <p>Ask a jeweler to measure your finger with a ring sizer.</p>
+      <ul><li>The ring stays on during normal movement.</li><li>You can bend your finger comfortably.</li></ul>
+      <ol><li>Measure in the evening.</li><li>Check the chart for the product.</li></ol>
+      <blockquote><p>Small differences matter when a ring needs to pass over the knuckle.</p></blockquote>
+      <table><thead><tr><th>Method</th><th>Useful for</th></tr></thead><tbody><tr><td>Ring sizer</td><td>Trying the fit directly</td></tr><tr><td>A ring you own</td><td>The inside diameter</td></tr></tbody></table>
+    </div>
+    <div class="main-article__block"><ul class="main-article__tags list-unstyled"><li><a href="#" class="pill">Guides</a></li><li><a href="#" class="pill">Rings</a></li></ul></div>
+    <div class="main-article__block main-article__share"><button type="button" class="button button--tertiary">${icon('share')}Share</button></div>
+  </div>
+  <section class="article-comments"><div class="article-comments__inner">
+    <h2 class="h3">2 comments</h2>
+    <ol class="article-comments__list list-unstyled">
+      <li class="article-comments__item"><p class="article-comments__meta text-small"><span class="article-comments__author">Amara O.</span><span class="text-muted">October 13, 2026</span></p><div class="article-comments__content rte"><p>The tip about measuring in the evening helped.</p></div></li>
+      <li class="article-comments__item"><p class="article-comments__meta text-small"><span class="article-comments__author">Jules</span><span class="text-muted">October 14, 2026</span></p><div class="article-comments__content rte"><p>Does this apply to wide bands too?</p></div></li>
+    </ol>
+    <form class="comment-form" onsubmit="return false">
+      <h3 class="h4">Leave a comment</h3>
+      <p class="form-message" role="status">${icon('check')}Thanks. Your comment will appear once it has been approved.</p>
+      <div class="form-message form-message--error">${icon('error')}<div><p>Check the following and try again:</p><ul><li><a href="#ds-comment-email">Email is invalid</a></li></ul></div></div>
+      <div class="comment-form__fields">
+        <div class="field"><label class="field__label" for="ds-comment-name">Name</label><input id="ds-comment-name" class="input" type="text" value="Jules"></div>
+        <div class="field"><label class="field__label" for="ds-comment-email">Email</label><input id="ds-comment-email" class="input" type="email" value="jules@" aria-invalid="true"></div>
+        <div class="field comment-form__message"><label class="field__label" for="ds-comment-body">Comment</label><textarea id="ds-comment-body" class="textarea" rows="4"></textarea></div>
+      </div>
+      <p class="text-small text-muted">Comments are reviewed before they appear.</p>
+      <div><button type="submit" class="button">Post comment</button></div>
+    </form>
+  </div></section>
+  <nav class="article-nav" aria-label="More posts">
+    <a href="#" class="article-nav__link article-nav__link--previous"><span class="article-nav__label eyebrow text-muted">${icon('arrow-left')}Previous post</span><span class="article-nav__title h4">Choosing your everyday jewelry</span></a>
+    <a href="#" class="article-nav__link article-nav__link--next"><span class="article-nav__label eyebrow text-muted">Next post${icon('arrow-right')}</span><span class="article-nav__title h4">Caring for your jewelry</span></a>
+  </nav>
+</div></div>`)}
 </main>
 <script>
   const fit = () => document.querySelectorAll('[data-fit]').forEach((text) => {

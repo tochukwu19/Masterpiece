@@ -21,7 +21,11 @@
       "previous": "Previous page"
     },
     "close": "Close",
-    "view_all": "View all"
+    "view_all": "View all",
+    "share": {
+      "label": "Share",
+      "copied": "Link copied"
+    }
   },
   "accessibility": {
     "skip_to_content": "Skip to content"
@@ -98,10 +102,6 @@
       "message_help": "{{ max }} characters maximum.",
       "send_on": "Send on (optional)",
       "send_on_help": "Leave empty to send right away. Up to 90 days ahead."
-    },
-    "share": {
-      "label": "Share",
-      "copied": "Link copied"
     },
     "video": {
       "play": "Play video",
@@ -255,5 +255,34 @@
   },
   "video": {
     "play": "Play video"
+  },
+  "blogs": {
+    "tags_label": "Filter posts by tag",
+    "all_posts": "All",
+    "empty": "There are no posts here yet.",
+    "view_all_posts": "View all posts",
+    "article": {
+      "by_author": "By {{ author }}",
+      "tags_label": "Tags",
+      "navigation_label": "More posts",
+      "previous_post": "Previous post",
+      "next_post": "Next post"
+    },
+    "comments": {
+      "title": "Comments",
+      "count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      },
+      "form_title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Comment",
+      "submit": "Post comment",
+      "moderated": "Comments are reviewed before they appear.",
+      "success": "Your comment was posted.",
+      "success_moderated": "Thanks. Your comment will appear once it has been approved.",
+      "error": "Check the following and try again:"
+    }
   }
 }

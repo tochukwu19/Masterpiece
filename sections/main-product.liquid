@@ -190,7 +190,7 @@
             <div class="product__share" x-data="share({ url: {{ shop.url | append: product.url | json | escape }}, title: {{ product.title | json | escape }} })" {{ block.shopify_attributes }}>
               <button type="button" class="button button--tertiary" x-on:click="share()">
                 {%- render 'icon', name: 'share' -%}
-                {% if block.settings.label != blank %}{{ block.settings.label | escape }}{% else %}{{ 'products.share.label' | t }}{% endif %}
+                {% if block.settings.label != blank %}{{ block.settings.label | escape }}{% else %}{{ 'general.share.label' | t }}{% endif %}
               </button>
               <span class="text-small text-muted" role="status" x-text="status"></span>
             </div>

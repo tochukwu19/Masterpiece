@@ -26,7 +26,7 @@
 
     {% render 'css-variables' %}
     {%- liquid
-      assign legacy_templates = '404,article,blog,page' | split: ','
+      assign legacy_templates = '404,page' | split: ','
       assign legacy_styles = false
       if legacy_templates contains template.name or template.directory == 'customers'
         assign legacy_styles = true
@@ -59,7 +59,7 @@
         strings: {
           genericError: {{ 'general.errors.generic' | t | json }},
           cartItemRemoved: {{ 'cart.item_removed' | t | json }},
-          linkCopied: {{ 'products.share.copied' | t | json }}
+          linkCopied: {{ 'general.share.copied' | t | json }}
         }
       };
     </script>

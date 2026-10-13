@@ -1,0 +1,135 @@
+{% doc %}
+  Article comments: paginated list, comment form, and success, moderation and error messages.
+
+  @param {article} article - The article
+  @param {blog} blog - The article's blog
+  @param {number} [per_page] - Comments per page. Defaults to 10
+  @example
+  {% render 'article-comments', article: article, blog: blog, per_page: 10 %}
+{% enddoc %}
+
+{%- assign comments_per_page = per_page | default: 10 -%}
+
+<section id="comments" class="article-comments page-width" aria-labelledby="CommentsHeading">
+  <div class="article-comments__inner">
+    <h2 id="CommentsHeading" class="h3">
+      {%- if article.comments_count > 0 -%}
+        {{ 'blogs.comments.count' | t: count: article.comments_count }}
+      {%- else -%}
+        {{ 'blogs.comments.title' | t }}
+      {%- endif -%}
+    </h2>
+
+    {%- if article.comments_count > 0 -%}
+      {%- paginate article.comments by comments_per_page -%}
+        <ol class="article-comments__list list-unstyled" role="list">
+          {%- for comment in article.comments -%}
+            <li id="comment-{{ comment.id }}" class="article-comments__item">
+              <p class="article-comments__meta text-small">
+                <span class="article-comments__author">{{ comment.author | escape }}</span>
+                <span class="text-muted">{{ comment.created_at | time_tag: format: 'date' }}</span>
+              </p>
+              <div class="article-comments__content rte">{{ comment.content }}</div>
+            </li>
+          {%- endfor -%}
+        </ol>
+        {%- render 'pagination', paginate: paginate, anchor: '#comments' -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+
+    {%- form 'new_comment', article, class: 'comment-form' -%}
+      <h3 class="h4">{{ 'blogs.comments.form_title' | t }}</h3>
+
+      {%- if form.posted_successfully? -%}
+        <p class="form-message" role="status">
+          {%- render 'icon', name: 'check' -%}
+          {%- if blog.moderated? -%}
+            {{ 'blogs.comments.success_moderated' | t }}
+          {%- else -%}
+            {{ 'blogs.comments.success' | t }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <div class="form-message form-message--error" id="CommentForm-errors" role="alert" tabindex="-1">
+          {%- render 'icon', name: 'error' -%}
+          <div>
+            <p>{{ 'blogs.comments.error' | t }}</p>
+            <ul>
+              {%- for field in form.errors -%}
+                <li>
+                  {%- if field == 'form' -%}
+                    {{ form.errors.messages[field] }}
+                  {%- else -%}
+                    <a href="#CommentForm-{{ field }}">{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="comment-form__fields">
+        <div class="field">
+          <label class="field__label" for="CommentForm-author">{{ 'blogs.comments.name' | t }}</label>
+          <input
+            id="CommentForm-author"
+            class="input"
+            type="text"
+            name="comment[author]"
+            value="{{ form.author }}"
+            autocomplete="name"
+            autocapitalize="words"
+            required
+            {% if form.errors contains 'author' %}
+              aria-invalid="true" aria-describedby="CommentForm-errors"
+            {% endif %}
+          >
+        </div>
+        <div class="field">
+          <label class="field__label" for="CommentForm-email">{{ 'blogs.comments.email' | t }}</label>
+          <input
+            id="CommentForm-email"
+            class="input"
+            type="email"
+            name="comment[email]"
+            value="{{ form.email }}"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            required
+            {% if form.errors contains 'email' %}
+              aria-invalid="true" aria-describedby="CommentForm-errors"
+            {% endif %}
+          >
+        </div>
+        <div class="field comment-form__message">
+          <label class="field__label" for="CommentForm-body">{{ 'blogs.comments.message' | t }}</label>
+          <textarea
+            id="CommentForm-body"
+            class="textarea"
+            name="comment[body]"
+            rows="5"
+            required
+            {% if form.errors contains 'body' %}
+              aria-invalid="true" aria-describedby="CommentForm-errors"
+            {% endif %}
+          >
+            {{- form.body -}}
+          </textarea>
+        </div>
+      </div>
+
+      {%- if blog.moderated? -%}
+        <p class="text-small text-muted">{{ 'blogs.comments.moderated' | t }}</p>
+      {%- endif -%}
+
+      <div>
+        <button type="submit" class="button">{{ 'blogs.comments.submit' | t }}</button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>

@@ -293,6 +293,15 @@
         "options__2": {
           "label": "Carousel"
         }
+      },
+      "alignment": {
+        "label": "Alignment",
+        "options__1": {
+          "label": "Left"
+        },
+        "options__2": {
+          "label": "Center"
+        }
       }
     },
     "header_group": {
@@ -1198,6 +1207,97 @@
       },
       "presets": {
         "name": "Featured product"
+      }
+    },
+    "main_blog": {
+      "name": "Blog",
+      "settings": {
+        "show_tags": {
+          "label": "Show tag filter"
+        },
+        "layout": {
+          "options__1": {
+            "label": "Grid"
+          },
+          "options__2": {
+            "label": "Feature the latest post"
+          }
+        },
+        "posts_per_page": {
+          "label": "Posts per page"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options__1": {
+            "label": "Portrait"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Landscape"
+          }
+        },
+        "header_card": {
+          "content": "Post card"
+        }
+      }
+    },
+    "main_article": {
+      "name": "Blog post",
+      "settings": {
+        "show_navigation": {
+          "label": "Show previous and next post links"
+        },
+        "comments_per_page": {
+          "label": "Comments per page",
+          "info": "Comments show when they are enabled for the blog."
+        }
+      },
+      "blocks": {
+        "title": {
+          "name": "Title"
+        },
+        "image": {
+          "name": "Featured image",
+          "settings": {
+            "ratio": {
+              "label": "Image ratio",
+              "options__1": {
+                "label": "Adapt to image"
+              },
+              "options__2": {
+                "label": "Landscape"
+              },
+              "options__3": {
+                "label": "Wide"
+              }
+            }
+          }
+        },
+        "content": {
+          "name": "Content"
+        },
+        "tags": {
+          "name": "Tags"
+        },
+        "share": {
+          "name": "Share",
+          "settings": {
+            "label": {
+              "label": "Label"
+            }
+          }
+        },
+        "custom_liquid": {
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": {
+              "label": "Custom Liquid",
+              "info": "Add app snippets or other code to create advanced customizations."
+            }
+          }
+        }
       }
     }
   },

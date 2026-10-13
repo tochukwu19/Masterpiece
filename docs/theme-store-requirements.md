@@ -67,8 +67,8 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 Required templates (✅ exists as JSON · ❌):
 - [x] `layout/theme.liquid` (needs rewrite)
 - [ ] ❌ `404.json` (currently `.liquid`)
-- [ ] ❌ `article.json`
-- [ ] ❌ `blog.json`
+- [x] ✅ `article.json`
+- [x] ✅ `blog.json`
 - [x] ✅ `cart.json`
 - [x] ✅ `collection.json`
 - [x] ✅ `index.json`
@@ -111,9 +111,9 @@ Required templates (✅ exists as JSON · ❌):
 
 **Page** — title + content; contact alternate template. Status: ⚠️ unstyled.
 
-**Blog** — `blog.title`; per article: title→url, `article.image`, `article.excerpt_or_content`; pagination. Status: ❌ uses `excerpt`/`content`, no image.
+**Blog** — `blog.title`; per article: title→url, `article.image`, `article.excerpt_or_content`; pagination. Status: ✅ Phase 5a `main-blog` (article cards with image or a text panel, tag filter, optional featured first post, pagination, empty state).
 
-**Article** — title, `article.comments`, `published_at` (not `created_at`), paginated comments, comment success/error messages. Status: ❌ uses `created_at`; unstyled.
+**Article** — title, `article.comments`, `published_at` (not `created_at`), paginated comments, comment success/error messages. Status: ✅ Phase 5a `main-article` (blocks: title, featured image, content, tags, share, custom Liquid, apps; paginated comments with posted, awaiting-moderation and error messages; previous and next post links; structured data). Posting a comment is an owner check.
 
 **Search** — empty message; products + articles + pages via `object_type`; pagination. Status: ✅ Phase 4b `main-search` (product, article and page cards, filters, sort, empty-query, no-results and filtered-empty states, pagination).
 

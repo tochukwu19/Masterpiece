@@ -82,6 +82,7 @@
 .color-scheme-1, .color-scheme-2, .color-scheme-3, .color-scheme-4 { background-color: var(--color-bg); background-image: var(--color-bg-image); color: var(--color-fg); }
 </style>
 <link rel="stylesheet" href="../../assets/base.css">
+<link rel="stylesheet" href="../../assets/component-article.css">
 <link rel="stylesheet" href="../../assets/component-facets.css">
 <link rel="stylesheet" href="../../assets/component-product.css">
 <style>
@@ -105,6 +106,25 @@
   .card-article__info {
     display: grid;
     gap: 0.5rem;
+  }
+
+  .card-article--text {
+    align-content: end;
+    min-height: 100%;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background-color: var(--color-surface);
+  }
+
+  @media (min-width: 750px) {
+    .card-article--wide:not(.card-article--text) {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: clamp(1.5rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .card-article--wide .card-article__info {
+      gap: 1rem;
+    }
   }
 
   .card-article__meta {
@@ -1550,6 +1570,35 @@
     opacity: 0.7;
   }
 
+.main-blog__tags {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .main-blog__tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .main-blog__tags--center .main-blog__tag-list {
+    justify-content: center;
+  }
+
+  .main-blog__feature {
+    grid-column: 1 / -1;
+  }
+
+  .main-blog__empty {
+    display: grid;
+    justify-items: start;
+    gap: 1.5rem;
+    padding-block: clamp(2rem, 6vw, 4rem);
+  }
+
+  .main-blog .pagination {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
 .main-cart__heading {
     display: flex;
     flex-wrap: wrap;
@@ -1992,7 +2041,7 @@
   <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
   <h1 class="h0">Vermeil</h1>
   <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
-  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a><a class="link" href="#home">Home sections</a></nav>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a><a class="link" href="#home">Home sections</a><a class="link" href="#blog">Blog and article</a></nav>
 </header>
 <main>
 
@@ -2404,8 +2453,8 @@
       <div class="facets-toolbar__sort"><label class="facets-toolbar__sort-label text-small" for="ds-sort">Sort by</label><div class="select-field select-field--inline"><select id="ds-sort" class="select select--inline"><option>Featured</option><option>Price, low to high</option></select><svg class="icon select-field__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></div></div>
     </div>
     <div class="facets-pills"><ul class="facets-pills__list list-unstyled">
-      <li><a href="#" class="facets-pills__pill"><span>Metal: Yellow gold</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></li>
-      <li><a href="#" class="facets-pills__pill"><span>Up to $500.00</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></li>
+      <li><a href="#" class="pill facets-pills__pill"><span>Metal: Yellow gold</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></li>
+      <li><a href="#" class="pill facets-pills__pill"><span>Up to $500.00</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a></li>
       <li><a href="#" class="facets-pills__clear link">Clear all</a></li>
     </ul></div>
   </div>
@@ -2472,6 +2521,57 @@
     <li><article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 12%, var(--color-bg))"/></svg></div><div class="card-article__info"><h3 class="card-article__title h4">Blog post title</h3></div></article></li>
   </ul>
 </div>
+  </div>
+</section>
+
+<section id="blog" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Blog and article</h2>
+    <div class="ds-stack">
+  <ul class="main-blog__tag-list list-unstyled"><li><a href="#" class="pill" aria-current="page">All</a></li><li><a href="#" class="pill">Care</a></li><li><a href="#" class="pill">Rings</a></li><li><a href="#" class="pill">Styling</a></li></ul>
+  <ul class="layout-grid list-unstyled" style="--cols: 3; --cols-mobile: 1;">
+    <li class="main-blog__feature"><article class="card-article card-article--wide"><div class="card-article__media media" style="--ratio: 3 / 2;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 18%, var(--color-bg))"/></svg></div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 12, 2026</p><h2 class="card-article__title h2"><a href="#" class="card-article__link">Caring for your jewelry</a></h2><p class="card-article__excerpt text-muted">Simple wearing and storage habits help you look after delicate chains and polished finishes.</p></div></article></li>
+    <li><article class="card-article"><div class="card-article__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 12%, var(--color-bg))"/></svg></div><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">October 2, 2026</p><h2 class="card-article__title h4"><a href="#" class="card-article__link">Finding your ring size</a></h2><p class="card-article__excerpt text-muted">Measure the finger you plan to wear it on.</p></div></article></li>
+    <li><article class="card-article card-article--text"><div class="card-article__info"><p class="card-article__meta eyebrow text-muted">September 20, 2026</p><h2 class="card-article__title h4"><a href="#" class="card-article__link">A post without an image</a></h2><p class="card-article__excerpt text-muted">Posts without a featured image sit on a surface panel.</p></div></article></li>
+  </ul>
+  <div class="main-article" style="--article-width: 40rem;"><div class="main-article__body">
+    <header class="main-article__block main-article__block--wide main-article__header"><p class="main-article__meta eyebrow text-muted">October 12, 2026 · By Vermeil Journal</p><h1 class="main-article__title h1">Finding your ring size</h1></header>
+    <div class="main-article__block main-article__content rte">
+      <p>A ring should feel secure while still allowing you to remove it comfortably. <a href="#">Browse rings</a> or read on.</p>
+      <h2>Measure the intended finger</h2>
+      <p>Ask a jeweler to measure your finger with a ring sizer.</p>
+      <ul><li>The ring stays on during normal movement.</li><li>You can bend your finger comfortably.</li></ul>
+      <ol><li>Measure in the evening.</li><li>Check the chart for the product.</li></ol>
+      <blockquote><p>Small differences matter when a ring needs to pass over the knuckle.</p></blockquote>
+      <table><thead><tr><th>Method</th><th>Useful for</th></tr></thead><tbody><tr><td>Ring sizer</td><td>Trying the fit directly</td></tr><tr><td>A ring you own</td><td>The inside diameter</td></tr></tbody></table>
+    </div>
+    <div class="main-article__block"><ul class="main-article__tags list-unstyled"><li><a href="#" class="pill">Guides</a></li><li><a href="#" class="pill">Rings</a></li></ul></div>
+    <div class="main-article__block main-article__share"><button type="button" class="button button--tertiary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4.5-7.5L12 3l4.5 4.5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg>Share</button></div>
+  </div>
+  <section class="article-comments"><div class="article-comments__inner">
+    <h2 class="h3">2 comments</h2>
+    <ol class="article-comments__list list-unstyled">
+      <li class="article-comments__item"><p class="article-comments__meta text-small"><span class="article-comments__author">Amara O.</span><span class="text-muted">October 13, 2026</span></p><div class="article-comments__content rte"><p>The tip about measuring in the evening helped.</p></div></li>
+      <li class="article-comments__item"><p class="article-comments__meta text-small"><span class="article-comments__author">Jules</span><span class="text-muted">October 14, 2026</span></p><div class="article-comments__content rte"><p>Does this apply to wide bands too?</p></div></li>
+    </ol>
+    <form class="comment-form" onsubmit="return false">
+      <h3 class="h4">Leave a comment</h3>
+      <p class="form-message" role="status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>Thanks. Your comment will appear once it has been approved.</p>
+      <div class="form-message form-message--error"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><div><p>Check the following and try again:</p><ul><li><a href="#ds-comment-email">Email is invalid</a></li></ul></div></div>
+      <div class="comment-form__fields">
+        <div class="field"><label class="field__label" for="ds-comment-name">Name</label><input id="ds-comment-name" class="input" type="text" value="Jules"></div>
+        <div class="field"><label class="field__label" for="ds-comment-email">Email</label><input id="ds-comment-email" class="input" type="email" value="jules@" aria-invalid="true"></div>
+        <div class="field comment-form__message"><label class="field__label" for="ds-comment-body">Comment</label><textarea id="ds-comment-body" class="textarea" rows="4"></textarea></div>
+      </div>
+      <p class="text-small text-muted">Comments are reviewed before they appear.</p>
+      <div><button type="submit" class="button">Post comment</button></div>
+    </form>
+  </div></section>
+  <nav class="article-nav" aria-label="More posts">
+    <a href="#" class="article-nav__link article-nav__link--previous"><span class="article-nav__label eyebrow text-muted"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4m6-6-6 6 6 6"/></svg>Previous post</span><span class="article-nav__title h4">Choosing your everyday jewelry</span></a>
+    <a href="#" class="article-nav__link article-nav__link--next"><span class="article-nav__label eyebrow text-muted">Next post<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span><span class="article-nav__title h4">Caring for your jewelry</span></a>
+  </nav>
+</div></div>
   </div>
 </section>
 </main>

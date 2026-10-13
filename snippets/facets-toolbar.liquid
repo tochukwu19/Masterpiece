@@ -101,7 +101,7 @@
                 endif
               -%}
               <li>
-                <a href="{{ filter.url_to_remove }}" class="facets-pills__pill" data-facets-link>
+                <a href="{{ filter.url_to_remove }}" class="pill facets-pills__pill" data-facets-link>
                   <span class="visually-hidden">{{ 'facets.remove' | t }}</span>
                   <span>{{ price_label }}</span>
                   {%- render 'icon', name: 'close' -%}
@@ -111,7 +111,7 @@
           {%- else -%}
             {%- for value in filter.active_values -%}
               <li>
-                <a href="{{ value.url_to_remove }}" class="facets-pills__pill" data-facets-link>
+                <a href="{{ value.url_to_remove }}" class="pill facets-pills__pill" data-facets-link>
                   <span class="visually-hidden">{{ 'facets.remove' | t }}</span>
                   <span>{{ filter.label | escape }}: {{ value.label | escape }}</span>
                   {%- render 'icon', name: 'close' -%}

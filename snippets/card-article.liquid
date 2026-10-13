@@ -7,6 +7,8 @@
   @param {boolean} [show_author] - Show the author
   @param {boolean} [show_excerpt] - Show the excerpt. Defaults to true
   @param {string} [heading_tag] - Title element. Defaults to h3
+  @param {string} [ratio] - Image aspect ratio, e.g. '3 / 2'. Defaults to 4 / 5
+  @param {boolean} [wide] - Image beside the text on larger screens, with a larger title
   @example
   {% render 'card-article', article: article %}
 {% enddoc %}
@@ -14,16 +16,19 @@
 {%- liquid
   assign tag = heading_tag | default: 'h3'
   assign img_sizes = sizes | default: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw'
+  assign img_ratio = ratio | default: '4 / 5'
+  assign title_size = 'h4'
+  if wide
+    assign title_size = 'h2'
+  endif
 -%}
 
-<article class="card-article">
-  <div class="card-article__media media" style="--ratio: 4 / 5;">
-    {%- if article.image -%}
+<article class="card-article{% if wide %} card-article--wide{% endif %}{% unless article.image %} card-article--text{% endunless %}">
+  {%- if article.image -%}
+    <div class="card-article__media media" style="--ratio: {{ img_ratio }};">
       {%- render 'image', image: article.image, sizes: img_sizes, alt: '', class: 'card-article__image' -%}
-    {%- else -%}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
-    {%- endif -%}
-  </div>
+    </div>
+  {%- endif -%}
   <div class="card-article__info">
     {%- unless show_date == false and show_author != true -%}
       <p class="card-article__meta eyebrow text-muted">
@@ -36,7 +41,7 @@
         {%- endif -%}
       </p>
     {%- endunless -%}
-    <{{ tag }} class="card-article__title h4">
+    <{{ tag }} class="card-article__title {{ title_size }}">
       <a href="{{ article.url }}" class="card-article__link">{{ article.title | escape }}</a>
     </{{ tag }}>
     {%- unless show_excerpt == false -%}
@@ -68,6 +73,25 @@
   .card-article__info {
     display: grid;
     gap: 0.5rem;
+  }
+
+  .card-article--text {
+    align-content: end;
+    min-height: 100%;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background-color: var(--color-surface);
+  }
+
+  @media (min-width: 750px) {
+    .card-article--wide:not(.card-article--text) {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: clamp(1.5rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .card-article--wide .card-article__info {
+      gap: 1rem;
+    }
   }
 
   .card-article__meta {
