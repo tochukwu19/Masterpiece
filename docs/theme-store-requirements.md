@@ -21,51 +21,51 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 - [x] ✅ No designer credits or affiliate links in theme files. `theme_info` now reads Vermeil / Tochukwu Onwunali. Keep it free of marketing links.
 
 ## 2. Uniqueness
-- [ ] ⚠️ Fundamentally different from every Theme Store theme. Identity must come from **architecture**: header/nav system, product card, media treatment, page structure — not colors/fonts/spacing.
-- [ ] ✅ Not derived from Dawn or Horizon. **Note:** Shopify's Skeleton theme is the only approved base; otherwise code must be 100% original. As of 2026-10 Skeleton has moved to a sections-less `{% block %}` architecture that conflicts with the JSON-template rules in §5, so we write **original OS 2.0 code** rather than rebase. The current customer/cart/blog templates are Themekit boilerplate and get rewritten anyway.
-- [ ] ⚠️ Our distinctive moves today: oversized display headings with eyebrow labels, justified full-width wordmark footer, full-bleed editorial split collections, off-canvas drawers with text "Close" controls. These need to become first-class systems (see `design-language.md`).
+- [ ] ⚠️ Fundamentally different from every Theme Store theme. Identity must come from **architecture**: header/nav system, product card, media treatment, page structure — not colors/fonts/spacing. Owner judgment before submission; the distinctive systems are listed below.
+- [x] ✅ Not derived from Dawn or Horizon. **Note:** Shopify's Skeleton theme is the only approved base; otherwise code must be 100% original. As of 2026-10 Skeleton has moved to a sections-less `{% block %}` architecture that conflicts with the JSON-template rules in §5, so we write **original OS 2.0 code** rather than rebase. Every template, section and snippet was rewritten from scratch in Phases 1–5; no Themekit boilerplate remains.
+- [x] ✅ Distinctive systems, each a shared primitive: eyebrow + display `section-heading`, the fitted full-width wordmark footer, full-bleed `editorial-split`, drawer-first commerce on native `<dialog>` with text "Close" controls, the caption-row product card with inline quick add, the featured-first editorial blog grid.
 
 ## 3. Design and UX
-- [ ] ⚠️ Distinct design for a specific merchant type — current direction is **jewelry / fine accessories** (to confirm).
-- [ ] ❌ High-quality, correctly sized imagery — images are CSS backgrounds from `img_url: 'master'` (full-size, no `srcset`).
-- [ ] ⚠️ Cohesive palette — mostly black/white/gray plus one terracotta accent; indigo leaks into filter checkboxes.
-- [ ] ⚠️ Logical grid + consistent spacing — widths vary (`w-[95%]`, `w-[90%]`, `w-[96%]`), ad-hoc margins.
-- [ ] ❌ Layout stays balanced with varying content/image counts — fixed heights (`h-[300px]`, `h-[400px]`, `h-[90vh]`) crop or break.
-- [ ] ⚠️ Limited, paired fonts — yes (2), but they're custom fonts (fails §15).
-- [ ] ❌ Consistent buttons, links, forms — at least 6 button variants, unstyled forms on most templates.
-- [ ] ❌ Merchant-friendly theme editor — most sections have no schema settings.
-- [ ] ⚠️ Clear path home → discovery → PDP → cart → checkout. Cart page and drawer exist but are incomplete.
-- [ ] ❌ 👤 Demo store with real, industry-fitting content. Currently Lorem ipsum everywhere and copy lifted from a real brand (Les Néréides) — must go.
+- [x] ✅ Distinct design for a specific merchant type: **jewelry and fine accessories** (confirmed; demo store `vermeil-6sitmu3d`).
+- [x] ✅ High-quality, correctly sized imagery: every image goes through `snippets/image.liquid` (`image_url` + `image_tag`, `srcset`, `sizes`, focal point, lazy below the fold).
+- [x] ✅ Cohesive palette from four color schemes (black, white, warm neutral, terracotta accent); controls use `accent-color` from the scheme.
+- [x] ✅ Logical grid + consistent spacing: `.page-width` with the page-width setting, `.layout-grid` with the grid-spacing setting, section padding settings on every section.
+- [x] ✅ Layout stays balanced with varying content and image counts: aspect-ratio media with image ratio settings, height presets that grow with content, text panels for image-less articles, placeholders for empty pickers.
+- [x] ✅ Limited, paired fonts: Gloock (headings) + Figtree (body) from the Shopify font library.
+- [x] ✅ Consistent buttons, links, forms: primary, secondary (fill-up hover) and tertiary buttons; one field, input, select and textarea system in `base.css`.
+- [ ] ⚠️ Merchant-friendly theme editor: every section has settings, presets and translated labels. Copy review and live-preview pass in Phase 6 (6b, 6c).
+- [x] ✅ Clear path home → discovery → PDP → cart → checkout (Phases 2–4, store-tested).
+- [ ] ⚠️ 👤 Demo store with real, industry-fitting content. `vermeil-6sitmu3d` has original copy and stock imagery (Pexels); licensed imagery and final copy are Phase 7.
 
 ## 4. Required features
 | Feature | Status | Notes |
 |---|---|---|
-| Sections Everywhere (OS 2.0) | ⚠️ | Only index/product/collection/list-collections/search are JSON |
+| Sections Everywhere (OS 2.0) | ✅ | Every template is JSON except `gift_card.liquid` (which Shopify requires as Liquid; it renders a section) |
 | Discounts (line + order level) in cart | ✅ | Line allocations + cart-level applications in drawer and cart page (Phase 2) |
-| Accelerated checkout buttons (product + cart) | ⚠️ | Cart page done (`content_for_additional_checkout_buttons`, on by default). Product page in Phase 3 |
+| Accelerated checkout buttons (product + cart) | ✅ | Product (`payment_button`, on by default, styled to the theme) and cart (`content_for_additional_checkout_buttons`) |
 | Faceted filtering (availability, price, type, vendor, options) on collection + search | ✅ | Collection (4a) and search (4b): native `<dialog>` drawer, real checkboxes, swatch and image presentations, price range, pills, Section Rendering updates with history, no-JS GET form |
 | Gift card template | ✅ | Phase 5c: logo or shop name, code with copy, balance, initial value, expiry and inactive states, sender message, QR code (Shopify-hosted `qrcode.js`), Apple Wallet, print styles |
-| Image focal points | ❌ | Use `image.presentation.focal_point` / `image_tag` |
-| Social sharing image (`page_image`) | ❌ | No OG tags |
+| Image focal points | ✅ | `image_tag` (used by the `image` snippet) applies the focal point as `object-position` automatically |
+| Social sharing image (`page_image`) | ✅ | `meta-tags` snippet: Open Graph + Twitter card with `page_image` |
 | Country/currency selector | ✅ | `localization-form` in header (desktop), menu drawer and footer |
 | Language selector | ✅ | Same component; renders only when more than one option exists |
 | Multi-level menus | ✅ | Desktop dropdown or mega menu (3 levels); mobile drawer with nested accordions |
 | Newsletter form | ✅ | `newsletter-form` snippet (footer block, password page) |
-| Pickup availability | ❌ | |
-| Related product recommendations | ✅ | Works, but duplicate add-to-cart listeners (see audit) |
-| Complementary product recommendations | ❌ | |
-| Rich product media (3D, video, YouTube/Vimeo) | ❌ | Media rendered as background images only |
-| Search + **predictive search** | ⚠️ | Predictive search modal done (Phase 2). Search results page rewrite in Phase 4 |
+| Pickup availability | ⚠️ | Product block built on `store_availabilities`; renders nothing on the dev store (backlog B1) |
+| Related product recommendations | ✅ | `product-recommendations` section (Phase 3) |
+| Complementary product recommendations | ✅ | Product block, `intent=complementary` (Phase 3) |
+| Rich product media (3D, video, YouTube/Vimeo) | ✅ | Gallery with images, hosted video (theme player), external video, 3D + AR (Phase 3) |
+| Search + **predictive search** | ✅ | Predictive search (Phase 2), `main-search` (Phase 4b), also on the 404 page |
 | Selling plans in cart | ✅ | Selling plan name per line item |
-| Shop Pay Installments banner on PDP | ❌ | `form \| payment_terms` |
-| Unit pricing (collection, product, cart) | ⚠️ | Cards + cart done. Product page in Phase 3 |
-| Variant images | ❌ | |
+| Shop Pay Installments banner on PDP | ✅ | `form \| payment_terms` in `product-price` |
+| Unit pricing (collection, product, cart) | ✅ | Cards, product price, cart |
+| Variant images | ✅ | Gallery jumps to `variant.featured_media` on selection (Phase 3) |
 | Follow on Shop (`login_button`) | ✅ | Footer, behind `shop.features.follow_on_shop?` |
 | `<shopify-account>` component in header (desktop + mobile) | ✅ | Themed via its CSS custom properties; menu setting defaults to `customer-account-main-menu` |
 
 ## 5. Templates, sections, blocks
 Required templates (✅ exists as JSON · ❌):
-- [x] `layout/theme.liquid` (needs rewrite)
+- [x] ✅ `layout/theme.liquid` (rewritten)
 - [x] ✅ `404.json`
 - [x] ✅ `article.json`
 - [x] ✅ `blog.json`
@@ -79,12 +79,12 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ `product.json`
 - [x] ✅ `search.json`
 - [x] ✅ `gift_card.liquid` (renders the `main-gift-card` section)
-- [x] ⚠️ `config/settings_schema.json` (only `theme_info`), `settings_data.json` (contains a Judge.me app block)
-- [ ] ❌ Custom Liquid **section** available on all templates
+- [x] ✅ `config/settings_schema.json` (logo, colors, typography, layout, buttons, cards, animations, cart, search, currency, social), `settings_data.json` (one preset, "Vermeil"; no app blocks)
+- [x] ✅ Custom Liquid **section** available on all templates (`custom-liquid`, no template restrictions)
 - [x] ✅ Header + footer in **section groups** (announcement bar + header; footer)
-- [ ] ❌ Main product section built from **blocks** (title, price, vendor, description, variant picker, buy buttons, …)
-- [ ] ❌ `@app` blocks in main product + featured product sections
-- [ ] ❌ Custom Liquid **blocks** wherever app blocks make sense
+- [x] ✅ Main product section built from **blocks** (title, price, vendor, description, variant picker, quantity, buy buttons, pickup, installments, collapsible tabs, share, complementary, custom Liquid, apps)
+- [x] ✅ `@app` blocks in main product + featured product sections (featured product added in Phase 6a), plus hero, rich text, image with text, article and footer
+- [x] ✅ Custom Liquid **blocks** wherever app blocks make sense (shared `custom-liquid` theme block in content sections; main product; article)
 - [x] ✅ No `config/markets.json`
 
 ## 6. Lighthouse (benchmark dataset, sections must contain real content)
@@ -94,12 +94,12 @@ Required templates (✅ exists as JSON · ❌):
 ## 7. Pages
 **Layout**
 - [x] ✅ `<html lang="{{ request.locale.iso_code }}">`
-- [ ] ⚠️ `routes.*` for all URLs — hardcoded `/search`, `/cart`, `/cart/change`, `/pages/wishlist`, `/`.
+- [x] ✅ `routes.*` or resource `.url` for all URLs (no hardcoded paths in Liquid or JS; verified by grep in Phase 6a).
 - [x] ✅ `content_for_header` not modified.
 - [x] ✅ Payment icons via `enabled_payment_types` + `payment_type_svg_tag` (footer).
 
 **Product** — title (untruncated), `variant.price`, `unit_price`, compare-at, description, option names/values; all images viewable with mixed ratios; variant image on select; `cart.taxes_included`; separate option selectors; quantity; ATC disabled when sold out; JS callback updating price/compare/sold-out; first available variant loaded; recommendations; rich media; accelerated checkout (on by default); pickup availability; installments; gift-card recipient form (`form.email`, `form.name`, `form.message`, `gift_card.send_on`); swatches via `swatch.color` / `swatch.image`.
-- Status: ❌ most of these. Price never updates on variant change; swatches use option value as a CSS color.
+- Status: ✅ Phase 3 `main-product` (all of the above; variant changes re-render price, media, picker and buttons through Section Rendering; swatches from `swatch.color` / `swatch.image`).
 
 **Collection** — title, description, image; grid with title→url, price, image, unit price; mixed ratios OK; sale badge; sorting; empty message; `price_varies` range; pagination.
 - Status: ✅ Phase 4a: `collection-banner` (title, description, image beside or behind text) + `main-collection` (cards with unit price, sale/sold-out badges, `price_varies` "From", sorting, products per page, pagination, empty and filtered-empty states).
@@ -125,11 +125,11 @@ Required templates (✅ exists as JSON · ❌):
 
 ## 8. Consistency and functionality
 - [x] ✅ RTE styles (h1–h6, blockquote, ul, ol) consistent across product/collection/article/page. One `.rte` set in `base.css` (headings, lists and nested lists, blockquote, tables that wrap at 320px, embeds, rules, figure captions); the legacy Tailwind reset that stripped list bullets is gone (Phase 5d).
-- [ ] ⚠️ Scripts hosted on Shopify (except approved third-party libs). Alpine is now vendored and pinned (3.17.4). Swiper 7 + 11 are still on unpkg/jsdelivr until the carousel and product rewrites (see `third-party.md`).
+- [x] ✅ Scripts hosted on Shopify. Alpine is vendored and pinned; Swiper was removed in Phase 4 (see `third-party.md`). The gift card QR code uses Shopify's own `vendor/qrcode.js`.
 - [x] ✅ No JS interfering with the editor/admin.
-- [ ] ⚠️ Shopify-domain links need `rel="nofollow"`.
-- [ ] ⚠️ Protocol-relative / CDN asset URLs (no hardcoded `https://` to assets).
-- [ ] ❌ All third-party assets licensed — **Calvino Grande *Trial*** is a trial-licensed font.
+- [x] ✅ Shopify-domain links have `rel="nofollow"` (the only one is `powered_by_link`, verified in rendered HTML).
+- [x] ✅ Asset URLs come from `asset_url`, `image_url` and `shopify_asset_url`; the only `https:` prefixes are on Open Graph image URLs, which must be absolute.
+- [x] ✅ All third-party assets licensed: fonts from the Shopify font library, Alpine (MIT), social icons from Simple Icons (CC0). See `third-party.md`.
 - [x] ✅ No app dependency. Judge.me badge and app embed removed (2026-10-12). `@app` blocks come in Phase 3.
 - [x] ✅ No app-like features. Wishlist links and snippet removed (2026-10-12).
 - [x] ✅ No fake urgency/stock/viewer counts.
@@ -137,27 +137,27 @@ Required templates (✅ exists as JSON · ❌):
 ## 9. Browser compatibility
 - [ ] Desktop: Safari (last 2), Chrome (last 3), Firefox (last 3), Edge (last 2).
 - [ ] Mobile: iOS Safari (last 2), Chrome Mobile (last 3), Samsung Internet (last 2).
-- [ ] In-app webviews: Instagram, Facebook, Pinterest. Known break today: cart drawer is a fixed 500px wide and overflows phones.
+- [ ] In-app webviews: Instagram, Facebook, Pinterest. (The old fixed-width cart drawer is gone; drawers are `min(100vw, 30rem)`.)
 
 ## 10. Assets
 - [x] ✅ No Sass.
 - [x] ✅ No minified CSS/JS of our own. Tailwind's `application.css` and `legacy-bridge.css` deleted in Phase 5d.
 
 ## 11. SEO
-- [ ] ⚠️ Title/description/canonical exist in layout; move to a meta snippet, add page-number and tag suffixes to the title.
-- [ ] ❌ Product structured data (`{{ product | structured_data }}`), verified with Google Rich Results test.
+- [x] ✅ Title, description and canonical in the `meta-tags` snippet, with page-number and tag suffixes in the title.
+- [x] ✅ Structured data: `product | structured_data` on product pages, `article | structured_data` on articles. 👤 Run Google's Rich Results test on the demo store before submission.
 - [x] ✅ No `robots.txt.liquid`.
 
 ## 12. Accessibility
-- [ ] ❌ Everything keyboard-operable incl. dropdowns — variant pickers are `<div role="button">` / `<li>` with click handlers; accordions are divs; filter checkboxes are `display:none`.
-- [ ] ❌ Visible focus states — `outline-none` used throughout with no replacement.
-- [ ] ❌ Alt text on all images — product/collection/blog images are CSS backgrounds (no alt possible); client logos have no alt.
+- [ ] ⚠️ Everything keyboard-operable: rebuilt on native controls (radio swatches, `<details>`, `<dialog>`, real checkboxes, buttons). Keyboard pass in Phase 6d.
+- [ ] ⚠️ Visible focus states: global `:focus-visible` ring; cards ring their link overlay. Search field underline focus to be checked in Phase 6d.
+- [ ] ⚠️ Alt text on all images: real `<img>` with `image.alt` everywhere; decorative card images use `alt=""`. Audit in Phase 6d.
 - [ ] ⚠️ Inputs have unique IDs + matching labels. Every form was rewritten with labelled inputs (newsletter, search, quantity, comments, contact; legacy customer forms deleted). A full audit pass is Phase 6.
 - [ ] ⚠️ Valid HTML. The 3 parser errors are gone with the files that had them (navbar, addresses, old gift card); Theme Check reports 0 offenses and every rebuilt template has one `<h1>`. A W3C validator pass on each template is Phase 6.
-- [ ] ⚠️ Contrast 4.5:1 body / 3:1 large + UI — `#9CA3AF` on white (2.5:1) used for pagination numbers and arrows fails.
-- [ ] ⚠️ Focus order = DOM order.
-- [ ] ⚠️ Touch targets ≥ 24×24px — quantity +/- icons in the drawer are 12.8px.
-- [ ] ❌ h1–h6 visually distinct — no heading scale.
+- [ ] ⚠️ Contrast 4.5:1 body / 3:1 large + UI: the kit grades every scheme's text, muted text and accent (all pass by default). Check on media and badges in Phase 6d.
+- [ ] ⚠️ Focus order = DOM order (no positive `tabindex`). Keyboard pass in Phase 6d.
+- [ ] ⚠️ Touch targets ≥ 24×24px: icon buttons are 44×44. Measured audit in Phase 6d.
+- [x] ✅ h1–h6 visually distinct: `.h0`–`.h6` scale in `base.css`, settings for heading scale and case.
 
 ## 13. Social media
 - [x] ✅ Social icon set selectable in settings (9 platforms, CC0 brand paths).
@@ -165,30 +165,30 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ Social placeholder fields default to empty.
 
 ## 14. Settings
-- [ ] ❌ Sentence-case names; no "&"; American English; verbs on buttons; terminology list ("home page", "slideshow", "signup", "cart type", "show"/"enable"/"use"…). Current names to fix: "Material Template" (×2, meaningless), "Advice & Care Section Title", "Product Page Details".
-- [ ] ❌ Defaults demonstrate the setting — no Lorem ipsum, no demo content.
+- [ ] ⚠️ Sentence-case names; no "&"; American English; verbs on buttons; terminology list ("home page", "slideshow", "signup", "cart type", "show"/"enable"/"use"…). The legacy names are gone; full copy review in Phase 6c.
+- [ ] ⚠️ Defaults demonstrate the setting — no Lorem ipsum, no demo content. Checked in the Phase 6c review.
 - [x] ✅ Favicon setting.
 - [x] ✅ Logo upload with width setting (header, password page).
-- [ ] ❌ Every setting has a `label` (and translated `t:` labels — add `locales/en.default.schema.json`).
-- [ ] ⚠️ `link_list` header default `main-menu` ✅ / footer must default `footer` (footer has no setting; reads `linklists['footer']` directly).
-- [ ] ❌ Resource defaults must exist in every store — remove `collections['featured']`, `['weekly-picks']`, `['summer-collection']`, `blogs.news`, hardcoded `file_img_url` images.
-- [ ] ❌ Editor live preview works for every change (`request.design_mode`; re-init JS on `shopify:section:load`).
+- [ ] ⚠️ Every setting has a `label` (and translated `t:` labels). Scripted check in Phase 6c.
+- [x] ✅ `link_list` defaults: header `main-menu`, footer menu block `footer`, account menu `customer-account-main-menu`.
+- [x] ✅ Resource defaults exist in every store: no handle lookups in Liquid (verified by grep); templates reference only the `all` collection and the `news` blog.
+- [ ] ⚠️ Editor live preview works for every change. Alpine re-initializes re-rendered sections; block selection and autoplay in Phase 6b.
 - [ ] ⚠️ `theme_info` updated (Vermeil 0.1.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
 
 ## 15. Font picker
-- [ ] ❌ All fonts via `font_picker`, with a loading default (e.g. `work_sans_n6`) and bold/italic/bold-italic via `font_modify`.
-- [ ] ❌ **Custom fonts not accepted.** Calvino Grande Trial and General Sans (from fonts.cdnfonts.com) must be replaced by Shopify font-library faces. **Open: the owner prefers to keep them; unresolved.**
+- [x] ✅ All fonts via `font_picker` (defaults `gloock_n4`, `figtree_n4`), with bold, italic and bold-italic via `font_modify` + `font_face`.
+- [x] ✅ No custom fonts. Calvino Grande Trial and General Sans were replaced by Gloock and Figtree (Phase 1).
 
 ## 16. Color system
-- [ ] ❌ ≥ 4 `color` settings; every background color paired with a foreground color. (Recommendation: Shopify `color_scheme_group` with ≥ 4 schemes.)
+- [x] ✅ `color_scheme_group` with background, gradient, text, accent, button, button label and secondary button label; four schemes; every section has a scheme setting.
 
 ## 17. Responsive images
-- [ ] ❌ `image_url` + `image_tag` with `widths`/`sizes`, `loading="lazy"` below the fold, eager + `fetchpriority="high"` for the LCP image.
+- [x] ✅ `image_url` + `image_tag` with `widths`/`sizes`, `loading="lazy"` below the fold, eager + `fetchpriority="high"` for the first image (`image` and `picture` snippets).
 
 ## 18. Naming and presets
 - [x] ✅ 1–2 words, < 30 chars, unique, not an industry word. **Theme name: "Vermeil"** (gilded silver), chosen 2026-10-12. No Theme Store listing by that name. "Atelier" was preferred but is taken.
-- [ ] One preset must carry the theme's name. Extra presets need their own templates in `/listings/<preset>/`.
-- [ ] Install parity: a fresh install should look like the demo store (minus images).
+- [x] One preset, "Vermeil", carries the theme's name. No extra presets.
+- [ ] 👤 Install parity: a fresh install should look like the demo store (minus images). Feature branches ship generic template defaults with placeholders; check by installing on a fresh development store (Phase 7).
 
 ## 19. Versions
 - [ ] Version number + release notes on every submission (`theme_info.theme_version`, a `CHANGELOG.md`).

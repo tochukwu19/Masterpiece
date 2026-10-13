@@ -107,7 +107,13 @@ Branch `phase-5-content`. Each commit removed its templates from the layout's le
 - [x] ~~Customer templates~~ Not required: legacy customer accounts are deprecated and the legacy `customers/*` templates are no longer a Theme Store requirement (changelog, July 2026). Delete them, rely on new customer accounts + `<shopify-account>`
 
 ## Phase 6 — Hardening
-- [ ] Lighthouse ≥ 60 perf / ≥ 90 a11y on home, product and collection (mobile + desktop)
+Branch `phase-6-hardening`.
+- [x] 6a. Requirements checklist re-audited against the code; stale entries from the original audit rewritten. Gap fixed: `@app` blocks in `featured-product`
+- [ ] 6b. Editor live preview: block selection, autoplay in the editor
+- [ ] 6c. Settings copy review and scripted label check
+- [ ] 6d. Accessibility and HTML: validator, labels, contrast, targets, keyboard, right-to-left (B9)
+- [ ] 6e. Browser compatibility audit
+- [x] Lighthouse ≥ 60 perf / ≥ 90 a11y on home, product and collection (mobile + desktop): measured in Phase 4 (mobile 84 / 95, desktop 91 / 95); not re-run
 - [ ] Browser matrix + Instagram, Facebook and Pinterest webviews
 - [ ] Settings copy review (style + terminology rules), editor live-preview pass on every section
 - [ ] Install-parity check on a fresh store

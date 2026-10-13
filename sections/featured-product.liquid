@@ -76,6 +76,10 @@
           -%}
         </div>
 
+        {%- for block in section.blocks -%}
+          <div class="featured-product__app">{% render block %}</div>
+        {%- endfor -%}
+
         <a href="{{ featured.url }}" class="button button--tertiary featured-product__details">
           {{- 'products.view_full_details' | t -}}
         </a>
@@ -96,6 +100,11 @@
 {
   "name": "t:sections.featured_product.name",
   "class": "section-featured-product",
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
   "settings": [
     {
       "type": "product",
