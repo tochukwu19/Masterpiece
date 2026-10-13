@@ -3,7 +3,8 @@
 All notable changes to Vermeil. Versions follow [semantic versioning](https://semver.org): major for changes
 that aren't backwards compatible, minor for backwards-compatible features, patch for fixes.
 
-Merchant-facing release notes for each Theme Store submission live in `docs/release-notes/`.
+Merchant-facing release notes for each Theme Store submission are on the documentation site
+(`docs-site/src/content/docs/release-notes.md`).
 
 ## 1.0.0 — Unreleased
 

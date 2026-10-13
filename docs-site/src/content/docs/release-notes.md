@@ -1,6 +1,13 @@
+---
+title: "Release notes"
+description: "What's new in each version of Vermeil."
+---
+
+## 1.0.0
+
 Vermeil 1.0.0 is the first release: an editorial theme for jewelry and fine accessories, with full-bleed imagery, display typography and a drawer-first shopping experience.
 
-### Added
+#### Added
 
 - Important: A complete set of pages: home, product, collection, search, cart, blog, blog post, contact, page not found, password and gift card.
 - A product page you build from blocks, with a full-screen gallery, video, 3D models, color and image swatches, pickup availability, Shop Pay Installments and complementary products.

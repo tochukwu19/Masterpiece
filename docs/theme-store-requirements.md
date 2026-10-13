@@ -192,7 +192,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 - [x] ✅ Install parity: "On install, the theme should match the demo store's look"; layout, color and typography settings must match. Phase 7a aligned the shipped home template with the demo's layout and settings; the product template and theme settings already matched. Demo images, resource picks and copy don't transfer. 👤 Confirm on a fresh store after packaging.
 
 ## 19. Versions
-- [x] ✅ Version number + release notes on every submission: `theme_version` 1.0.0, `CHANGELOG.md` for developers, merchant release notes in `docs/release-notes/` (pasted into the submission; `release-notes.md` goes in the ZIP root only for updates after publication).
+- [x] ✅ Version number + release notes on every submission: `theme_version` 1.0.0, `CHANGELOG.md` for developers, merchant release notes on the docs site (`docs-site/src/content/docs/release-notes.md`) (pasted into the submission; `release-notes.md` goes in the ZIP root only for updates after publication).
 
 ## 20. Demo stores 👤
 - [x] ✅ One client-transfer demo store per preset: `vermeil-6sitmu3d` (client transfer store, confirmed 2026-10-13), jewelry, small catalog.
@@ -201,7 +201,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 - [ ] Recommended: a sale product, a sold-out variant, a multi-variant product, a gift card.
 
 ## 21. Documentation + support form 👤
-- [ ] ⚠️ 👤 Public docs (FAQ, support policy, settings consistent with theme, code-edit warning). Drafted in `docs/theme-docs/` with a generated settings reference; the owner publishes them.
+- [ ] ⚠️ 👤 Public docs (FAQ, support policy, settings consistent with theme, code-edit warning). Built as a Starlight site in `docs-site/` with a generated settings reference; the owner publishes them.
 - [ ] Support form: first + last name, email, store URL (with example), problem textarea, file upload, auto-responder; no budget/phone questions.
 
 ## 22. Ongoing support 👤

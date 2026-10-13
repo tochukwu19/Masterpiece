@@ -1,4 +1,7 @@
-# Getting started
+---
+title: "Getting started"
+description: "Install Vermeil and prepare your store: menus, customer accounts, filters, swatches, pickup, gift cards and more."
+---
 
 ## Install Vermeil
 
@@ -100,7 +103,7 @@ Open the theme editor with **Online Store > Themes > Customize**.
 - Open **Theme settings** (the gear icon) for the logo, colors, fonts, layout, buttons, product cards, cart
   and search.
 
-The [settings reference](settings-reference.md) lists every setting with its default.
+The [settings reference](/settings-reference/) lists every setting with its default.
 
 ### Colors
 

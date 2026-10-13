@@ -121,9 +121,10 @@ Branch `phase-6-hardening`.
 ## Phase 7 — Pre-launch (mostly owner actions)
 Branch `phase-7-launch`.
 - [x] 7a. Install parity: the shipped home template matches the demo store's layout (logo list removed, hero content bottom left, testimonials heading hidden, email signup overlay and padding); product template and theme settings already matched. Only images, resource picks and copy differ
-- [x] 7b. `CHANGELOG.md`, merchant release notes (`docs/release-notes/1.0.0.md`), `theme_version` 1.0.0
-- [x] 7c. Documentation drafts in `docs/theme-docs/`: overview, getting started, pages, FAQ, support policy, and a settings reference generated from the schema (`npm run docs`) so it always matches the editor
+- [x] 7b. `CHANGELOG.md`, merchant release notes (now the docs site's release notes page), `theme_version` 1.0.0
+- [x] 7c. Documentation drafts: overview, getting started, pages, FAQ, support policy, and a settings reference generated from the schema (`npm run docs`) so it always matches the editor
 - [x] Demo store: `vermeil-6sitmu3d` is a client transfer store (confirmed by the owner, 2026-10-13); it keeps its content on the `demo` branch
 - [ ] 👤 Demo store content: Bogus Gateway active (2026-10-13); confirm every other checkout option is off (Shop Pay, PayPal, manual payments); licensed imagery with rights on record (the Pexels license allows commercial use); authentic copy; no apps; a sale product, a sold-out variant, a multi-variant product and a gift card (already there)
-- [ ] 👤 Publish the documentation site and a support form (fields in `docs/theme-docs/support.md`, auto-responder on); then replace the GitHub links in `theme_info` and the placeholders in `index.md` and `support.md`
+- [x] 7d. Documentation site: Starlight (Astro) in `docs-site/`, styled with the theme's fonts and colors; content in `docs-site/src/content/docs/`; `npm run docs` regenerates the settings reference there. Deploys to Cloudflare Pages (root `docs-site`, build `npm run build`, output `dist`)
+- [ ] 👤 Publish the documentation site and a support form (fields in the docs site's support page, auto-responder on); then replace the GitHub links in `theme_info` and the placeholders in `index.md` and `support.md`
 - [ ] 👤 Listing assets (screenshots, preset name, industry tags, demo store link) and submission through the Partner Dashboard, with the release notes text

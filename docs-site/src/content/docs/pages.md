@@ -1,7 +1,10 @@
-# Pages
+---
+title: "Pages"
+description: "What each Vermeil page template shows and how to customize it in the theme editor."
+---
 
 Each page type has its own template. Select it from the page selector at the top of the theme editor. The
-[settings reference](settings-reference.md) lists every setting mentioned here.
+[settings reference](/settings-reference/) lists every setting mentioned here.
 
 ## Header and footer
 

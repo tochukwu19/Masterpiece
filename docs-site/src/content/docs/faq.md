@@ -1,4 +1,7 @@
-# FAQ
+---
+title: "FAQ"
+description: "Answers to common questions about setting up and customizing Vermeil."
+---
 
 ## Setup
 

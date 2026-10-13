@@ -1,4 +1,7 @@
-# Support
+---
+title: "Support"
+description: "How to contact Vermeil support, what support covers, and our policy on code changes and updates."
+---
 
 ## Contact us
 
@@ -29,7 +32,7 @@ You'll get an automatic confirmation by email, and a reply from us within two bu
 
 ## Before you contact us
 
-- Check the [FAQ](faq.md) and the page guide for the template you're working on.
+- Check the [FAQ](/faq/) and the page guide for the template you're working on.
 - Try the same steps in a fresh copy of Vermeil from your theme library. If the problem doesn't happen there,
   a code change or an app is the likely cause.
 - If you've edited code, mention it. We can still help you find the cause, but we can't fix edited files.

@@ -104,9 +104,12 @@ const availability = (schema) => {
 };
 
 const out = [
-  '# Settings reference',
+  '---',
+  'title: "Settings reference"',
+  'description: "Every Vermeil theme setting, section and block, with its type, default and notes."',
+  '---',
   '',
-  '_Generated from the theme by `npm run docs`. Labels, defaults and notes match the theme editor exactly._',
+  'Labels, defaults and notes on this page match the theme editor exactly.',
   '',
   '## Theme settings',
   '',
@@ -151,6 +154,7 @@ for (const [type, schema] of Object.entries(themeBlocks)) {
   out.push('', `### ${translate(schema.name)}${type.startsWith('_') ? ' (slideshow only)' : ''}`, ...settingsTable(schema.settings));
 }
 
-mkdirSync(join(root, 'docs/theme-docs'), { recursive: true });
-writeFileSync(join(root, 'docs/theme-docs/settings-reference.md'), out.join('\n') + '\n');
-console.log(`docs/theme-docs/settings-reference.md (${sections.length} sections, ${Object.keys(themeBlocks).length} theme blocks)`);
+const target = 'docs-site/src/content/docs/settings-reference.md';
+mkdirSync(join(root, 'docs-site/src/content/docs'), { recursive: true });
+writeFileSync(join(root, target), out.join('\n') + '\n');
+console.log(`${target} (${sections.length} sections, ${Object.keys(themeBlocks).length} theme blocks)`);

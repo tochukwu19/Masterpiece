@@ -1,6 +1,9 @@
-# Settings reference
+---
+title: "Settings reference"
+description: "Every Vermeil theme setting, section and block, with its type, default and notes."
+---
 
-_Generated from the theme by `npm run docs`. Labels, defaults and notes match the theme editor exactly._
+Labels, defaults and notes on this page match the theme editor exactly.
 
 ## Theme settings
 

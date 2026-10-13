@@ -5,3 +5,7 @@ AGENTS.md
 CLAUDE.md
 .claude/
 .lighthouse/
+
+docs-site/node_modules/
+docs-site/dist/
+docs-site/.astro/

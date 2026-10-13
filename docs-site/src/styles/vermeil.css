@@ -1,0 +1,34 @@
+:root {
+  --sl-font: 'Figtree Variable', system-ui, sans-serif;
+  --vermeil-font-heading: 'Gloock', Georgia, serif;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #f4efe8;
+  --sl-color-accent: #9c5232;
+  --sl-color-accent-high: #5c2e1b;
+  --sl-color-white: #141414;
+  --sl-color-black: #ffffff;
+}
+
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #3a2219;
+  --sl-color-accent: #e0a98e;
+  --sl-color-accent-high: #f4dccf;
+  --sl-color-black: #141414;
+}
+
+:is(h1, h2, h3, .site-title, .hero h1) {
+  font-family: var(--vermeil-font-heading);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.sl-markdown-content :is(h2, h3) {
+  font-family: var(--vermeil-font-heading);
+  font-weight: 400;
+}
+
+.sl-markdown-content table {
+  font-size: var(--sl-text-sm);
+}

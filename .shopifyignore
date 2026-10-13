@@ -8,3 +8,4 @@ scripts/*
 shopify.theme.toml
 .claude/*
 .lighthouse/*
+docs-site/*
