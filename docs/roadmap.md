@@ -127,6 +127,5 @@ Branch `phase-7-launch`.
 - [x] Demo store content: Bogus Gateway is the only payment option (2026-10-13); imagery from Pexels with sources on record (owner); copy is original; no apps. The store stays password-protected: the password goes into the submission form, as Shopify's listing guide asks
 - [x] 7d. Documentation site: Starlight (Astro) in `docs-site/`, styled with the theme's fonts and colors; content in `docs-site/src/content/docs/`; `npm run docs` regenerates the settings reference there. Deploys to Cloudflare Pages (root `docs-site`, build `npm run build`, output `dist`)
 - [x] 7e. Docs live at `https://doc-vermeil-store.tochukwu.dev` (Cloudflare Pages, production branch `master`). Support form at `/contact/` built on a Pages Function with Turnstile and Resend; `theme_info` points at the docs and the form
-- [x] Support form settings in Cloudflare (Resend domain and key, Turnstile keys, Email Routing for the inbox, DMARC); text-only test request delivered both emails (2026-10-13). Setup and components: `docs/support-form.md`
-- [ ] Support form attachments (backlog B12)
+- [x] Support form settings in Cloudflare (Resend domain and key, Turnstile keys, Email Routing for the inbox, DMARC); test requests, with and without image attachments, delivered both emails (2026-10-13). Setup and components: `docs/support-form.md`
 - [ ] 👤 Listing assets (screenshots, preset name, industry tags, demo store link) and submission through the Partner Dashboard, with the release notes text

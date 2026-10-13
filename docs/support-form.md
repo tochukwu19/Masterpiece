@@ -103,15 +103,7 @@ Checked on 2026-10-13:
   inbox send, failed confirmation).
 - **Preview builds:** use Cloudflare's always-pass test site key `1x00000000000000000000AA` in
   `PUBLIC_TURNSTILE_SITE_KEY` to see the widget locally.
-- **Live (2026-10-13):** a text-only request delivered both emails to Gmail.
-
-## Known issue
-
-- **A request with an image attachment stays pending** (backlog B12). Text-only requests work. Next steps:
-  check file size, type and count in the browser before upload so bad files never leave the page; replace the
-  JavaScript base64 loop with the runtime's native encoding to stay within the free plan's per-request CPU
-  limit; then retest with an image and read the Pages Functions log stream (Deployments → latest → Functions →
-  Begin log stream).
+- **Live (2026-10-13):** requests with and without image attachments delivered both emails to Gmail.
 
 ## Troubleshooting
 
