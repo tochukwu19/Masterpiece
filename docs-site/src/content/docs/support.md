@@ -5,7 +5,7 @@ description: "How to contact Vermeil support, what support covers, and our polic
 
 ## Contact us
 
-Use the support form: (add the support form link). Include:
+Use the [support form](/contact/). Include:
 
 - your first and last name
 - your email address

@@ -14,6 +14,7 @@ export default defineConfig({
         { label: 'Settings reference', link: '/settings-reference/' },
         { label: 'FAQ', link: '/faq/' },
         { label: 'Support', link: '/support/' },
+        { label: 'Contact support', link: '/contact/' },
         { label: 'Release notes', link: '/release-notes/' },
       ],
       lastUpdated: true,
