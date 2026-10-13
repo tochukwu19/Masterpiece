@@ -3,17 +3,21 @@
 Phases follow Shopify's review stages, so each one leaves the theme closer to passing the
 next gate. Each phase ends with Theme Check clean and a preview-store pass.
 
+**Status (2026-10-13):** Phases 0–7 are done and Vermeil 1.0.0 is submitted to the Theme Store. The phase
+branches were merged into `master`; branches 0–6 were deleted, and `phase-7-launch` stays as the working branch
+until the review ends. Open owner checks live in `docs/backlog.md`.
+
 ## Phase 0 — Decisions + tooling (blocking)
 - [x] Stack: vanilla CSS on tokens, no Tailwind. **Alpine kept** (vendored, pinned) for interactions. Ajax Cart + Section Rendering APIs where needed.
 - [x] Target industry: jewelry / fine accessories
 - [x] Theme name: **Vermeil** (2026-10-12; replaced the placeholder "Jewls". No Theme Store theme by that name)
 - [x] Fonts: Gloock (headings) + Figtree (body) via `font_picker`. Bodoni Moda + Manrope is the alternative pairing.
 - [x] Shopify CLI installed (4.9.3, global + pinned devDependency)
-- [ ] 👤 Connect a development store: `shopify theme dev --store <store>.myshopify.com` (owner logs in through the browser)
+- [x] Development store connected: `vermeil-6sitmu3d` (in `shopify.theme.toml`; the owner logs in through the browser)
 - [x] `.theme-check.yml`, `package.json` (dev/check/vendor scripts), `.gitignore` fixed, `.shopifyignore` updated
 - [x] Removed wishlist (nav links + snippet), Judge.me badge + app embed, CDN Alpine, dead snippets/assets, Tailwind config/source, `collection.list` template
 - [x] Theme Check baseline: **7 errors / 25 warnings** (from 9 / 33). All remaining errors are in files scheduled for rewrite.
-- [ ] Lighthouse script (deferred to Phase 6, needs the dev store URL)
+- [x] Lighthouse script: `npm run lighthouse` (moved up to Phase 4d)
 
 ## Phase 1 — Foundation
 - [x] `settings_schema.json`: theme_info, logo, favicon, 4 color schemes, typography (Gloock + Figtree), layout, buttons/inputs, product cards and badges, animations, cart type, search, currency, social links
@@ -25,7 +29,7 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [x] `global.js` (fetch, Section Rendering, events) and `cart.js` (`quickAdd`, legacy drawer store in cart currency, fixing A10)
 - [x] Password template + section (moved up from Phase 5)
 - [x] Locales: `en.default.json` + `en.default.schema.json`
-- [ ] Drawer primitive with focus trap: moved to Phase 2 with its first consumer
+- [x] Drawer primitive: moved to Phase 2 with its first consumer, built on native `<dialog>`
 
 ## Phase 2 — Header, footer, cart
 - [x] Drawer primitive on native `<dialog>` (focus trap, Escape, focus return, inert background); left, right and top variants
@@ -35,9 +39,9 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [x] Social icons generated from Simple Icons (CC0)
 - [x] Legacy navbar, footer, sidebar cart, `templates/cart.liquid` and their icons removed
 - [x] Kit: header, drawers and footer specimens
-- [ ] 👤 Dev store connection (CLI signed in with an account that can't access `vermeil-6sitmu3d`)
+- [x] 👤 Dev store connection: the owner switched the CLI to the Vermeil account
 - [x] Store pass: 3-level menu, Canada/France + English/French selectors, cart with `VERMEIL10` discount, drawer open/close/quantity
-- [ ] Store pass still open: selling plan + unit price in cart, Follow on Shop, editor live preview of every setting
+- [x] Editor live preview covered in Phase 6b; selling plan, unit price in the cart and Follow on Shop moved to backlog B13
 
 ## Phase 3 — Product
 - [x] `main-product` with blocks; gallery (stacked/grid, mobile carousel, lightbox), rich media (image, video, external video, 3D + AR), variant images
@@ -46,8 +50,8 @@ next gate. Each phase ends with Theme Check clean and a preview-store pass.
 - [x] `product-recommendations` (related + complementary) and complementary block
 - [x] Structured data
 - [x] Store pass: 9 ring variants incl. sold-out combination, sale, sold-out product, gift card, 3D model, video, add to cart + discount
-- [ ] Pickup availability renders nothing on the dev store (backlog B1)
-- [ ] `featured-product` section moved to Phase 4 (backlog B2)
+- [ ] Pickup availability renders nothing on the dev store (backlog B1, owner check)
+- [x] `featured-product` section moved to Phase 4 and built in 4c (backlog B2)
 
 ## Phase 4 — Discovery
 Branch `phase-4-discovery`. Four commits, in this order. Each one is store-tested with real clicks and has kit specimens before the next starts.
@@ -90,7 +94,7 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 - [x] `application.css` and `legacy-bridge.css` stayed until Phase 5 removed the last templates that used Tailwind classes (deleted in 5d)
 - [x] B5 moved up from Phase 6: `npm run lighthouse` (pinned devDependency) for home, collection and product, mobile and desktop
 - [x] Lighthouse (owner-run DevTools on the dev theme preview, 2026-10-12): mobile perf 84 / a11y 95, desktop perf 91 / a11y 95 averages across home, collection, product. Fixed from the reports: collection CLS from the late `no-js` swap, legacy CSS on every page, card heading order, dynamic checkout contrast
-- [ ] Theme Store checklist ticks; kit specimens for facets, toolbar, carousel, hero and the content sections
+- [x] Theme Store checklist ticks (re-audited in 6a); kit specimens for facets, toolbar, carousel, hero and the content sections
 
 **Owner prep for 4a and 4b** (dev store, not theme):
 - Search & Discovery filters: Availability, Price, Product type, and Metal (option, shown as swatches)
@@ -116,7 +120,7 @@ Branch `phase-6-hardening`.
 - [x] Lighthouse ≥ 60 perf / ≥ 90 a11y on home, product and collection (mobile + desktop): measured in Phase 4 (mobile 84 / 95, desktop 91 / 95); not re-run
 - [x] Browser matrix + Instagram, Facebook and Pinterest webviews: feature audit done (6e); 👤 device pass is backlog B11
 - [x] Settings copy review (style + terminology rules), editor live-preview pass on every section (6b, 6c; 👤 real-editor walkthrough is backlog B10)
-- [ ] 👤 Install-parity check on a fresh store (moved to Phase 7 with the demo store setup)
+- [x] 👤 Install-parity check on a fresh store: moved to Phase 7 and done there
 
 ## Phase 7 — Pre-launch (mostly owner actions)
 Branch `phase-7-launch`.
@@ -131,4 +135,10 @@ Branch `phase-7-launch`.
 - [x] 7f. Packaging: `npm run package [ref]` checks out a clean worktree of the ref (default `HEAD`), runs `check:all`, runs `shopify theme package`, and refuses the ZIP if its file list differs from the tracked theme files or a template carries demo content. Writes `Vermeil-<version>.zip` to the repo root (git-ignored). 1.0.0 packaged from `master` (2026-10-13): 108 files, settings identical to the demo store
 - [x] Test install on a second store (owner, 2026-10-13): matches the demo except the email signup, whose padding had been set to 0 because padding sat outside the image. Fixed at the root: in full-bleed sections (hero, slideshow, editorial split, email signup) the image fills the whole section and padding adds space inside it, around the content; email signup is always a banner, so without an image it keeps its own space around the text, and its padding defaults to 0
 - [x] 7g. Listing copy in `docs/listing.md`: tagline, three key highlights, industry, catalog size, feature tags checked against the theme, SEO description, alt text, testing instructions, review notes and a price suggestion
-- [ ] 👤 Listing assets (screenshots, preset name, industry tags, demo store link) and submission through the Partner Dashboard, with the release notes text
+- [x] 👤 Listing assets (screenshots, highlight images) and submission through the Partner Dashboard (owner, 2026-10-13): price $180, notification email `support@tochukwu.dev`, tracking IDs left blank
+
+## Phase 8 — Review and launch
+- [ ] Review feedback: the team emails the theme submission contact address. Fix exactly what they list, re-run `npm run check:all` and `npm run package`, then upload the new ZIP (Themes → the theme → Upload new zip). Resubmitting without the fixes can lead to a suspension
+- [ ] On approval: tag `v1.0.0` on the approved commit, set the changelog date, push the tag
+- [ ] After launch: work on short `fix/…` and `feat/…` branches off `master`; for each update bump `theme_version`, add the release notes, add `release-notes.md` to the ZIP root (first time: confirm `shopify theme package` includes it and teach `npm run package`'s file check to expect it), package from the tag, then merge `master` into `demo`
+- [ ] Optional, after sales: up to five merchant stores on the listing (779 x 1000px screenshots, each store's permission)

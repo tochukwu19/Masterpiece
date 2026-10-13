@@ -3,6 +3,7 @@ node_modules/
 .shopify/
 AGENTS.md
 CLAUDE.md
+NOTES.md
 .claude/
 .lighthouse/
 

@@ -6,7 +6,7 @@ that aren't backwards compatible, minor for backwards-compatible features, patch
 Merchant-facing release notes for each Theme Store submission are on the documentation site
 (`docs-site/src/content/docs/release-notes.md`).
 
-## 1.0.0 — Unreleased
+## 1.0.0 — Submitted 2026-10-13 (in review)
 
 First Theme Store release. Vermeil is an Online Store 2.0 theme for jewelry and fine accessories, rebuilt from
 scratch on vanilla CSS, Alpine.js and Shopify's Ajax Cart and Section Rendering APIs.
@@ -64,6 +64,8 @@ scratch on vanilla CSS, Alpine.js and Shopify's Ajax Cart and Section Rendering 
 - Four color schemes, fonts from the Shopify font library (Gloock and Figtree by default) with bold and italic
   variants, page width, section spacing, grid spacing, button and input radius, and card settings.
 - Right-to-left languages: the layout mirrors from the storefront language.
+- Full-bleed sections (hero, slideshow, editorial split, email signup): the image fills the whole section, and
+  the top and bottom padding settings add space inside it, around the content.
 
 ### Accessibility and quality
 - Native elements throughout: `<dialog>` drawers, `<details>` disclosures, radio swatches and real checkboxes;

@@ -1,6 +1,6 @@
 # Theme Store listing
 
-Copy and selections for the Vermeil 1.0.0 submission (Partner Dashboard → Themes → Submit theme). Field
+**Submitted 2026-10-13.** Copy and selections for the Vermeil 1.0.0 submission (Partner Dashboard → Themes → Submit theme). Field
 rules come from Shopify's listing guide (shopify.dev/docs/storefronts/themes/store/review-process/listings),
 checked 2026-10-13. Character counts are noted next to each limited field; recount after edits.
 
@@ -118,8 +118,8 @@ info column sticks on desktop only), Product options on collection pages, Custom
 phone field toggle), FAQ page, Animation, Breadcrumbs, Back-to-top button, Infinite scroll, Product reviews,
 Stock counter, Recently viewed, and everything else not built.
 
-The demo store's header uses the dropdown menu. If Mega menu stays selected, either switch the demo header
-to "Mega menu" or point reviewers to the setting in the testing instructions (below, it's the latter).
+Mega menu is selected although the demo store's header uses the dropdown menu; the testing instructions tell
+reviewers where the setting is.
 
 ## Price
 
@@ -146,18 +146,20 @@ Shopify's docs don't say how to change the price after submission; ask the revie
 
 ## Theme review notes (not shown to merchants)
 
-> Vermeil is for independent jewelry and fine accessories brands: small studios and designers with a catalog of roughly 20 to 100 pieces, who sell on photography and want their store to feel like a printed lookbook rather than a marketplace.
->
-> How it helps them sell: large display type and quiet layouts frame close-up product photography; the product gallery is built for inspecting detail (hover zoom, full-screen view, video, 3D); metal and stone options show as swatches; and the path to purchase stays short with filters, predictive search, quick add, a slide-out cart and local pickup for studios with a showroom.
->
-> Build: original Online Store 2.0 theme, JSON templates throughout, theme blocks shared across content sections, app blocks wherever apps plug in, and no app dependencies. Vanilla CSS on settings-driven tokens; Alpine.js (vendored, MIT) for interaction; the Ajax Cart and Section Rendering APIs for cart, variant, filter and search updates, with no client-side markup or money formatting. Product, cart, filters and search work without JavaScript. Checked against WCAG 2.2 AA with axe-core and html-validate on every template; Theme Check reports no errors or warnings.
->
-> [Owner: add a sentence or two on your own Shopify development experience.]
+The form asks two questions. Drafts as given to the owner (the submitted text may differ slightly).
+
+**What makes your theme unique from others?**
+
+> Vermeil is built for one merchant: independent jewelry and fine accessories brands that sell on close-up photography. Its look comes from large display serif type over full-bleed imagery, square edges and generous space, so a store reads like a printed lookbook rather than a catalog grid. The product page is built for inspecting detail, with hover zoom, a full-screen gallery, video, 3D and metal swatches. Under the hood it's original code: vanilla CSS on settings-driven tokens, a small vendored Alpine.js layer, and Shopify's Section Rendering API for the cart, variants, filters and search, with product, cart, filters and search all working without JavaScript.
+
+**What's your past experience with developing themes?**
+
+> I've been building Shopify themes with Liquid for a while, mostly experimenting on my own projects. The learning curve wasn't immediate, but it was steady: each theme taught me more about Online Store 2.0, sections and blocks, the Ajax and Section Rendering APIs, and accessibility. Vermeil started as one of those projects, and I rebuilt it from the ground up to Theme Store standards. It's the first theme I'm submitting, made with care, love and effort.
 
 ## Owner fields
 
-- Merchant review notification email (required): alerts when a merchant reviews the theme, or a review is updated or deleted. Not the review team
+- Merchant review notification email (required): `support@tochukwu.dev`. Alerts when a merchant reviews the theme, or a review is updated or deleted. Not the review team
 - Theme submission contact email (optional; falls back to the Partner account's business email): where the review team writes during review. Allow `themes@shopify.com` and `noreply@shopify.com` as senders
-- Tracking IDs (optional): GA4 measurement ID and API secret, Google remarketing conversion ID, Meta pixel ID
-- Key highlight images, desktop and mobile screenshots
+- Tracking IDs (optional): left blank at submission. GA4 measurement ID and API secret, Google remarketing conversion ID, Meta pixel ID; the secrets go only into the form
+- Key highlight images, desktop and mobile screenshots: supplied by the owner
 - Merchant stores using the theme: only after launch, up to five, 779 x 1000px, with each store's permission

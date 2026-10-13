@@ -2,7 +2,8 @@
 
 Source of truth: <https://shopify.dev/docs/storefronts/themes/store/requirements>
 (retrieved 2026-10-12). Submission flow: <https://shopify.dev/docs/storefronts/themes/store/review-process/submit-theme>.
-Re-check the source before submitting — Shopify revises this page.
+Re-check the source before submitting — Shopify revises this page. **Submitted 2026-10-13** (Vermeil 1.0.0); the
+review team's assessment is the next check.
 
 Status key: ✅ met · ⚠️ partial / needs work · ❌ missing or failing · 👤 owner action (not code)
 
@@ -17,11 +18,11 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 ---
 
 ## 1. Exclusivity
-- [ ] 👤 Distributed only on the Theme Store (no other marketplaces).
+- [x] 👤 Distributed only on the Theme Store (no other marketplaces). Decided 2026-10-13: Theme Store only, not ThemeForest.
 - [x] ✅ No designer credits or affiliate links in theme files. `theme_info` now reads Vermeil / Tochukwu Onwunali. Keep it free of marketing links.
 
 ## 2. Uniqueness
-- [ ] ⚠️ Fundamentally different from every Theme Store theme. Identity must come from **architecture**: header/nav system, product card, media treatment, page structure — not colors/fonts/spacing. Owner judgment before submission; the distinctive systems are listed below.
+- [x] 👤 Fundamentally different from every Theme Store theme. Identity must come from **architecture**: header/nav system, product card, media treatment, page structure — not colors/fonts/spacing. The owner judged it distinct and submitted; the review team decides. The distinctive systems are listed below.
 - [x] ✅ Not derived from Dawn or Horizon. **Note:** Shopify's Skeleton theme is the only approved base; otherwise code must be 100% original. As of 2026-10 Skeleton has moved to a sections-less `{% block %}` architecture that conflicts with the JSON-template rules in §5, so we write **original OS 2.0 code** rather than rebase. Every template, section and snippet was rewritten from scratch in Phases 1–5; no Themekit boilerplate remains.
 - [x] ✅ Distinctive systems, each a shared primitive: eyebrow + display `section-heading`, the fitted full-width wordmark footer, full-bleed `editorial-split`, drawer-first commerce on native `<dialog>` with text "Close" controls, the caption-row product card with inline quick add, the featured-first editorial blog grid.
 
@@ -35,7 +36,7 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 - [x] ✅ Consistent buttons, links, forms: primary, secondary (fill-up hover) and tertiary buttons; one field, input, select and textarea system in `base.css`.
 - [x] ✅ Merchant-friendly theme editor: every section has settings, presets and translated labels; copy reviewed (6c); live preview handled (6b).
 - [x] ✅ Clear path home → discovery → PDP → cart → checkout (Phases 2–4, store-tested).
-- [ ] ⚠️ 👤 Demo store with real, industry-fitting content. `vermeil-6sitmu3d` has original copy and stock imagery (Pexels); licensed imagery and final copy are Phase 7.
+- [x] 👤 Demo store with real, industry-fitting content. `vermeil-6sitmu3d` (client transfer store) has original copy and Pexels imagery with sources on record.
 
 ## 4. Required features
 | Feature | Status | Notes |
@@ -146,7 +147,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 
 ## 11. SEO
 - [x] ✅ Title, description and canonical in the `meta-tags` snippet, with page-number and tag suffixes in the title.
-- [x] ✅ Structured data: `product | structured_data` on product pages, `article | structured_data` on articles. 👤 Run Google's Rich Results test on the demo store before submission.
+- [x] ✅ Structured data: `product | structured_data` on product pages, `article | structured_data` on articles. 👤 Google's Rich Results test is backlog B14.
 - [x] ✅ No `robots.txt.liquid`.
 
 ## 12. Accessibility
@@ -197,12 +198,12 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 ## 20. Demo stores 👤
 - [x] ✅ One client-transfer demo store per preset: `vermeil-6sitmu3d` (client transfer store, confirmed 2026-10-13), jewelry, small catalog.
 - [x] ✅ Bogus Gateway is the only checkout option (2026-10-13).
-- [ ] Authentic text, licensed imagery (Shopify Burst suggested), no text baked into images, no apps (except free reviews/translation).
-- [ ] Recommended: a sale product, a sold-out variant, a multi-variant product, a gift card.
+- [x] Authentic text, licensed imagery (Pexels, sources on record), no text baked into images, no apps. Bogus Gateway is the only payment option. Client transfer store.
+- [x] Recommended: a sale product, a sold-out variant, a multi-variant product, a gift card (set up in the Phase 3 store pass).
 
 ## 21. Documentation + support form 👤
-- [ ] ⚠️ 👤 Public docs (FAQ, support policy, settings consistent with theme, code-edit warning). Built as a Starlight site in `docs-site/` with a generated settings reference; the owner publishes them.
+- [x] 👤 Public docs (FAQ, support policy, settings consistent with theme, code-edit warning): Starlight site in `docs-site/` with a generated settings reference, live at <https://doc-vermeil-store.tochukwu.dev/>.
 - [x] ✅ Support form at `/contact/` on the docs site (Cloudflare Pages Function `docs-site/functions/api/support.js`): first + last name, email, store URL with example, problem text area, up to 5 attachments, Turnstile spam check, email to the support inbox with reply-to set to the merchant, automatic confirmation to the merchant (Resend). 👤 Needs the Resend and Turnstile settings in Cloudflare. Shopify recommends a help desk or CRM for the long term.
 
 ## 22. Ongoing support 👤
-- [ ] Reply within 2 business days; fix critical bugs immediately. Shopify notes this is typically a full-time commitment.
+- [ ] Ongoing: reply within 2 business days; fix critical bugs immediately. Shopify notes this is typically a full-time commitment. Requests arrive at `support@tochukwu.dev` (forwarded to Gmail, see `docs/support-form.md`).

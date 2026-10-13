@@ -1,5 +1,9 @@
 # Design language
 
+> Parts 1–3 were written before the rebuild (2026-10-12). Parts 2 and 3 are now built: the tokens live in
+> `snippets/css-variables.liquid` and `assets/base.css`, and the kit is the current reference. Part 4's levers
+> are all structural primitives now, including the caption-row product card with inline quick add.
+
 Live reference: `docs/design-system/index.html` (generate with `npm run kit`). It renders every token,
 color scheme (with contrast checks), type style, button, form control, badge, icon and card from the
 real theme files.

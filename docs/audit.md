@@ -1,5 +1,8 @@
 # Codebase audit — 2026-10-12
 
+> Historical snapshot of the prototype before the rebuild. Every finding was resolved or superseded in Phases 1–6
+> (see `docs/roadmap.md`; the requirements checklist was re-audited against the code in 6a).
+
 Scope: every file in the repo (75 files, about 195 KB), read by hand, plus a Theme Check run
 (`@shopify/theme-check-node`, recommended config): **42 offenses, including 9 errors**. Theme Check
 catches less than a third of what's below.
