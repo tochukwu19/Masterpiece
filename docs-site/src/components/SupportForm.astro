@@ -1,0 +1,155 @@
+---
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const maxFiles = 5;
+const maxFileMb = 5;
+---
+
+<form class="support-form not-content" method="post" action="/api/support" enctype="multipart/form-data">
+  <p class="support-form__alert" id="error-invalid" role="alert">Some details were missing or not valid. Check the form and send it again.</p>
+  <p class="support-form__alert" id="error-files" role="alert">Attachments must be images, videos or PDFs: up to {maxFiles} files, {maxFileMb} MB each.</p>
+  <p class="support-form__alert" id="error-verification" role="alert">We couldn't confirm you're not a robot. Complete the check and send the form again.</p>
+  <p class="support-form__alert" id="error-delivery" role="alert">Your message couldn't be sent. Try again in a few minutes.</p>
+
+  <div class="support-form__row">
+    <div class="support-form__field">
+      <label for="support-first-name">First name</label>
+      <input id="support-first-name" name="first_name" type="text" autocomplete="given-name" required maxlength="80" />
+    </div>
+    <div class="support-form__field">
+      <label for="support-last-name">Last name</label>
+      <input id="support-last-name" name="last_name" type="text" autocomplete="family-name" required maxlength="80" />
+    </div>
+  </div>
+
+  <div class="support-form__field">
+    <label for="support-email">Email</label>
+    <input id="support-email" name="email" type="email" autocomplete="email" required maxlength="200" />
+  </div>
+
+  <div class="support-form__field">
+    <label for="support-store">Store URL</label>
+    <input
+      id="support-store"
+      name="store_url"
+      type="text"
+      inputmode="url"
+      autocomplete="url"
+      required
+      maxlength="200"
+      placeholder="your-store.myshopify.com"
+      aria-describedby="support-store-hint"
+    />
+    <p class="support-form__hint" id="support-store-hint">For example, your-store.myshopify.com</p>
+  </div>
+
+  <div class="support-form__field">
+    <label for="support-message">How can we help?</label>
+    <textarea id="support-message" name="message" rows="7" required maxlength="10000" aria-describedby="support-message-hint"></textarea>
+    <p class="support-form__hint" id="support-message-hint">Tell us the page, what you expected and what happened.</p>
+  </div>
+
+  <div class="support-form__field">
+    <label for="support-files">Screenshots or recordings (optional)</label>
+    <input id="support-files" name="attachments" type="file" multiple accept="image/*,video/*,application/pdf" aria-describedby="support-files-hint" />
+    <p class="support-form__hint" id="support-files-hint">Up to {maxFiles} files, {maxFileMb} MB each.</p>
+  </div>
+
+  {siteKey && <div class="cf-turnstile" data-sitekey={siteKey}></div>}
+  <noscript><p class="support-form__hint">Turn on JavaScript to complete the spam check and send the form.</p></noscript>
+
+  <button type="submit" class="support-form__submit">Send to support</button>
+</form>
+
+{siteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+<style>
+  .support-form {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 40rem;
+  }
+
+  .support-form__row {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 50rem) {
+    .support-form__row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .support-form__field {
+    display: grid;
+    gap: 0.375rem;
+  }
+
+  .support-form label {
+    font-weight: 600;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-white);
+  }
+
+  .support-form :is(input, textarea) {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--sl-color-gray-4);
+    border-radius: 0;
+    background-color: var(--sl-color-black);
+    color: var(--sl-color-white);
+    font: inherit;
+  }
+
+  .support-form input[type='file'] {
+    padding: 0.5rem 0;
+    border: 0;
+  }
+
+  .support-form :is(input, textarea):focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 1px;
+  }
+
+  .support-form__hint {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+  }
+
+  .support-form__alert {
+    display: none;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-inline-start: 3px solid var(--sl-color-accent);
+    background-color: var(--sl-color-accent-low);
+    color: var(--sl-color-white);
+  }
+
+  .support-form__alert:target {
+    display: block;
+  }
+
+  .support-form__submit {
+    justify-self: start;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--sl-color-white);
+    background-color: var(--sl-color-white);
+    color: var(--sl-color-black);
+    font: inherit;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .support-form__submit:hover {
+    background-color: transparent;
+    color: var(--sl-color-white);
+  }
+
+  .support-form__submit:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 3px;
+  }
+</style>

@@ -485,7 +485,7 @@ ${section('collection', 'Collection', 'scheme-1', `<div class="ds-stack">
 </div>`)}
 
 ${section('home', 'Home sections', 'scheme-1', `<div class="ds-stack">
-  <div class="banner banner--small"><div class="banner__frame" style="--overlay: 0.35;">
+  <div class="banner banner--small section" style="--section-pt: 40px; --section-pb: 40px;"><div class="banner__frame" style="--overlay: 0.35;">
     <div class="banner__media media">${placeholder(55)}<span class="media-scrim"></span></div>
     <div class="banner__content banner__content--center-center page-width"><div class="content-stack content-stack--center on-media">
       <div class="block-heading"><p class="eyebrow">New season</p><h2 class="h0">Made to be worn every day</h2></div>
@@ -505,10 +505,17 @@ ${section('home', 'Home sections', 'scheme-1', `<div class="ds-stack">
     </div>
     <figure class="testimonials__figure"><blockquote class="testimonials__quote h2">The ring I reach for every single morning.</blockquote><figcaption class="testimonials__caption"><span class="testimonials__author">Amara O.</span><span class="testimonials__detail text-muted">Toronto</span></figcaption></figure>
   </div>
-  <div class="editorial-split banner--small"><ul class="editorial-split__panels list-unstyled">
+  <div class="editorial-split banner banner--small section"><ul class="editorial-split__panels list-unstyled">
     <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media">${placeholder(40)}<span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Rings</h2></div><a href="#" class="block-button button button--secondary">Shop rings</a></div></div></li>
     <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media">${placeholder(30)}<span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Necklaces</h2></div><a href="#" class="block-button button button--secondary">Shop necklaces</a></div></div></li>
   </ul></div>
+  <div class="newsletter banner banner--small section color-scheme-3" style="--section-pt: 40px; --section-pb: 40px; --overlay: 0.6;"><div class="banner__frame">
+    <div class="banner__media media">${placeholder(48)}<span class="media-scrim"></span></div>
+    <div class="banner__content banner__content--center-center page-width"><div class="newsletter__content content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Newsletter</p><h2 class="h2">Stay in the loop</h2></div><div class="block-text rte"><p>With an image, padding sits inside the image.</p></div><div class="newsletter__form"><div class="field"><label class="visually-hidden" for="ds-newsletter-image">Email</label><div class="field__inline"><input id="ds-newsletter-image" class="input input--underline" type="email" placeholder="Email address"><button type="button" class="icon-button field__inline-button">${icon('arrow-right')}<span class="visually-hidden">Subscribe</span></button></div></div></div></div></div>
+  </div></div>
+  <div class="newsletter banner section color-scheme-3" style="--section-pt: 0px; --section-pb: 0px;"><div class="banner__frame">
+    <div class="banner__content banner__content--center-center page-width"><div class="newsletter__content content-stack content-stack--center"><div class="block-heading"><p class="eyebrow">Newsletter</p><h2 class="h2">Stay in the loop</h2></div><div class="block-text rte"><p>Without an image, the banner keeps its own space around the text.</p></div><div class="newsletter__form"><div class="field"><label class="visually-hidden" for="ds-newsletter-plain">Email</label><div class="field__inline"><input id="ds-newsletter-plain" class="input input--underline" type="email" placeholder="Email address"><button type="button" class="icon-button field__inline-button">${icon('arrow-right')}<span class="visually-hidden">Subscribe</span></button></div></div></div></div></div>
+  </div></div>
   <ul class="layout-grid list-unstyled" style="--cols: 3; --cols-mobile: 1;">
     <li><div class="card-product"><div class="card-product__media media" style="--ratio: var(--card-ratio);">${placeholder(10)}</div><div class="card-product__info"><div class="card-product__text"><h3 class="card-product__title">Example product</h3></div></div></div></li>
     <li><div class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;">${placeholder(20)}</div><div class="card-collection__caption"><h3 class="card-collection__title h3">Collection title</h3></div></div></li>

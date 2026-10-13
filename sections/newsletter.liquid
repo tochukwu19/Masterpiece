@@ -4,17 +4,17 @@
 -%}
 
 <div
-  class="newsletter banner--{{ section.settings.height }} section color-{{ section.settings.color_scheme.id }}"
+  class="newsletter banner{% if image %} banner--{{ section.settings.height }}{% endif %} section color-{{ section.settings.color_scheme.id }}"
   style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px; --overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
 >
-  <div class="{% if image %}banner__frame{% else %}page-width{% endif %}">
+  <div class="banner__frame">
     {%- if image -%}
       <div class="banner__media media">
         {%- render 'image', image: image, sizes: '100vw' -%}
         <span class="media-scrim"></span>
       </div>
     {%- endif -%}
-    <div class="{% if image %}banner__content banner__content--center-center page-width{% endif %}">
+    <div class="banner__content banner__content--center-center page-width">
       <div class="newsletter__content content-stack content-stack--center{% if image %} on-media{% endif %}">
         <div class="block-heading">
           {%- if section.settings.eyebrow != blank -%}
@@ -149,7 +149,7 @@
       "max": 160,
       "step": 4,
       "unit": "px",
-      "default": 80,
+      "default": 0,
       "label": "t:sections.all.padding.padding_top"
     },
     {
@@ -159,7 +159,7 @@
       "max": 160,
       "step": 4,
       "unit": "px",
-      "default": 80,
+      "default": 0,
       "label": "t:sections.all.padding.padding_bottom"
     }
   ],

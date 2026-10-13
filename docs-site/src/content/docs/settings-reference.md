@@ -458,8 +458,8 @@ Any page
 
 | Setting | Type | Default | Notes |
 |---|---|---|---|
-| Top padding | Range, 0–160px | 80px |  |
-| Bottom padding | Range, 0–160px | 80px |  |
+| Top padding | Range, 0–160px | 0px |  |
+| Bottom padding | Range, 0–160px | 0px |  |
 
 ### Featured collection
 

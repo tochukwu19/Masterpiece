@@ -174,7 +174,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 - [x] ✅ `link_list` defaults: header `main-menu`, footer menu block `footer`, account menu `customer-account-main-menu`.
 - [x] ✅ Resource defaults exist in every store: no handle lookups in Liquid (verified by grep); templates reference only the `all` collection and the `news` blog.
 - [x] ✅ Editor live preview works for every change: Alpine re-initializes re-rendered sections and cleans up in `destroy()`; selected slides, quotes and announcements are shown; autoplay pauses while edited; only the cart drawer opens on selection (Phase 6b). 👤 Real-editor walkthrough: backlog B10.
-- [ ] ⚠️ `theme_info` updated (Vermeil 1.0.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
+- [x] ✅ `theme_info`: Vermeil 1.0.0, documentation `https://doc-vermeil-store.tochukwu.dev/`, support `https://doc-vermeil-store.tochukwu.dev/contact/`.
 
 ## 15. Font picker
 - [x] ✅ All fonts via `font_picker` (defaults `gloock_n4`, `figtree_n4`), with bold, italic and bold-italic via `font_modify` + `font_face`.
@@ -189,20 +189,20 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 ## 18. Naming and presets
 - [x] ✅ 1–2 words, < 30 chars, unique, not an industry word. **Theme name: "Vermeil"** (gilded silver), chosen 2026-10-12. No Theme Store listing by that name. "Atelier" was preferred but is taken.
 - [x] One preset, "Vermeil", carries the theme's name. No extra presets.
-- [x] ✅ Install parity: "On install, the theme should match the demo store's look"; layout, color and typography settings must match. Phase 7a aligned the shipped home template with the demo's layout and settings; the product template and theme settings already matched. Demo images, resource picks and copy don't transfer. 👤 Confirm on a fresh store after packaging.
+- [x] ✅ Install parity: "On install, the theme should match the demo store's look"; layout, color and typography settings must match. Phase 7a aligned the shipped home template with the demo's layout and settings; the product template and theme settings already matched. Demo images, resource picks and copy don't transfer. `npm run package` builds the ZIP from committed files only. 👤 Confirm on a fresh store with the 1.0.0 ZIP.
 
 ## 19. Versions
 - [x] ✅ Version number + release notes on every submission: `theme_version` 1.0.0, `CHANGELOG.md` for developers, merchant release notes on the docs site (`docs-site/src/content/docs/release-notes.md`) (pasted into the submission; `release-notes.md` goes in the ZIP root only for updates after publication).
 
 ## 20. Demo stores 👤
 - [x] ✅ One client-transfer demo store per preset: `vermeil-6sitmu3d` (client transfer store, confirmed 2026-10-13), jewelry, small catalog.
-- [ ] ⚠️ Bogus Gateway or Shopify Payments test mode; other checkout options off. Bogus Gateway active (2026-10-13); 👤 confirm the other options are off.
+- [x] ✅ Bogus Gateway is the only checkout option (2026-10-13).
 - [ ] Authentic text, licensed imagery (Shopify Burst suggested), no text baked into images, no apps (except free reviews/translation).
 - [ ] Recommended: a sale product, a sold-out variant, a multi-variant product, a gift card.
 
 ## 21. Documentation + support form 👤
 - [ ] ⚠️ 👤 Public docs (FAQ, support policy, settings consistent with theme, code-edit warning). Built as a Starlight site in `docs-site/` with a generated settings reference; the owner publishes them.
-- [ ] Support form: first + last name, email, store URL (with example), problem textarea, file upload, auto-responder; no budget/phone questions.
+- [x] ✅ Support form at `/contact/` on the docs site (Cloudflare Pages Function `docs-site/functions/api/support.js`): first + last name, email, store URL with example, problem text area, up to 5 attachments, Turnstile spam check, email to the support inbox with reply-to set to the merchant, automatic confirmation to the merchant (Resend). 👤 Needs the Resend and Turnstile settings in Cloudflare. Shopify recommends a help desk or CRM for the long term.
 
 ## 22. Ongoing support 👤
 - [ ] Reply within 2 business days; fix critical bugs immediately. Shopify notes this is typically a full-time commitment.

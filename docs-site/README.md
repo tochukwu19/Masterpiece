@@ -16,5 +16,25 @@ npm run dev
 - Root directory: `docs-site`
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Environment variable: `DOCS_SITE_URL` set to the site's public URL, for example `https://docs.example.com`
 - Node version comes from `.node-version`
+
+Variables (**Settings > Variables and secrets**, Production):
+
+| Name | Type | Value |
+|---|---|---|
+| `DOCS_SITE_URL` | Text | `https://doc-vermeil-store.tochukwu.dev` |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Text | Turnstile widget site key |
+| `TURNSTILE_SECRET_KEY` | Secret | Turnstile widget secret key |
+| `RESEND_API_KEY` | Secret | Resend API key with sending access |
+| `SUPPORT_FROM` | Text | `Vermeil Support <support@tochukwu.dev>` (a verified Resend domain) |
+| `SUPPORT_INBOX` | Text | `support@tochukwu.dev` |
+
+## Support form
+
+Full setup, services and DNS records: `docs/support-form.md` in the repo root.
+
+
+`/contact/` posts to the Pages Function in `functions/api/support.js`. It checks Turnstile, emails the request
+with attachments to `SUPPORT_INBOX` (reply-to: the merchant), and sends the merchant a confirmation. Errors
+redirect back to the form with a fragment (`#error-invalid`, `#error-files`, `#error-verification`,
+`#error-delivery`) that shows the matching message without JavaScript.
