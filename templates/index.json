@@ -35,7 +35,7 @@
       "settings": {
         "overlay_opacity": 30,
         "height": "full",
-        "content_position": "center-center",
+        "content_position": "bottom-left",
         "color_scheme": "scheme-2",
         "padding_top": 0,
         "padding_bottom": 0
@@ -178,37 +178,6 @@
         "padding_bottom": 80
       }
     },
-    "press": {
-      "type": "logo-list",
-      "blocks": {
-        "l1": {
-          "type": "logo"
-        },
-        "l2": {
-          "type": "logo"
-        },
-        "l3": {
-          "type": "logo"
-        },
-        "l4": {
-          "type": "logo"
-        }
-      },
-      "block_order": [
-        "l1",
-        "l2",
-        "l3",
-        "l4"
-      ],
-      "settings": {
-        "heading": "As featured in",
-        "heading_size": "h2",
-        "logo_height": "medium",
-        "color_scheme": "scheme-1",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
-    },
     "testimonials": {
       "type": "testimonials",
       "blocks": {
@@ -238,7 +207,8 @@
         "heading_size": "h2",
         "color_scheme": "scheme-2",
         "padding_top": 80,
-        "padding_bottom": 80
+        "padding_bottom": 80,
+        "heading": ""
       }
     },
     "promises": {
@@ -310,11 +280,11 @@
         "heading": "Stay in the loop",
         "heading_size": "h1",
         "text": "<p>New collections, restocks and the occasional private sale. No spam.</p>",
-        "overlay_opacity": 35,
+        "overlay_opacity": 60,
         "height": "medium",
         "color_scheme": "scheme-3",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
@@ -325,7 +295,6 @@
     "collections",
     "craft",
     "featured_product",
-    "press",
     "testimonials",
     "promises",
     "journal",
