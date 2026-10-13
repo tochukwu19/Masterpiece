@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -9,14 +18,16 @@
             "eyebrow": "New season",
             "heading": "Made to be worn every day",
             "size": "h0"
-          }
+          },
+          "blocks": {}
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Introduce your newest collection in a sentence or two.</p>",
+            "text": "<p>Recycled gold and ethically sourced stones, finished by hand.</p>",
             "size": "large"
-          }
+          },
+          "blocks": {}
         },
         "button": {
           "type": "button",
@@ -24,7 +35,8 @@
             "label": "Shop the collection",
             "link": "shopify://collections/all",
             "style": "primary"
-          }
+          },
+          "blocks": {}
         }
       },
       "block_order": [
@@ -33,6 +45,8 @@
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/vermeil-pexels-hero-desktop.jpg",
+        "image_mobile": "shopify://shop_images/vermeil-pexels-hero-mobile.jpg",
         "overlay_opacity": 30,
         "height": "full",
         "content_position": "bottom-left",
@@ -47,7 +61,7 @@
         "eyebrow": "Just in",
         "heading": "New arrivals",
         "heading_size": "h0",
-        "collection": "all",
+        "collection": "the-vermeil-collection",
         "products_to_show": 8,
         "show_view_all": true,
         "layout": "carousel",
@@ -64,17 +78,21 @@
         "panel_1": {
           "type": "panel",
           "settings": {
+            "image": "shopify://shop_images/vermeil-pexels-editorial-rings.jpg",
             "eyebrow": "Shop",
             "heading": "Rings",
-            "button_label": "Shop rings"
+            "button_label": "Shop rings",
+            "link": "shopify://collections/rings"
           }
         },
         "panel_2": {
           "type": "panel",
           "settings": {
+            "image": "shopify://shop_images/vermeil-pexels-editorial-necklaces.jpg",
             "eyebrow": "Shop",
             "heading": "Necklaces",
-            "button_label": "Shop necklaces"
+            "button_label": "Shop necklaces",
+            "link": "shopify://collections/necklaces"
           }
         }
       },
@@ -95,13 +113,22 @@
       "type": "collection-list",
       "blocks": {
         "c1": {
-          "type": "collection"
+          "type": "collection",
+          "settings": {
+            "collection": "rings"
+          }
         },
         "c2": {
-          "type": "collection"
+          "type": "collection",
+          "settings": {
+            "collection": "necklaces"
+          }
         },
         "c3": {
-          "type": "collection"
+          "type": "collection",
+          "settings": {
+            "collection": "bracelets"
+          }
         }
       },
       "block_order": [
@@ -132,22 +159,25 @@
             "eyebrow": "Craft",
             "heading": "Finished by hand",
             "size": "h1"
-          }
+          },
+          "blocks": {}
         },
         "text": {
           "type": "text",
           "settings": {
             "text": "<p>Every piece is cast, polished and checked by the same small team before it ships.</p>",
             "size": "body"
-          }
+          },
+          "blocks": {}
         },
         "button": {
           "type": "button",
           "settings": {
             "label": "Our story",
-            "link": "",
+            "link": "shopify://pages/our-story",
             "style": "secondary"
-          }
+          },
+          "blocks": {}
         }
       },
       "block_order": [
@@ -156,6 +186,7 @@
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/vermeil-pexels-jewelry-craft.jpg",
         "image_position": "left",
         "image_ratio": "4 / 5",
         "vertical_alignment": "center",
@@ -167,6 +198,7 @@
     "featured_product": {
       "type": "featured-product",
       "settings": {
+        "product": "luna-stacking-ring",
         "show_vendor": false,
         "picker_type": "buttons",
         "swatch_shape": "circle",
@@ -204,11 +236,11 @@
       ],
       "settings": {
         "eyebrow": "Kind words",
+        "heading": "",
         "heading_size": "h2",
         "color_scheme": "scheme-2",
         "padding_top": 80,
-        "padding_bottom": 80,
-        "heading": ""
+        "padding_bottom": 80
       }
     },
     "promises": {
@@ -217,22 +249,31 @@
         "c1": {
           "type": "column",
           "settings": {
-            "title": "Recycled gold",
-            "text": "<p>Describe your materials and where they come from.</p>"
+            "image": "shopify://shop_images/vermeil-care-gold-details.jpg",
+            "title": "Gold in the details",
+            "text": "<p>Warm tones, subtle texture and pieces to make your own. Discover jewelry for everyday styling.</p>",
+            "link_label": "Explore the collection",
+            "link": "shopify://collections/the-vermeil-collection"
           }
         },
         "c2": {
           "type": "column",
           "settings": {
-            "title": "Free shipping",
-            "text": "<p>Tell customers about shipping, returns or gift wrapping.</p>"
+            "image": "shopify://shop_images/vermeil-care-gifting.jpg",
+            "title": "Thoughtful gifting",
+            "text": "<p>A little something for someone special. Choose a piece they’ll love, or let them choose with a Vermeil gift card.</p>",
+            "link_label": "Shop gift cards",
+            "link": "shopify://products/vermeil-gift"
           }
         },
         "c3": {
           "type": "column",
           "settings": {
-            "title": "Lifetime care",
-            "text": "<p>Describe repairs, cleaning or your warranty.</p>"
+            "image": "shopify://shop_images/vermeil-care-polishing.jpg",
+            "title": "Everyday care",
+            "text": "<p>A gentle wipe and careful storage go a long way. Follow our simple guide to caring for your favorite pieces.</p>",
+            "link_label": "Read the care guide",
+            "link": "shopify://pages/jewelry-care"
           }
         }
       },
@@ -259,7 +300,7 @@
         "eyebrow": "Journal",
         "heading": "From the journal",
         "heading_size": "h0",
-        "blog": "news",
+        "blog": "vermeil-journal",
         "post_count": 3,
         "show_date": true,
         "show_author": false,
@@ -279,7 +320,8 @@
         "eyebrow": "Newsletter",
         "heading": "Stay in the loop",
         "heading_size": "h1",
-        "text": "<p>New collections, restocks and the occasional private sale. No spam.</p>",
+        "text": "<p>Discover new pieces, collection stories and styling inspiration. A little Vermeil in your inbox.</p>",
+        "image": "shopify://shop_images/vermeil-newsletter-linen.jpg",
         "overlay_opacity": 60,
         "height": "medium",
         "color_scheme": "scheme-3",
