@@ -174,7 +174,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 - [x] ✅ `link_list` defaults: header `main-menu`, footer menu block `footer`, account menu `customer-account-main-menu`.
 - [x] ✅ Resource defaults exist in every store: no handle lookups in Liquid (verified by grep); templates reference only the `all` collection and the `news` blog.
 - [x] ✅ Editor live preview works for every change: Alpine re-initializes re-rendered sections and cleans up in `destroy()`; selected slides, quotes and announcements are shown; autoplay pauses while edited; only the cart drawer opens on selection (Phase 6b). 👤 Real-editor walkthrough: backlog B10.
-- [ ] ⚠️ `theme_info` updated (Vermeil 0.1.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
+- [ ] ⚠️ `theme_info` updated (Vermeil 1.0.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
 
 ## 15. Font picker
 - [x] ✅ All fonts via `font_picker` (defaults `gloock_n4`, `figtree_n4`), with bold, italic and bold-italic via `font_modify` + `font_face`.
@@ -189,19 +189,19 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 ## 18. Naming and presets
 - [x] ✅ 1–2 words, < 30 chars, unique, not an industry word. **Theme name: "Vermeil"** (gilded silver), chosen 2026-10-12. No Theme Store listing by that name. "Atelier" was preferred but is taken.
 - [x] One preset, "Vermeil", carries the theme's name. No extra presets.
-- [ ] 👤 Install parity: a fresh install should look like the demo store (minus images). Feature branches ship generic template defaults with placeholders; check by installing on a fresh development store (Phase 7).
+- [x] ✅ Install parity: "On install, the theme should match the demo store's look"; layout, color and typography settings must match. Phase 7a aligned the shipped home template with the demo's layout and settings; the product template and theme settings already matched. Demo images, resource picks and copy don't transfer. 👤 Confirm on a fresh store after packaging.
 
 ## 19. Versions
-- [ ] Version number + release notes on every submission (`theme_info.theme_version`, a `CHANGELOG.md`).
+- [x] ✅ Version number + release notes on every submission: `theme_version` 1.0.0, `CHANGELOG.md` for developers, merchant release notes in `docs/release-notes/` (pasted into the submission; `release-notes.md` goes in the ZIP root only for updates after publication).
 
 ## 20. Demo stores 👤
-- [ ] One client-transfer demo store per preset (Dev Dashboard), matching industry + catalog size.
+- [x] ✅ One client-transfer demo store per preset: `vermeil-6sitmu3d` (client transfer store, confirmed 2026-10-13), jewelry, small catalog.
 - [ ] Bogus Gateway or Shopify Payments test mode; other checkout options off.
 - [ ] Authentic text, licensed imagery (Shopify Burst suggested), no text baked into images, no apps (except free reviews/translation).
 - [ ] Recommended: a sale product, a sold-out variant, a multi-variant product, a gift card.
 
 ## 21. Documentation + support form 👤
-- [ ] Public docs (FAQ, support policy, settings consistent with theme, code-edit warning).
+- [ ] ⚠️ 👤 Public docs (FAQ, support policy, settings consistent with theme, code-edit warning). Drafted in `docs/theme-docs/` with a generated settings reference; the owner publishes them.
 - [ ] Support form: first + last name, email, store URL (with example), problem textarea, file upload, auto-responder; no budget/phone questions.
 
 ## 22. Ongoing support 👤

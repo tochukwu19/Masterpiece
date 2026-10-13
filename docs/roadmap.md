@@ -119,7 +119,11 @@ Branch `phase-6-hardening`.
 - [ ] 👤 Install-parity check on a fresh store (moved to Phase 7 with the demo store setup)
 
 ## Phase 7 — Pre-launch (mostly owner actions)
-- [ ] Demo store(s) via Dev Dashboard client-transfer store; real copy and licensed imagery; Bogus Gateway
-- [ ] Documentation site + support contact form
-- [ ] Listing assets, version 1.0.0, release notes, `CHANGELOG.md`
-- [ ] Submit via the Partner Dashboard
+Branch `phase-7-launch`.
+- [x] 7a. Install parity: the shipped home template matches the demo store's layout (logo list removed, hero content bottom left, testimonials heading hidden, email signup overlay and padding); product template and theme settings already matched. Only images, resource picks and copy differ
+- [x] 7b. `CHANGELOG.md`, merchant release notes (`docs/release-notes/1.0.0.md`), `theme_version` 1.0.0
+- [x] 7c. Documentation drafts in `docs/theme-docs/`: overview, getting started, pages, FAQ, support policy, and a settings reference generated from the schema (`npm run docs`) so it always matches the editor
+- [x] Demo store: `vermeil-6sitmu3d` is a client transfer store (confirmed by the owner, 2026-10-13); it keeps its content on the `demo` branch
+- [ ] 👤 Demo store content: Bogus Gateway or Shopify Payments test mode with other checkout options off; licensed imagery with rights on record (the Pexels license allows commercial use); authentic copy; no apps; a sale product, a sold-out variant, a multi-variant product and a gift card (already there)
+- [ ] 👤 Publish the documentation site and a support form (fields in `docs/theme-docs/support.md`, auto-responder on); then replace the GitHub links in `theme_info` and the placeholders in `index.md` and `support.md`
+- [ ] 👤 Listing assets (screenshots, preset name, industry tags, demo store link) and submission through the Partner Dashboard, with the release notes text
