@@ -83,7 +83,7 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 - [x] Sections: `hero`, `slideshow`, `featured-collection` (grid or carousel), `collection-list` (grid or carousel), `editorial-split`, `image-with-text`, `rich-text`, `multicolumn`, `logo-list`, `testimonials`, `video` (hosted video uses the `video-player` snippet, YouTube/Vimeo use the platform player), `blog-posts`, `newsletter`, `custom-liquid`
 - [x] `featured-product` (B2): the product URL plus the section's own ID re-renders a home section in that product's context, so `productInfo` works unchanged. Price, quantity and buy buttons are shared snippets with `main-product`
 - [x] `templates/index.json` rebuilt: settings-driven content, placeholders where blank, no bundled images, only resources every store has (`all` collection, `news` blog)
-- [ ] Carousel end-of-track behavior re-checked in a visible browser (the in-app pane kept going hidden, which pauses smooth scrolling)
+- [x] Carousel end-of-track behavior re-checked with real clicks at 1280px and 375px (Phase 5). Fixed two bugs: the product card's quick-add button overflowed the card by 10px, so the last snap point never reached the end and Next stayed enabled; and looping carousels disabled their buttons at the ends (`canPrev` / `canNext` now respect `loop`)
 
 **4d. Clean-up and verification**
 - [x] Delete the `template-*` sections plus `filter`, `collection` and the `icon-*` legacy snippets (only these sections use them). Drop Swiper from `docs/third-party.md`.

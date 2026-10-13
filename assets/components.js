@@ -148,6 +148,14 @@ document.addEventListener('alpine:init', () => {
       current: 0,
       playing: false,
 
+      get canPrev() {
+        return loop || !this.atStart;
+      },
+
+      get canNext() {
+        return loop || !this.atEnd;
+      },
+
       init() {
         track = this.$el.querySelector('[data-carousel-track]');
         this.sync();
