@@ -124,6 +124,6 @@ Branch `phase-7-launch`.
 - [x] 7b. `CHANGELOG.md`, merchant release notes (`docs/release-notes/1.0.0.md`), `theme_version` 1.0.0
 - [x] 7c. Documentation drafts in `docs/theme-docs/`: overview, getting started, pages, FAQ, support policy, and a settings reference generated from the schema (`npm run docs`) so it always matches the editor
 - [x] Demo store: `vermeil-6sitmu3d` is a client transfer store (confirmed by the owner, 2026-10-13); it keeps its content on the `demo` branch
-- [ ] 👤 Demo store content: Bogus Gateway or Shopify Payments test mode with other checkout options off; licensed imagery with rights on record (the Pexels license allows commercial use); authentic copy; no apps; a sale product, a sold-out variant, a multi-variant product and a gift card (already there)
+- [ ] 👤 Demo store content: Bogus Gateway active (2026-10-13); confirm every other checkout option is off (Shop Pay, PayPal, manual payments); licensed imagery with rights on record (the Pexels license allows commercial use); authentic copy; no apps; a sale product, a sold-out variant, a multi-variant product and a gift card (already there)
 - [ ] 👤 Publish the documentation site and a support form (fields in `docs/theme-docs/support.md`, auto-responder on); then replace the GitHub links in `theme_info` and the placeholders in `index.md` and `support.md`
 - [ ] 👤 Listing assets (screenshots, preset name, industry tags, demo store link) and submission through the Partner Dashboard, with the release notes text

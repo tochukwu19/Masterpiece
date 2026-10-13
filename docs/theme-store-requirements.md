@@ -196,7 +196,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 
 ## 20. Demo stores 👤
 - [x] ✅ One client-transfer demo store per preset: `vermeil-6sitmu3d` (client transfer store, confirmed 2026-10-13), jewelry, small catalog.
-- [ ] Bogus Gateway or Shopify Payments test mode; other checkout options off.
+- [ ] ⚠️ Bogus Gateway or Shopify Payments test mode; other checkout options off. Bogus Gateway active (2026-10-13); 👤 confirm the other options are off.
 - [ ] Authentic text, licensed imagery (Shopify Burst suggested), no text baked into images, no apps (except free reviews/translation).
 - [ ] Recommended: a sale product, a sold-out variant, a multi-variant product, a gift card.
 
