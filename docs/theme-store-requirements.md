@@ -172,7 +172,7 @@ Required templates (✅ exists as JSON · ❌):
 - [ ] ⚠️ Every setting has a `label` (and translated `t:` labels). Scripted check in Phase 6c.
 - [x] ✅ `link_list` defaults: header `main-menu`, footer menu block `footer`, account menu `customer-account-main-menu`.
 - [x] ✅ Resource defaults exist in every store: no handle lookups in Liquid (verified by grep); templates reference only the `all` collection and the `news` blog.
-- [ ] ⚠️ Editor live preview works for every change. Alpine re-initializes re-rendered sections; block selection and autoplay in Phase 6b.
+- [x] ✅ Editor live preview works for every change: Alpine re-initializes re-rendered sections and cleans up in `destroy()`; selected slides, quotes and announcements are shown; autoplay pauses while edited; only the cart drawer opens on selection (Phase 6b). 👤 Real-editor walkthrough: backlog B10.
 - [ ] ⚠️ `theme_info` updated (Vermeil 0.1.0). Documentation + support URLs temporarily point at the GitHub repo; swap in the real docs site + support form before submission.
 
 ## 15. Font picker

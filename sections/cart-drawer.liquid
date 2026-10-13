@@ -1,6 +1,7 @@
 <dialog
   id="CartDrawer"
   class="drawer cart-drawer color-{{ section.settings.color_scheme.id }}"
+  data-section-drawer
   aria-labelledby="CartDrawer-Title"
   x-data="drawer"
   x-on:drawer-open.window="toggle($event.detail)"

@@ -127,10 +127,12 @@ document.addEventListener('alpine:init', () => {
   }));
 
   Alpine.data('carousel', ({ loop = false, autoplay = 0 } = {}) => {
+    let root;
     let track;
     let observer;
     let timer;
     let held = false;
+    let editing = false;
 
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const direction = () => (getComputedStyle(track).direction === 'rtl' ? -1 : 1);
@@ -139,6 +141,21 @@ document.addEventListener('alpine:init', () => {
 
     const scrollToOffset = (left) => {
       track.scrollTo({ left: left * direction(), behavior: reducedMotion() ? 'auto' : 'smooth' });
+    };
+
+    const onSectionSelect = (event) => {
+      if (event.target.contains(root)) editing = true;
+    };
+
+    const onSectionDeselect = (event) => {
+      if (event.target.contains(root)) editing = false;
+    };
+
+    const onBlockSelect = (event) => {
+      const slide = [...track.children].find((child) => child.contains(event.target));
+      if (!slide) return;
+      editing = true;
+      scrollToOffset(Math.abs(slide.offsetLeft - track.firstElementChild.offsetLeft));
     };
 
     return {
@@ -157,16 +174,23 @@ document.addEventListener('alpine:init', () => {
       },
 
       init() {
-        track = this.$el.querySelector('[data-carousel-track]');
+        root = this.$el;
+        track = root.querySelector('[data-carousel-track]');
         this.sync();
         observer = new ResizeObserver(() => this.sync());
         observer.observe(track);
+        document.addEventListener('shopify:section:select', onSectionSelect);
+        document.addEventListener('shopify:section:deselect', onSectionDeselect);
+        document.addEventListener('shopify:block:select', onBlockSelect);
         if (autoplay > 0 && !reducedMotion()) this.play();
       },
 
       destroy() {
         observer?.disconnect();
         clearInterval(timer);
+        document.removeEventListener('shopify:section:select', onSectionSelect);
+        document.removeEventListener('shopify:section:deselect', onSectionDeselect);
+        document.removeEventListener('shopify:block:select', onBlockSelect);
       },
 
       sync() {
@@ -201,7 +225,7 @@ document.addEventListener('alpine:init', () => {
         this.playing = true;
         clearInterval(timer);
         timer = setInterval(() => {
-          if (!held && !document.hidden) this.next();
+          if (!held && !editing && !document.hidden) this.next();
         }, autoplay * 1000);
       },
 
@@ -262,11 +286,11 @@ document.addEventListener('alpine:init', () => {
 });
 
 document.addEventListener('shopify:section:select', (event) => {
-  const drawer = event.target.querySelector('dialog.drawer');
+  const drawer = event.target.querySelector('dialog[data-section-drawer]');
   if (drawer && !drawer.open) drawer.showModal();
 });
 
 document.addEventListener('shopify:section:deselect', (event) => {
-  const drawer = event.target.querySelector('dialog.drawer[open]');
+  const drawer = event.target.querySelector('dialog[data-section-drawer][open]');
   if (drawer) drawer.close();
 });

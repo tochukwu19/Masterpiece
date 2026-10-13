@@ -109,7 +109,7 @@ Branch `phase-5-content`. Each commit removed its templates from the layout's le
 ## Phase 6 — Hardening
 Branch `phase-6-hardening`.
 - [x] 6a. Requirements checklist re-audited against the code; stale entries from the original audit rewritten. Gap fixed: `@app` blocks in `featured-product`
-- [ ] 6b. Editor live preview: block selection, autoplay in the editor
+- [x] 6b. Editor live preview: carousels scroll to the selected slide or quote and pause autoplay while their section is selected; selecting a section opens only the cart drawer (it used to open the header's menu drawer, the product lightbox or the filter drawer). Real-editor walkthrough is backlog B10
 - [ ] 6c. Settings copy review and scripted label check
 - [ ] 6d. Accessibility and HTML: validator, labels, contrast, targets, keyboard, right-to-left (B9)
 - [ ] 6e. Browser compatibility audit
