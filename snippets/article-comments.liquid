@@ -79,7 +79,7 @@
             class="input"
             type="text"
             name="comment[author]"
-            value="{{ form.author }}"
+            value="{{ form.author | escape }}"
             autocomplete="name"
             autocapitalize="words"
             required
@@ -95,7 +95,7 @@
             class="input"
             type="email"
             name="comment[email]"
-            value="{{ form.email }}"
+            value="{{ form.email | escape }}"
             autocomplete="email"
             autocorrect="off"
             autocapitalize="off"
@@ -118,7 +118,7 @@
               aria-invalid="true" aria-describedby="CommentForm-errors"
             {% endif %}
           >
-            {{- form.body -}}
+            {{- form.body | escape -}}
           </textarea>
         </div>
       </div>

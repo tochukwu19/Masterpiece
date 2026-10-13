@@ -1049,6 +1049,35 @@
     }
   }
 
+.contact-form__inner {
+    display: grid;
+    width: min(100%, calc(44rem + var(--page-gutter) * 2));
+  }
+
+  .contact-form__form {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-form__fields {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-form__form .form-message a {
+    color: inherit;
+  }
+
+  @media (min-width: 750px) {
+    .contact-form__fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-form__message {
+      grid-column: 1 / -1;
+    }
+  }
+
 .editorial-split__panels {
     display: grid;
   }
@@ -1570,6 +1599,27 @@
     opacity: 0.7;
   }
 
+.main-404__inner {
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .main-404__title {
+    max-width: 48rem;
+  }
+
+  .main-404__text {
+    max-width: 32rem;
+  }
+
+  .main-404__search {
+    width: min(100%, 32rem);
+    margin-block: 1rem;
+    text-align: start;
+  }
+
 .main-blog__tags {
     margin-bottom: clamp(2rem, 4vw, 3rem);
   }
@@ -1689,6 +1739,36 @@
 
 .main-list-collections .pagination {
     margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+.main-page__inner {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .main-page__inner--narrow {
+    --content-width: 44rem;
+  }
+
+  .main-page__inner--wide {
+    --content-width: 64rem;
+  }
+
+  .main-page__title,
+  .main-page__content {
+    width: min(100%, var(--content-width));
+  }
+
+  .main-page__title {
+    overflow-wrap: anywhere;
+  }
+
+  .main-page__inner--center {
+    justify-items: center;
+  }
+
+  .main-page__inner--center .main-page__title {
+    text-align: center;
   }
 
 .password {
@@ -2041,7 +2121,7 @@
   <p class="eyebrow">Generated from theme settings, base.css and component snippets</p>
   <h1 class="h0">Vermeil</h1>
   <p class="text-muted">The living reference for the theme's design system. Regenerate with <code>npm run kit</code> after changing tokens, base styles or components.</p>
-  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a><a class="link" href="#home">Home sections</a><a class="link" href="#blog">Blog and article</a></nav>
+  <nav class="ds-nav" aria-label="Sections"><a class="link" href="#colors">Color schemes</a><a class="link" href="#type">Typography</a><a class="link" href="#buttons">Buttons</a><a class="link" href="#forms">Forms</a><a class="link" href="#badges">Badges and price</a><a class="link" href="#icons">Icons</a><a class="link" href="#cards">Cards</a><a class="link" href="#heading">Section heading</a><a class="link" href="#pagination">Pagination</a><a class="link" href="#header">Header</a><a class="link" href="#drawers">Drawers</a><a class="link" href="#footer">Footer</a><a class="link" href="#product">Product</a><a class="link" href="#collection">Collection</a><a class="link" href="#home">Home sections</a><a class="link" href="#blog">Blog and article</a><a class="link" href="#pages">Pages</a></nav>
 </header>
 <main>
 
@@ -2572,6 +2652,28 @@
     <a href="#" class="article-nav__link article-nav__link--next"><span class="article-nav__label eyebrow text-muted">Next post<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></span><span class="article-nav__title h4">Caring for your jewelry</span></a>
   </nav>
 </div></div>
+  </div>
+</section>
+
+<section id="pages" class="ds-section color-scheme-1">
+  <div class="page-width">
+    <h2 class="ds-label">Pages</h2>
+    <div class="ds-stack">
+  <div class="main-page__inner main-page__inner--narrow main-page__inner--center"><h1 class="main-page__title h0">Contact</h1><div class="main-page__content rte"><p>Questions about sizing, care or an order? Send a note and we'll reply within two business days.</p></div></div>
+  <div class="contact-form__inner page-width"><form class="contact-form__form" onsubmit="return false">
+    <div class="form-message form-message--error"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5m0 3.5v.01"/></svg><div><p>Check the following and try again:</p><ul><li><a href="#ds-contact-email">Email can't be blank.</a></li></ul></div></div>
+    <div class="contact-form__fields">
+      <div class="field"><label class="field__label" for="ds-contact-name">Name</label><input id="ds-contact-name" class="input" type="text"></div>
+      <div class="field"><label class="field__label" for="ds-contact-email">Email <span aria-hidden="true">*</span></label><input id="ds-contact-email" class="input" type="email" aria-invalid="true"></div>
+      <div class="field"><label class="field__label" for="ds-contact-phone">Phone number</label><input id="ds-contact-phone" class="input" type="tel"></div>
+      <div class="field contact-form__message"><label class="field__label" for="ds-contact-body">Message <span aria-hidden="true">*</span></label><textarea id="ds-contact-body" class="textarea" rows="4"></textarea></div>
+    </div>
+    <p class="text-small text-muted">* Required</p>
+    <div><button type="submit" class="button">Send message</button></div>
+    <p class="form-message" role="status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7"/></svg>Thanks for getting in touch. We'll get back to you as soon as possible.</p>
+  </form></div>
+  <div class="main-404__inner"><p class="main-404__code eyebrow text-muted">404</p><p class="main-404__title h0">Page not found</p><p class="main-404__text text-muted">The page you were looking for doesn't exist or has moved. Try a search, or keep browsing.</p><a href="#" class="button">Continue shopping</a></div>
+</div>
   </div>
 </section>
 </main>

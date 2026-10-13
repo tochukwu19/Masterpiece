@@ -1,8 +1,10 @@
 {
   "general": {
     "404": {
+      "code": "404",
       "title": "Page not found",
-      "subtext_html": "The page you were looking for doesn't exist."
+      "subtext": "The page you were looking for doesn't exist or has moved. Try a search, or keep browsing.",
+      "link": "Continue shopping"
     },
     "accessibility": {
       "unit_price_separator": "per"
@@ -284,5 +286,15 @@
       "success_moderated": "Thanks. Your comment will appear once it has been approved.",
       "error": "Check the following and try again:"
     }
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone number",
+    "message": "Message",
+    "required": "* Required",
+    "submit": "Send message",
+    "success": "Thanks for getting in touch. We'll get back to you as soon as possible.",
+    "error": "Check the following and try again:"
   }
 }

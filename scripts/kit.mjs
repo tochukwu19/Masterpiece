@@ -146,6 +146,7 @@ const nav = [
   ['collection', 'Collection'],
   ['home', 'Home sections'],
   ['blog', 'Blog and article'],
+  ['pages', 'Pages'],
 ];
 
 const cartItem = (title, options, price, compare, shade) => `
@@ -559,6 +560,22 @@ ${section('blog', 'Blog and article', 'scheme-1', `<div class="ds-stack">
     <a href="#" class="article-nav__link article-nav__link--next"><span class="article-nav__label eyebrow text-muted">Next post${icon('arrow-right')}</span><span class="article-nav__title h4">Caring for your jewelry</span></a>
   </nav>
 </div></div>`)}
+${section('pages', 'Pages', 'scheme-1', `<div class="ds-stack">
+  <div class="main-page__inner main-page__inner--narrow main-page__inner--center"><h1 class="main-page__title h0">Contact</h1><div class="main-page__content rte"><p>Questions about sizing, care or an order? Send a note and we'll reply within two business days.</p></div></div>
+  <div class="contact-form__inner page-width"><form class="contact-form__form" onsubmit="return false">
+    <div class="form-message form-message--error">${icon('error')}<div><p>Check the following and try again:</p><ul><li><a href="#ds-contact-email">Email can't be blank.</a></li></ul></div></div>
+    <div class="contact-form__fields">
+      <div class="field"><label class="field__label" for="ds-contact-name">Name</label><input id="ds-contact-name" class="input" type="text"></div>
+      <div class="field"><label class="field__label" for="ds-contact-email">Email <span aria-hidden="true">*</span></label><input id="ds-contact-email" class="input" type="email" aria-invalid="true"></div>
+      <div class="field"><label class="field__label" for="ds-contact-phone">Phone number</label><input id="ds-contact-phone" class="input" type="tel"></div>
+      <div class="field contact-form__message"><label class="field__label" for="ds-contact-body">Message <span aria-hidden="true">*</span></label><textarea id="ds-contact-body" class="textarea" rows="4"></textarea></div>
+    </div>
+    <p class="text-small text-muted">* Required</p>
+    <div><button type="submit" class="button">Send message</button></div>
+    <p class="form-message" role="status">${icon('check')}Thanks for getting in touch. We'll get back to you as soon as possible.</p>
+  </form></div>
+  <div class="main-404__inner"><p class="main-404__code eyebrow text-muted">404</p><p class="main-404__title h0">Page not found</p><p class="main-404__text text-muted">The page you were looking for doesn't exist or has moved. Try a search, or keep browsing.</p><a href="#" class="button">Continue shopping</a></div>
+</div>`)}
 </main>
 <script>
   const fit = () => document.querySelectorAll('[data-fit]').forEach((text) => {

@@ -1,0 +1,236 @@
+{%- assign form_id = 'ContactForm-' | append: section.id -%}
+
+<div
+  class="contact-form section color-{{ section.settings.color_scheme.id }}"
+  style="--section-pt: {{ section.settings.padding_top }}px; --section-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="contact-form__inner page-width">
+    {%- render 'section-heading',
+      heading: section.settings.heading,
+      size: section.settings.heading_size,
+      subheading: section.settings.text
+    -%}
+
+    {%- form 'contact', id: form_id, class: 'contact-form__form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="form-message" id="{{ form_id }}-status" role="status" tabindex="-1">
+          {%- render 'icon', name: 'check' -%}
+          {{ 'contact.success' | t }}
+        </p>
+      {%- elsif form.errors -%}
+        <div class="form-message form-message--error" id="{{ form_id }}-errors" role="alert" tabindex="-1">
+          {%- render 'icon', name: 'error' -%}
+          <div>
+            <p>{{ 'contact.error' | t }}</p>
+            <ul>
+              {%- for field in form.errors -%}
+                <li>
+                  {%- if field == 'form' -%}
+                    {{ form.errors.messages[field] }}
+                  {%- else -%}
+                    <a href="#{{ form_id }}-{{ field }}">{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="contact-form__fields">
+        <div class="field">
+          <label class="field__label" for="{{ form_id }}-name">{{ 'contact.name' | t }}</label>
+          <input
+            id="{{ form_id }}-name"
+            class="input"
+            type="text"
+            name="contact[name]"
+            value="{{ customer.name | escape }}"
+            autocomplete="name"
+            autocapitalize="words"
+          >
+        </div>
+        <div class="field">
+          <label class="field__label" for="{{ form_id }}-email">
+            {{- 'contact.email' | t }} <span aria-hidden="true">*</span>
+          </label>
+          <input
+            id="{{ form_id }}-email"
+            class="input"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email | default: customer.email | escape }}"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            required
+            {% if form.errors contains 'email' %}
+              aria-invalid="true" aria-describedby="{{ form_id }}-errors"
+            {% endif %}
+          >
+        </div>
+        {%- if section.settings.show_phone -%}
+          <div class="field">
+            <label class="field__label" for="{{ form_id }}-phone">{{ 'contact.phone' | t }}</label>
+            <input
+              id="{{ form_id }}-phone"
+              class="input"
+              type="tel"
+              name="contact[phone]"
+              value="{{ customer.phone | escape }}"
+              autocomplete="tel"
+            >
+          </div>
+        {%- endif -%}
+        <div class="field contact-form__message">
+          <label class="field__label" for="{{ form_id }}-body">
+            {{- 'contact.message' | t }} <span aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="{{ form_id }}-body"
+            class="textarea"
+            name="contact[body]"
+            rows="6"
+            required
+            {% if form.errors contains 'body' %}
+              aria-invalid="true" aria-describedby="{{ form_id }}-errors"
+            {% endif %}
+          >
+            {{- form.body | escape -}}
+          </textarea>
+        </div>
+      </div>
+
+      <p class="text-small text-muted">{{ 'contact.required' | t }}</p>
+
+      <div>
+        <button type="submit" class="button">
+          {%- if section.settings.button_label != blank -%}
+            {{ section.settings.button_label | escape }}
+          {%- else -%}
+            {{ 'contact.submit' | t }}
+          {%- endif -%}
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .contact-form__inner {
+    display: grid;
+    width: min(100%, calc(44rem + var(--page-gutter) * 2));
+  }
+
+  .contact-form__form {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-form__fields {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-form__form .form-message a {
+    color: inherit;
+  }
+
+  @media (min-width: 750px) {
+    .contact-form__fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-form__message {
+      grid-column: 1 / -1;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.contact_form.name",
+  "class": "section-contact-form",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Get in touch",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.heading_size.label",
+      "options": [
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "t:sections.contact_form.settings.text.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "default": true,
+      "label": "t:sections.contact_form.settings.show_phone.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Send message",
+      "label": "t:sections.contact_form.settings.button_label.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 40,
+      "label": "t:sections.all.padding.padding_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80,
+      "label": "t:sections.all.padding.padding_bottom"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact_form.presets.name"
+    }
+  ]
+}
+{% endschema %}

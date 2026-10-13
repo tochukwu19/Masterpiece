@@ -25,18 +25,11 @@
     {%- endunless %}
 
     {% render 'css-variables' %}
-    {%- liquid
-      assign legacy_templates = '404,page' | split: ','
-      assign legacy_styles = false
-      if legacy_templates contains template.name or template.directory == 'customers'
-        assign legacy_styles = true
-      endif
-    -%}
-    {%- if legacy_styles -%}
+    {%- if template.directory == 'customers' -%}
       {{ 'application.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {%- if legacy_styles -%}
+    {%- if template.directory == 'customers' -%}
       {{ 'legacy-bridge.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
 

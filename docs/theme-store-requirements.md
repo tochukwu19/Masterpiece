@@ -66,15 +66,15 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 ## 5. Templates, sections, blocks
 Required templates (✅ exists as JSON · ❌):
 - [x] `layout/theme.liquid` (needs rewrite)
-- [ ] ❌ `404.json` (currently `.liquid`)
+- [x] ✅ `404.json`
 - [x] ✅ `article.json`
 - [x] ✅ `blog.json`
 - [x] ✅ `cart.json`
 - [x] ✅ `collection.json`
 - [x] ✅ `index.json`
 - [x] ✅ `list-collections.json`
-- [ ] ❌ `page.json`
-- [ ] ❌ `page.contact.json`
+- [x] ✅ `page.json`
+- [x] ✅ `page.contact.json`
 - [x] ✅ `password.json` + `layout/password.liquid`
 - [x] ✅ `product.json`
 - [x] ✅ `search.json`
@@ -109,7 +109,7 @@ Required templates (✅ exists as JSON · ❌):
 **Cart** — line title, `unit_price`, image, `final_price`, quantity, `options_with_values`; `total_price`; taxes note; checkout button submits form; totals refresh on qty change; per-line qty; empty state; cart notes; selling plans; automatic discounts; accelerated checkout.
 - Status: ✅ Phase 2: `main-cart` + `cart-drawer` sharing `cart-items`/`cart-summary`, Section Rendering refresh of every cart surface, no-JS form fallback. Verify on the dev store.
 
-**Page** — title + content; contact alternate template. Status: ⚠️ unstyled.
+**Page** — title + content; contact alternate template. Status: ✅ Phase 5b `main-page` (width and alignment settings) and a `contact-form` section (name, email, phone, message; posted and error states; addable to any page). Sending the form is an owner check.
 
 **Blog** — `blog.title`; per article: title→url, `article.image`, `article.excerpt_or_content`; pagination. Status: ✅ Phase 5a `main-blog` (article cards with image or a text panel, tag filter, optional featured first post, pagination, empty state).
 
@@ -117,7 +117,7 @@ Required templates (✅ exists as JSON · ❌):
 
 **Search** — empty message; products + articles + pages via `object_type`; pagination. Status: ✅ Phase 4b `main-search` (product, article and page cards, filters, sort, empty-query, no-results and filtered-empty states, pagination).
 
-**404** — clear message + next step (search / home link). Status: ⚠️ message only.
+**404** — clear message + next step (search / home link). Status: ✅ Phase 5b `main-404`: message, search with suggestions, link to all products.
 
 **Gift card** — Apple Wallet, code, QR ≥ 120×120, logo or shop name. Status: ⚠️ QR + wallet only.
 
