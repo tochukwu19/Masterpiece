@@ -112,11 +112,11 @@ Branch `phase-6-hardening`.
 - [x] 6b. Editor live preview: carousels scroll to the selected slide or quote and pause autoplay while their section is selected; selecting a section opens only the cart drawer (it used to open the header's menu drawer, the product lightbox or the filter drawer). Real-editor walkthrough is backlog B10
 - [x] 6c. Settings copy review (all 763 strings); `validate-schema.mjs` now also fails on missing or untranslated labels, missing keys, lorem ipsum defaults, British spellings and "&"
 - [x] 6d. Accessibility and HTML: `html-validate` on 19 rendered pages, axe-core (WCAG 2.2 AA + best practice) on every template and open drawer, focus-ring and keyboard pass. Fixed: font preload `crossorigin`, duplicate "Main" nav label, focusable static carousels, landmark elements, password page title, search field focus. Right-to-left support (B9): `dir` from the locale, logical properties, mirrored arrows and drawers
-- [ ] 6e. Browser compatibility audit
+- [x] 6e. Browser compatibility: feature audit against the support matrix (nothing below it); real-browser and webview pass is backlog B11
 - [x] Lighthouse ≥ 60 perf / ≥ 90 a11y on home, product and collection (mobile + desktop): measured in Phase 4 (mobile 84 / 95, desktop 91 / 95); not re-run
-- [ ] Browser matrix + Instagram, Facebook and Pinterest webviews
-- [ ] Settings copy review (style + terminology rules), editor live-preview pass on every section
-- [ ] Install-parity check on a fresh store
+- [x] Browser matrix + Instagram, Facebook and Pinterest webviews: feature audit done (6e); 👤 device pass is backlog B11
+- [x] Settings copy review (style + terminology rules), editor live-preview pass on every section (6b, 6c; 👤 real-editor walkthrough is backlog B10)
+- [ ] 👤 Install-parity check on a fresh store (moved to Phase 7 with the demo store setup)
 
 ## Phase 7 — Pre-launch (mostly owner actions)
 - [ ] Demo store(s) via Dev Dashboard client-transfer store; real copy and licensed imagery; Bogus Gateway

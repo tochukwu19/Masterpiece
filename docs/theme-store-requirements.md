@@ -135,9 +135,10 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ No fake urgency/stock/viewer counts.
 
 ## 9. Browser compatibility
-- [ ] Desktop: Safari (last 2), Chrome (last 3), Firefox (last 3), Edge (last 2).
-- [ ] Mobile: iOS Safari (last 2), Chrome Mobile (last 3), Samsung Internet (last 2).
-- [ ] In-app webviews: Instagram, Facebook, Pinterest. (The old fixed-width cart drawer is gone; drawers are `min(100vw, 30rem)`.)
+Phase 6e feature audit: every platform feature the theme uses is supported by the oldest browser in the matrix. The newest ones and their minimums: `:has()` (Firefox 121, Safari 15.4), `:dir()` (Chrome 120, Safari 16.4), `color-mix()` (Safari 16.2, Firefox 113), `svh`/`dvh` (Safari 15.4), `<dialog>` + `showModal()` (Safari 15.4), `accent-color` (Safari 15.4), `scrollbar-width` (Safari 18.2, with a `::-webkit-scrollbar` fallback). Optional APIs are feature-checked (`navigator.share` falls back to the clipboard, the clipboard falls back to a select-the-code message). Instagram, Facebook and Pinterest use WKWebView on iOS and Android System WebView, so they share the Safari and Chrome engines above. Chrome was exercised throughout Phases 2–6 in the in-app browser.
+- [ ] 👤 Desktop: Safari (last 2), Chrome (last 3), Firefox (last 3), Edge (last 2). Real-browser pass: backlog B11.
+- [ ] 👤 Mobile: iOS Safari (last 2), Chrome Mobile (last 3), Samsung Internet (last 2). Real-device pass: backlog B11.
+- [ ] 👤 In-app webviews: Instagram, Facebook, Pinterest (open a store link from each app). Backlog B11.
 
 ## 10. Assets
 - [x] ✅ No Sass.
