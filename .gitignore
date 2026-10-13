@@ -9,3 +9,4 @@ CLAUDE.md
 docs-site/node_modules/
 docs-site/dist/
 docs-site/.astro/
+*.zip

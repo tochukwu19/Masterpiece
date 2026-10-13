@@ -189,7 +189,7 @@ Phase 6e feature audit: every platform feature the theme uses is supported by th
 ## 18. Naming and presets
 - [x] ✅ 1–2 words, < 30 chars, unique, not an industry word. **Theme name: "Vermeil"** (gilded silver), chosen 2026-10-12. No Theme Store listing by that name. "Atelier" was preferred but is taken.
 - [x] One preset, "Vermeil", carries the theme's name. No extra presets.
-- [x] ✅ Install parity: "On install, the theme should match the demo store's look"; layout, color and typography settings must match. Phase 7a aligned the shipped home template with the demo's layout and settings; the product template and theme settings already matched. Demo images, resource picks and copy don't transfer. 👤 Confirm on a fresh store after packaging.
+- [x] ✅ Install parity: "On install, the theme should match the demo store's look"; layout, color and typography settings must match. Phase 7a aligned the shipped home template with the demo's layout and settings; the product template and theme settings already matched. Demo images, resource picks and copy don't transfer. `npm run package` builds the ZIP from committed files only. 👤 Confirm on a fresh store with the 1.0.0 ZIP.
 
 ## 19. Versions
 - [x] ✅ Version number + release notes on every submission: `theme_version` 1.0.0, `CHANGELOG.md` for developers, merchant release notes on the docs site (`docs-site/src/content/docs/release-notes.md`) (pasted into the submission; `release-notes.md` goes in the ZIP root only for updates after publication).
