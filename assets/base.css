@@ -348,15 +348,21 @@ main > .shopify-section + .shopify-section {
 }
 
 .section {
-  padding-top: calc(var(--section-pt, 0px) * 0.7);
-  padding-bottom: calc(var(--section-pb, 0px) * 0.7);
+  --section-pad-top: calc(var(--section-pt, 0px) * 0.7);
+  --section-pad-bottom: calc(var(--section-pb, 0px) * 0.7);
+  padding-top: var(--section-pad-top);
+  padding-bottom: var(--section-pad-bottom);
 }
 
 @media (min-width: 750px) {
   .section {
-    padding-top: var(--section-pt, 0px);
-    padding-bottom: var(--section-pb, 0px);
+    --section-pad-top: var(--section-pt, 0px);
+    --section-pad-bottom: var(--section-pb, 0px);
   }
+}
+
+.section.banner {
+  padding-block: 0;
 }
 
 .layout-grid {
@@ -474,9 +480,15 @@ main > .shopify-section + .shopify-section {
 }
 
 .banner__content {
+  --banner-inset: clamp(2.5rem, 7vw, 5rem);
   position: relative;
   display: grid;
-  padding-block: clamp(2.5rem, 7vw, 5rem);
+  padding-block: var(--banner-inset);
+}
+
+.banner .banner__content {
+  padding-top: calc(var(--banner-inset) + var(--section-pad-top, 0px));
+  padding-bottom: calc(var(--banner-inset) + var(--section-pad-bottom, 0px));
 }
 
 .banner__content--top-left,

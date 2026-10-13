@@ -342,7 +342,11 @@
     position: relative;
     z-index: 2;
     flex: none;
-    margin: -0.625rem -0.625rem 0 0;
+    margin-top: -0.625rem;
+  }
+
+  .card-product__quick-add-button {
+    justify-content: flex-end;
   }
 
   .card-product__quick-add-button[aria-busy='true'] .icon {
@@ -351,11 +355,11 @@
 
   .card-product__error {
     position: absolute;
-    right: 0;
+    inset-inline-end: 0;
     top: 100%;
     width: max-content;
     max-width: 14rem;
-    text-align: right;
+    text-align: end;
   }
 
 .cart-items {
@@ -529,7 +533,7 @@
 
   .product-gallery__counter {
     position: absolute;
-    right: 0.75rem;
+    inset-inline-end: 0.75rem;
     top: 0.75rem;
     padding: 0.25rem 0.625rem;
     border-radius: 999px;
@@ -599,7 +603,7 @@
   }
 
   .deferred-media__target .shopify-model-viewer-ui__controls-area {
-    right: 0.75rem;
+    inset-inline-end: 0.75rem;
     bottom: 0.75rem;
     border: 1px solid var(--color-border);
     border-radius: var(--buttons-radius);
@@ -642,6 +646,7 @@
 
   .search-form__field:focus-within {
     border-bottom-color: var(--color-fg);
+    box-shadow: 0 1px 0 var(--color-fg);
   }
 
   .search-form__icon {
@@ -1251,13 +1256,13 @@
   }
 
   .header__start {
-    margin-left: -0.75rem;
+    margin-inline-start: -0.75rem;
   }
 
   .header__end {
     justify-content: flex-end;
     gap: 0.25rem;
-    margin-right: -0.75rem;
+    margin-inline-end: -0.75rem;
   }
 
   .header__logo {
@@ -1343,7 +1348,7 @@
   .header__dropdown {
     position: absolute;
     top: 100%;
-    left: -1.25rem;
+    inset-inline-start: -1.25rem;
     z-index: 10;
     min-width: 15rem;
     padding-block: 0.75rem;
@@ -1351,8 +1356,7 @@
   }
 
   .header__dropdown--mega {
-    left: 0;
-    right: 0;
+    inset-inline: 0;
     border-width: 1px 0;
     padding-block: 2.5rem;
   }
@@ -1398,7 +1402,7 @@
   }
 
   .header__submenu--nested .header__submenu-link {
-    padding-left: 2rem;
+    padding-inline-start: 2rem;
     font-size: calc(0.875rem * var(--font-body-scale));
   }
 
@@ -1437,7 +1441,7 @@
   .header__cart-count .cart-count {
     position: absolute;
     top: 0.375rem;
-    right: 0.25rem;
+    inset-inline-end: 0.25rem;
     display: grid;
     place-items: center;
     min-width: 1.125rem;
@@ -1462,7 +1466,7 @@
     }
 
     .header__start {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
 
     .header--logo-left .header__inner {
@@ -1822,7 +1826,7 @@
   }
 
   .password__form {
-    text-align: left;
+    text-align: start;
   }
 
   .password__footer a {
@@ -2572,7 +2576,7 @@
   <div class="page-width">
     <h2 class="ds-label">Home sections</h2>
     <div class="ds-stack">
-  <div class="banner banner--small"><div class="banner__frame" style="--overlay: 0.35;">
+  <div class="banner banner--small section" style="--section-pt: 40px; --section-pb: 40px;"><div class="banner__frame" style="--overlay: 0.35;">
     <div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 55%, var(--color-bg))"/></svg><span class="media-scrim"></span></div>
     <div class="banner__content banner__content--center-center page-width"><div class="content-stack content-stack--center on-media">
       <div class="block-heading"><p class="eyebrow">New season</p><h2 class="h0">Made to be worn every day</h2></div>
@@ -2592,10 +2596,17 @@
     </div>
     <figure class="testimonials__figure"><blockquote class="testimonials__quote h2">The ring I reach for every single morning.</blockquote><figcaption class="testimonials__caption"><span class="testimonials__author">Amara O.</span><span class="testimonials__detail text-muted">Toronto</span></figcaption></figure>
   </div>
-  <div class="editorial-split banner--small"><ul class="editorial-split__panels list-unstyled">
+  <div class="editorial-split banner banner--small section"><ul class="editorial-split__panels list-unstyled">
     <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 40%, var(--color-bg))"/></svg><span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Rings</h2></div><a href="#" class="block-button button button--secondary">Shop rings</a></div></div></li>
     <li class="editorial-split__panel banner__frame" style="--overlay: 0.25;"><div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 30%, var(--color-bg))"/></svg><span class="media-scrim"></span></div><div class="banner__content banner__content--bottom-center"><div class="content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Shop</p><h2 class="h1">Necklaces</h2></div><a href="#" class="block-button button button--secondary">Shop necklaces</a></div></div></li>
   </ul></div>
+  <div class="newsletter banner banner--small section color-scheme-3" style="--section-pt: 40px; --section-pb: 40px; --overlay: 0.6;"><div class="banner__frame">
+    <div class="banner__media media"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 48%, var(--color-bg))"/></svg><span class="media-scrim"></span></div>
+    <div class="banner__content banner__content--center-center page-width"><div class="newsletter__content content-stack content-stack--center on-media"><div class="block-heading"><p class="eyebrow">Newsletter</p><h2 class="h2">Stay in the loop</h2></div><div class="block-text rte"><p>With an image, padding sits inside the image.</p></div><div class="newsletter__form"><div class="field"><label class="visually-hidden" for="ds-newsletter-image">Email</label><div class="field__inline"><input id="ds-newsletter-image" class="input input--underline" type="email" placeholder="Email address"><button type="button" class="icon-button field__inline-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span class="visually-hidden">Subscribe</span></button></div></div></div></div></div>
+  </div></div>
+  <div class="newsletter banner section color-scheme-3" style="--section-pt: 0px; --section-pb: 0px;"><div class="banner__frame">
+    <div class="banner__content banner__content--center-center page-width"><div class="newsletter__content content-stack content-stack--center"><div class="block-heading"><p class="eyebrow">Newsletter</p><h2 class="h2">Stay in the loop</h2></div><div class="block-text rte"><p>Without an image, the banner keeps its own space around the text.</p></div><div class="newsletter__form"><div class="field"><label class="visually-hidden" for="ds-newsletter-plain">Email</label><div class="field__inline"><input id="ds-newsletter-plain" class="input input--underline" type="email" placeholder="Email address"><button type="button" class="icon-button field__inline-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span class="visually-hidden">Subscribe</span></button></div></div></div></div></div>
+  </div></div>
   <ul class="layout-grid list-unstyled" style="--cols: 3; --cols-mobile: 1;">
     <li><div class="card-product"><div class="card-product__media media" style="--ratio: var(--card-ratio);"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 10%, var(--color-bg))"/></svg></div><div class="card-product__info"><div class="card-product__text"><h3 class="card-product__title">Example product</h3></div></div></div></li>
     <li><div class="card-collection"><div class="card-collection__media media" style="--ratio: 4 / 5;"><svg class="placeholder" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><rect width="400" height="500" style="fill: color-mix(in srgb, var(--color-fg) 20%, var(--color-bg))"/></svg></div><div class="card-collection__caption"><h3 class="card-collection__title h3">Collection title</h3></div></div></li>
