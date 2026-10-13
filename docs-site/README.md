@@ -31,6 +31,9 @@ Variables (**Settings > Variables and secrets**, Production):
 
 ## Support form
 
+Full setup, services and DNS records: `docs/support-form.md` in the repo root.
+
+
 `/contact/` posts to the Pages Function in `functions/api/support.js`. It checks Turnstile, emails the request
 with attachments to `SUPPORT_INBOX` (reply-to: the merchant), and sends the merchant a confirmation. Errors
 redirect back to the form with a fragment (`#error-invalid`, `#error-files`, `#error-verification`,
