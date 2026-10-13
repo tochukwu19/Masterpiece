@@ -11,7 +11,7 @@ checked 2026-10-13. Character counts are noted next to each limited field; recou
 | Theme name | Vermeil (from `theme_name`; can't change after the ZIP upload) |
 | Preset | Vermeil (one preset, named after the theme) |
 | ZIP | `Vermeil-1.0.0.zip` from `npm run package` |
-| Price | $240 (range $100–$500 in $10 steps). See [Price](#price) |
+| Price | $180 (range $100–$500 in $10 steps). See [Price](#price) |
 | Documentation | https://doc-vermeil-store.tochukwu.dev/ |
 | Contact form | https://doc-vermeil-store.tochukwu.dev/contact/ |
 | Demo store | `vermeil-6sitmu3d.myshopify.com`, password-protected; the password goes in the demo store password field |
@@ -123,9 +123,9 @@ to "Mega menu" or point reviewers to the setting in the testing instructions (be
 
 ## Price
 
-$240 is a suggestion for the owner to decide. Reasoning: one preset and a focused feature set put Vermeil
-below the large multi-preset themes, while the custom design, full documentation and support form put it
-above the entry price. Theme Store prices can't include paid support, and the price can be changed later.
+$180, chosen by the owner (2026-10-13) to test the market. Partner themes can't be free: the listing guide
+only allows $100 to $500 in $10 steps, so $175 isn't valid. Theme Store prices can't include paid support.
+Shopify's docs don't say how to change the price after submission; ask the review team if it's needed.
 
 ## Testing instructions
 
@@ -156,8 +156,8 @@ above the entry price. Theme Store prices can't include paid support, and the pr
 
 ## Owner fields
 
-- Merchant review notification email (required)
-- Theme submission contact email (optional; falls back to the Partner account email)
+- Merchant review notification email (required): alerts when a merchant reviews the theme, or a review is updated or deleted. Not the review team
+- Theme submission contact email (optional; falls back to the Partner account's business email): where the review team writes during review. Allow `themes@shopify.com` and `noreply@shopify.com` as senders
 - Tracking IDs (optional): GA4 measurement ID and API secret, Google remarketing conversion ID, Meta pixel ID
 - Key highlight images, desktop and mobile screenshots
 - Merchant stores using the theme: only after launch, up to five, 779 x 1000px, with each store's permission
