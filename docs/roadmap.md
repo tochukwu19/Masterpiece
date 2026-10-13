@@ -87,7 +87,7 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 
 **4d. Clean-up and verification**
 - [x] Delete the `template-*` sections plus `filter`, `collection` and the `icon-*` legacy snippets (only these sections use them). Drop Swiper from `docs/third-party.md`.
-- [ ] `application.css` and `legacy-bridge.css` stay until Phase 5 removes the legacy `.liquid` templates that still use Tailwind classes
+- [x] `application.css` and `legacy-bridge.css` stayed until Phase 5 removed the last templates that used Tailwind classes (deleted in 5d)
 - [x] B5 moved up from Phase 6: `npm run lighthouse` (pinned devDependency) for home, collection and product, mobile and desktop
 - [x] Lighthouse (owner-run DevTools on the dev theme preview, 2026-10-12): mobile perf 84 / a11y 95, desktop perf 91 / a11y 95 averages across home, collection, product. Fixed from the reports: collection CLS from the late `no-js` swap, legacy CSS on every page, card heading order, dynamic checkout contrast
 - [ ] Theme Store checklist ticks; kit specimens for facets, toolbar, carousel, hero and the content sections
@@ -99,12 +99,12 @@ Branch `phase-4-discovery`. Four commits, in this order. Each one is store-teste
 - One or two pages with body text, for page results in search
 
 ## Phase 5 — Content and accounts
-Branch `phase-5-content`. Each commit removes its templates from the layout's legacy CSS list.
+Branch `phase-5-content`. Each commit removed its templates from the layout's legacy CSS list; 5d removed the list.
 - [x] 5a. `main-blog` (tag filter, featured first post, pagination, empty state) and `main-article` (blocks, comments with pagination and messages, previous and next links). Shared `.pill` primitive; `share` moved to `components.js`
 - [x] 5b. `main-page`, `contact-form` section (addable anywhere), `main-404` with search
 - [x] 5c. Gift card rewrite (`main-gift-card` section, `gift-card.js`); password re-checked. Translated strings read by JS are decoded once in `global.js` (`t` HTML-escapes them)
-- [ ] 5d. Delete `customers/*`, `application.css` and `legacy-bridge.css`; RTE pass; kit specimens
-- [ ] ~~Customer templates~~ Not required: legacy customer accounts are deprecated and the legacy `customers/*` templates are no longer a Theme Store requirement (changelog, July 2026). Delete them, rely on new customer accounts + `<shopify-account>`
+- [x] 5d. Deleted `customers/*`, `application.css` and `legacy-bridge.css`; the layout loads only `base.css`. RTE pass; kit specimens for blog, article, comments, pages, contact, 404 and gift card. Theme Check: 0 offenses including warnings
+- [x] ~~Customer templates~~ Not required: legacy customer accounts are deprecated and the legacy `customers/*` templates are no longer a Theme Store requirement (changelog, July 2026). Delete them, rely on new customer accounts + `<shopify-account>`
 
 ## Phase 6 — Hardening
 - [ ] Lighthouse ≥ 60 perf / ≥ 90 a11y on home, product and collection (mobile + desktop)

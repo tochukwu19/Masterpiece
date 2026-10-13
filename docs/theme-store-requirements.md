@@ -124,7 +124,7 @@ Required templates (✅ exists as JSON · ❌):
 **Password** — logo/shop name, `shop.password_message`, password form. Status: ✅ Phase 1 (plus email signup).
 
 ## 8. Consistency and functionality
-- [ ] ❌ RTE styles (h1–h6, blockquote, ul, ol) consistent across product/collection/article/page.
+- [x] ✅ RTE styles (h1–h6, blockquote, ul, ol) consistent across product/collection/article/page. One `.rte` set in `base.css` (headings, lists and nested lists, blockquote, tables that wrap at 320px, embeds, rules, figure captions); the legacy Tailwind reset that stripped list bullets is gone (Phase 5d).
 - [ ] ⚠️ Scripts hosted on Shopify (except approved third-party libs). Alpine is now vendored and pinned (3.17.4). Swiper 7 + 11 are still on unpkg/jsdelivr until the carousel and product rewrites (see `third-party.md`).
 - [x] ✅ No JS interfering with the editor/admin.
 - [ ] ⚠️ Shopify-domain links need `rel="nofollow"`.
@@ -141,7 +141,7 @@ Required templates (✅ exists as JSON · ❌):
 
 ## 10. Assets
 - [x] ✅ No Sass.
-- [x] ✅ No minified CSS/JS of our own (Tailwind output is unminified — keep it that way if we keep Tailwind).
+- [x] ✅ No minified CSS/JS of our own. Tailwind's `application.css` and `legacy-bridge.css` deleted in Phase 5d.
 
 ## 11. SEO
 - [ ] ⚠️ Title/description/canonical exist in layout; move to a meta snippet, add page-number and tag suffixes to the title.
@@ -152,8 +152,8 @@ Required templates (✅ exists as JSON · ❌):
 - [ ] ❌ Everything keyboard-operable incl. dropdowns — variant pickers are `<div role="button">` / `<li>` with click handlers; accordions are divs; filter checkboxes are `display:none`.
 - [ ] ❌ Visible focus states — `outline-none` used throughout with no replacement.
 - [ ] ❌ Alt text on all images — product/collection/blog images are CSS backgrounds (no alt possible); client logos have no alt.
-- [ ] ❌ Inputs have unique IDs + matching labels — newsletter, mobile search, quantity, customer forms.
-- [ ] ❌ Valid HTML — 3 parser errors (navbar, addresses, gift_card), `<li>` inside `<a>`, duplicate `id="product-form"`, multiple `<h1>` per page.
+- [ ] ⚠️ Inputs have unique IDs + matching labels. Every form was rewritten with labelled inputs (newsletter, search, quantity, comments, contact; legacy customer forms deleted). A full audit pass is Phase 6.
+- [ ] ⚠️ Valid HTML. The 3 parser errors are gone with the files that had them (navbar, addresses, old gift card); Theme Check reports 0 offenses and every rebuilt template has one `<h1>`. A W3C validator pass on each template is Phase 6.
 - [ ] ⚠️ Contrast 4.5:1 body / 3:1 large + UI — `#9CA3AF` on white (2.5:1) used for pagination numbers and arrows fails.
 - [ ] ⚠️ Focus order = DOM order.
 - [ ] ⚠️ Touch targets ≥ 24×24px — quantity +/- icons in the drawer are 12.8px.

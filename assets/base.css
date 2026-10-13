@@ -179,10 +179,6 @@ body.overflow-hidden {
   margin-top: 1.6em;
 }
 
-.rte > :is(h1, h2, h3, h4, h5, h6):first-child {
-  margin-top: 0;
-}
-
 .rte h1 { font-size: calc(clamp(2rem, 1.5rem + 2vw, 2.75rem) * var(--font-heading-scale)); }
 .rte h2 { font-size: calc(clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem) * var(--font-heading-scale)); }
 .rte h3 { font-size: calc(1.5rem * var(--font-heading-scale)); }
@@ -240,6 +236,48 @@ body.overflow-hidden {
 
 .rte img {
   height: auto;
+}
+
+.rte iframe {
+  max-width: 100%;
+}
+
+.rte iframe[src*='youtube'],
+.rte iframe[src*='vimeo'] {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.rte li > :is(ul, ol) {
+  margin-top: 0.35em;
+}
+
+.rte :is(th, td) {
+  overflow-wrap: anywhere;
+}
+
+.rte th {
+  font-weight: var(--font-body-weight-medium);
+}
+
+.rte hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.rte figcaption {
+  margin-top: 0.5em;
+  color: var(--color-fg-muted);
+  font-size: 0.875em;
+}
+
+.rte > :first-child {
+  margin-top: 0;
+}
+
+.rte > :last-child {
+  margin-bottom: 0;
 }
 
 .rte strong,

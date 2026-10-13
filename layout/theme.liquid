@@ -25,13 +25,7 @@
     {%- endunless %}
 
     {% render 'css-variables' %}
-    {%- if template.directory == 'customers' -%}
-      {{ 'application.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {%- if template.directory == 'customers' -%}
-      {{ 'legacy-bridge.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
 
     <script>
       window.theme = {
