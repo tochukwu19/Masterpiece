@@ -691,7 +691,7 @@
           "label": "Maximum products to show"
         },
         "columns_desktop": {
-          "label": "Number of columns on desktop"
+          "label": "Columns on desktop"
         }
       }
     },
@@ -766,7 +766,7 @@
         },
         "enable_filtering": {
           "label": "Enable filtering",
-          "info": "Customize filters with the [Search & Discovery app](https://apps.shopify.com/search-and-discovery)."
+          "info": "Customize filters with the [Search and Discovery app](https://apps.shopify.com/search-and-discovery)."
         },
         "enable_sorting": {
           "label": "Enable sorting"
@@ -780,7 +780,7 @@
           "label": "Results per page"
         },
         "enable_filtering": {
-          "info": "Filters show for product results. Customize them with the [Search & Discovery app](https://apps.shopify.com/search-and-discovery)."
+          "info": "Filters show for product results. Customize them with the [Search and Discovery app](https://apps.shopify.com/search-and-discovery)."
         }
       }
     },

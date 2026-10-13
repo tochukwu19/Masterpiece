@@ -33,7 +33,7 @@ The reviewers grade in **five stages**, and a theme must clear every item in a s
 - [x] ✅ Layout stays balanced with varying content and image counts: aspect-ratio media with image ratio settings, height presets that grow with content, text panels for image-less articles, placeholders for empty pickers.
 - [x] ✅ Limited, paired fonts: Gloock (headings) + Figtree (body) from the Shopify font library.
 - [x] ✅ Consistent buttons, links, forms: primary, secondary (fill-up hover) and tertiary buttons; one field, input, select and textarea system in `base.css`.
-- [ ] ⚠️ Merchant-friendly theme editor: every section has settings, presets and translated labels. Copy review and live-preview pass in Phase 6 (6b, 6c).
+- [x] ✅ Merchant-friendly theme editor: every section has settings, presets and translated labels; copy reviewed (6c); live preview handled (6b).
 - [x] ✅ Clear path home → discovery → PDP → cart → checkout (Phases 2–4, store-tested).
 - [ ] ⚠️ 👤 Demo store with real, industry-fitting content. `vermeil-6sitmu3d` has original copy and stock imagery (Pexels); licensed imagery and final copy are Phase 7.
 
@@ -165,11 +165,11 @@ Required templates (✅ exists as JSON · ❌):
 - [x] ✅ Social placeholder fields default to empty.
 
 ## 14. Settings
-- [ ] ⚠️ Sentence-case names; no "&"; American English; verbs on buttons; terminology list ("home page", "slideshow", "signup", "cart type", "show"/"enable"/"use"…). The legacy names are gone; full copy review in Phase 6c.
-- [ ] ⚠️ Defaults demonstrate the setting — no Lorem ipsum, no demo content. Checked in the Phase 6c review.
+- [x] ✅ Sentence-case names; no "&"; American English; verbs on buttons; terminology list ("home page", "slideshow", "signup", "cart type", "show"/"enable"/"use"…). All 763 schema strings reviewed in Phase 6c; `npm run check` now fails on untranslated or missing labels, British spellings and "&".
+- [x] ✅ Defaults demonstrate the setting: no lorem ipsum (checked by `npm run check`), no demo content; guidance copy instead of claims a merchant might ship unchanged (Phase 6c).
 - [x] ✅ Favicon setting.
 - [x] ✅ Logo upload with width setting (header, password page).
-- [ ] ⚠️ Every setting has a `label` (and translated `t:` labels). Scripted check in Phase 6c.
+- [x] ✅ Every setting has a translated `t:` label that resolves in `en.default.schema.json` (checked by `npm run check`).
 - [x] ✅ `link_list` defaults: header `main-menu`, footer menu block `footer`, account menu `customer-account-main-menu`.
 - [x] ✅ Resource defaults exist in every store: no handle lookups in Liquid (verified by grep); templates reference only the `all` collection and the `news` blog.
 - [x] ✅ Editor live preview works for every change: Alpine re-initializes re-rendered sections and cleans up in `destroy()`; selected slides, quotes and announcements are shown; autoplay pauses while edited; only the cart drawer opens on selection (Phase 6b). 👤 Real-editor walkthrough: backlog B10.
